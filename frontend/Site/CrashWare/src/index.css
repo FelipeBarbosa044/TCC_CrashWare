@@ -1,0 +1,15 @@
+:root
+{
+  --Primaria-Azul-Escuro: #0d1422;
+  --Cards-Azul-Escuro: #101a2c;
+  --Azul-Destaque-Vivo: #169cff;
+  --Cinza-Claro: #656c76;
+  --Cinza-Medio: #a2a0a2;
+  --Branco: #ffffff;
+}
+
+body
+{
+  border: 0;
+  margin: 0;
+}

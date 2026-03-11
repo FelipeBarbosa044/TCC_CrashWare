@@ -1,0 +1,59 @@
+/* .Rodape
+{   
+    padding-left: 10px;
+    bottom: 0;
+    position: absolute;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center; 
+    background-color: var(--Primaria-Azul-Escuro);
+    color: var(--Branco);
+} */
+
+.Rodape
+{   
+    padding-left: 10px;
+    bottom: 0;
+    position: absolute;
+    left: 0;
+    width: 100vw;
+
+    display: flex;
+    flex-direction: column; /* muda para coluna */
+    align-items: flex-start;
+
+    gap: 15px; /* espaço entre marca e links */
+
+    background-color: var(--Primaria-Azul-Escuro);
+    color: var(--Branco);
+}
+
+.Rodape img
+{
+    width: 44px;
+    height: 44px;
+}
+
+.links
+{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.links p
+{
+    margin:0;
+    padding: 3px;
+}
+
+.Marca
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}

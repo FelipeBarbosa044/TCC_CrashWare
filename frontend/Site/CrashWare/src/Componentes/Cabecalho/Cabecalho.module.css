@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.Cabecalho
+{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 5px;
+    width: 100%;
+    height: 6vh;
+    color: var(--Branco);
+    background-color: var(--Primaria-Azul-Escuro);
+}
+
+.Cabecalho h5
+{
+    font-size: 20px;
+}
+
+.Cabecalho img
+{
+    width: 44px;
+    height: 44px;
+}
+
+/* .Login
+{
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+}
+
+.Config
+{
+   margin-left:10px; 
+} */
+
+.Direita
+{
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
