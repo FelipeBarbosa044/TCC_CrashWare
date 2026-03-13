@@ -1,17 +1,4 @@
-/* .Rodape
-{   
-    padding-left: 10px;
-    bottom: 0;
-    position: absolute;
-    left: 0;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    align-items: center; 
-    background-color: var(--Primaria-Azul-Escuro);
-    color: var(--Branco);
-} */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 .Rodape
 {   
@@ -27,6 +14,10 @@
     padding: 10px;
     background-color: var(--Primaria-Azul-Escuro);
     color: var(--Branco);
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: bold;
 }
 
 .Rodape img
@@ -54,4 +45,13 @@
     flex-direction: row;
     align-items: center;
     gap: 8px;
+}
+
+.Rodape h4
+{
+    font-size: 20px;
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
 }

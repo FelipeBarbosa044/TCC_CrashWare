@@ -7,14 +7,14 @@ const Rodape = () =>
             <footer className={Style.Rodape}>
                 <div className={Style.Marca}>
                     <img src={Logo} alt="" />
-                    <h4>CrashWare</h4>
+                    <h4>CRASHWARE</h4>
                 </div>
 
 
                 <div className={Style.links}>
                     <p>Sobre Nós</p>
                     <p>Politica de Privacidade</p>
-                    <p>Compromisso com a Integridade</p>
+                    <p>Compromisso com a IntegSridade</p>
                     <p>Termos de Uso</p>
                 </div>
             </footer>

@@ -8,8 +8,8 @@ const Cabecalho = () =>
     return (
         <>
         <div className={Style.Cabecalho}>
-            <img src={Logo} alt="" />
-            <h5>CrashWare</h5>
+            <img className={Style.logo_legal} src={Logo} alt="" />
+            <h5>CRASHWARE</h5>
 
             <div className={Style.Direita}>
                 <Tema />

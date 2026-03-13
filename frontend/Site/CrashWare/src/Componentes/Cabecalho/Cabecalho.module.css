@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 *{
     margin: 0;
     padding: 0;
@@ -14,17 +16,32 @@
     height: 6vh;
     color: var(--Branco);
     background-color: var(--Primaria-Azul-Escuro);
+    padding-left: 10px;
 }
 
 .Cabecalho h5
 {
-    font-size: 20px;
+    padding-left: 4px;
+    font-size: 40px;
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: ExtraBold;
+    
+}
+
+.logo_legal
+{
+    
+    width: 60px !important;
+    height: 60px !important;
 }
 
 .Cabecalho img
 {
-    width: 44px;
-    height: 44px;
+    height: 45px;
+    width: 45px;
+  
 }
 
 /* .Login
@@ -40,8 +57,9 @@
 } */
 
 .Direita
-{
+{   
     display: flex;
     gap: 10px;
     margin-left: auto;
+      padding-right: 10px;
 }
