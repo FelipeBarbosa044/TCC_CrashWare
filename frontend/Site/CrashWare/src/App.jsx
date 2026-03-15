@@ -3,6 +3,7 @@
 // import viteLogo from '/vite.svg'
 import './App.css'
 import { Cabecalho, Rodape } from './Componentes'
+import { PgInicial } from './Paginas'
 
 
 function App() {
@@ -10,7 +11,9 @@ function App() {
     <>
       <div>
         <Cabecalho />
-          https://www.figma.com/design/U7UqZ5YFRgsuLtWkSUfGDc/Glass-Effect--Community---c%C3%B3pia---Copy-
+
+        <PgInicial />
+          {/* https://www.figma.com/design/U7UqZ5YFRgsuLtWkSUfGDc/Glass-Effect--Community---c%C3%B3pia---Copy- */}
         <Rodape />
       </div>
     </>
