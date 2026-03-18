@@ -1,0 +1,10 @@
+.Cards
+{    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    justify-items: center; 
+    padding: 40px;
+    max-width: 10200px; /* 👈 controla largura total */
+    margin: 0 auto;   /* centraliza */
+}

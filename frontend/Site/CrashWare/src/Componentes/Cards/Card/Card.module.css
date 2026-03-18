@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+.Card
+{
+    padding: 10px;
+    border-radius: 15px;
+    text-align: center; 
+    background-color: var(--Primaria-Azul-Escuro);
+    color: var(--Branco);
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+    width: 65%;
+}
+
+.Card img
+{
+    width: 115px;
+    height: 115px;
+    margin: 0 auto  10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: contain;
+    /* margin-bottom: 10x */
+}
+
+.Card p
+{
+    font-size: 25px;
+    padding: 10px;
+    border: 10px;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}

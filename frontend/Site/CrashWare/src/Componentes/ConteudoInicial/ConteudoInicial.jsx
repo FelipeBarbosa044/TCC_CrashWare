@@ -1,4 +1,5 @@
 import FMenina from '../../fotos/menina_estudando.png'
+import { Cards } from '../Cards/Cards'
 import Style from './ConteudoInicial.module.css'
 
 const ConteudoInicial = () =>
@@ -13,6 +14,8 @@ const ConteudoInicial = () =>
                 </div>
                 {/* <hr /> */}
             </div>
+            <Cards />
+
         </>
     )
 }
