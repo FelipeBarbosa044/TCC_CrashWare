@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <!-- Botão fechar (X) -->
+    <TextView
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/imgLogo3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/logo_sem_fundo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/txtTitulo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CADASTRA-SE"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/imgLogo3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"/>
+
+    <!-- Email -->
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:hint="E-mail"
+        android:background="@android:drawable/edit_text"
+        android:padding="12dp"
+        app:layout_constraintTop_toBottomOf="@id/txtTitulo2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"/>
+
+    <!-- Senha -->
+    <EditText
+        android:id="@+id/txtSenhaCad"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:hint="Senha"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        app:layout_constraintTop_toBottomOf="@id/txtEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Botão -->
+    <Button
+        android:id="@+id/btnCadastro"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="CRIAR CONTA"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:backgroundTint="#4CAF50"
+        app:layout_constraintTop_toBottomOf="@id/txtSenhaCad"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- OU -->
+    <TextView
+        android:id="@+id/txt5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OU"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/btnCadastro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Já tem conta -->
+
+    <!-- Entrar -->
+
+    <!-- Termos -->
+    <TextView
+        android:id="@+id/txtEntrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="Entrar"
+        android:textColor="#4CAF50"
+        app:layout_constraintBaseline_toBaselineOf="@id/txt6"
+        app:layout_constraintStart_toEndOf="@id/txt6" />
+
+    <TextView
+        android:id="@+id/txt6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="28dp"
+        android:text="Já tem uma conta?"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt5" />
+
+    <TextView
+        android:id="@+id/txt8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Ao entrar no Mycourse, você concorda com os nossos termos e políticas de privacidade."
+        android:textSize="12sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/txt6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
