@@ -1,4 +1,5 @@
 import FMenina from '../../fotos/menina_estudando.png'
+import { Botoes } from '../Botoes/Botoes'
 import { Cards } from '../Cards/Cards'
 import Style from './ConteudoInicial.module.css'
 
@@ -49,9 +50,10 @@ const ConteudoInicial = () =>
                 <p>Entenda como os programas funcionam e dê os primeiros passos na criação de software. </p>
                 <div className={Style.TextoFinal}>
                     <h2>Leve o aprendizado com você</h2>
-                    <p>Estude Hardware e Software onde estiver.Aprenda pelo celular, continue no computador e acompanhe seu progresso em tempo real.</p>
-                </div>
-            </div>
+                    <p>Estude Hardware e Software onde estiver. <br></br>Aprenda pelo celular, continue no computador e acompanhe seu progresso em tempo real.</p>
+                </div> {/*texto final*/}
+                <Botoes />
+            </div> {/*div de textos hardware e software*/}
         </>
     )   
 }

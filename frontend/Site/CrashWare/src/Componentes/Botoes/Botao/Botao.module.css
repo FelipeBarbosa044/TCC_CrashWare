@@ -1,0 +1,34 @@
+.Botao a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: var(--Cards-Azul-Escuro); /* azul escuro */
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--Branco);
+    font-size: 20px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.Botao a:hover {
+    background-color: #151a3f;
+    transform: scale(1.05);
+}
+
+.Botao img {
+    width: 55px;
+    height: 55px;
+}
+
+.Botao p
+{
+    color: var(--Branco);
+}
+
+.Botao
+{
+    padding-top: 30px;
+    padding-bottom: 35px;
+}

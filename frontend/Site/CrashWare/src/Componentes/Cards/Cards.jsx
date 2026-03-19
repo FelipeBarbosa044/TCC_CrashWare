@@ -10,7 +10,6 @@ import Style from './Cards.module.css'
 import { Card } from './Card'
 const Cards = () =>
 {
-/// FAZER CSS E ARRUMAR
     const iconsFoto = 
     [
         { id: 1, titulo: "Lições curtas e organizadas", icon: IconeLivro },
