@@ -16,7 +16,6 @@ const Cabecalho = () =>
 
             <div className={Style.Direita}>
                 <Tema />
-                <Configuracoes />
                 <Login />
             </div>
         </div>

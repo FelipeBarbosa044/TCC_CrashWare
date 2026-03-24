@@ -1,5 +1,5 @@
 import style from "./pglogin.module.css";
-import { sair } from '../../fotos/x_icon.svg';
+// import { sair } from '../../fotos/x_icon.svg';
 
 const pglogin = () => {
     return (

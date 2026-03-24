@@ -7,12 +7,16 @@ const ConteudoInicial = () =>
 {
     return (
         <>
+
             <div className={Style.Conteudo}> {/*Parte de cima*/}
-                <h3>Aprenda Hardware e Software de forma prática e envolvente</h3>
+                <h3>Aprenda <span>Hardware</span> e <span>Software</span> de forma prática e envolvente</h3>
                 <div className={Style.Conteudo_img}>
+
+
                     <img src={FMenina} alt="" /> {/*Foto da parte de cima*/}
                 </div>
             </div>
+            <main>
             <div> {/*Cards /// coloquei a div só por separação mesmo*/}
                 <Cards />
             </div>
@@ -54,6 +58,7 @@ const ConteudoInicial = () =>
                 </div> {/*texto final*/}
                 <Botoes />
             </div> {/*div de textos hardware e software*/}
+            </main>
         </>
     )   
 }

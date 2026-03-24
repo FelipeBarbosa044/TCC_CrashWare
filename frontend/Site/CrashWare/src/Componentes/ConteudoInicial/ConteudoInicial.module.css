@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+main
+{
+  max-width: 1900px;
+  width: 100%;
+  justify-self: center;
+}
+
 .Conteudo {
   display: flex;
   align-items: center;
@@ -60,4 +67,9 @@
 {
   font-size: 40px !important  ;
   text-align: center;
+}
+
+.Conteudo span
+{
+  color: greenyellow;
 }

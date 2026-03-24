@@ -1,7 +1,7 @@
 import Playicon from '../../fotos/icons8-google-play.svg'
 import Appleicon from '../../fotos/apple_icon.svg'
 import Style from './Botoes.module.css'
-import { BotaoInstalar } from './Botao'
+import { BotaoInstalar } from './Botao_Instalar'
 
     const iconsFoto = 
     [
