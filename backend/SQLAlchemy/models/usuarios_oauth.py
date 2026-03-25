@@ -26,7 +26,7 @@ class UsuariosOauth(Base):
     usuario_id = Column(Integer,ForeignKey("usuarios.id"),nullable=False)
 
     # Data de criação
-    created_at = Column(DateTime,default = func.now())
+    created_at = Column(DateTime,server_default=func.now())
 
     # Isso impede que o mesmo usuário do Google/GitHub seja vinculado a duas contas diferentes
     __table_args__ = (

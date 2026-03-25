@@ -1,8 +1,8 @@
-"""Tabelas usuarios \ usuarios_oauth
+"""usuarios_oauth e usuarios
 
-Revision ID: 87688480e42f
+Revision ID: 237f207de20c
 Revises: 
-Create Date: 2026-03-19 21:36:21.053478
+Create Date: 2026-03-25 08:54:40.265808
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '87688480e42f'
+revision: str = '237f207de20c'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -27,10 +27,11 @@ def upgrade() -> None:
     sa.Column('email', sa.String(length=200), nullable=False),
     sa.Column('telefone', sa.String(length=13), nullable=True),
     sa.Column('senha_hash', sa.Text(), nullable=True),
-    sa.Column('email_verificado', sa.Boolean(), nullable=False, server_default=sa.false()),
-    sa.Column('ativo', sa.Boolean(), nullable=False, server_default=sa.true()),
-    sa.Column('created_at', sa.DateTime(), nullable=False, server_default=sa.func.now()),
-    sa.Column('updated_at', sa.DateTime(), nullable=False, server_default=sa.func.now()),
+    sa.Column('email_verificado', sa.Boolean(), server_default=sa.text('false'), nullable=True),
+    sa.Column('ativo', sa.Boolean(), server_default=sa.text('true'), nullable=True),
+    sa.Column('moedas', sa.Integer(), server_default=sa.text('0'), nullable=True),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('telefone')
@@ -40,7 +41,7 @@ def upgrade() -> None:
     sa.Column('provider', sa.String(length=50), nullable=False),
     sa.Column('provider_user_id', sa.String(length=255), nullable=False),
     sa.Column('usuario_id', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.DateTime(), nullable=False,server_default=sa.func.now()),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['usuario_id'], ['usuarios.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('provider', 'provider_user_id')

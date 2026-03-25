@@ -1,7 +1,6 @@
 #Importando comandos do sql para o código.
-from typing import Self
 
-from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime
+from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime,text
 from datetime import datetime
 
 from sqlalchemy.orm import relationship
@@ -29,14 +28,14 @@ class Usuarios(Base):
     email = Column(String(200),unique=True,nullable=False)
     telefone = Column(String(13),unique=True,nullable=True)
     senha_hash = Column(Text,nullable=True)
-    email_verificado = Column(Boolean,default=False)
-    ativo = Column(Boolean,default=True)
-    coin = Column(Integer,default=0)
+    email_verificado = Column(Boolean,server_default=text("false"))
+    ativo = Column(Boolean,server_default=text("true"))
+    moedas = Column(Integer,server_default=text("0"))
 
     #Data de criação e Data de Alteração
 
-    created_at = Column(DateTime,default= func.now())
-    updated_at = Column(DateTime, default=func.now(),onupdate=func.now())
+    created_at = Column(DateTime,server_default=func.now())
+    updated_at = Column(DateTime,server_default=func.now(),onupdate=func.now())
 
     # Criando relação com objetos (relationship)
     oauths = relationship("UsuariosOauth",backref="usuarios")
