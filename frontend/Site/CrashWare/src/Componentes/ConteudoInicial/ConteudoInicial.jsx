@@ -16,10 +16,10 @@ const ConteudoInicial = () =>
                     </div>
 
                     <div className = {Style.btns}>
-                        <Link to="/login">
+                        <Link to="login">
                             <button className = {Style.btnCadastro}>Fazer Login</button>
                         </Link>
-                        <Link to="/Cadastro">
+                        <Link to="cadastro">
                             <button className = {Style.btnCadastro}>Se Cadastrar</button>
                         </Link>
                     </div>
