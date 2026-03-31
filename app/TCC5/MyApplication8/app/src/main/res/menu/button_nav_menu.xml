@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="home"
+        android:icon="@drawable/casa2_icon"
+        android:id="@+id/home"/>
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="profile"
+        android:icon="@drawable/login_icon"
+        android:id="@+id/profile"/>
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="notes"
+        android:icon="@drawable/caneta_icon"
+        android:id="@+id/caneta"/>
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="shop"
+        android:icon="@drawable/marcacao_livro_icon"
+        android:id="@+id/shop"/>
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="ranking"
+        android:icon="@drawable/ranking_icon"
+        android:id="@+id/ranking"
+        android:iconTint="@color/black"
+        />
+</menu>
