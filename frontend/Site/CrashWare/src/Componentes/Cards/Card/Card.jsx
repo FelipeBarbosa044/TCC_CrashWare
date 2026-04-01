@@ -1,6 +1,6 @@
-    import Style from './Card.module.css'
+    import Style from './Card.module.css';
 
-    const Card = ({ titulo, icon }) =>
+    const Card = ({ titulo, icon}) =>
     {
         return (
             <>
@@ -9,7 +9,7 @@
                     <p>{titulo}</p>
                 </div>
             </>
-        )
-    }
+        );
+    };
 
-    export { Card }
+    export { Card };

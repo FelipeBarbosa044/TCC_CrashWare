@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom"
-import { Cabecalho, Rodape } from "../../Componentes"
+import { Outlet } from "react-router-dom";
+import { Cabecalho, Rodape } from "../../Componentes";
 
 const LayoutCadLogin = () =>
 {
@@ -8,7 +8,7 @@ const LayoutCadLogin = () =>
             <Cabecalho />
             <Outlet />
         </>
-    )
-}
+    );
+};
 
-export { LayoutCadLogin }
+export { LayoutCadLogin };

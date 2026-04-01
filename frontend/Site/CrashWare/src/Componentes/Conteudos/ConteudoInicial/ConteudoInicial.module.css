@@ -1,196 +1,338 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-/* ===== CONTAINER ===== */
-.Container {
-  max-width: 1200px;
-  width: 100%;
-  margin: auto;
-  margin-bottom: 0px;
-  padding-top: 9vh;
-  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.263);
+* {
+    box-sizing: border-box;
 }
 
-/* ===== TOPO ===== */
-.Conteudo {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  padding: 30px 20px;
-  color: var(--Cinza-Medio);
-  background-color: var(--Primaria-Azul-Escuro);
+main {
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px 60px;
+    background-color: var(--Fundo);
+    font-family: "Montserrat", sans-serif;
 }
 
-.Conteudo h3 {
-  font-size: clamp(28px, 5vw, 50px);
-  max-width: 700px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 700;
-  padding: 0px;
-  line-height: 1.2;
-  text-align: center;
-}
-
+/* ===== CORES DE DESTAQUE ===== */
 .hardware {
-  color: var(--verde_text);
-  text-shadow: 0 0 10px var(--verde_escuro_text);
+    color: var(--verde_text);
+    text-shadow: 0 0 10px var(--verde_escuro_text);
 }
 
-.software{
-  color: var(--azul_text);
-  text-shadow: 0 0 10px var(--azul_escuro_text);
+.software {
+    color: var(--azul_text);
+    text-shadow: 0 0 10px var(--azul_escuro_text);
 }
 
-.Conteudo_img img { 
-  width: 100%;
-  max-width: 700px;
-  filter: drop-shadow(0 8px 32px var(--verde_escuro_text));
+/* ===== HERO ===== */
+.Apresentacao {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    padding: 60px 0 40px;
 }
 
-.btns {
-  margin-right: auto;
-  display: flex;
-  gap: 0.5rem;
-  margin: auto;
+.Apresentacao_texto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
 }
 
-.btnCadastro {
-  background: linear-gradient(135deg, var(--verde_text), var(--verde_escuro_text));
-  border: none;
-  width: 150px;
-  height: 60px;
-  border-radius: 16px;
-  box-shadow: 0 0 14px var(--verde_escuro_text);
-  margin-left: 20px;
-
-  color: #fff;
-  font-size: 16px;
-  font-weight: bolder;
-  font-family: "Montserrat", sans-serif;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-  cursor: pointer;
+.Apresentacao_texto h3 {
+    font-size: clamp(24px, 3.5vw, 46px);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--Cinza-Medio);
+    text-align: center;
 }
 
-.btnCadastro:hover {
-  transition: 0.3s;
-  background: var(linear-gradient(135deg, var(--verde_text), var(--azul_text)));
-  box-shadow:  0 0 22px var(--azul_escuro_text);
-  transform: scale(1.10);
-  color: #000000cb;
-  text-shadow: none;
+.Apresentacao_btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
-/* ===== TEXTOS ===== */
-.Textos {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 700;
+.Apresentacao_btns button {
+    background: linear-gradient(135deg, var(--verde_text), var(--verde_escuro_text));
+    border: none;
+    width: 160px;
+    height: 52px;
+    border-radius: 12px;
+    box-shadow: 0 0 14px var(--verde_escuro_text);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.Textos hr {
-  width: 85%;
-  margin: auto;
-  border: none;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--verde_escuro_text), transparent);
+.Apresentacao_btns button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 24px var(--azul_escuro_text);
 }
 
-.Textos h2 {
-  font-size: clamp(30px, 5vw, 60px);
-  text-align: center;
-  padding: 40px 20px 20px;
+.btnSecundario {
+    background: transparent !important;
+    border: 2px solid var(--verde_text) !important;
+    box-shadow: 0 0 10px var(--verde_escuro_text) !important;
+    color: var(--verde_text) !important;
 }
 
-.Textos h2:nth-of-type(1) {
-  color: var(--verde_text);
-  text-shadow: 0 0 14px var(--verde_text), 0 0 32px var(--verde_escuro_text);
+.btnSecundario:hover{
+      background: linear-gradient(135deg, var(--verde_text), var(--verde_escuro_text)) !important;
+      color: white !important;
+      border: none !important;
 }
 
-.Textos h2:nth-of-type(2) {
-  color: var(--azul_text);
-  text-shadow: 0 0 14px var(--azul_escuro_text);
+.Apresentacao_img {
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
-.Textos h4 {
-  font-size: clamp(20px, 3vw, 33px);
-  padding: 10px 0;
-  margin-left: 10%;
-
- /* antes que voces perguntem sim eu usei cha pra colorir os subtitulos e os titulos*/
-  background: linear-gradient(90deg, var(--verde_text), var(--azul_text));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 2px 2px 8px var(--verde_escuro_text);
-
-  padding-left: 14px;
+.Apresentacao_img img {
+    width: 100%;
+    max-width: 520px;
+    filter: drop-shadow(0 8px 32px var(--verde_escuro_text));
 }
 
-.Textos p {
-  padding: 10px 0 20px;
-  font-size: clamp(14px, 2.2vw, 20px);
-  color: var(--Branco);
-  margin-left: 10%;
-  width: 80%;
-  text-indent: 20px;
+/* ===== DIFERENCIAIS ===== */
+.Diferenciais {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.Diferenciais h2 {
+    text-align: center;
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 700;
+    color: var(--Cinza-Medio);
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+}
+
+/* ===== MATERIAIS ===== */
+.Materiais {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin-top: 20px;
+}
+
+.Materiais > h2 {
+    text-align: center;
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 700;
+    color: var(--Cinza-Medio);
+    letter-spacing: 1px;
+    margin-bottom: -20px;
+}
+
+/* ===== HARDWARE ===== */
+.ConteudoHardware {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 48px;
+    width: 100%;
+}
+
+.ConteudoHardware_img {
+    flex: 0 0 280px;
+    display: flex;
+    justify-content: center;
+}
+
+.ConteudoHardware_img div {
+    width: 280px;
+    height: 200px;
+    border-radius: 16px;
+    border: 2px dashed var(--verde_text);
+    background: rgba(0, 255, 136, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--verde_text);
+    font-size: 20px;
+    font-weight: 600;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.08);
+}
+
+.ConteudoHardware_texto {
+    flex: 1;
+}
+
+.ConteudoHardware_texto h2 {
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: 800;
+    color: var(--verde_text);
+    text-shadow: 0 0 14px var(--verde_text), 0 0 32px var(--verde_escuro_text);
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.ConteudoHardware_texto h4 {
+    font-size: clamp(16px, 2.2vw, 24px);
+    font-weight: 700;
+    padding: 12px 0 4px;
+    background: linear-gradient(90deg, var(--verde_text), var(--azul_text));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ConteudoHardware_texto p {
+    font-size: clamp(13px, 1.6vw, 17px);
+    color: var(--Branco);
+    line-height: 1.6;
+    padding: 6px 0 10px;
+    opacity: 0.85;
+}
+
+.ConteudoHardware_texto hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--verde_escuro_text), transparent);
+    margin: 8px 0;
+}
+
+/* ===== SOFTWARE ===== */
+.ConteudoSoftware {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 48px;
+    width: 100%;
+}
+
+.ConteudoSoftware_img {
+    flex: 0 0 280px;
+    display: flex;
+    justify-content: center;
+}
+
+.ConteudoSoftware_img div {
+    width: 280px;
+    height: 200px;
+    border-radius: 16px;
+    border: 2px dashed var(--azul_text);
+    background: rgba(0, 200, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--azul_text);
+    font-size: 20px;
+    font-weight: 600;
+    box-shadow: 0 0 20px rgba(0, 200, 255, 0.08);
+}
+
+.ConteudoSoftware_texto {
+    flex: 1;
+}
+
+.ConteudoSoftware_texto h2 {
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: 800;
+    color: var(--azul_text);
+    text-shadow: 0 0 14px var(--azul_text), 0 0 32px var(--azul_escuro_text);
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.ConteudoSoftware_texto h4 {
+    font-size: clamp(16px, 2.2vw, 24px);
+    font-weight: 700;
+    padding: 12px 0 4px;
+    background: linear-gradient(90deg, #1565C0, #00BCD4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ConteudoSoftware_texto p {
+    font-size: clamp(13px, 1.6vw, 17px);
+    color: var(--Branco);
+    line-height: 1.6;
+    padding: 6px 0 10px;
+    opacity: 0.85;
+}
+
+.ConteudoSoftware_texto hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--azul_escuro_text), transparent);
+    margin: 8px 0;
 }
 
 /* ===== TEXTO FINAL ===== */
 .TextoFinal {
-  margin-top: 30px;
-  text-align: center;
-  padding: 40px 20px;
+    margin-top: 60px;
+    text-align: center;
+    padding: 40px 20px;
+    width: 100%;
 }
 
 .TextoFinal h2 {
-  padding-top: 10px;
-  font-size: 50px;
-  color: #fff;
-  text-shadow: 0 0 16px var(--verde_escuro_text), 0 0 32px var(--azul_escuro_text);
+    font-size: clamp(28px, 4vw, 50px);
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 0 16px var(--verde_escuro_text), 0 0 32px var(--azul_escuro_text);
+    margin-bottom: 16px;
 }
 
 .TextoFinal p {
-  font-size: clamp(12px, 1vw, 15px);
-  margin: auto;
-}
-
-/* ===== MAIN ===== */
-main {
-  width: 100%;
-    background-color: var(--Primaria-Azul-Escuro);
+    font-size: clamp(14px, 1.5vw, 18px);
+    color: var(--Branco);
+    opacity: 0.85;
+    line-height: 1.7;
+    margin-bottom: 32px;
 }
 
 /* ===== RESPONSIVIDADE ===== */
-@media (max-width: 768px) {
-  .Conteudo {
-    flex-direction: column;
-    text-align: center;
-  }
+@media (max-width: 900px) {
+    .Apresentacao {
+        flex-direction: column;
+        text-align: center;
+    }
 
-  .Textos {
-    text-align: center;
-  }
+    .ConteudoHardware,
+    .ConteudoSoftware {
+        flex-direction: column;
+        align-items: center;
+    }
 
-  .Textos h4 {
-    margin: auto;
-  }
+    .ConteudoHardware_img,
+    .ConteudoSoftware_img {
+        flex: none;
+        width: 100%;
+        justify-content: center;
+    }
 
-  .Conteudo h3 {
-    margin-right: 0px;
-    padding: 0px;
-  }
-
-  .btns {
-    margin: auto;
-  }
+    .ConteudoHardware_img div,
+    .ConteudoSoftware_img div {
+        width: 100%;
+        max-width: 400px;
+    }
 }
 
 @media (max-width: 480px) {
-  .Conteudo {
-    padding: 0px 0px;
-  }
+    .Apresentacao_btns {
+        justify-content: center;
+    }
 
-  .Textos h2 {
-    padding-top: 20px;
-  }
+    .Apresentacao_btns button {
+        width: 140px;
+        height: 46px;
+        font-size: 14px;
+    }
 }

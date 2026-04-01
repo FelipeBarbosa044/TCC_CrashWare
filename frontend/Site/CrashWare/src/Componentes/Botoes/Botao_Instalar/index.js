@@ -1,1 +1,1 @@
-export * from './Botao_Instalar'
+export * from './Botao_Instalar';

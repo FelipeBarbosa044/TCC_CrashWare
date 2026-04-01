@@ -1,1 +1,1 @@
-export * from './ConteudoCadastro'
+export * from './ConteudoCadastro';

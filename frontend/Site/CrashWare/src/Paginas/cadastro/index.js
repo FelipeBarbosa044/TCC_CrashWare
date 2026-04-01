@@ -1,1 +1,1 @@
-export * from './PgCadastro'
+export * from './PgCadastro';

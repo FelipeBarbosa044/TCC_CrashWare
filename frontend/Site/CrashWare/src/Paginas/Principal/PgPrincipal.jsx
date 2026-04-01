@@ -1,4 +1,4 @@
-import { ConteudoInicial } from "../../Componentes"
+import { ConteudoInicial } from "../../Componentes";
 
 
 const PgInicial = () =>
@@ -7,7 +7,7 @@ const PgInicial = () =>
         <>
             <ConteudoInicial />
         </>
-    )
-}
+    );
+};
 
-export { PgInicial }
+export { PgInicial };

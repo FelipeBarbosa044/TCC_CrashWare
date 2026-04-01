@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom"
-import { Cabecalho, Rodape } from "../../Componentes"
+import { Outlet } from "react-router-dom";
+import { Cabecalho, Rodape } from "../../Componentes";
 
 const LayoutPadrao = () =>
 {
@@ -9,6 +9,7 @@ const LayoutPadrao = () =>
             <Outlet/>
             <Rodape />
         </>
-    )
-}
-export { LayoutPadrao }
+    );
+};
+
+export { LayoutPadrao };

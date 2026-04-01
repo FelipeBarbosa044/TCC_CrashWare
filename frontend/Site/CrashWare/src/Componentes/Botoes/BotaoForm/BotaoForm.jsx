@@ -8,7 +8,7 @@ const BotoesForm = (props) =>
       <button className={style.Botao} tipo={tipo} {...outrasProps }>
           {texto}
       </button>
-    )
-}
+    );
+};
 
-export { BotoesForm }
+export { BotoesForm };

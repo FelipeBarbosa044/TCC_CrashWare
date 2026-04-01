@@ -1,4 +1,4 @@
-import style from './CampoTexto.module.css'
+import style from './CampoTexto.module.css';
 
 const CampoTexto = (props) =>
 {
@@ -6,7 +6,7 @@ const CampoTexto = (props) =>
         <div className={style.CampoTexto}>
             <input {...props}/>
         </div>
-    )
-}
+    );
+};
 
-export { CampoTexto }
+export { CampoTexto };

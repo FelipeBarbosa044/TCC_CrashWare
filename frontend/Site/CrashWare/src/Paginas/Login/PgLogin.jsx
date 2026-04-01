@@ -1,4 +1,4 @@
-import { ConteudoLogin } from "../../Componentes"
+import { ConteudoLogin } from "../../Componentes";
 
 const PgLogin = () =>
 {
@@ -6,7 +6,7 @@ const PgLogin = () =>
         <>  
             <ConteudoLogin />
         </>
-    )
-}
+    );
+};
 
-export { PgLogin }
+export { PgLogin };

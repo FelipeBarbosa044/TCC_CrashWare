@@ -1,6 +1,7 @@
-import FLogin from '../../fotos/login_icon.svg'
-import Style from './Login.module.css'
-import { Link } from 'react-router-dom'
+import FLogin from '../../fotos/login_icon.svg';
+import { Link } from 'react-router-dom';
+
+import Style from './Login.module.css';
 
 const Login = () =>
 {
@@ -12,7 +13,7 @@ const Login = () =>
                 </div>
             </Link>    
         </>
-    )
-}
+    );
+};
 
-export {  Login }
+export {  Login };

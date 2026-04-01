@@ -1,5 +1,5 @@
-import { TIPO_BOTAO } from "../constantes"
-import style from './BotoesCadLogin.module.css'
+import { TIPO_BOTAO } from "../constantes";
+import style from './BotoesCadLogin.module.css';
 
 const BotoesCadLogin = (props) =>
 {
@@ -8,7 +8,7 @@ const BotoesCadLogin = (props) =>
         <button className={style.Botao} tipo={tipo} {...outrasProps }>
             {texto}
         </button>
-    )
-}
+    );
+};
 
-export { BotoesCadLogin }
+export { BotoesCadLogin };

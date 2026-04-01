@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
-import Logo from '../../Logo/logo_sem_fundo.png'
-import { Configuracoes } from '../Configuracoes'
-import { Login } from '../Login'
-import { Tema } from '../Tema'
-import { Link } from 'react-router-dom'
-import Style from './Cabecalho.module.css'
+import { useState } from 'react';
+import Logo from '../../Logo/logo_sem_fundo.png';
+import { Tema } from '../Tema';
+import { Link } from 'react-router-dom';
+
+import Style from './Cabecalho.module.css';
 
 const Cabecalho = () => {
   const [scrolled, setScrolled] = useState(false)
@@ -22,7 +21,7 @@ const Cabecalho = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export { Cabecalho }
+export { Cabecalho };

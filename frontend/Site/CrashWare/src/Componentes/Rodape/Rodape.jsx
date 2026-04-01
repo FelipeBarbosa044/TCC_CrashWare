@@ -1,6 +1,8 @@
-import Logo from '../../Logo/logo_sem_fundo.png'
-import Style from './Rodape.module.css'
-import { Link } from 'react-router-dom'
+import Logo from '../../Logo/logo_sem_fundo.png';
+import { Link } from 'react-router-dom';
+
+import Style from './Rodape.module.css';
+
 const Rodape = () =>
 {
     return (
@@ -31,7 +33,7 @@ const Rodape = () =>
                 </div>
             </footer>
         </>
-    )
-}
+    );
+};
 
-export { Rodape }
+export { Rodape };

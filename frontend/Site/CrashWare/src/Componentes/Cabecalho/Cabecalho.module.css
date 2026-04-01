@@ -39,6 +39,7 @@
     background: linear-gradient(135deg, #00ff88, #00c8ff);
     -webkit-background-clip: text;
     background-clip: text;
+
 }
 
 .logo_legal
@@ -55,24 +56,12 @@
   
 }
 
-/* .Login
-{
-    display: flex;
-    flex-direction: row;
-    margin-left: auto;
-}
-
-.Config
-{
-   margin-left:10px; 
-} */
-
 .Direita
 {   
     display: flex;
     gap: 10px;
     margin-left: auto;
-      padding-right: 10px;
+    padding-right: 10px;
 }
 
 .Cabecalho a

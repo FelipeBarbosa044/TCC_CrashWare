@@ -1,4 +1,4 @@
-import Style from './Botao.module.css'
+import Style from './Botao.module.css';
 
 const BotaoInstalar = ({titulo, icon}) =>
 {
@@ -9,7 +9,7 @@ const BotaoInstalar = ({titulo, icon}) =>
                 <p>{titulo}</p>
             </a>
         </div>
-    )
-}
+    );
+};
 
-export { BotaoInstalar }
+export { BotaoInstalar };
