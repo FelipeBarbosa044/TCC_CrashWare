@@ -1,12 +1,12 @@
 #  CrashWare
 
-> Plataforma de aprendizagem interativa de hardware e software
+> Plataforma de Aprendizagem Hardware e Software
 
 ---
 
 ##  Objetivo
 
-O **CrashWare** é uma plataforma educacional desenvolvida como Trabalho de Conclusão de Curso (TCC), que tem como objetivo principal oferecer uma meio que auxilie os usuários a organizar e otimizar seus estudos de forma eficiente. Através de uma interface simples e intuitiva, disponibilizaremos conteúdos variados, ferramentas de monitoramento de progresso, sistemas de revisão e testes personalizados, além de elementos de gamificação para aumentar a motivação e engajamento do alunos. Promovendo um aprendizado prático, eficaz e contínuo, com foco em hardware e software, nosso objetivo é ajudar pessoas que muitas vezes não tem acesso e nem noção básica sobre a área de Tecnologia da Informação (TI), trazendo-os esses conceitos e possibilitando a eles uma chance de aprendizado que ajude em seu crescimento pessoal e profissional.
+O **CrashWare** é uma plataforma educacional desenvolvida como Trabalho de Conclusão de Curso (TCC), que tem como objetivo principal oferecer um meio que auxilie os usuários a organizar e otimizar seus estudos de forma eficiente. Através de uma interface simples e intuitiva, disponibilizaremos conteúdos variados, ferramentas de monitoramento de progresso, sistemas de revisão e testes personalizados, além de elementos de gamificação para aumentar a motivação e engajamento dos alunos. Promovendo um aprendizado prático, eficaz e contínuo, com foco em hardware e software, nosso objetivo é ajudar pessoas que muitas vezes não tem acesso e nem noção básica sobre a área de Tecnologia da Informação (TI), trazendo-os esses conceitos e possibilitando a eles uma chance de aprendizado que ajude em seu crescimento pessoal e profissional.
 ---
 
 ##  Integrantes
