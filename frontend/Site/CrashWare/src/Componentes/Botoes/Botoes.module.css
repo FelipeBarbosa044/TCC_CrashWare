@@ -1,5 +1,7 @@
 .Caixa {
+    /* gap: 30px; */
     display: flex;
-    gap: 30px;
-    justify-content: center;
+    justify-content: space-evenly;
+    margin: auto;
+    width: 50%;
 }
