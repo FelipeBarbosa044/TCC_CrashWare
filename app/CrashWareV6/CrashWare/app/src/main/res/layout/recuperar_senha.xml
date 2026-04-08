@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtRecSenha"
+        android:layout_width="191dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="108dp"
+        android:text="Recuperar Senha"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgLogo5"
+        android:layout_width="76dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="35dp"
+        android:clickable="false"
+        android:contextClickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_sem_fundo" />
+
+    <EditText
+        android:id="@+id/txtEmailRec"
+        android:layout_width="224dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="92dp"
+        android:ems="10"
+        android:hint="Digite o Email Cadastrado"
+        android:inputType="text"
+        android:textAlignment="viewStart"
+        android:background="@android:drawable/edit_text"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRecSenha" />
+
+    <Button
+        android:id="@+id/btnRecSenha"
+        android:layout_width="226dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="92dp"
+        android:backgroundTint="#4CAF50"
+        android:text="ENVIAR"
+        android:textColor="#000000"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmailRec" />
+
+    <TextView
+        android:id="@+id/txtEntrarLembrou"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="41dp"
+        android:text="Entrar"
+        android:textColor="#4CAF50"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toEndOf="@+id/txtLembrou"
+        app:layout_constraintTop_toBottomOf="@+id/btnRecSenha" />
+
+    <TextView
+        android:id="@+id/txtLembrou"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="115dp"
+        android:layout_marginTop="41dp"
+        android:text="Lembrou sua senha?"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRecSenha" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
