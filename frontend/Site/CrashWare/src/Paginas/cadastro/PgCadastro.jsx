@@ -1,11 +1,9 @@
 import { ConteudoCadstro} from '../../Componentes';
 
 const PgCadastro = () => {
-            return (
-                <>
-                    <ConteudoCadstro />
-                </>
-            );
-        };
+    return (
+            <ConteudoCadstro />
+        );
+};
 
 export { PgCadastro };

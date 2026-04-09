@@ -13,6 +13,8 @@
     padding: 10px;
     background-color: var(--bg-principal);
     color: var(--texto-secundario);
+    background-color: var(--Azul-Escuro);
+    color: var(--Branco);
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;

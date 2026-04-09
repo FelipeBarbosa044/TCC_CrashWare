@@ -37,3 +37,62 @@
 
   --Branco: #f9eded;
 }
+
+:root
+{
+  --Azul-Escuro: #0d1422;
+  --Azul-Escuro-ModoBranco: #e1d9d9;
+  --Fundo: #15172E;
+  --Fundo-Claro: #
+  --Cards-Azul-Escuro: #07142b;
+  --Azul-Destaque-Vivo: #169cff;
+  --Cinza-Claro: #656c76;
+  --Cinza-Medio: #a2a0a2;
+  --Branco: #c4c4c4;
+  --Preto: #302c2c;
+
+  /* cores de textos */
+  --verde_text: #00ff88;
+  --azul_text: #00c8ff;
+  --azul_escuro_text: #00c8ff60;
+  --verde_escuro_text: #00ff8860;
+
+  /* h1 e mais */
+  --titulo: #ffffffcc;
+
+
+  /* Gradiente */
+  
+}
+
+/* [data-theme="light"]
+{
+  --Texto: #0F172A;
+  --Botão: #54CA7B;
+  --Fundo: #F3F2F3;
+  --FundoDestaque: #EEf2f7;
+} */
+
+body
+{
+  border: 0;
+  margin: 0;
+  background-color: var(--Fundo);
+  /* overflow-x: hidden; */
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body.Claro {
+  /* background-color:; */
+  --Azul-Escuro: var(--Azul-Escuro-ModoBranco);
+  --Branco: var(--Preto);
+  --titulo: var(--Preto)
+}
+
+body.Escuro {
+  /* background-color: var(); */
+  color: white;
+}
