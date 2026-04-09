@@ -1,13 +1,24 @@
-// importando componentes para ser ultilizados no ConteudoInicial.jsx
-import FMenina from '../../../fotos/menina_estudando.png';
+import { useState, useEffect } from 'react';
+import FMenina_claro from '../../../fotos/claro/menina_estudando.png';
+import FMenina_escuro from '../../../fotos/escuro/menina_estudando.png';
 import { Botoes } from '../../Botoes';
 import { Cards } from '../../Cards';
 import { Link } from "react-router-dom";
 
-// importando o estilo
 import Style from './ConteudoInicial.module.css';
 
 const ConteudoInicial = () => {
+
+    const [tema, setTema] = useState(localStorage.getItem('TemaSelecionado') || 'Claro');
+
+    useEffect(() => {
+        const checarTema = (e) => setTema(e.detail);
+        window.addEventListener('temaAtualizado', checarTema);
+        return () => window.removeEventListener('temaAtualizado', checarTema);
+    }, []);
+
+    const FMenina = tema === 'Claro' ? FMenina_claro : FMenina_escuro;
+
     return (
         <>
             <main>

@@ -1,12 +1,12 @@
 /* TEMA CLARO */
 .Claro {
   --bg-principal: #e6e6e6b7;
-  --bg-secundario: #ebecec;
+  --bg-secundario: #e9ffff85;
 
   --texto-principal: #111827;
   --texto-secundario: #6B7280;
 
-  --cor-primaria: #009832; 
+  --cor-primaria: #027a2a; 
   --cor-primaria-hover: #10b981;
 
   --cor-secundaria: #1fb6ce; 
@@ -32,5 +32,5 @@
   --cor-secundaria-hover: #01a1bd;
 
   --borda: #E5E7EB;
-  --input-bg: #1A1A2E;
+  --input-bg: #1a1a2e49;
 }

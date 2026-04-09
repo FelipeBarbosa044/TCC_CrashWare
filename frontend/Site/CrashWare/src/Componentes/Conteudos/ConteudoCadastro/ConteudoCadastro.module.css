@@ -6,8 +6,8 @@
 
 .corpo{
     width: 100%;
-    height: 84vh; 
-    background-color: var(--bg-secundario);
+    height: 91vh; 
+    background-color: var(--bg-principal);
     display: flex;
     flex-direction: column; 
     justify-content: center;
@@ -23,12 +23,19 @@
     text-align: center;
 }
 
+.Cabecalho{
+    top: 0;
+    position: absolute;
+}
+
 .container h1{
-    color: var(--texto-principal);
+    color: var(--cor-primaria);
     font-size: 3rem;
     font-family: "Montserrat", sans-serif;
     margin-bottom: 15px;
-    text-shadow:  2px 2px 1px rgba(0, 0, 0, 0.842);;
+    text-shadow:  2px 2px 1px rgba(0, 0, 0, 0.842);
+    text-shadow: 1px 1px 20px var(--cor-primaria-hover), 1px 1px 20px var(--texto-secundario);
+
 }
 
 
@@ -74,7 +81,7 @@ p span{
 
 
     /* texto do botão */
-    color: var(--texto-principal);
+    color: var(--texto-secundario);
     font-size: 25px;
     font-weight: bolder;
     text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.685);
@@ -83,7 +90,7 @@ p span{
 button:hover{
     transition: 0.3s;
     background-color: var(--cor-primaria-hover);
-    color: var(--font_principal_escuro);
+    color: var(--texto-secundario);
     transform: scale(1.05);
 }
 
@@ -170,11 +177,12 @@ input[type="number"] {
     margin: 10px 15px;
 }
 
+
 @media (max-width: 500px) {
     
     .corpo{
-        width: 97vw;
-        height: 80vh;
+        width: 100vw;
+        height: 91vh;
     }
 
     .container h1{

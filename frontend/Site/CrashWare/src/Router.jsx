@@ -9,10 +9,10 @@ const Router = () =>
             <Route path="/" element={<LayoutPadrao />}>
                 <Route path="/" element={<PgInicial />}/>
                 <Route path="sobre-nos" element={<SobreNos />}/>
-                <Route path="cadastro" element={<PgCadastro />}/>
-                <Route path="login" element={<PgLogin/>} />
                 <Route path="*" element={<PgErro />} />
             </Route>
+            <Route path="cadastro" element={<PgCadastro />}/>
+            <Route path="login" element={<PgLogin/>} />
         </Routes>
     )
 }
