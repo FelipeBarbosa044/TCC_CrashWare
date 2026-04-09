@@ -2,34 +2,39 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0B1C2C">
+    android:background="?attr/android:windowBackground">
 
-    <!-- Logo + Nome CENTRALIZADO -->
+    <!-- Header -->
     <LinearLayout
-        android:id="@+id/layoutLogo"
+        android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:orientation="horizontal"
-        android:layout_marginTop="44dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/logo_sem_fundo" />
+            android:id="@+id/layoutLogo"
+            android:layout_width="56dp"
+            android:layout_height="61dp"
+            android:contentDescription="logo"
+            android:src="@drawable/logo_sem_fundo"/>
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/righteous"
             android:text="CRASHWARE"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="25sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -38,55 +43,59 @@
         android:id="@+id/txtEntrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="94dp"
+        android:layout_marginEnd="125dp"
+        android:fontFamily="@font/righteous"
         android:text="ENTRAR"
-        android:textColor="#FFFFFF"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@id/layoutLogo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/header" />
 
     <!-- Campo Email -->
     <EditText
         android:id="@+id/txtEmailLogin"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/bg_edittext_borda"
         android:hint="E-mail ou nome de usuário"
+        android:fontFamily="@font/pt_sans_caption_bold"
+        android:paddingHorizontal="16dp"
         android:textColor="#FFFFFF"
-        android:textColorHint="#8FA3B0"
-        android:textSize="14sp"
-        android:background="@drawable/bg_input"
-        android:padding="12dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/txtEntrar"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColorHint="@color/hint_modoclaro"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="24dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEntrar" />
 
     <!-- Campo Senha -->
     <EditText
         android:id="@+id/txtSenhaLogin"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="32dp"
         android:hint="Senha"
+        android:fontFamily="@font/pt_sans_caption_bold"
         android:textColor="#FFFFFF"
-        android:textColorHint="#8FA3B0"
-        android:textSize="14sp"
-        android:background="@drawable/bg_input"
+        android:textColorHint="@color/hint_modoclaro"
+        android:background="@drawable/bg_edittext_borda"
         android:padding="12dp"
         android:inputType="textPassword"
         android:layout_marginTop="12dp"
         app:layout_constraintTop_toBottomOf="@id/txtEmailLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="24dp"/>
+        />
 
     <!-- Ícone de mostrar senha -->
     <ImageView
         android:id="@+id/imgOlho"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:src="@drawable/olho_icon"
         android:layout_marginEnd="12dp"
         android:elevation="2dp"
@@ -100,37 +109,69 @@
         android:id="@+id/txtEsqueceu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Esqueceu sua senha?"
-        android:textColor="#AAAAAA"
-        android:textSize="12sp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/txtSenhaLogin"
-        app:layout_constraintEnd_toEndOf="@id/txtSenhaLogin"/>
+        android:fontFamily="@font/pt_sans_caption_bold"
+        android:text="Esqueceu sua senha?"
+        android:textColor="@color/azul"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/txtSenhaLogin"
+        app:layout_constraintTop_toBottomOf="@id/txtSenhaLogin" />
 
     <!-- Botão Entrar -->
     <Button
         android:id="@+id/btnEntrar"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_button_borda"
         android:text="ENTRAR"
+        android:textAllCaps="true"
         android:textColor="#FFFFFF"
-        android:backgroundTint="#4CAF50"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/txtEsqueceu"
-        app:layout_constraintStart_toStartOf="@id/txtSenhaLogin"
-        app:layout_constraintEnd_toEndOf="@id/txtSenhaLogin"/>
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:fontFamily="@font/righteous"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintTop_toBottomOf="@id/txtEsqueceu" />
 
     <!-- OU -->
-    <TextView
-        android:id="@+id/txtOu"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="OU"
-        android:textColor="#AAAAAA"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/btnEntrar"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/btnEntrar">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/linha_modoclaro" />
+
+        <TextView
+            android:id="@+id/tvOu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:fontFamily="@font/righteous"
+            android:text="ou"
+            android:textColor="@color/texto_modoclaro"
+            android:textSize="17sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/linha_modoclaro" />
+    </LinearLayout>
 
     <!-- Botões sociais -->
     <LinearLayout
@@ -139,48 +180,43 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/txtOu"
+        app:layout_constraintTop_toBottomOf="@id/tvOu"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- Google -->
-        <ImageView
-            android:id="@+id/imgGoogle"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/google_icon"
-            android:contentDescription="Login com Google"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="10dp"
-            android:clickable="true"
-            android:focusable="true"/>
-
-        <!-- Facebook -->
-        <ImageView
-            android:id="@+id/imgFacebook"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="12dp"
-            android:src="@drawable/facebook_icon"
-            android:contentDescription="Login com Facebook"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="10dp"
-            android:clickable="true"
-            android:focusable="true"/>
-
-    </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Criar conta -->
     <TextView
         android:id="@+id/txtCriarConta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ainda não tem uma conta? Criar conta"
-        android:textColor="#AAAAAA"
-        android:textSize="12sp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="350dp"
+        android:fontFamily="@font/righteous"
+        android:text="Não tem uma conta?"
+        android:textColor="#CC0F172A"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <Button
+        android:id="@+id/btnCadastrese"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_button_borda"
+        android:text="CADASTRE-SE"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:fontFamily="@font/righteous"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintTop_toBottomOf="@id/txtCriarConta" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
