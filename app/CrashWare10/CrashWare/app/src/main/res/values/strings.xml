@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CrashWare</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Oi! Sou um fragmento em branco</string>
+</resources>

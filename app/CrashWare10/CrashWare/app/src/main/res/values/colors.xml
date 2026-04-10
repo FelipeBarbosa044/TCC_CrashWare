@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="preto">#FF000000</color>
+    <color name="branco">#FFFFFFFF</color>
+    <color name="verde">#18B54C</color>
+    <color name="fundo_claro">#F8FAFC</color>
+    <color name="texto_modoclaro">#0F172A</color>
+    <color name="hint_modoclaro">#0F172A</color>
+    <color name="linha_modoclaro">#0F172A</color>
+    <color name="azul">#0F172A</color>
+</resources>
