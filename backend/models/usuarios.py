@@ -28,6 +28,7 @@ class Usuarios(Base):
     email = Column(String(200),unique=True,nullable=False)
     telefone = Column(String(13),unique=True,nullable=True)
     senha_hash = Column(Text,nullable=True)
+    foto = Column(String(255),default="default.png",server_default=text("'default.png'"))
     email_verificado = Column(Boolean,default=False,server_default=text("false"))
     ativo = Column(Boolean,default=True,server_default=text("true"))
     admin = Column(Boolean,default=False,server_default=text("false"))
@@ -46,17 +47,18 @@ class Usuarios(Base):
     patentes = relationship("Patente",backref="usuarios")
 
     # Criando atributos PARA O PYTHON (Naõ altera nada no banco de dados)
-    def __init__(self,nome,email,telefone,senha_hash,email_verificado=False,ativo=True,admin=False,coin=0,xp = 0, patente_id = 1):
+    def __init__(self,nome,email,telefone,senha_hash,foto = 'default.png',email_verificado=False,ativo=True,admin=False,coin=0,xp = 0, patente_id = 1):
         self.nome = nome
         self.email = email
         self.telefone = telefone
         self.senha_hash = senha_hash
+        self.foto = foto
         self.email_verificado = email_verificado
         self.ativo = ativo
+        self.admin = admin
         self.coin = coin
         self.xp = xp
         self.patente_id = patente_id
-
 
 
 
