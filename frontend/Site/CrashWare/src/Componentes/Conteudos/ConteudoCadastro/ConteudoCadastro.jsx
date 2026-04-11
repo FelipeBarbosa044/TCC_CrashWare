@@ -11,6 +11,8 @@ import verSenha_escuro from '../../../fotos/escuro/pode_ver_senha_claro.svg';
 
 import style from './ConteudoCadastro.module.css';
 
+/*Vocês vão começar a comentar o cod que dia? Vocês não tão fazendo um projeto qualquer não. */
+
 const ConteudoCadstro = () => {
 
     const [nome, setNome] = useState("")
@@ -48,6 +50,13 @@ const handleTelefone = (e) => {
     setTelefone(v);
 };
 
+//Função que vai validar os dados e enviar para a API:
+const handleCadastro = () => {
+    //Validações de dados
+
+    
+};
+
     return (
        <> 
         <div className={style.corpo}>
@@ -56,7 +65,7 @@ const handleTelefone = (e) => {
 
                 <CampoTexto 
                     type="text" 
-                    maxLength={60} 
+                    maxLength={100} 
                     placeholder="Nome" 
                     className={style.inputClasse} 
                     value={nome} 
@@ -66,7 +75,7 @@ const handleTelefone = (e) => {
 
                 <CampoTexto 
                     type="email" 
-                    maxLength={120} 
+                    maxLength={200} 
                     placeholder="E-mail" 
                     className={style.inputClasse} 
                     value={email} 
@@ -89,7 +98,7 @@ const handleTelefone = (e) => {
                         placeholder="Senha" 
                         value={senha} 
                         onChange={(e) => setSenha(e.target.value)} 
-                        maxLength={14}
+                        maxLength={20}
                     />
                     <img 
                         src={iconeSenha}
@@ -106,7 +115,7 @@ const handleTelefone = (e) => {
                         placeholder="Confirme sua Senha" 
                         value={confirmarSenha} 
                         onChange={(e) => setConfirmarSenha(e.target.value)} 
-                        maxLength={14}
+                        maxLength={20}
                     />
                     <img 
                         src={iconeConfirmarSenha}
@@ -124,7 +133,10 @@ const handleTelefone = (e) => {
                     texto="Cadastrar" 
                     tipo={TIPO_BOTAO.CADASTRO} 
                     className={style.btnCriarConta} 
-                    disabled={!PodeMostarBotao}
+                    /*disabled={!PodeMostarBotao}*/
+                    
+                    //Chamando a função para enviar dados:
+                    onClick={handleCadastro}
                 />
                 
                 <div className={style.ou}>
