@@ -19,7 +19,6 @@ const ConteudoCadstro = () => {
     //useState sao as variaveis q guardamos as informações
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("")
-    const [telefone, setTelefone] = useState("");
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const [mostrar, setMostrar] = useState(false); 
@@ -29,7 +28,7 @@ const ConteudoCadstro = () => {
     const [erros, setErros] = useState({
         nome: "",
         email: "",
-        telefone: "",
+        //telefone: "",
         senha: "",
         confirmarSenha: ""
     });
@@ -51,23 +50,20 @@ const ConteudoCadstro = () => {
         ? (isClaro ? verSenha_claro      : verSenha_escuro)
         : (isClaro ? esconderSenha_claro : esconderSenha_escuro);
 
-const handleTelefone = (e) => {
-    let v = e.target.value.replace(/\D/g, '').slice(0, 11);
-    if (v.length > 7) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
-    else if (v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,6)}-${v.slice(6)}`;
-    else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
-    else if (v.length > 0) v = `(${v}`;
-    setTelefone(v);
-};
 
+//Função que verifica se a string tem  número:
+function temNumero(str) {
+  return /\d/.test(str)
+  //Retorna TRUE se tiver número OU FALSE se não tiver;
+}
 
 //Função que vai validar os dados e enviar para a API:
-const handleCadastro = () => {
+const handleCadastro = async () => {
 
     let novosErros = {
             nome: "",
             email: "",
-            telefone: "",
+            //telefone: "",
             senha: "",
             confirmarSenha: ""
         };
@@ -81,6 +77,9 @@ const handleCadastro = () => {
         }else if(temNumero(nome) == true){
             // Retornar erro: "nome inválido"
             return;
+        }else if (nome.length < 5){
+            novosErros.nome = "Digite pelo menos 5 caracteres";
+            temErro = true;
         }
     
 
@@ -91,16 +90,7 @@ const handleCadastro = () => {
         } else if (!email.includes("@") || !email.includes(".")) {
             novosErros.email = "Email inválido";
             temErro = true;
-        }
-
-        // Telefone
-        //Valida o telefoe para o banco de dados:
-        const telefoneLimpo = telefone.replace(/\D/g, "");
-
-        if (telefoneLimpo.length !== 11) {
-            novosErros.telefone = "Telefone inválido";
-            temErro = true;
-        }
+        } 
 
         // Senha
         if (senha.length < 8) {
@@ -120,7 +110,10 @@ const handleCadastro = () => {
         if (temErro) {
             return;
         }else{
-            //Enviar cod para usuario verificando o email
+            try{
+                const response = await fetch()
+            }
+
         }
 
 
@@ -128,11 +121,7 @@ const handleCadastro = () => {
 
 };
 
-//Função que verifica se tem  número:
-function temNumero(str) {
-  return /\d/.test(str)
-  //Retorna TRUE se tiver número OU FALSE se não tiver;
-}
+
 
     return (
        <> 
@@ -164,15 +153,6 @@ function temNumero(str) {
 
                 { erros.email && <p className={style.erro}>{erros.email}</p> }
 
-                <CampoTexto 
-                    type="tel" 
-                    className={style.inputClasse}
-                    placeholder="(00) 00000-0000*" 
-                    value={telefone} 
-                    onChange={handleTelefone}
-                />
-                
-                { erros.telefone && <p className={style.erro}>{erros.telefone}</p> }
 
                 <div className={style.senhaWrapper}>
                     <CampoTexto 
@@ -246,3 +226,45 @@ function temNumero(str) {
 };
 
 export { ConteudoCadstro };
+
+
+//Código do telefone para utilizar depois:
+
+
+/*     
+
+const [telefone, setTelefone] = useState("");
+
+                <CampoTexto 
+                    type="tel" 
+                    className={style.inputClasse}
+                    placeholder="(00) 00000-0000*" 
+                    value={telefone} 
+                    onChange={handleTelefone}
+                />
+                
+                { erros.telefone && <p className={style.erro}>{erros.telefone}</p> }
+
+
+//Verificando erros:
+// Telefone
+        //Valida o telefoe para o banco de dados:
+        const telefoneLimpo = telefone.replace(/\D/g, "");
+
+        if (telefoneLimpo.length !== 11) {
+            novosErros.telefone = "Telefone inválido";
+            temErro = true;
+        }
+
+
+//Formatando o telefone:
+
+const handleTelefone = (e) => {
+    let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length > 7) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+    else if (v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,6)}-${v.slice(6)}`;
+    else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+    else if (v.length > 0) v = `(${v}`;
+    setTelefone(v);
+};
+*/
