@@ -75,8 +75,8 @@ const handleCadastro = async () => {
             novosErros.nome = "Preencha o nome";
             temErro = true;
         }else if(temNumero(nome) == true){
-            // Retornar erro: "nome inválido"
-            return;
+            novosErros.nome = "Nome inválido";
+            temErro = true;
         }else if (nome.length < 5){
             novosErros.nome = "Digite pelo menos 5 caracteres";
             temErro = true;
@@ -96,21 +96,59 @@ const handleCadastro = async () => {
         if (senha.length < 8) {
             novosErros.senha = "Senha muito curta";
             temErro = true;
+        } else if (senha.includes(" ")){
+            novosErros.senha = "Senha não pode ter espaço";
+            temErro = true;
         }
 
         // Confirmar senha
         if (senha !== confirmarSenha) {
             novosErros.confirmarSenha = "Senhas não coincidem";
             temErro = true;
+        } else if (confirmarSenha.includes(" ")){
+            novosErros.confirmarSenha = "Senha não pode ter espaço";
+            temErro = true;
         }
 
         setErros(novosErros);
 
-        // Se tiver erro, para aqui
         if (temErro) {
+            // Se tiver erro, para aqui
             return;
+        }else{
+            try{
+                const response = await fetch("https://api-crashware.onrender.com/auth/cadastro",{
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: 
+                        JSON.stringify(
+                            {
+                                nome : nome.trim(),
+                                email :  email.replace(/\s/g, "").toLowerCase(), //Tiro todos os espaços no meio.
+                                senha: senha 
+                            }
+                        )
+                });
+
+                if (response.ok == false){
+                    const erro = await response.json()
+                    console.log('ERRO DA API: ', erro.detail)
+                    return
+                } else{
+                    const dados = await response.json();
+                    alert(dados)
+                }
+
+            }
+            catch (error) {
+            console.log("Erro de conexão:", error);
+            }
         }
-        
+
+
+
 
 };
 

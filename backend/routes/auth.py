@@ -22,10 +22,10 @@ from schemas.UsuarioSchema import UsuarioSchema
 async def cadastro(dados : UsuarioSchema,session = Depends(pegar_sessao)):
     email = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     if email is not None:
-        return HTTPException(status_code=404,detail="Esse email já foi cadastrado")
+        raise HTTPException(status_code=400,detail="Esse email já foi cadastrado")
     else:
         senha_criptografada = criptografia.hash(dados.senha)
-        usuario_novo = Usuarios(nome=dados.nome, email= dados.email , senha_hash= senha_criptografada)
+        usuario_novo = Usuarios(nome=dados.nome.title(), email= dados.email , senha_hash= senha_criptografada)
         session.add(usuario_novo)
         session.commit()
         return{
