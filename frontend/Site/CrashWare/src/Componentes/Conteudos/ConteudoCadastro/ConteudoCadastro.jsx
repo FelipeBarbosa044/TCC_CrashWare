@@ -134,11 +134,13 @@ const handleCadastro = async () => {
 
                 if (response.ok == false){
                     const erro = await response.json()
-                    alert('ERRO DA API: ', erro.detail)
+                    alert(erro.detail)
                     return
                 } else{
                     const dados = await response.json();
                     alert(dados.mensagem)
+                    //Vai para a página de VERIFICAR EMAIL.
+                    //......
                 }
 
             }
