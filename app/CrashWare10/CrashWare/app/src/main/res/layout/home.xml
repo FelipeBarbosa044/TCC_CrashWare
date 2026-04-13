@@ -9,21 +9,22 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/NavBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="411dp"
+        android:layout_height="71dp"
         android:background="@color/fundo_claro"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@color/preto"
+        app:itemTextColor="@color/preto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/nav_menu"
-        app:itemIconSize="32dp"
-        app:itemIconTint="@color/preto"
-        app:itemTextColor="@color/preto" />
+        />
 
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="410dp"
+        android:layout_height="820dp"
         app:layout_constraintBottom_toTopOf="@+id/NavBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

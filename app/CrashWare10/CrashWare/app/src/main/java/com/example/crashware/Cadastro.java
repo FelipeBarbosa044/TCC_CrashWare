@@ -4,8 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,14 +14,24 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Cadastro extends AppCompatActivity {
 
     Button btnCadastro;
 
-    ImageView GoogleCad, FacebookCad;
+    EditText txtEmailCad, txtSenhaCad, txtConfirmarCad, txtTelCad;
+    TextView txtEntrarCad;
 
-    TextView txtEmailCad, txtSenhaCad, txtConfirmarCad, txtEntrarCad, txtTelCad;
-
+    FirebaseAuth auth;
+    DatabaseReference db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,59 +39,87 @@ public class Cadastro extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.cadastro);
 
-        //Iniciando o Layout pelo código
+        // Iniciando o Layout
+        btnCadastro     = findViewById(R.id.btnCriarConta);
+        txtEmailCad     = findViewById(R.id.txtEmailCad);
+        txtSenhaCad     = findViewById(R.id.txtSenhaCad);
+        txtTelCad       = findViewById(R.id.txtTelCad);
+        txtConfirmarCad = findViewById(R.id.txtConfirmarSenhaCad);
+        txtEntrarCad    = findViewById(R.id.txtEntrarCad);
 
-        btnCadastro     = (Button  ) findViewById(R.id.btnCriarConta       );
-        txtEmailCad     = (TextView) findViewById(R.id.txtEmailCad         );
-        txtSenhaCad     = (TextView) findViewById(R.id.txtSenhaCad         );
-        txtTelCad       = (TextView) findViewById(R.id.txtTelCad           );
-        txtEntrarCad    = (TextView) findViewById(R.id.txtEntrarCad        );
-        txtConfirmarCad = (TextView) findViewById(R.id.txtConfirmarSenhaCad);
+        // Iniciando Firebase
+        auth = FirebaseAuth.getInstance();
+        db   = FirebaseDatabase.getInstance().getReference("usuarios");
 
-        btnCadastro.setOnClickListener(new View.OnClickListener()
-        {
+        // Botão cadastrar
+        btnCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                //Cadastrar();
+            public void onClick(View v) {
+                Cadastrar();
             }
-        });// Interação com o botão de cadastro, realizando conexão com o banco e cadastrando a nova conta
+        });
 
-
-        txtEntrarCad.setOnClickListener(new View.OnClickListener()
-        {
+        // Ir para tela de login
+        txtEntrarCad.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                //intent para levar a tela de login
+            public void onClick(View v) {
+                Intent i = new Intent(Cadastro.this, Login.class);
+                startActivity(i);
             }
-        });// interação com o texto de "já possui uma Conta?", levando a tela de login
+        });
 
-
-
-
-        //
+        // Ajuste de layout (EdgeToEdge)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main2), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        //
-
     }
 
+    private void Cadastrar() {
 
+        String email     = txtEmailCad.getText().toString().trim();
+        String telefone  = txtTelCad.getText().toString().trim();
+        String senha     = txtSenhaCad.getText().toString();
+        String confirmar = txtConfirmarCad.getText().toString();
 
-
-
-    private void Cadastrar()
-    {
-        if (txtSenhaCad == txtConfirmarCad)
-        {
-            Intent cad =
-                    new Intent(Cadastro.this, Login.class);
-            startActivity(cad);
+        if (email.isEmpty() || telefone.isEmpty() || senha.isEmpty()) {
+            Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_LONG).show();
+            return;
         }
 
-    }//função que irá realizar o cadastro no app através do BD
+        if (!senha.equals(confirmar)) {
+            Toast.makeText(this, "Senhas não coincidem", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        auth.createUserWithEmailAndPassword(email, senha)
+            .addOnSuccessListener(authResult -> {
+                String uid = authResult.getUser().getUid();
+
+                Map<String, Object> dados = new HashMap<>();
+                dados.put("email", email);
+                dados.put("telefone", telefone);
+
+                db.child(uid).setValue(dados)
+                    .addOnSuccessListener(unused -> {
+                        Toast.makeText(getApplicationContext(), "Cadastro realizado!", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(Cadastro.this, Login.class);
+                        startActivity(i);
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(getApplicationContext(), "Erro ao salvar dados: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    });
+            })
+            .addOnFailureListener(e -> {
+                if (e instanceof FirebaseAuthUserCollisionException) {
+                    Toast.makeText(this, "E-mail já cadastrado", Toast.LENGTH_LONG).show();
+                } else if (e instanceof FirebaseAuthWeakPasswordException) {
+                    Toast.makeText(this, "Senha muito fraca (mínimo 6 caracteres)", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "Erro no cadastro: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+    }
 }

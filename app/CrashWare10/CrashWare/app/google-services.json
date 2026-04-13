@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1058200566128",
+    "project_id": "crashware-7deab",
+    "storage_bucket": "crashware-7deab.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058200566128:android:3a110e4b37286a8eea77b5",
+        "android_client_info": {
+          "package_name": "com.example.crashware"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC03a7vrry9R49cnZsShPlBcgiQQeeJa_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
