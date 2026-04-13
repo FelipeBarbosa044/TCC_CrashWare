@@ -25,6 +25,8 @@ const ConteudoCadstro = () => {
     const [mostrarConfirmar, setMostrarConfirmar] = useState(false);
     const [tema, setTema] = useState(localStorage.getItem('TemaSelecionado') || 'Claro');
 
+
+    //Variavel de erros
     const [erros, setErros] = useState({
         nome: "",
         email: "",
@@ -132,9 +134,12 @@ const handleCadastro = async () => {
                         )
                 });
 
-                if (response.ok == false){
+                if (!response.ok){
                     const erro = await response.json()
-                    alert(erro.detail)
+                    setErros((prev) => ({
+                        ...prev,
+                        email: erro.detail
+                    }));
                     return
                 } else{
                     const dados = await response.json();
