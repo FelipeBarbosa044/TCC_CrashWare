@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { BotoesForm, TIPO_BOTAO } from '../../Botoes';
 import { CampoTexto } from '../../CampoTexto';
@@ -14,6 +14,7 @@ import style from './ConteudoCadastro.module.css';
 
 //Nao, se vira
 
+
 const ConteudoCadstro = () => {
 
     //useState sao as variaveis q guardamos as informações
@@ -25,6 +26,8 @@ const ConteudoCadstro = () => {
     const [mostrarConfirmar, setMostrarConfirmar] = useState(false);
     const [tema, setTema] = useState(localStorage.getItem('TemaSelecionado') || 'Claro');
 
+    //Variavel de navegação
+    const Navegacao = useNavigate();
 
     //Variavel de erros
     const [erros, setErros] = useState({
@@ -143,9 +146,15 @@ const handleCadastro = async () => {
                     return
                 } else{
                     const dados = await response.json();
-                    alert(dados.mensagem)
+                    //alert(dados.mensagem)
                     //Vai para a página de VERIFICAR EMAIL.
-                    //......
+                    Navegacao("/verificacao-email", {
+                        state: {
+                            mensagem: dados.mensagem,
+                            nome: nome,
+                            email: email
+                        }
+                })
                 }
 
             }
