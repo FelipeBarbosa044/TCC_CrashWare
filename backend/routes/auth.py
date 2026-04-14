@@ -25,7 +25,7 @@ from datetime import datetime ,timedelta , timezone
 #Funções
 def gerar_codigo():
     codigo = str(randint(100000,999999))
-    expira_em = datetime.now() + timedelta(minutes=10)
+    expira_em = datetime.utcnow() + timedelta(minutes=10)
 
 
     return codigo , expira_em
