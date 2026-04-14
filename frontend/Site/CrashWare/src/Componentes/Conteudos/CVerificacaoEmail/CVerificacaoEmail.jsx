@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CampoTexto } from "../../CampoTexto";
 import { BotoesForm } from "../../Botoes";
 import style from './CVerificacaoEmail.module.css'
@@ -7,7 +7,25 @@ import style from './CVerificacaoEmail.module.css'
 const CVerificacaoEmail = () =>
 {
     //useState que guardará a o codigo
-    const [codigo, setCodigo] = useState("")
+    const [codigo, setCodigo] = useState("");
+
+    //Receberá as informações da página anterior
+    const location = useLocation();
+
+    //Navegcao de páginas
+    const Navegacao = useNavigate();
+
+    //Pega os dados
+    const mensagem = location.state?.mensagem;
+    const email = location.state?.email;
+    const nome =location.state?.nome;
+
+    //Proteção da url
+    useEffect(() => {
+        if (!mensagem && !email) {
+            Navegacao('/cadastro');
+        }
+    }, []);
 
     //Verifica´ra se pode liberar o botao
     // const PodeMostarBotao = email != " ";
@@ -16,7 +34,8 @@ const CVerificacaoEmail = () =>
         <>
             <div className={style.corpo}>
                 <div className={style.container}>
-                    <h1>Digite o Código enviado no Email</h1>
+                    <h1>Bem-Vindo {nome}!!!</h1>
+                    <p className={style.texto}>Verifique o Código enviado para o email: {email} </p>
 
                     <CampoTexto type="text" maxLength={10} placeholder="Código" 
                         className={style.inputClasse} 
@@ -24,11 +43,11 @@ const CVerificacaoEmail = () =>
                         onChange={(e) => setCodigo(e.target.value)}
                     />
 
-                    <Link  to="/login">
+                    {/* <Link  to=""> */}
                         <BotoesForm texto="Verificar" className={style.btnEnviar}
                         //disabled={!PodeMostarBotao}
                         />
-                    </Link>
+                    {/* </Link> */}
                 </div>
             </div>
         </>
