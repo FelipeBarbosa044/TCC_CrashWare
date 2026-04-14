@@ -49,8 +49,8 @@ class Usuarios(Base):
     patentes = relationship("Patente",backref="usuarios")
 
     # Criando atributos PARA O PYTHON (Naõ altera nada no banco de dados)
-    def __init__(self,nome,email,senha_hash,telefone = None,foto = 'default.png',email_verificado=False,ativo=True,admin=False,coin=0,xp = 0, patente_id = 1,codigo = codigo, codigo_expirado_em = codigo_expirado_em):
-        self.nome = nome
+    def __init__(self,nome_usuario,email,senha_hash,telefone = None,foto = 'default.png',email_verificado=False,ativo=True,admin=False,coin=0,xp = 0, patente_id = 1,codigo = codigo, codigo_expirado_em = codigo_expirado_em):
+        self.nome_usuario = nome_usuario
         self.email = email
         self.telefone = telefone
         self.senha_hash = senha_hash
