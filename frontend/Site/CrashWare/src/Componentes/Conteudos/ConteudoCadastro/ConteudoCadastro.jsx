@@ -130,7 +130,7 @@ const handleCadastro = async () => {
                     body: 
                         JSON.stringify(
                             {
-                                nome : nome.trim(),
+                                nome_usuario : nome.trim(),
                                 email :  email.replace(/\s/g, "").toLowerCase(), //Tiro todos os espaços no meio.
                                 senha: senha 
                             }
