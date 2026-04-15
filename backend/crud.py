@@ -24,11 +24,12 @@ session = Session()
 
 
 try:
-    teste = Usuarios("Felipe","Felipe@gmail.com","222222222","edefesfesfsefes")
-    session.add(teste)
+    patente = Patente(nome_patente="Iniciante",xp_minimo=0)
+    session.add(patente)
     session.commit()
 except Exception as exception:
     session.rollback()
     raise  exception
 
 #Fecho a sessão
+session.close()

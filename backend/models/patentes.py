@@ -26,7 +26,7 @@ class Patente(Base):
 
     # Criando atributos PARA O PYTHON (Naõ altera nada no banco de dados)
     def __init__(self,nome_patente,xp_minimo):
-        self.nome = nome_patente
+        self.nome_patente = nome_patente
         self.xp_minimo = xp_minimo
 
 
