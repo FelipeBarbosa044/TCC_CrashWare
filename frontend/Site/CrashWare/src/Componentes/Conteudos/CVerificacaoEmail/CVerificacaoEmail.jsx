@@ -27,6 +27,48 @@ const CVerificacaoEmail = () =>
         }
     }, []);
 
+    //Função de reenviar o código
+    const ReenviarCodigo = async =>
+    {
+        //Timer de reenviar o código
+        const [timer, setTimer] = useState(60);
+        //Mensagem de loading
+        const [loading, setLoading] = useState(false);
+
+        useEffect(() => {
+        if (timer === 0) return;
+        
+        const intervalo = setInterval(() =>{
+            setTimer((prev) => prev - 1);
+        }, 1000);
+
+        return () => clearInterval(intervalo);
+        }, [timer]);
+
+        //Daqui pra baixo é API
+        async function handlerClick () {
+            if(loading || timer > 0) return;
+
+            setLoading(true);
+
+            // try{
+            //     const response = await fetch("https://api-crashware.onrender.com/auth/cadastro", {
+            //         method: "POST",
+            //         headers:{
+            //             "Content-Type": "application/json"
+            //         },
+            //         body:
+            //         JSON.stringify
+            //     })
+            // }
+
+
+            // felipe betinha
+
+
+        }
+    }
+
     //Verificara se pode liberar o botao
     // const PodeMostarBotao = email != " ";
 
@@ -48,6 +90,11 @@ const CVerificacaoEmail = () =>
                         //disabled={!PodeMostarBotao}
                         />
                     {/* </Link> */}
+
+                    <BotoesForm 
+                    texto="Reenviar Email" className={style.btnEnviar}
+                    onClick={ReenviarCodigo}
+                    />
                 </div>
             </div>
         </>

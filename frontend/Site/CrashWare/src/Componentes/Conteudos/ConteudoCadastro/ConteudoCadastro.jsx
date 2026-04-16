@@ -208,7 +208,7 @@ const ConteudoCadstro = () => {
                             placeholder="Senha*"
                             value={senha}
                             onChange={(e) => setSenha(e.target.value)}
-                            maxLength={20}
+                            maxLength={30}
                         />
                         <img
                             src={iconeSenha}
@@ -227,7 +227,7 @@ const ConteudoCadstro = () => {
                             placeholder="Confirme sua Senha*"
                             value={confirmarSenha}
                             onChange={(e) => setConfirmarSenha(e.target.value)}
-                            maxLength={12}
+                            maxLength={30}
                         />
                         <img
                             src={iconeConfirmarSenha}
