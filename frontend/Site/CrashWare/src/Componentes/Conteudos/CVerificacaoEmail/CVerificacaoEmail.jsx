@@ -69,6 +69,38 @@ const CVerificacaoEmail = () =>
         }
     }
 
+const handleVericarEmail = async () => {
+    try {
+        const response = await fetch(
+            "https://api-crashware.onrender.com/auth/verificar_email",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    codigo: codigo.toString(),
+                    email: email
+                })
+            }
+        );
+
+        if (response.ok === false) {
+            const erro = await response.json();
+
+            // erro.detail
+            alert("ERRO")
+        } else {
+            // Vai para LOGIN.
+            alert("Código verificado e gabriel é um beta")
+        }
+
+    } catch (error) {
+        console.log("Erro de conexão:", error);
+    }
+};
+
+
     //Verificara se pode liberar o botao
     // const PodeMostarBotao = email != " ";
 
@@ -79,7 +111,7 @@ const CVerificacaoEmail = () =>
                     <h1>Bem-Vindo {nome}!!!</h1>
                     <p className={style.texto}>Verifique o Código enviado para o email: {email} </p>
 
-                    <CampoTexto type="text" maxLength={6} placeholder="Código" 
+                    <CampoTexto type="number" maxLength={6} placeholder="Código" 
                         className={style.inputClasse} 
                         value={codigo} 
                         onChange={(e) => setCodigo(e.target.value)}
@@ -87,6 +119,7 @@ const CVerificacaoEmail = () =>
 
                     {/* <Link  to=""> */}
                         <BotoesForm texto="Verificar" className={style.btnEnviar}
+                        onClick = {handleVericarEmail}
                         //disabled={!PodeMostarBotao}
                         />
                     {/* </Link> */}
