@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends,HTTPException
+from main import SECRET_KEY,  ALGORITIMO
 #Importando tabelas:
 from models.usuarios import Usuarios
-from models.usuarios_oauth import  UsuariosOauth
+from models.usuarios_oauth import UsuariosOauth, session
 from models.patentes import Patente
 
 
@@ -15,7 +16,7 @@ from dependences import pegar_sessao
 from security import criptografia
 
 #Importando SHCEMAS:
-from schemas.UsuarioSchema import UsuarioSchema, VerificarEmailSchema , ReenviarEmailSchema
+from schemas.UsuarioSchema import UsuarioSchema, VerificarEmailSchema , ReenviarEmailSchema , UsuarioLoginSchema
 
 
 
@@ -29,6 +30,9 @@ from datetime import datetime ,timedelta , timezone
 #Funcionalidas para enviar codigo para o email
 import smtplib
 import email.message
+
+#Importando criptografia para tokens
+from jose import jwt,JWTError
 
 #dotenv
 import os
@@ -45,6 +49,7 @@ def gerar_codigo():
 
     return codigo , expira_em
 ######
+
 
 def enviar_email(codigo, destinario):
     #Aqui vou colocar a mensagem que eu quero enviar.(A MENSAGEM TEM QUE ESTAR EM HTML)
@@ -74,6 +79,14 @@ def enviar_email(codigo, destinario):
     s.login(msg['From'], password)
     s.sendmail(msg['From'], [msg['To']], msg.as_string().encode('utf-8'))
     print('Email enviado')
+
+#################
+
+def gerar_token(id_usuario, validade = timedelta(minutes = 30)):
+    data_expiracao = datetime.now(timezone.utc) + validade
+    informacoes = {"sub" : str(id_usuario) , "expiration" : validade}
+    token = jwt.encode(informacoes, SECRET_KEY, ALGORITIMO)
+    return  token
 
 
 
@@ -137,9 +150,21 @@ async def reenviar_codigo( dados : ReenviarEmailSchema, session = Depends(pegar_
 
     return {"mensagem": "Código Reenviado!"}
 
-
-
-
+@auth.post("/login")
+async def login(dados : UsuarioLoginSchema , session = Depends(session)):
+    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+    if usuario is None:
+        raise HTTPException(status_code=404,detail="Email não cadastrado")
+    elif criptografia.verify(dados.senha , usuario.senha) == False:
+        raise HTTPException(status_code=401,detail="Senha incorreta")
+    else:
+        acess_token = gerar_token(usuario.id_usuario)
+        refresh_token = gerar_token(usuario.id_usuario, validade=timedelta(days=7))
+        return {
+            "token" : acess_token,
+            "refresh_token" : refresh_token,
+            "token_type": "bearer"
+        }
 
 
 

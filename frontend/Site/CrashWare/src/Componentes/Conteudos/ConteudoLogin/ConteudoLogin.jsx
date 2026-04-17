@@ -74,35 +74,30 @@ const ConteudoLogin = () =>
             return;
         }
 
-        try {
-            const response = await fetch("https://api-crashware.onrender.com/auth/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
+        try{
+            response = await fetch("https://api-crashware.onrender.com/auth/login"),{
+                method : "POST",
+                headers : {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify({
-                    email: email.trim().toLowerCase(),
-                    senha: senha
+                    email : email.toLowerCase(),
+                    senha : senha
                 })
-            });
+            }//Parâmetros
 
-            if (!response.ok) {
-                const erro = await response.json();
+            // Erro causado por ação do usuário (dados inválidos, não autorizado, etc)
 
-                setPopup({
-                    tipo: 'erro',
-                    titulo: 'Erro ao logar',
-                    mensagem: erro.detail || "Credenciais inválidas"
-                });
+            if (!response.ok){
+                let erro = await reponse.json()
+                // //Mostrar  "erro.detail"
+            }else{
+                let dados = await response.json()
+                let token = dados.token
+                let refresh_token = dados.refresh_token
 
-                return;
+                //A estrutura de guardar o token no storage e header eu faço na etec.
             }
-
-            const dados = await response.json();
-
-            // exemplo: salvar token (se tiver)
-            localStorage.setItem("token", dados.token);
-
-            // redirecionar depois (ajuste se quiser)
-            window.location.href = "/";
 
         } catch (error) {
             console.log("Erro:", error);

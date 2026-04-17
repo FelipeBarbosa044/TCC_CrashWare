@@ -14,6 +14,8 @@ load_dotenv()
 #Chave secreta
 SECRET_KEY = os.getenv("SECRET_KEY")
 
+ALGORITIMO = os.getenv("ALGORITIMO")
+
 #API
 crashware = FastAPI()
 

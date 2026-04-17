@@ -80,7 +80,8 @@ const CVerificacaoEmail = () => {
             );
 
             if (!response.ok) {
-                alert("Erro ao reenviar");
+                const erro = await response.json();
+                //Mostrar  "erro.detail"
             } else {
                 setTimer(60);
 
@@ -127,6 +128,7 @@ const CVerificacaoEmail = () => {
     };
 
 
+
     //Verificara se pode liberar o botao
     // const PodeMostarBotao = email != " ";
 
@@ -137,11 +139,15 @@ const CVerificacaoEmail = () => {
                     <h1>Bem-Vindo {nomeM}!!!</h1>
                     <p className={style.texto}>Verifique o Código enviado para o email: {email} </p>
 
-                    <CampoTexto type="number" placeholder="Código"
+                    <CampoTexto type="text" placeholder="Código"
                         className={style.inputClasse}
+                        inputmode="numeric"  // Só permite telado numérico
                         value={codigo}
-                        onChange={(e) => setCodigo(e.target.value)}
-                        max={6}
+                        maxLength={6}
+                        onChange={(e) => {
+                        const valor = e.target.value.replace(/\D/g, '').slice(0, 6);
+                        setCodigo(valor); //Só aceita números.
+                        }}
                     />
 
                     {erro && <p className={style.erro}>{erro}</p>}

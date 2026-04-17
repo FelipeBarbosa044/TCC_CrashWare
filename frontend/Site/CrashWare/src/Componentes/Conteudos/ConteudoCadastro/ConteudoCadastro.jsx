@@ -113,6 +113,8 @@ const ConteudoCadstro = () => {
             if (!response.ok) {
                 const erro = await response.json();
 
+                
+
                 setPopup({
                     tipo: 'erro',
                     titulo: 'Erro no cadastro',
