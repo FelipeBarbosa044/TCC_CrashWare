@@ -22,6 +22,8 @@ const ConteudoCadstro = () => {
     const [tema, setTema] = useState(localStorage.getItem('TemaSelecionado') || 'Claro');
     const [popup, setPopup] = useState(null);
 
+    
+
     //Levará para a verificacao de email
     const Navegacao = useNavigate();
 
@@ -30,7 +32,6 @@ const ConteudoCadstro = () => {
         window.addEventListener('temaAtualizado', checarTema);
         return () => window.removeEventListener('temaAtualizado', checarTema);
     }, []);
-
 
     const inputRef = useRef(null);
 

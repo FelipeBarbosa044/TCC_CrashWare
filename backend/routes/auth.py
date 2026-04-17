@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends,HTTPException
 
-from main import SECRET_KEY,  ALGORITIMO
+from main import ALGORITIMO
 #Importando tabelas:
 from models.usuarios import Usuarios
 from models.usuarios_oauth import UsuariosOauth, session
@@ -41,7 +41,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+SECRET_KEY = os.getenv("SECRET_KEY")
 PASSWORD_EMAIL = os.getenv("PASSWORD_EMAIL")
+ALGORITIMO = os.gentv("ALGORITIMO")
 
 #Funções
 def gerar_codigo():
