@@ -77,7 +77,7 @@ const handleLogin = async () => {
     }
 
     try{
-        response = await fetch("https://api-crashware.onrender.com/auth/login",{
+        const response = await fetch("https://api-crashware.onrender.com/auth/login",{
             method : "POST",
             headers : {
                 "Content-Type": "application/json"
@@ -92,8 +92,8 @@ const handleLogin = async () => {
 
         if (response.status === 403){
 
-            const erroAPI = await response.json()
-            nome = erroAPI.detail.nome
+            const erroA = await response.json()
+            const nome = erro.detail.nome
 
 
             alert("Email não autenticado")
@@ -109,11 +109,11 @@ const handleLogin = async () => {
             
             
         }else if(!response.ok){
-            const erroAPI = await reponse.json()
+            const erro = await reponse.json()
             setPopup({
                 tipo: 'erro',
                 titulo: 'Erro no Login',
-                mensagem: erroAPI.detail
+                mensagem: erro.detail
             });
 
             return;
