@@ -62,15 +62,6 @@
     margin-left: 30px;
 }
 
-.Direita
-{   
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin-left: auto;
-    padding-right: 10px;
-}
-
 .Cabecalho a
 {
     justify-content: space-between;

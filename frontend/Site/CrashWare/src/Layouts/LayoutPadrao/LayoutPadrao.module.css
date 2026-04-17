@@ -1,0 +1,15 @@
+.Direita
+{   
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    margin-left: auto;
+    padding-right: 10px;
+    text-align: center;
+}
+
+.trocarTema
+{
+    margin-top: 10px;
+    margin-right: 10px;
+}

@@ -12,7 +12,7 @@ const Router = () =>
                 <Route path="*" element={<PgErro />} />
                 <Route path="perfil" element={<PgPerfil/>} />
             </Route>
-            
+
             <Route path="/" element={<LayoutCadLogin />}>
                 <Route path="cadastro" element={<PgCadastro />}/>
                 <Route path="login" element={<PgLogin/>} />

@@ -6,20 +6,33 @@
     left: 0;
     width: 100%;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
     align-items: flex-start;
     gap: 15px;
-    padding: 10px;
+    padding: 20px;
+
     background-color: var(--bg-principal);
     color: var(--texto-secundario);
     background-color: var(--Azul-Escuro);
     color: var(--Branco);
+
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: bold;
+
     border-top: 1px solid rgba(0, 0, 0, 0.24);
+
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+}
+
+.Container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    gap: 30px;
+    margin-left: 20px;
 }
 
 .Rodape img
@@ -44,15 +57,59 @@
 .Marca
 {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
+    gap: 10px;
+    max-width: 250px;
+}
+
+.Marca p{
+    margin-left: 30px   ;
+}
+
+.Colunas {
+    display: flex;
+    gap: 80px;
+}
+
+.Colunas div {
+    display: flex;
+    flex-direction: column;
     gap: 8px;
-    
+}
+
+.Colunas h5 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.Colunas p{
+    font-size: 15px;
+}
+
+.QR {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-right: 40px;
+}
+
+.QR img{
+    width: 100px;
+    height: 100px;
+}
+
+.Copy {
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 12px;
 }
 
 .Rodape h4
 {
-    font-size: 20px;
+    font-size: 30px;
     font-family: "Exo 2", sans-serif;
     font-optical-sizing: auto;
     font-weight: 800;
@@ -70,5 +127,9 @@
     display: flex;
     text-decoration: none;
     align-items: center;
-    color: var(--font_principal);
+    color: var(--texto-principal);
+}
+
+.Copy{
+    font-size: 13px;
 }

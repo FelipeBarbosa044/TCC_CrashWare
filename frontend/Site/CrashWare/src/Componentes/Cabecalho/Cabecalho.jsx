@@ -18,9 +18,6 @@ const Cabecalho = ({children}) => {
           </div>
         </Link>
         {children}
-        <div className={Style.Direita}>
-          <Tema />
-        </div>
       </div>
     </>
   );
