@@ -158,7 +158,7 @@ async def reenviar_codigo( dados : ReenviarEmailSchema, session = Depends(pegar_
 ########################
 
 @auth.post("/login")
-async def login(dados : UsuarioLoginSchema , session = Depends(session)):
+async def login(dados : UsuarioLoginSchema , session = Depends(pegar_sessao)):
     usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     if usuario is None:
         raise HTTPException(status_code=404,detail="Email não cadastrado")
