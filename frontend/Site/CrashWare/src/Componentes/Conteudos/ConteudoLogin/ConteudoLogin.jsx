@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { CampoTexto } from "../../CampoTexto"
+import { CampoTexto } from "../../CampoTexto";
 import { BotoesForm, TIPO_BOTAO } from "../../Botoes";
+import { PopUp } from "../../pop-up";
 
 import esconderSenha_claro from '../../../fotos/claro/nao_pode_ver_senha.svg';
 import verSenha_claro from '../../../fotos/claro/pode_ver_senha.svg';
@@ -16,11 +17,7 @@ const ConteudoLogin = () =>
     const [senha, setSenha] = useState("");
     const [mostrar, setMostrar] = useState(false);
     const [tema, setTema] = useState(localStorage.getItem('TemaSelecionado') || 'Claro');
-
-        const [erros, setErros] = useState({
-        email: "",
-        senha: ""
-    });
+    const [popup, setPopup] = useState(null);
 
     useEffect(() => {
         const checarTema = (e) => setTema(e.detail);
@@ -29,50 +26,104 @@ const ConteudoLogin = () =>
     }, []);
 
     const isClaro = tema === 'Claro';
-    const PodeLogar = email !== "" && senha !== "";
 
     const iconeSenha = mostrar
-        ? (isClaro ? verSenha_claro      : verSenha_escuro)
+        ? (isClaro ? verSenha_claro : verSenha_escuro)
         : (isClaro ? esconderSenha_claro : esconderSenha_escuro);
 
+    // ✅ VALIDAÇÃO DIRETA
+    const validarCampos = () => {
 
-//Função que vai validar os dados e enviar para a API:
-const handleLogin = () => {
-
-    let novosErros = {
-            email: "",
-            senha: ""
-        };
-
-        let temErro = false;
-
-        // Email
         if (!email.trim()) {
-            novosErros.email = "Campo obrigatório";
-            temErro = true;
-        } else if (!email.includes("@") || !email.includes(".")) {
-            novosErros.email = "Email inválido";
-            temErro = true;
+            return "Preencha o e-mail";
         }
 
+        if (!email.includes("@") || !email.includes(".")) {
+            return "E-mail inválido";
+        }
 
-        // Senha
+        if (!senha) {
+            return "Preencha a senha";
+        }
+
         if (senha.length < 8) {
-            novosErros.senha = "Senha curta";
-            temErro = true;
+            return "Senha muito curta";
         }
 
+        return null;
+    };
 
-        setErros(novosErros);
-};
+    // ✅ LOGIN
+    const handleLogin = async () => {
 
+        const erro = validarCampos();
+
+        if (erro) {
+            setPopup({
+                tipo: 'aviso',
+                titulo: 'Erro no login',
+                mensagem: erro
+            });
+            return;
+        }
+
+        try {
+            const response = await fetch("https://api-crashware.onrender.com/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: email.trim().toLowerCase(),
+                    senha: senha
+                })
+            });
+
+            if (!response.ok) {
+                const erro = await response.json();
+
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Erro ao logar',
+                    mensagem: erro.detail || "Credenciais inválidas"
+                });
+
+                return;
+            }
+
+            const dados = await response.json();
+
+            // exemplo: salvar token (se tiver)
+            localStorage.setItem("token", dados.token);
+
+            // redirecionar depois (ajuste se quiser)
+            window.location.href = "/";
+
+        } catch (error) {
+            console.log("Erro:", error);
+
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Sem conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+        }
+    };
 
     return (
         <>
-        <div className={style.corpo}>
-            <div className={style.container}>
-                <h1>Login</h1>
-                <div>
+            {popup && (
+                <PopUp
+                    tipo={popup.tipo}
+                    titulo={popup.titulo}
+                    mensagem={popup.mensagem}
+                    onFechar={() => setPopup(null)}
+                />
+            )}
+
+            <div className={`${style.corpo} ${tema}`}>
+                <div className={style.container}>
+
+                    <h1>Login</h1>
+
                     <CampoTexto 
                         type="email" 
                         maxLength={200} 
@@ -81,8 +132,6 @@ const handleLogin = () => {
                         value={email} 
                         onChange={(e) => setEmail(e.target.value)}
                     />
-
-                    { erros.email && <p className={style.erro}>{erros.email}</p> }
 
                     <div className={style.senhaWrapper}>
                         <CampoTexto 
@@ -100,37 +149,34 @@ const handleLogin = () => {
                             onClick={() => setMostrar(!mostrar)}
                         />
                     </div>
-                </div>
 
-                { erros.senha && <p className={style.erro}>{erros.senha}</p> }
-
-                <p className={style.TermosUso}>Ao entrar no <span>CrashWare</span>, você concorda com os nossos termos e politicas de privacidade.</p>
-                
-                <BotoesForm
-                    texto="Logar" 
-                    tipo={TIPO_BOTAO.CADASTRO} 
-                    className={style.btnLogar} 
-                    // disabled={!PodeLogar}
-
-                    // Dados pra logar
-                    onClick={handleLogin}
-                />
-
-                <div className={style.ou}>
-                    <hr />
-                    <p>OU</p>
-                    <hr />
-                </div>
-
-                <Link to='/cadastro'>
-                    <BotoesForm 
-                        texto="Cadastra-se" 
+                    <p className={style.TermosUso}>
+                        Ao entrar no <span>CrashWare</span>, você concorda com os termos e políticas.
+                    </p>
+                    
+                    <BotoesForm
+                        texto="Logar" 
                         tipo={TIPO_BOTAO.CADASTRO} 
                         className={style.btnLogar} 
+                        onClick={handleLogin}
                     />
-                </Link>
+
+                    <div className={style.ou}>
+                        <hr />
+                        <p>OU</p>
+                        <hr />
+                    </div>
+
+                    <Link to='/cadastro'>
+                        <BotoesForm 
+                            texto="Cadastrar-se" 
+                            tipo={TIPO_BOTAO.CADASTRO} 
+                            className={style.btnLogar} 
+                        />
+                    </Link>
+
+                </div>
             </div>
-        </div>
         </>
     );
 };

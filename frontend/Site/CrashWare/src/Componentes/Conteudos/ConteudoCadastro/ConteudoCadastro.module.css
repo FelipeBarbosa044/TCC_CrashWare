@@ -52,8 +52,12 @@
     opacity: 0.9;
     padding: 20px;
     padding-left: 10px;
-    font-size: 0.8vw;
+    font-size: 1vw;
     text-indent: 20px;
+}
+
+.inputClasse:focus{
+    outline: none;
 }
 
 .TermosUso{
@@ -217,5 +221,11 @@ input[type="number"]::-webkit-outer-spin-button {
 
     .ou > hr{
         width: 16%;
+    }
+}
+
+@media (max-width: 1200px){
+    .inputClasse{
+        font-size: 1.6vw;
     }
 }

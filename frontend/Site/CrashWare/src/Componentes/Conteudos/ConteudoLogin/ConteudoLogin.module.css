@@ -1,190 +1,163 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.corpo{
-    width: 100%;
-    height: 91vh; 
-    background: var(--bg-principal);
-    height: 70vh; 
-    background-color: var(--fundo_principal);
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center; 
-    overflow-x: hidden;
-    position: relative;
+/* ===== LAYOUT ===== */
+
+.corpo {
+  min-height: 89vh;
+  background: var(--bg-principal);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-.container{
-    max-width: 700px;
-    width: 100%;
-    height: auto;
-    text-align: center;
-    margin-bottom: 100px;
+.container {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
 }
 
-.container h1{
-    color: var(--cor-primaria);
-    font-size: 3rem;
-    font-family: "Montserrat", sans-serif;
-    margin-bottom: 15px;
-    text-shadow:  2px 2px 4px rgba(0, 0, 0, 0.842);
-    text-shadow: 1px 1px 20px var(--cor-primaria), 1px 1px 20px var(--cor-primaria-hover);
-    color: var(--texto-principal);
-    font-size: 3rem;
-    font-family: "Montserrat", sans-serif;
-    margin-bottom: 15px;
-    /* text-shadow:  2px 2px 4px rgba(0, 0, 0, 0.842); */
+/* ===== TÍTULO ===== */
+
+.container h1 {
+  color: var(--cor-primaria);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 20px var(--cor-primaria-hover);
 }
 
+/* ===== INPUT ===== */
 
-.inputClasse{
-     justify-items: flex-start;
-    width: 65%;
-    background-color: var(--input-bg);
-    border: 1px solid var(--borda);
-    height: 50px;
-    border-radius: 6px;
-    margin-top: 20px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.685);
-    color: var(--texto-secundario);
-    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.65);
-    color: var(--Branco);
-    font-size: 18px;
-    opacity: 0.9;
-    padding: 20px;
-    padding-left: 30px;
+.inputClasse {
+  width: 100%;
+  height: 50px;
+  margin-top: 15px;
+  padding: 0 20px;
+
+  background: var(--input-bg);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+
+  font-size: 16px;
+  color: var(--texto-secundario);
+
+  transition: 0.2s;
 }
 
-.TermosUso{
-    color: var(--texto-secundario);
-    font-family: 10px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    width: 400px;
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.inputClasse:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
 }
 
-p span{
-    color: var(--cor-primaria);
-}
-
-.btnLogar{
-
-    /* botão em sí */
-    background-color: var(--cor-primaria);
-    background-color:  var(--cor-primaria);
-    border: 1px solid var(--borda);
-    width: 60%;
-    height: 60px;
-    border-radius: 6px;
-    box-shadow:  2px 2px 1px rgba(0, 0, 0, 0.2);
-
-
-    /* texto do botão */
-    color: var(--texto-secundario);
-    color: var(--texto-principal);
-    font-size: 25px;
-    font-weight: bolder;
-    /* text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.685); */
-}
-
-.btnLogar:hover{
-    transition: 0.3s;
-    background-color: var(--cor-primaria-hover);
-    color: var(--texto-principal);
-    transform: scale(1.05);
-}
-
-.btncadastro
-{
-    position: absolute;
-    right: 3%;
-    top: 13%;
-    /* transform: translate(-50%,-50%); */
-    height: 10vh;
-    background-color: var(--cor-primaria);
-    border: 1px solid var(--borda);
-    width: 10%;
-    height: 60px;
-    border-radius: 6px;
-    box-shadow:  2px 2px 1px rgba(0, 0, 0, 0.555);
-    font-size: 25px;  
-    font-weight: bolder;
-    color: var(--font_secundaria);
-}
-
-.btnLogar:disabled
-{
-    cursor: not-allowed;
-    opacity: 0.5;
-}
-
-.ou{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.ou hr{
-    width: 25%;
-    height: 1px;
-    color: var(--font_principal);
-}
-
-.ou p{
-    color: var(--texto-secundario);
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
-    margin: 10px 15px;
-}
+/* ===== SENHA ===== */
 
 .senhaWrapper {
-    position: relative;
-    width: 65%;
-    margin: auto;
-    margin-top: 20px;
-}
-
-.senhaWrapper input {
-    width: 100%;
-    margin-top: 0 !important;
+  position: relative;
+  margin-top: 15px;
 }
 
 .imgSenha {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    width: 22px;
-    opacity: 0.7;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 20px;
+  opacity: 0.7;
 }
 
 .imgSenha:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
-.erro
-{
-    color: var(--Vermelho);
-    padding-top: 5px;
+/* ===== TEXTO ===== */
+
+.TermosUso {
+  color: var(--texto-secundario);
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  margin: 20px 0;
 }
 
-@media (max-width: 700px) {
-    
-    form{
-    width: 100vw;
-    height: 82.5vh;
+.TermosUso span {
+  color: var(--cor-primaria);
 }
 
-    .corpo{
-        height: 68vh;
-    }
+/* ===== BOTÃO ===== */
+
+.btnLogar {
+  width: 100%;
+  height: 55px;
+
+  background: var(--cor-primaria);
+  border: none;
+  border-radius: 6px;
+
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+
+  transition: 0.3s;
+}
+
+.btnLogar:hover {
+  background: var(--cor-primaria-hover);
+  transform: scale(1.03);
+}
+
+.btnLogar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== DIVISOR ===== */
+
+.ou {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.ou hr {
+  flex: 1;
+  border: none;
+  height: 1px;
+  background: var(--borda);
+}
+
+.ou p {
+  margin: 0 10px;
+  color: var(--texto-secundario);
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+@media (max-width: 480px) {
+  .container {
+    max-width: 100%;
+  }
+
+  .inputClasse {
+    height: 45px;
+    font-size: 14px;
+  }
+
+  .btnLogar {
+    height: 50px;
+    font-size: 18px;
+  }
+
+  .imgSenha {
+    width: 18px;
+  }
 }
