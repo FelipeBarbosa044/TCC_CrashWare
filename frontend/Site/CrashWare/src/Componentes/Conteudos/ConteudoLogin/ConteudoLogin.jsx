@@ -109,7 +109,7 @@ const handleLogin = async () => {
             
             
         }else if(!response.ok){
-            const erro = await reponse.json()
+            const erro = await response.json()
             setPopup({
                 tipo: 'erro',
                 titulo: 'Erro no Login',
