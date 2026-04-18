@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/android:windowBackground">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="61dp"
+            android:contentDescription="logo"
+            android:src="@drawable/logo_sem_fundo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/righteous"
+            android:text="CRASHWARE"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="94dp"
+        android:layout_marginEnd="125dp"
+        android:fontFamily="@font/righteous"
+        android:text="CADASTRE-SE"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+
+    <EditText
+        android:id="@+id/txtNomeCad"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/bg_edittext_borda"
+        android:fontFamily="@font/pt_sans_caption_bold"
+        android:hint="Nome"
+        android:paddingHorizontal="16dp"
+        android:textColor="#000000"
+        android:textColorHint="@color/hint_modoclaro"
+        app:layout_constraintBottom_toTopOf="@+id/txtEmailCad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titulo" />
+
+    <!-- Campo Email -->
+    <EditText
+        android:id="@+id/txtEmailCad"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_edittext_borda"
+        android:fontFamily="@font/pt_sans_caption_bold"
+        android:hint="E-mail"
+        android:paddingHorizontal="16dp"
+        android:textColor="#000000"
+        android:textColorHint="@color/hint_modoclaro"
+        app:layout_constraintBottom_toTopOf="@+id/txtTelCad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtNomeCad" />
+
+    <!--Nº de Telefone -->
+    <EditText
+        android:id="@+id/txtTelCad"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_edittext_borda"
+        android:fontFamily="@font/pt_sans_caption_bold"
+        android:hint="Nº de Telefone"
+        android:paddingHorizontal="16dp"
+        android:textColor="#000000"
+        android:textColorHint="@color/hint_modoclaro"
+        app:layout_constraintBottom_toTopOf="@+id/txtSenhaCad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmailCad" />
+
+    <!-- Campo Senha -->
+    <EditText
+        android:id="@+id/txtSenhaCad"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_edittext_borda"
+        android:fontFamily="@font/pt_sans_caption_bold"
+        android:hint="Senha"
+        android:inputType="textPassword"
+        android:paddingHorizontal="16dp"
+        android:textColor="#000000"
+        android:textColorHint="@color/hint_modoclaro"
+        app:layout_constraintBottom_toTopOf="@+id/txtConfirmarSenhaCad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTelCad" />
+
+    <!-- Ícone de mostrar senha -->
+    <ImageView
+        android:id="@+id/imgOlho"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/olho_icon"
+        android:layout_marginEnd="12dp"
+        android:elevation="2dp"
+        android:translationX="-4dp"
+        app:layout_constraintEnd_toEndOf="@id/txtSenhaCad"
+        app:layout_constraintTop_toTopOf="@id/txtSenhaCad"
+        app:layout_constraintBottom_toBottomOf="@id/txtSenhaCad"/>
+
+    <!-- Confirmar Senha -->
+    <EditText
+        android:id="@+id/txtConfirmarSenhaCad"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_edittext_borda"
+        android:fontFamily="@font/pt_sans_caption_bold"
+        android:hint="Confirmar senha"
+        android:inputType="textPassword"
+        android:paddingHorizontal="16dp"
+        android:textColor="#000000"
+        android:textColorHint="@color/hint_modoclaro"
+        app:layout_constraintBottom_toTopOf="@+id/txtTermos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtSenhaCad" />
+
+    <!-- Ícone de mostrar senha -->
+    <ImageView
+        android:id="@+id/imgOlho2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/olho_icon"
+        android:layout_marginEnd="12dp"
+        android:elevation="2dp"
+        android:translationX="-4dp"
+        app:layout_constraintEnd_toEndOf="@id/txtConfirmarSenhaCad"
+        app:layout_constraintTop_toTopOf="@id/txtConfirmarSenhaCad"
+        app:layout_constraintBottom_toBottomOf="@id/txtConfirmarSenhaCad"/>
+
+    <!-- Termos -->
+    <TextView
+        android:id="@+id/txtTermos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="36dp"
+        android:fontFamily="@font/battambang"
+        android:lineSpacingExtra="-5sp"
+        android:text="Ao entrar no CrashWare você concorda com os nossos termos e políticas de privacidade."
+        android:textAlignment="center"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCriarConta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtConfirmarSenhaCad" />
+
+    <!-- Botão Criar Conta -->
+    <Button
+        android:id="@+id/btnCriarConta"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_botaosborda"
+        android:text="CRIAR CONTA"
+        app:backgroundTint="@null"
+        app:backgroundTintMode="add"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:fontFamily="@font/righteous"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTermos" />
+
+
+    <!-- OU -->
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnCriarConta">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="?attr/colorOnSurface" />
+
+        <TextView
+            android:id="@+id/tvOu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:fontFamily="@font/righteous"
+            android:text="ou"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="17sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="?attr/colorOnSurface" />
+    </LinearLayout>
+
+    <!-- Já tem uma conta? -->
+    <TextView
+        android:id="@+id/txtEntrarCad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="215dp"
+        android:fontFamily="@font/righteous"
+        android:text="Já tem uma conta?"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <!-- Entrar -->
+    <Button
+        android:id="@+id/btnEntrarCad"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_botaosborda"
+        android:text="ENTRAR"
+        app:backgroundTint="@null"
+        app:backgroundTintMode="add"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:fontFamily="@font/righteous"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintTop_toBottomOf="@id/txtEntrarCad" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

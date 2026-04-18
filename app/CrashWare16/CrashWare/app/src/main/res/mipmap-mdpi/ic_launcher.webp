@@ -1,0 +1,34 @@
+BX_TO_MB
+       * - \e eDAE_TO_FBX
+       * - \e eFBX_TO_DAE
+       */
+    enum ERenamingMode
+    { 
+        eNone,
+        eMAYA_TO_FBX5,
+        eMAYA_TO_FBX_MB75,
+        eMAYA_TO_FBX_MB70,
+        eFBXMB75_TO_FBXMB70,
+        eFBX_TO_FBX,
+        eMAYA_TO_FBX,
+        eFBX_TO_MAYA,
+        eLW_TO_FBX,
+        eFBX_TO_LW,
+        eXSI_TO_FBX,
+        eFBX_TO_XSI,
+        eMAX_TO_FBX,
+        eFBX_TO_MAX,
+        eMB_TO_FBX,
+        eFBX_TO_MB,
+        eDAE_TO_FBX,
+        eFBX_TO_DAE
+    };
+
+    /** Rename the objects of the scene according the specific mode.
+      * \param pMode A mode describing from which format to which format.
+      */
+    void RenameFor(ERenamingMode pMode);
+
+/*****************************************************************************************************************************
+** WARNING! Anything beyond these lines is for internal use, may not be documented and is subject to change without notice! **
+*

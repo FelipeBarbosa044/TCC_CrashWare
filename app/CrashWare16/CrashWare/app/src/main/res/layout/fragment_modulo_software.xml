@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/fundo_claro">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Header -->
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@color/branco"
+            android:elevation="10dp"
+            android:outlineProvider="background"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Logo -->
+            <ImageView
+                android:id="@+id/layoutLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:contentDescription="logo"
+                android:src="@drawable/logo_sem_fundo" />
+
+            <!-- Nome do App -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/righteous"
+                android:text="CRASHWARE"
+                android:textColor="#0F172A"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <!-- Sininho -->
+            <ImageView
+                android:id="@+id/layoutSino"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="130dp"
+                android:contentDescription="logo"
+                android:src="@drawable/sino_icon" />
+        </LinearLayout>
+
+        <!-- Titulo Software -->
+        <LinearLayout
+            android:id="@+id/NomeModulo"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:outlineProvider="background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header">
+
+            <!-- Imagem Software -->
+            <ImageView
+                android:id="@+id/imgSoftwareAula"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/codigo_icon"
+                app:tint="@color/verde" />
+
+            <!-- Escrito Software -->
+            <TextView
+                android:id="@+id/txtSoftware"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="-5dp"
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Software"
+                android:textAlignment="center"
+                android:textColor="@color/verde"
+                android:textSize="50dp" />
+        </LinearLayout>
+
+        <!-- Card Introdução -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardIntroducao"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:padding="20dp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintTop_toBottomOf="@id/NomeModulo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Escrito Introdução -->
+            <TextView
+                android:id="@+id/txtTituloModulo1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Introdução"
+                android:textAlignment="center"
+                android:textColor="@color/azul"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@id/cardIntroducao"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cardIntroducao" />
+
+            <!-- Barra -->
+            <View
+                android:id="@+id/barraM1"
+                android:layout_width="280dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="#0F172A"
+                app:layout_constraintTop_toBottomOf="@id/txtTituloModulo1"
+                app:layout_constraintStart_toStartOf="@id/cardIntroducao"
+                app:layout_constraintEnd_toEndOf="@id/cardIntroducao"/>
+
+            <!-- Imagem Livro -->
+            <ImageView
+                android:id="@+id/imgLivro1M1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/livro2_icon"
+                app:layout_constraintEnd_toStartOf="@+id/txtTituloAula1M1"
+                app:layout_constraintStart_toStartOf="@id/cardIntroducao"
+                app:layout_constraintTop_toBottomOf="@id/barraM1" />
+
+            <!-- Título Aula -->
+            <TextView
+                android:id="@+id/txtTituloAula1M1"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/battambang"
+                android:text="Motivação e Mentalidade"
+                android:textColor="@color/azul"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/cardIntroducao"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro1M1"
+                app:layout_constraintTop_toBottomOf="@id/barraM1" />
+
+            <!-- Imagem Livro -->
+            <ImageView
+                android:id="@+id/imgLivro2M1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/livro2_icon"
+                app:layout_constraintEnd_toStartOf="@+id/txtTituloAula2M1"
+                app:layout_constraintStart_toStartOf="@id/cardIntroducao"
+                app:layout_constraintTop_toBottomOf="@id/imgLivro1M1" />
+
+            <!-- Título Aula -->
+            <TextView
+                android:id="@+id/txtTituloAula2M1"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/battambang"
+                android:text="Como vai funcionar esse curso?"
+                android:textColor="@color/azul"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/cardIntroducao"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro2M1"
+                app:layout_constraintTop_toBottomOf="@id/txtTituloAula1M1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Card Lógica de Programação -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardLogicaProgramacao"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:padding="20dp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintTop_toBottomOf="@id/cardIntroducao"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Título do Módulo -->
+            <TextView
+                android:id="@+id/txtTituloModulo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Lógica de Programação"
+                android:textAlignment="center"
+                android:textColor="@color/azul"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@id/cardLogicaProgramacao"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cardLogicaProgramacao" />
+
+            <!-- Barra -->
+            <View
+                android:id="@+id/barraM2"
+                android:layout_width="280dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="#0F172A"
+                app:layout_constraintTop_toBottomOf="@id/txtTituloModulo2"
+                app:layout_constraintStart_toStartOf="@id/cardLogicaProgramacao"
+                app:layout_constraintEnd_toEndOf="@id/cardLogicaProgramacao"/>
+
+            <!-- Imagem Livro -->
+            <ImageView
+                android:id="@+id/imgLivro1M2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/livro2_icon"
+                app:layout_constraintEnd_toStartOf="@+id/txtTituloAula1M2"
+                app:layout_constraintStart_toStartOf="@id/cardLogicaProgramacao"
+                app:layout_constraintTop_toBottomOf="@id/barraM2" />
+
+            <!-- Título Aula -->
+            <TextView
+                android:id="@+id/txtTituloAula1M2"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/battambang"
+                android:text="O que é lógica de programação?"
+                android:textColor="@color/azul"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/cardLogicaProgramacao"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro1M2"
+                app:layout_constraintTop_toBottomOf="@id/barraM2" />
+
+            <!-- Imagem Livro -->
+            <ImageView
+                android:id="@+id/imgLivro2M2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/livro2_icon"
+                app:layout_constraintEnd_toStartOf="@+id/txtTituloAula2M2"
+                app:layout_constraintStart_toStartOf="@id/cardLogicaProgramacao"
+                app:layout_constraintTop_toBottomOf="@id/imgLivro1M2" />
+
+            <!-- Título Aula -->
+            <TextView
+                android:id="@+id/txtTituloAula2M2"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/battambang"
+                android:text="Algoritmos e Fluxo de Execução"
+                android:textColor="@color/azul"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/cardLogicaProgramacao"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro2M2"
+                app:layout_constraintTop_toBottomOf="@id/txtTituloAula1M2" />
+
+            <!-- Imagem Livro -->
+            <ImageView
+                android:id="@+id/imgLivro3M2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/livro2_icon"
+                app:layout_constraintEnd_toStartOf="@+id/txtTituloAula3M2"
+                app:layout_constraintStart_toStartOf="@id/cardLogicaProgramacao"
+                app:layout_constraintTop_toBottomOf="@id/imgLivro2M2" />
+
+            <!-- Título Aula -->
+            <TextView
+                android:id="@+id/txtTituloAula3M2"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/battambang"
+                android:text="Variáveis e Tipos de Dados"
+                android:textColor="@color/azul"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/cardLogicaProgramacao"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro3M2"
+                app:layout_constraintTop_toBottomOf="@id/txtTituloAula2M2" />
+
+            <!-- Imagem Livro -->
+            <ImageView
+                android:id="@+id/imgLivro4M2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/livro2_icon"
+                app:layout_constraintEnd_toStartOf="@+id/txtTituloAula4M2"
+                app:layout_constraintStart_toStartOf="@id/cardLogicaProgramacao"
+                app:layout_constraintTop_toBottomOf="@id/imgLivro3M2" />
+
+            <!-- Título Aula -->
+            <TextView
+                android:id="@+id/txtTituloAula4M2"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/battambang"
+                android:text="Operadores (Aritméticos e Lógicos)"
+                android:textColor="@color/azul"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/cardLogicaProgramacao"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro4M2"
+                app:layout_constraintTop_toBottomOf="@id/txtTituloAula3M2" />
+
+            <!-- Imagem Livro -->
+            <ImageView
+                android:id="@+id/imgLivro5M2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/livro2_icon"
+                app:layout_constraintEnd_toStartOf="@+id/txtTituloAula5M2"
+                app:layout_constraintStart_toStartOf="@id/cardLogicaProgramacao"
+                app:layout_constraintTop_toBottomOf="@id/imgLivro4M2" />
+
+            <!-- Título Aula -->
+            <TextView
+                android:id="@+id/txtTituloAula5M2"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/battambang"
+                android:text="Estruturas Condicionais"
+                android:textColor="@color/azul"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/cardLogicaProgramacao"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro5M2"
+                app:layout_constraintTop_toBottomOf="@id/txtTituloAula4M2" />
+
+            <!-- Imagem Livro -->
+            <ImageView
+                android:id="@+id/imgLivro6M2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/livro2_icon"
+                app:layout_constraintEnd_toStartOf="@+id/txtTituloAula6M2"
+                app:layout_constraintStart_toStartOf="@id/cardLogicaProgramacao"
+                app:layout_constraintTop_toBottomOf="@id/imgLivro5M2" />
+
+            <!-- Título Aula -->
+            <TextView
+                android:id="@+id/txtTituloAula6M2"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/battambang"
+                android:text="Estruturas de Repetição"
+                android:textColor="@color/azul"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/cardLogicaProgramacao"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro6M2"
+                app:layout_constraintTop_toBottomOf="@id/txtTituloAula5M2" />
+
+            <!-- Imagem Livro -->
+            <ImageView
+                android:id="@+id/imgLivro7M2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/livro2_icon"
+                app:layout_constraintEnd_toStartOf="@+id/txtTituloAula7M2"
+                app:layout_constraintStart_toStartOf="@id/cardLogicaProgramacao"
+                app:layout_constraintTop_toBottomOf="@id/imgLivro6M2" />
+
+            <!-- Título Aula -->
+            <TextView
+                android:id="@+id/txtTituloAula7M2"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/battambang"
+                android:text="Funções"
+                android:textColor="@color/azul"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/cardLogicaProgramacao"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro7M2"
+                app:layout_constraintTop_toBottomOf="@id/txtTituloAula6M2" />
+
+            <!-- Imagem Livro -->
+            <ImageView
+                android:id="@+id/imgLivro8M2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/livro2_icon"
+                app:layout_constraintEnd_toStartOf="@+id/txtTituloAula8M2"
+                app:layout_constraintStart_toStartOf="@id/cardLogicaProgramacao"
+                app:layout_constraintTop_toBottomOf="@id/imgLivro7M2" />
+
+            <!-- Título Aula -->
+            <TextView
+                android:id="@+id/txtTituloAula8M2"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/battambang"
+                android:text="Resoluções de Problemas"
+                android:textColor="@color/azul"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/cardLogicaProgramacao"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro8M2"
+                app:layout_constraintTop_toBottomOf="@id/txtTituloAula7M2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Card Novos Conteúdos -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardNovosConteudos"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:padding="20dp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintTop_toBottomOf="@id/cardLogicaProgramacao"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Imagem HTML5 -->
+            <ImageView
+                android:id="@+id/imgHTML5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="100dp"
+                android:src="@drawable/html_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgCSS3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="100dp"
+                android:src="@drawable/html_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Barra -->
+            <View
+                android:id="@+id/barraM3"
+                android:layout_width="280dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="#0F172A"
+                app:layout_constraintTop_toBottomOf="@id/imgHTML5"
+                app:layout_constraintStart_toStartOf="@id/cardNovosConteudos"
+                app:layout_constraintEnd_toEndOf="@id/cardNovosConteudos"/>
+
+            <!-- Título Aula -->
+            <TextView
+                android:id="@+id/txtExplicativoNovoModulo"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Novos conteúdos de HTML5 e CSS3 estão chegando. Neles, você aprenderá a criar a estrutura de páginas web e aplicar estilos para desenvolver interfaces modernas e organizadas."
+                android:textAlignment="center"
+                android:textColor="@color/azul"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@id/cardNovosConteudos"
+                app:layout_constraintStart_toStartOf="@id/cardNovosConteudos"
+                app:layout_constraintTop_toBottomOf="@id/barraM3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/espaco_nav_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/fundo_claro">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Header -->
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@color/branco"
+            android:elevation="10dp"
+            android:outlineProvider="background"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/layoutLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:contentDescription="logo"
+                android:src="@drawable/logo_sem_fundo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/righteous"
+                android:text="CRASHWARE"
+                android:textColor="#0F172A"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/layoutSino"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="130dp"
+                android:contentDescription="logo"
+                android:src="@drawable/sino_icon" />
+        </LinearLayout>
+
+        <!-- Card -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card"
+            android:layout_width="350dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="15dp"
+            android:padding="12dp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!--Imagem de Perfil -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgFotoInicio"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:padding="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/faustao"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/CircleImage"
+                app:strokeColor="#111827"
+                app:strokeWidth="1dp" />
+
+            <!--Bem Vindo -->
+            <TextView
+                android:id="@+id/bemvindo"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginStart="10dp"
+                android:text="Bem vindo de volta!"
+                android:fontFamily="@font/battambang_bold"
+                android:textColor="#0F172A"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/imgFotoInicio"
+                app:layout_constraintTop_toTopOf="@id/card"/>
+
+            <!--Nome do Usuário -->
+
+            <TextView
+                android:id="@+id/txtNomeInicio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/righteous"
+                android:text="Davidson"
+                android:textColor="#0F172A"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/bemvindo"
+                app:layout_constraintTop_toBottomOf="@id/bemvindo" />
+
+            <LinearLayout
+                android:id="@+id/cardPatente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_cardpatente"
+                android:orientation="horizontal"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="2dp"
+                app:layout_constraintStart_toStartOf="@id/txtNomeInicio"
+                app:layout_constraintTop_toBottomOf="@id/txtNomeInicio">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/escudo2_icon"
+                    app:tint="#BA7C18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="ALPHA"
+                    android:textColor="#0F172A"
+                    android:textStyle="bold"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cardDias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card"
+                android:orientation="horizontal"
+                android:paddingLeft="5dp"
+                android:paddingTop="3dp"
+                android:layout_marginHorizontal="15dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="3dp"
+                app:layout_constraintStart_toEndOf="@id/cardPatente"
+                app:layout_constraintTop_toTopOf="@id/cardPatente"
+                app:layout_constraintBottom_toBottomOf="@id/cardPatente"
+                >
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ofensiva_icon"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="154 DIAS"
+                    android:textColor="#0F172A"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card2"
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintEnd_toStartOf="@+id/card3"
+            app:layout_constraintStart_toEndOf="@+id/card5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card">
+
+            <TextView
+                android:id="@+id/txtAulasConcluidas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/righteous"
+                android:text="23"
+                android:textColor="#0F172A"
+                android:textSize="25dp"
+                app:layout_constraintStart_toStartOf="@id/card2"
+                app:layout_constraintTop_toTopOf="@id/card2"
+                app:layout_constraintEnd_toEndOf="@id/card2"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/righteous"
+                android:text="Aulas
+                Concluidas"
+                android:textAlignment="center"
+                android:textColor="#0F172A"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="@id/card2"
+                app:layout_constraintTop_toBottomOf="@id/txtAulasConcluidas" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card3"
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintEnd_toStartOf="@+id/card4"
+            app:layout_constraintStart_toEndOf="@+id/card2"
+            app:layout_constraintTop_toBottomOf="@id/card">
+
+            <TextView
+                android:id="@+id/txtAulasAndamento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/righteous"
+                android:text="8"
+                android:textColor="#0F172A"
+                android:textSize="25dp"
+                app:layout_constraintStart_toStartOf="@id/card3"
+                app:layout_constraintTop_toTopOf="@id/card3"
+                app:layout_constraintEnd_toEndOf="@id/card3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/righteous"
+                android:text="Em Andamento"
+                android:textAlignment="center"
+                android:textColor="#0F172A"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@id/card3"
+                app:layout_constraintTop_toBottomOf="@id/txtAulasAndamento" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card4"
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="26dp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/card3"
+            app:layout_constraintTop_toBottomOf="@id/card">
+
+            <ImageView
+                android:id="@+id/ivConquistas"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/conquistas_icon"
+                app:layout_constraintStart_toStartOf="@id/card4"
+                app:layout_constraintTop_toTopOf="@id/card4"
+                app:layout_constraintEnd_toEndOf="@id/card4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/righteous"
+                android:text="99"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="@id/card4"
+                app:layout_constraintTop_toTopOf="@id/card4"
+                app:layout_constraintEnd_toEndOf="@id/card4"
+                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/righteous"
+                android:text="Conquistas"
+                android:textAlignment="center"
+                android:textColor="#0F172A"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@id/card4"
+                app:layout_constraintStart_toStartOf="@id/card4"
+                app:layout_constraintTop_toBottomOf="@id/ivConquistas" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card5"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_card"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card3">
+
+            <TextView
+                android:id="@+id/txtFrase"
+                android:layout_width="316dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="Não devemos servir de exemplo a ninguém. Mas podemos servir de lição."
+                android:textColor="#0F172A"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@id/card5"
+                app:layout_constraintStart_toStartOf="@id/card5"
+                app:layout_constraintTop_toTopOf="@id/card5" />
+
+            <TextView
+                android:id="@+id/txtAutor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:fontFamily="@font/inter_bold"
+                android:text=" — Mário de Andrade"
+                android:textColor="#0F172A"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/card5"
+                app:layout_constraintEnd_toEndOf="@id/card5"
+                app:layout_constraintTop_toBottomOf="@id/txtFrase"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card7"
+            android:layout_width="350dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="-45dp"
+            android:background="@drawable/bg_cardmodulo"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card6">
+
+            <TextView
+                android:id="@+id/txtProxModulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/righteous"
+                android:text="Próximo Módulo"
+                android:textColor="#0F172A"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/card7" />
+
+            <LinearLayout
+                android:id="@+id/cardModulo"
+                android:layout_width="325dp"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_cardmod"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@id/card7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivModulo"
+                    android:layout_width="25dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/hardware_icon"
+                    app:layout_constraintStart_toStartOf="@id/cardModulo"
+                    app:layout_constraintTop_toTopOf="@id/cardModulo" />
+
+                <TextView
+                    android:id="@+id/txtModulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/battambang_black"
+                    android:text="Introdução ao Hardware"
+                    android:textColor="#0F172A"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/ivModulo"
+                    app:layout_constraintTop_toTopOf="@id/cardModulo" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card6"
+            android:layout_width="350dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_card"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card5">
+
+            <ImageView
+                android:id="@+id/ivMateria"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/hardware_icon"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toStartOf="@id/card6"
+                app:layout_constraintTop_toTopOf="@id/card6" />
+
+            <TextView
+                android:id="@+id/txtTituloAula"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="@font/battambang_black"
+                android:lineSpacingExtra="-10dp"
+                android:text="Como vai funcionar esse curso?"
+                android:textColor="#0F172A"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@id/card6"
+                app:layout_constraintTop_toTopOf="@id/card6" />
+
+            <TextView
+                android:id="@+id/txtMateria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/inter_extrabold"
+                android:lineSpacingExtra="-10dp"
+                android:text="Hardware"
+                android:textColor="@color/verde"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/ivMateria"
+                app:layout_constraintStart_toStartOf="@id/card6"/>
+
+            <Button
+                android:id="@+id/btnRetomar"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="45dp"
+                android:background="@drawable/bg_botaoretomar"
+                android:fontFamily="@font/inter_bold"
+                android:text="Retomar"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null"
+                app:backgroundTintMode="add"
+                app:layout_constraintEnd_toEndOf="@id/card6"
+                app:layout_constraintTop_toBottomOf="@id/txtTituloAula"
+                app:layout_constraintBottom_toBottomOf="@id/card6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivAleatórias"
+            android:layout_width="350dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/faustao"
+            android:padding="2dp"
+            app:shapeAppearanceOverlay="@style/Imagemhome"
+            app:strokeColor="#111827"
+            app:strokeWidth="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card7"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

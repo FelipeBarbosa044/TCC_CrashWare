@@ -1,0 +1,91 @@
+ll the unparented namespaced "key" starting from this node.
+     * \param pNode     Parent node.
+     * \return          \c true if successfully removed the "_NSclash" from one or more nodes.
+     * \remarks         This function removes "_NSclash" when encountered. This is the opposite from RenameUnparentNameSpace.
+     */
+    virtual bool RemoveImportNameSpaceClash(FbxNode* pNode);
+
+     /** Recursively get all the namespace starting from this node's parent.
+     * \param pNode                 Parent node.
+     * \param pNameSpaceList        output the namespace list from pNode's parent to the root node.
+     */
+    virtual void GetParentsNameSpaceList(FbxNode* pNode, FbxArray<FbxString*> &pNameSpaceList);
+
+     /** Recursively replace the namespace starting from this node to its children.
+     * \param pNode        Current node.
+     * \param OldNS        The old namespace to be replaced with the NewNs.
+     * \param NewNS        The new namespace to replace OldNs.
+     * \return             \c true if successfull
+     * \remarks            This function only replaces the first occurence of OldNS with NewNS.
+     */
+    virtual bool PropagateNameSpaceChange(FbxNode* pNode, FbxString OldNS, FbxString NewNS);
+
+/*****************************************************************************************************************************
+** WARNING! Anything beyond these lines is for internal use, may not be documented and is subject to change without notice! **
+*****************************************************************************************************************************/
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+protected:
+    virtual bool RenameToFBX(FbxNameHandler& pName);
+    virtual bool RenameFromFBX(FbxNameHandler& pName);
+    virtual FbxString& ReplaceNonAlphaNum(FbxString& pName,  const char* pReplace, bool pIgnoreNameSpace);
+
+    EDirection mMode;
+    EClashType mType;
+
+    struct NameCell
+    {
+        NameCell(const char* pName) :
+            mName(pName),
+            mInstanceCount(0)
+        {
+        }
+            
+        FbxString mName;
+        int mInstanceCount;        
+    };
+
+    FbxCharPtrSet       mStringNameArray;
+    FbxArray<NameCell*> mExistingNsList;
+    bool                mOnCreationRun;
+    bool                mCaseSensitive;
+    bool                mReplaceNonAlphaNum;
+    bool                mFirstNotNum;
+    FbxString           mNameSpace;
+    FbxString           mInNameSpaceSymbol; //symbol identifying a name space
+    FbxString           mOutNameSpaceSymbol; 
+#endif /* !DOXYGEN_SHOULD_SKIP_THIS *****************************************************************************************/
+};
+
+/** The FbxSceneRenamer provides a way to easily rename objects in a scene without using the FbxRenamingStrategy class.
+  * FbxSceneRenamer can remove name clashing and illegal characters. It also manages namespaces.
+  *
+  * Example:
+  * Maya only accepts names with letters, digits, or underscores, and we want to convert
+  * all the names of a scene from FBX format to Maya format.
+  * \code
+  * FbxSceneRenamer lSceneRenamer(pScene);
+  * lSceneRenamer.RenameFor(FbxSceneRenamer::eFBX_TO_MAYA);
+  * \endcode
+  * \nosubgrouping
+  * \see FbxRenamingStrategy
+  */
+class FBXSDK_DLL FbxSceneRenamer
+{
+public:
+    /** Constructor
+      * \param pScene A scene which contains objects to be renamed.
+      */
+    FbxSceneRenamer(FbxScene* pScene) {mScene = pScene;};
+
+    //! Destructor.
+    virtual ~FbxSceneRenamer(){};
+
+     /** \enum ERenamingMode The Mode describing from which format to which format.
+       * - \e eNone
+       * - \e eMAYA_TO_FBX5
+       * - \e eMAYA_TO_FBX_MB75
+       * - \e eMAYA_TO_FBX_MB70
+       * - \e eFBXMB75_TO_FBXMB70
+       * - \e eFBX_TO_FBX
+       * - \e eMAYA_TO_FBX
+       * - \e eFBX
