@@ -471,6 +471,22 @@ async def ganhar_xp(dados : RecursoSchema,usuario = Depends(validar_token),sessi
         raise HTTPException(status_code=400, detail=str(exception))
 
 
+#Rota de ganhar MOEDA
+@user.post('/moeda')
+async def ganhar_moeda(dados : RecursoSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404,detail="Usuário não encontrado")
+    if dados.moedas == 0:
+        return
+    try:
+        usuario.moedas += dados.moedas
+        session.commit()
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
+
 
 
 
