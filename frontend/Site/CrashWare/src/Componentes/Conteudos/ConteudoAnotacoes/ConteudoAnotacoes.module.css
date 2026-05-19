@@ -2,17 +2,17 @@
 
 .corpo {
     width: 100%;
-    position: relative;
     height: 100vh;
     display: flex;
     font-family: "Montserrat", sans-serif;
-    margin-top: 70px;
 }
 
 .Direita {
     /* justify-self: end; */
     width: 75%;
     /* height: 50vh; */
+    margin-top: 100px;
+    background-color: var(--bg-secundario);
 }
 
 .Esquerda {
@@ -21,8 +21,10 @@
     border: solid var(--Branco);
     /* border-radius: 5%; */
     height: 89vh;
-    border-top-right-radius:10%;
-    background-color: var(--gradiente1-atividades);
+    border-top-right-radius: 10%;
+    background-color: var(--bg-secundario);
+    margin-top: 100px;
+
 
 }
 
@@ -37,7 +39,7 @@
     padding: 15px;
     position: relative;
     text-align: center; 
-    background-color: var(--gradiente1-atividades);
+    background-color: var(--bg-secundario);
     font-family: "Montserrat", sans-serif;
 }
 
@@ -63,12 +65,11 @@
     right: 1px;         
     top: 5px;  
 
-    background-color: var(--botao-editar);
+    background: linear-gradient(90deg, #101017, #06060A);
     color: var(--texto-principal);  
 }
 
 .BotaoEditar:hover{
-    background-color: var(--botao-editar);
     color: var(--texto-principal);
 }
 
@@ -104,6 +105,10 @@
     padding: 10px;
 }
 
+.ItensAnotacoes{
+    height: 10vh;
+}
+
 .ItensAnotacoes p{
     border: solid var(--Branco);
     padding: 10px;
@@ -118,13 +123,12 @@
     padding-bottom: 10px;
     padding-left: 20px;
     padding-right: 20px;
-    background-color: var(--botao-editar);
+    background: linear-gradient(90deg, #101017, #06060A);
     color: var(--texto-principal);
 }
 
 .BotaoNovaNota:hover{
     color: var(--texto-principal);
-    background-color: var(--botao-editar);
 }
 
 .textArea {
@@ -132,12 +136,12 @@
     height: 65vh;
     min-height: 400px;
     resize: none; /* remove aquele canto arrastável */
-    padding: 10px;
+    padding: 20px;
     font-size: 16px;
     border: none;
     outline: none;
     border-radius: 2.90%;
-    background-color: var(--gradiente1-atividades);
+    background-color: black;
     color: var(--texto-principal);
     text-indent: 20px;
     font-family: "Montserrat", sans-serif;
