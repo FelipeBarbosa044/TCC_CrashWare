@@ -49,7 +49,7 @@ const ConteudoHome = () => {
         user.perfil(setDados);
 
         //Conquista ao logar
-        user.conquista(9,setPopup)
+        user.conquista(9,setPopup,setDados)
          
     }
 
@@ -71,10 +71,10 @@ const ConteudoHome = () => {
 
     const XpMax = 500;
     const [xp, setXp] = useState(usuario?.xp || 0); 
-    const Nivel =  8;
+    const Nivel =  0;
     const xpAtual = xp % XpMax;
     const porcentagem = (xpAtual / XpMax) * 100;
-    const nome = usuario?.nome || "Davidson";
+    const nome = usuario?.nome || "Usuário";
 
     const ofensiva = usuario?.ofensiva || 58;
 

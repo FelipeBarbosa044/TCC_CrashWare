@@ -65,18 +65,6 @@ const ConteudoPerfil = () => {
         return `Membro desde ${mesNome} de ${ano}`;
     };
 
-    //NAO MEXE AQUI GABRIEL
-    //Retorna o valor do adm
-    //usuario.admin
-    // let admin = null
-    // if(usuario.adm == true)
-    // {
-    //   admin = "ADMIN"
-    // }
-
-
-   
-
     // muda a foto
     const [foto, setFoto] = useState(usuario?.foto);
     const [banner, setBanner] = useState(usuario?.banner);
@@ -95,11 +83,11 @@ const ConteudoPerfil = () => {
     const [xp, setXp] = useState(usuario?.xp || 0); 
     const [conquistas, setConquistas] = useState(CONQUISTAS_MOCK);
     const [totalCompras, setTotalCompras] = useState(0);
-    const [totalGemas, setTotalGemas] = useState(0);
+    const [totalGemas, setTotalGemas] = useState(usuario?.moedas);
     const [popup, setPopup] = useState(null);
 
     const XpMax = 500;
-    const Nivel =  0;
+    const Nivel =  1;
     const nome = usuario?.nome || "Usuário";
 
     const xpAtual = xp % XpMax;

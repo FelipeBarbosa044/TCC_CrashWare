@@ -638,7 +638,7 @@ export class Usuario
     }//Remover Banner
 
 
-    async conquista(conquista_id,setPopup)
+    async conquista(conquista_id,setPopup,setDados)
     {
         //Verifico o token
         const usuario = new Api;
@@ -676,7 +676,33 @@ export class Usuario
                     const moeda_bonus = dados.moeda_bonus;
                     const xp_bonus = dados.xp_bonus;
 
-                    //Exibo SetpopupConquista(alterar para o popup estilizado DAVISON)
+
+                    //Adiciono moedas para a conta do usuario
+                    await this.adicionar_moeda(moeda_bonus);
+
+                    //adciono xp para conta do usuario
+                    await this.adicionar_xp(xp_bonus);
+
+
+                    if(tipo_conquista == "Software")
+                    {
+                        //Popup de Software aqui
+
+
+                    }else if(tipo_conquista == "Hardware")
+                    {
+                        //Popup de Hardware aqui
+
+
+                    }else
+                    {
+                        //Popup do tipo "OUTRO" aqui
+
+
+                    }
+
+
+                    //Exibo essa conquista por enquanto...
                      setPopup({
                         tipo: 'sucesso',
                         titulo: nome_conquista,
@@ -696,18 +722,15 @@ export class Usuario
         {
             console.log(error);
         }
-    }
+    }//Conquista
 
-    async adicionar_xp(xp)
+    async adicionar_xp(xp,setDados)
     {
-
-        //Verifico o token
-        const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
 
          //Pego o token
         const token = localStorage.getItem("token")
+
 
          try
         {
@@ -730,6 +753,18 @@ export class Usuario
                 const erro = await response.json();
 
                 console.log(erro.detail)
+            }else
+            {
+                //Requisição for bem sucedida
+
+                //Pega os dados atuais
+                const dados = JSON.parse(localStorage.getItem("dados"));
+
+                //Atualizo o xp
+                dados.xp = xp;
+
+                //Salva novamente
+                localStorage.setItem("dados", JSON.stringify(dados));
             }
 
         }catch (error) 
@@ -739,5 +774,58 @@ export class Usuario
 
 
     }//adicionar_xp
+
+
+
+    async adicionar_moeda(moedas,setDados)
+    {
+
+
+         //Pego o token
+        const token = localStorage.getItem("token")
+
+
+         try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/user/moeda",
+                { 
+                     
+                    method: "POST",
+                    headers:
+                    {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body:  JSON.stringify({moedas})
+                });
+
+
+            if(!response.ok)
+            {
+                //Se a requisição não for sucedida
+                const erro = await response.json();
+
+                console.log(erro.detail)
+            }else
+            {
+                //Requisição for bem sucedida
+
+                //Pega os dados atuais
+                const dados = JSON.parse(localStorage.getItem("dados"));
+
+                //Atualizo a moeda
+                dados.moedas = moedas;
+
+                //Salva novamente
+                localStorage.setItem("dados", JSON.stringify(dados));
+            }
+
+        }catch (error) 
+        {
+            console.log(error);
+        }
+
+
+    }//adicionar_moeda
 
 }//classe
