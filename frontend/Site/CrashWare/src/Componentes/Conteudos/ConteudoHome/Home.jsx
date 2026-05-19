@@ -54,7 +54,23 @@ const ConteudoHome = () => {
     }
 
 
-    useEffect(() => {
+    //Pega os dados do usuario
+    const usuario = JSON.parse(localStorage.getItem("dados"));
+
+    //
+
+    const XpMax = 500;
+    const [xp, setXp] = useState(usuario?.xp || 0); 
+    let Nivel =  1;
+    const xpAtual = xp % XpMax;
+    const porcentagem = (xpAtual / XpMax) * 100;
+    const nome = usuario?.nome || "Usuário";
+
+    const ofensiva = usuario?.ofensiva || 1;
+
+
+
+     useEffect(() => {
         //Atualiza os dados do usuario, sempre que a pagina for acessada
         const onVisible = () => {
             if (!document.hidden) {
@@ -63,20 +79,75 @@ const ConteudoHome = () => {
             }
         };
         document.addEventListener("visibilitychange", onVisible);
+
+        //Calcula nivel
+            switch (true)
+        {
+            case xp > 500 && xp <= 1000:
+                Nivel = 2; 
+                break;
+
+            case xp > 1000  &&  xp <= 1500:
+                Nivel = 3; 
+                break;
+
+            case xp > 1500 && xp <= 2000:
+                Nivel = 4; 
+                break;
+
+            case xp > 2000 && xp <= 2500:
+                Nivel = 5; 
+                break;
+
+            case xp > 2500 && xp <= 3000:
+                Nivel = 6; 
+                break;
+
+            case xp > 3500 && xp <= 4000:
+                Nivel = 7; 
+                break;
+
+            case xp > 4000 && xp <= 4500:
+                Nivel = 8; 
+                break;
+
+            case xp > 4500 && xp <= 5000:
+                Nivel = 9; 
+                break;
+
+            case xp > 5000 && xp <= 6000:
+                Nivel = 10; 
+                break;
+
+            case xp > 5500 && xp <= 6000:
+                Nivel = 10; 
+                break;
+
+            case xp > 6000 && xp <= 6500:
+                Nivel = 11; 
+                break;
+
+            case xp > 6500 && xp <= 7000:
+                Nivel = 12; 
+                break;
+
+            case xp > 7000 && xp <= 7500:
+                Nivel = 13; 
+                break;
+
+            case xp > 7500 && xp <= 8000:
+                Nivel = 14; 
+                break;
+
+            case xp > 8000:
+                Nivel = 15; 
+                break;
+
+            default:
+                Nivel = 1;
+        }
         return () => document.removeEventListener("visibilitychange", onVisible);
     }, []);
-
-    //Pega os dados do usuario
-    const usuario = JSON.parse(localStorage.getItem("dados"));
-
-    const XpMax = 500;
-    const [xp, setXp] = useState(usuario?.xp || 0); 
-    const Nivel =  0;
-    const xpAtual = xp % XpMax;
-    const porcentagem = (xpAtual / XpMax) * 100;
-    const nome = usuario?.nome || "Usuário";
-
-    const ofensiva = usuario?.ofensiva || 58;
 
     const ultimaAula = {
         trilha: "Hardware",
@@ -95,6 +166,21 @@ const ConteudoHome = () => {
     //     );
     // }
 
+
+   
+
+        
+    
+
+    // if(xp > XpMax){
+    //     Nivel += 1;
+    // }
+
+    useEffect(()=>{
+        if(xp > XpMax){
+        Nivel += 1;
+    }
+    }, [Nivel])
     return (
 
         <>
@@ -144,7 +230,7 @@ const ConteudoHome = () => {
 
                 <div className={style.ofensiva}>
                     <img src={iconOfensiva} alt="Ofensiva" className={style.ofensivaIcon} />
-                    <span className={style.ofensivaDias}>{ofensiva} dias</span>
+                    <span className={style.ofensivaDias}>{ofensiva} Dias</span>
                     <p className={style.ofensivaLabel}>Consecutivos<br />de ofensiva</p>
                 </div>
 

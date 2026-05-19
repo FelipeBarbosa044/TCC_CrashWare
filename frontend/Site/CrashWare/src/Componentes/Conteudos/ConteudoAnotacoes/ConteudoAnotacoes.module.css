@@ -5,27 +5,28 @@
     height: 100vh;
     display: flex;
     font-family: "Montserrat", sans-serif;
+    flex-wrap: wrap;
+    padding-left: 20px;
 }
 
 .Direita {
-    /* justify-self: end; */
     width: 75%;
-    /* height: 50vh; */
     margin-top: 100px;
     background-color: var(--bg-secundario);
+    display: flex;
+    flex-direction: column;
 }
 
 .Esquerda {
+    min-width: 250px;
     width: 25%;
-    /* margin-top: 5px; */
     border: solid var(--Branco);
-    /* border-radius: 5%; */
-    height: 89vh;
-    border-top-right-radius: 10%;
+    border-radius: 20px;
+    height: auto;
     background-color: var(--bg-secundario);
     margin-top: 100px;
-
-
+    display: flex;
+    flex-direction: column;
 }
 
 .BlocoCima {
@@ -83,9 +84,7 @@
 
 .BlocodeNotas{
     display: flex;
-    justify-content: center; /* horizontal */
-    /* align-items: center;     vertical (se quiser) */
-    /* margin-top: 30px; */
+    justify-content: center;
 }
 
 .BarraLateral {
@@ -146,6 +145,8 @@
     text-indent: 20px;
     font-family: "Montserrat", sans-serif;
     margin-right: 50px;
+    background-color: var(--bg-secundario);
+    border: 2px solid var(--texto-principal);
 }
 
 .Pesquisa{
@@ -154,4 +155,8 @@
     height: 4vh;
     border-radius: 10%;
     border: solid var(--Branco);
+}
+
+@media (max-width: 800px){
+    
 }

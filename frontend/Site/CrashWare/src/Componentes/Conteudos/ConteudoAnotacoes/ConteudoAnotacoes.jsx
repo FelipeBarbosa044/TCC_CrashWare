@@ -58,6 +58,17 @@ const ConteudoAnotacao = () => {
         n.conteudo.toLowerCase().includes(pesquisa.toLowerCase())
     )
 
+    const ItensBarraLateral = ({nomeAnotalcao}) => {
+        return(
+            <>
+            <div className={style.itemBarraLateral}>
+                <p>{nomeAnotalcao}</p>
+            </div>
+            </>
+        );
+    };
+
+
     return (
         <div className={style.corpo}>
 
@@ -74,16 +85,11 @@ const ConteudoAnotacao = () => {
                             placeholder="Pesquisar"
                             className={style.Pesquisa}
                         />
-                    </div> {/*Header*/}
+                    </div> Header
 
-                    <div className={style.ItensAnotacoes}>
-                        <p>Anotação 1</p>
-                        <p>Item 2</p>
-                        <p>Item 3</p>
-                        <p>Item 4</p>
-                        <p>Item 5</p>
-                        <p>Item 6</p>
-                    </div> {/*Anotaçoes/botoes*/}
+
+                    
+                     {/*Anotaçoes/botoes*/}
                     {/* Anotações Salvas do Usuario acho q vou ter q fazer outro componente uma lista*/}
                 </div>
             </div>
