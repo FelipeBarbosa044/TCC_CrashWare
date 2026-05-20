@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.crashware.R;
-import com.example.crashware.ui.anotacoes.NovaAnotacao_Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,7 +70,7 @@ public class Aula extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_aula, container, false);
 
-        imgVoltarAula = view.findViewById(R.id.imgVoltarNovaAnotacao);
+        imgVoltarAula = view.findViewById(R.id.imgVoltarExercicios);
         btnFazerExercicio = view.findViewById(R.id.btnFazerExercicio);
 
         btnFazerExercicio.setOnClickListener(new View.OnClickListener() {

@@ -31,7 +31,7 @@
 
             <!-- Adicionar Anotacao -->
             <ImageView
-                android:id="@+id/imgVoltarNovaAnotacao"
+                android:id="@+id/imgVoltarExercicios"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/seta_icon"
@@ -83,14 +83,14 @@
 
             <!-- Barra de Progresso -->
             <ProgressBar
-                android:id="@+id/BarraProgressoNivel"
+                android:id="@+id/BarraProgressoAula"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="300dp"
                 android:layout_height="15dp"
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="5dp"
-                android:max="500"
-                android:progress="150"
+                android:max="100"
+                android:progress="00"
                 android:indeterminate="false"
                 android:progressDrawable="@drawable/bg_barraprogresso"
                 app:layout_constraintStart_toStartOf="parent"
@@ -103,12 +103,12 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/battambang_bold"
                 android:layout_marginStart="5dp"
-                android:text="30%"
+                android:text="00%"
                 android:textColor="@color/azul"
                 android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@id/BarraProgressoNivel"
-                app:layout_constraintTop_toTopOf="@id/BarraProgressoNivel"
-                app:layout_constraintBottom_toBottomOf="@id/BarraProgressoNivel"/>
+                app:layout_constraintStart_toEndOf="@id/BarraProgressoAula"
+                app:layout_constraintTop_toTopOf="@id/BarraProgressoAula"
+                app:layout_constraintBottom_toBottomOf="@id/BarraProgressoAula"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardExercicio"
@@ -119,7 +119,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:background="@drawable/bg_cards"
-                app:layout_constraintTop_toBottomOf="@id/BarraProgressoNivel"
+                app:layout_constraintTop_toBottomOf="@id/BarraProgressoAula"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 

@@ -90,7 +90,7 @@ public class Loja_fragment extends Fragment {
         //Criando os Toasts que serão Utilizados
         Toast temaAdquirido     = Toast.makeText(getContext(), "Tema Adquirido    ", Toast.LENGTH_LONG);
         Toast SaldoInsuficiente = Toast.makeText(getContext(), "Saldo Insuficiente", Toast.LENGTH_LONG);
-        Toast PowerUpAdquirido = Toast.makeText(getContext(), "PowerUp Adquirido  ", Toast.LENGTH_LONG);
+        Toast PowerUpAdquirido  = Toast.makeText(getContext(), "PowerUp Adquirido  ", Toast.LENGTH_LONG);
 
 
         //A serem substituidas pelas gemas do usuário logado
@@ -182,7 +182,8 @@ public class Loja_fragment extends Fragment {
             }
         });//Interação com o Botão de Comprar Booster de XP?
 
-        txtComprarOfensiva.setOnClickListener(new View.OnClickListener() {
+        txtComprarOfensiva.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view)
             {
@@ -192,7 +193,7 @@ public class Loja_fragment extends Fragment {
                     PowerUpAdquirido.show();
                     //Mostra o Toast de Power Up Adquirido
 
-                    //importa a classe de ofensiva com suas funções
+                    //importa a classe da ofensiva com suas funções
                     Ofensiva_Manager ofensivaManager =
                             new Ofensiva_Manager(requireContext());
 
@@ -212,7 +213,7 @@ public class Loja_fragment extends Fragment {
 
 
             }
-        });////Interação com o Botão de Comprar Congelamentos
+        });//Interação com o Botão de Comprar Congelamentos
 
 
         return view;

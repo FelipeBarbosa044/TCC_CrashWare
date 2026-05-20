@@ -1,5 +1,6 @@
 package com.example.crashware.ui.navegacao;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -24,10 +26,9 @@ import com.example.crashware.ui.api.User;
 import com.example.crashware.ui.aulas.ModuloHardware;
 import com.example.crashware.ui.aulas.ModuloSoftware;
 import com.example.crashware.ui.sistemas.Ofensiva_Manager;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -35,8 +36,6 @@ import com.google.firebase.database.ValueEventListener;
 import android.animation.ObjectAnimator;
 import android.view.animation.DecelerateInterpolator;
 import android.animation.ValueAnimator;
-
-import java.util.Calendar;
 
 import com.example.crashware.ui.sistemas.XP_Manager;
 
@@ -48,6 +47,7 @@ public class Inicio_fragment extends Fragment {
 
     private TextView txtNomeInicio, txtAulasConcluidas, txtOfensiva, txtNivelInicio, txtXpInicio;
     private ShapeableImageView imgfotoInicio;
+    ImageView imgNotificacoes;
 
     private FirebaseAuth auth;
     private DatabaseReference db;
@@ -64,10 +64,6 @@ public class Inicio_fragment extends Fragment {
     Button btnRetomar;
 
     XP_Manager XP_Manager;
-
-//    Float XpParaBarra;
-//
-//    int nivel ;
 
     // =========================
     // OFENSIVA
@@ -104,16 +100,17 @@ public class Inicio_fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_inicio, container, false);
 
         // iniciando os elementos através do view
-        txtNomeInicio       = view.findViewById(R.id.txtNomeInicio);
-        imgfotoInicio       = view.findViewById(R.id.imgFotoInicio);
+        txtNomeInicio       = view.findViewById(R.id.txtNomeInicio           );
+        imgfotoInicio       = view.findViewById(R.id.imgFotoInicio           );
         txtAulasConcluidas  = view.findViewById(R.id.txtNumeroAulasConcluidas);
-        txtOfensiva         = view.findViewById(R.id.txtDiasConsecutivos);
-        btnRetomarH         = view.findViewById(R.id.btnRetomarH);
-        btnRetomarS         = view.findViewById(R.id.btnRetomarS);
-        txtNivelInicio      = view.findViewById(R.id.txtNivelInicio);
-        BarraProgressoNivel = view.findViewById(R.id.BarraProgressoNivel);
-        btnRetomar          = view.findViewById(R.id.btnRetomar);
-        txtXpInicio         = view.findViewById(R.id.txtXPInicio);
+        txtOfensiva         = view.findViewById(R.id.txtDiasConsecutivos     );
+        btnRetomarH         = view.findViewById(R.id.btnRetomarH             );
+        btnRetomarS         = view.findViewById(R.id.btnRetomarS             );
+        txtNivelInicio      = view.findViewById(R.id.txtNivelInicio          );
+        BarraProgressoNivel = view.findViewById(R.id.BarraProgressoAula      );
+        btnRetomar          = view.findViewById(R.id.btnRetomar              );
+        txtXpInicio         = view.findViewById(R.id.txtXPInicio             );
+        imgNotificacoes     = view.findViewById(R.id.layoutSino              );
 
         // Atualiza a interface de XP e nível
         atualizarInterfaceXp();
@@ -170,6 +167,19 @@ public class Inicio_fragment extends Fragment {
                 startActivity(Hardware);
             }
         });
+
+        imgNotificacoes.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
+
+                dialog.setContentView(R.layout.dialog_notificacoes);
+
+                dialog.show();
+            }
+        });//Interação com imagem de notificações
 
         return view;
     }

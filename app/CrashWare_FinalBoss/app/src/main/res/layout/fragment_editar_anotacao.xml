@@ -31,7 +31,7 @@
 
                 <!-- Adicionar Anotacao -->
                 <ImageView
-                    android:id="@+id/imgVoltarNovaAnotacao"
+                    android:id="@+id/imgVoltarExercicios"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/seta_icon"

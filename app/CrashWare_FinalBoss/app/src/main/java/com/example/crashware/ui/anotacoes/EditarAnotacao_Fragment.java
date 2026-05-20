@@ -56,7 +56,7 @@ public class EditarAnotacao_Fragment extends Fragment {
         txtAnotacao        = view.findViewById(R.id.txtAnotacao          );
         txtTituloAnotacao  = view.findViewById(R.id.txtTituloAnotacao    );
         btnEditarAnotacao  = view.findViewById(R.id.btnEditarAnotacao    );
-        imgVoltarAnotacoes = view.findViewById(R.id.imgVoltarNovaAnotacao);
+        imgVoltarAnotacoes = view.findViewById(R.id.imgVoltarExercicios);
         txtDataCriacao     = view.findViewById(R.id.txtDataCriacao       );
         txtDataEdicao      = view.findViewById(R.id.txtDataEdicao        );
 
