@@ -664,6 +664,7 @@ export class Usuario
                 if (response.status == 409)
                 {
                     //Ignora
+                    return;
                 }
 
                 if (response.ok)
@@ -677,11 +678,22 @@ export class Usuario
                     const xp_bonus = dados.xp_bonus;
 
 
-                    //Adiciono moedas para a conta do usuario
-                    await this.adicionar_moeda(moeda_bonus);
+                    if (moeda_bonus != 0)
+                    {
+                       //Adiciono moedas para a conta do usuario
+                        await this.adicionar_moeda(moeda_bonus);
+                    }
+                    
+                        
+                    
 
-                    //adciono xp para conta do usuario
-                    await this.adicionar_xp(xp_bonus);
+                    if(xp_bonus != 0)
+                    {
+                        //adciono xp para conta do usuario
+                        await this.adicionar_xp(xp_bonus);
+                    }
+
+                    
 
 
                     if(tipo_conquista == "Software")
