@@ -36,7 +36,7 @@ const LayoutPadrao = () => {
                                 <div className={Style.RedesSociais}>
                                     <h5>Redes Sociais</h5>
                                     <div className={Style.Tamanho}>
-                                        <a href="https://www.instagram.com/thesousac/" target='_blank'>
+                                        <a href="https://www.instagram.com/nesferaz/" target='_blank'>
                                             <img src={Instagram} alt="" />
                                         </a>
                                         <img src={Whatsapp} alt="" />
