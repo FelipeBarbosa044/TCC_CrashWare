@@ -175,11 +175,11 @@ public class Auth {
             public void onFailure(Call<TokenResponse> call, Throwable t) {
                 // Caso deu erro na requisição
                 // erro de conexão (internet, URL, servidor fora)
-                Toast.makeText(
-                        context,
-                        "Erro de conexão: " + t.getMessage(),
-                        Toast.LENGTH_LONG
-                ).show();
+//                Toast.makeText(
+//                        context,
+//                        "Erro de conexão: " + t.getMessage(),
+//                        Toast.LENGTH_LONG
+//                ).show();
             }
         });
 
@@ -252,11 +252,11 @@ public class Auth {
             public void onFailure(Call<TokenResponse> call, Throwable t) {
                 // Caso deu erro na requisição
                 // erro de conexão (internet, URL, servidor fora)
-                Toast.makeText(
-                        context,
-                        "Erro de conexão: " + t.getMessage(),
-                        Toast.LENGTH_LONG
-                ).show();
+//                Toast.makeText(
+//                        context,
+//                        "Erro de conexão: " + t.getMessage(),
+//                        Toast.LENGTH_LONG
+//                ).show();
             }
         });//requisição
 
@@ -336,11 +336,11 @@ public class Auth {
             public void onFailure(Call<RefreshTokenResponse> call, Throwable t) {
                 // Caso deu erro na requisição
                 // erro de conexão (internet, URL, servidor fora)
-                Toast.makeText(
-                        context,
-                        "Erro de conexão: " + t.getMessage(),
-                        Toast.LENGTH_LONG
-                ).show();
+//                Toast.makeText(
+//                        context,
+//                        "Erro de conexão: " + t.getMessage(),
+//                        Toast.LENGTH_LONG
+//                ).show();
             }
         });//Requisição
 

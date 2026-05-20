@@ -42,8 +42,9 @@ async def achievement_login(dados : AchievementSchema,usuario = Depends(validar_
             ##Se não der certo eu retorno o erro, e dou rollback no banco.
             session.rollback()
             raise HTTPException(status_code=400, detail=str(exception))
-    # else:
-    #     raise HTTPException(status_code=409,detail="Usuario já tem essa conquista...")
+            #####
+    else:
+        raise HTTPException(status_code=409,detail="Usuario já tem essa conquista...")
 
 
 
