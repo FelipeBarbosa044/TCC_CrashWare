@@ -7,6 +7,7 @@ import style from "./ConteudoHome.module.css";
 import hardwareIcon from "../../../fotos/hardware.svg";
 import softwareIcon from "../../../fotos/software.svg";
 import iconOfensiva from "../../../fotos/Ofensiva.svg";
+import raposaIcon from "../../../fotos/Raposa.svg";
 
 import { PopUp } from '../../pop-up';
 
@@ -216,7 +217,7 @@ const ConteudoHome = () => {
                         <div className={style.Nivel}>
                             <div className={style.NivelTopo}>
                                 <span>Nível {Nivel}</span>
-                                <span>{xpAtual}/{XpMax} XP</span>
+                                <span>{xpAtual}/{XpMax} XP</span>       
                             </div>
                             <div className={style.Barra}>
                                 <div
@@ -229,9 +230,17 @@ const ConteudoHome = () => {
                 </div>
 
                 <div className={style.ofensiva}>
-                    <img src={iconOfensiva} alt="Ofensiva" className={style.ofensivaIcon} />
-                    <span className={style.ofensivaDias}>{ofensiva} Dias</span>
-                    <p className={style.ofensivaLabel}>Consecutivos<br />de ofensiva</p>
+
+                    <div className={style.raposa}>
+                        <img src={raposaIcon} alt="" />
+                    </div>
+
+                    <div className={style.infoOfensiva}>
+                        <img src={iconOfensiva} alt="Ofensiva" className={style.ofensivaIcon} />
+                        <span className={style.ofensivaDias}>{ofensiva} Dias</span>
+                        <p className={style.ofensivaLabel}>Consecutivos<br />de ofensiva</p>
+                    </div>
+
                 </div>
 
             </div>

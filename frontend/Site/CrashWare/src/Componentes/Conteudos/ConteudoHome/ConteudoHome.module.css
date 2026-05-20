@@ -60,6 +60,14 @@
     flex: 1;
 }
 
+div.raposa img{
+    width: 70px;
+}
+
+div.raposa{
+    margin-right: 20px;
+}
+
 .bemVindo {
     font-size: 9px;
     font-weight: 900;
@@ -118,7 +126,7 @@
 
 .ofensiva {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 4px;
@@ -130,6 +138,12 @@
     flex-shrink: 0;
     min-width: 120px;
     transition: border-color 0.2s, transform 0.2s;
+}
+
+.infoOfensiva{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .ofensiva:hover {

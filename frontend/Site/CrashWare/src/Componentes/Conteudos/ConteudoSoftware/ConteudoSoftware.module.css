@@ -8,12 +8,12 @@
 
 .corpo {
     width: 98vw;
-    padding-top: 240px;
+    padding-top: 280px;
     padding-bottom: 40px;
 
     display: flex;
     flex-direction: row;
-    justify-self: center;
+    justify-content: center;
     flex-wrap: wrap;
 
     font-family: "Montserrat";
