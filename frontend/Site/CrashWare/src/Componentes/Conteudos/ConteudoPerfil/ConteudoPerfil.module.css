@@ -356,7 +356,8 @@
     flex-direction: column;
     gap: 7px;
     flex: 1;
-    overflow-y: auto; 
+    overflow-y: auto;  /*Minha Alteração foi colocar isso aq*/
+    max-height: 50vh;
 }
 
 .ItemConquista {

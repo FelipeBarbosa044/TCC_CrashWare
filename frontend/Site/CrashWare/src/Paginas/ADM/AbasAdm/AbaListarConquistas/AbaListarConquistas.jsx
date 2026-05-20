@@ -43,7 +43,7 @@ const AbaListarConquistas = () => {
         //Adiciono as conquistas na interface
 
         for (let n = 0; n < quantidade_conquistas; n++) {
-            CONQUISTAS_MOCK.push({ id: conquistas[n].id_conquista, titulo: conquistas[n].nome_conquista, descricao: conquistas[n].descricao, tipo: conquistas[n].tipo_conquista, condicao: conquistas[n].condicao_conquista })
+            CONQUISTAS_MOCK.push({ id: conquistas[n].id_conquista, titulo: conquistas[n].nome_conquista, descricao: conquistas[n].descricao, tipo: conquistas[n].tipo_conquista, condicao: conquistas[n].condicao_conquista, botao: <BotoesForm texto="Excluir" /> })
 
         }
 
@@ -122,12 +122,12 @@ const AbaListarConquistas = () => {
                                             <div className={Style.Coluna1}>
                                                 <h5>Descrição: </h5>
                                                 <p>{c.descricao}</p>
+                                            <p className={Style.Exlcuir}>{c.botao}</p>
 
                                             </div>
                                             <div>
                                                 <h5>Condição: </h5>
                                                 <p>{c.condicao}</p>
-
                                             </div>
                                         </div>
                                     )}
