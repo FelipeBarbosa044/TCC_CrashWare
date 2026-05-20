@@ -1,5 +1,6 @@
 package com.example.crashware.ui.perfil;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.example.crashware.ui.config.ThemeConfig;
 //
 
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,18 +90,18 @@ public class Configuracoes_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_configuracoes, container, false);
 
-        imgVoltarConfig = view.findViewById(R.id.imgVoltarExercicios);
-        imgGelo = view.findViewById(R.id.imgGelo);
-        imgLeitura = view.findViewById(R.id.imgLeitura);
-        imgMeiaNoite = view.findViewById(R.id.imgMeiaNoite);
-        imgTemaSistema = view.findViewById(R.id.imgTemaSistema);
-        imgTemaModoClaro = view.findViewById(R.id.imgModoClaro);
-        imgtemaModoEscuro = view.findViewById(R.id.imgModoEscuro);
-        Sobre = view.findViewById(R.id.cardPrivacidadeSegurancaSobre);
-        SairDaConta = view.findViewById(R.id.cardConfigUsuarioSairConta);
-        TermosDeServiço = view.findViewById(R.id.cardPrivacidadeSegurancaTermosServico);
+        imgVoltarConfig     = view.findViewById(R.id.imgVoltarExercicios);
+        imgGelo             = view.findViewById(R.id.imgGelo);
+        imgLeitura          = view.findViewById(R.id.imgLeitura);
+        imgMeiaNoite        = view.findViewById(R.id.imgMeiaNoite);
+        imgTemaSistema      = view.findViewById(R.id.imgTemaSistema);
+        imgTemaModoClaro    = view.findViewById(R.id.imgModoClaro);
+        imgtemaModoEscuro   = view.findViewById(R.id.imgModoEscuro);
+        Sobre               = view.findViewById(R.id.cardPrivacidadeSegurancaSobre);
+        SairDaConta         = view.findViewById(R.id.cardConfigUsuarioSairConta);
+        TermosDeServiço     = view.findViewById(R.id.cardPrivacidadeSegurancaTermosServico);
         AlterarDadosUsuario = view.findViewById(R.id.cardConfigUsuarioAlterarDados);
-        ExcluirConta = view.findViewById(R.id.cardConfigUsuarioExluirConta);
+        ExcluirConta        = view.findViewById(R.id.cardConfigUsuarioExluirConta);
 
 
         imgGelo.setEnabled(false);
@@ -178,18 +180,46 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                //Deleto o token e o refresh_token
-                prefs.edit()
-                        .remove("token")
-                        .remove("refresh_token")
-                        .remove("foto")
-                        .apply();
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
-                //Vou para o login(futuramente para a tela de carregamento)
-                Intent i = new Intent(requireContext(), Login.class);
-                startActivity(i);
+                builder.setTitle("Sair da conta");
 
-                requireActivity().finish();
+                builder.setMessage("Deseja realmente sair da sua conta?");
+
+                // Botão SIM
+                builder.setPositiveButton("Sim", (dialog, which) -> {
+
+                    // Aqui você faz logout
+
+                    Toast.makeText(requireContext(),
+                            "Conta desconectada",
+                            Toast.LENGTH_SHORT).show();
+
+                    //Deleto o token e o refresh_token
+                    prefs.edit()
+                            .remove("token")
+                            .remove("refresh_token")
+                            .remove("foto")
+                            .apply();
+
+                    //Vou para o login(futuramente para a tela de carregamento)
+                    Intent i = new Intent(requireContext(), Login.class);
+                    startActivity(i);
+
+                    requireActivity().finish();
+
+                });
+
+                // Botão NÃO
+                builder.setNegativeButton("Cancelar", (dialog, which) -> {
+
+                    dialog.dismiss();
+
+                });
+
+                builder.show();
+
+
             }
         });//Interação com botão sair da conta
 
