@@ -83,6 +83,9 @@ public class Inicio_fragment extends Fragment {
         // Coleto as informações do usuário
         Perfil();
 
+        //Adiciono a conquista de login
+        PrimeiroLogin();
+
         XP_Manager = new XP_Manager(requireContext());
 
 
@@ -263,6 +266,8 @@ public class Inicio_fragment extends Fragment {
 
             @Override
             public void onSuccess() {
+
+
                 //Se token for valido executo a requisição
                 User.Perfil(requireContext(), prefs, new User.PerfilCallback() {
 
@@ -272,7 +277,9 @@ public class Inicio_fragment extends Fragment {
                         String nome = usuario.nome;
 
                         String banner = usuario.banner;
-                        //Float xp = usuario.xp;
+
+                        Integer moedas = usuario.moedas;
+                        Float xp = usuario.xp;
 
 
                         String foto = usuario.foto;
@@ -282,6 +289,8 @@ public class Inicio_fragment extends Fragment {
                                 .putString("foto", foto)
                                 .putString("nome", nome)
                                 .putString("banner",banner)
+                                .putInt("moedas",moedas)
+                                .putFloat("xp",xp)
                                 .putInt("nivel", XP_Manager.getNivel())
 
                                 .commit();
@@ -310,6 +319,21 @@ public class Inicio_fragment extends Fragment {
 
 
     }//Perfil
+
+
+    private void PrimeiroLogin() {
+        //Conquista do primeiro login
+
+
+        Boolean PrimeiroLogin = prefs.getBoolean("PrimeiroLogin",false);
+
+        if(PrimeiroLogin == true)
+        {
+            User.Conquista(9,prefs,requireContext());
+        }
+
+
+    }
 
     // =========================
     // CARREGAR IMAGEM

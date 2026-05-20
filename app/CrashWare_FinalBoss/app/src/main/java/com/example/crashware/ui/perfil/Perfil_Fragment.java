@@ -143,7 +143,8 @@ public class Perfil_Fragment extends Fragment {
         //Pego os dados no SharedPreferences
         String Nome = prefs.getString("nome", null);
         String Patente = prefs.getString("patente", "Iniciante");
-        int Gemas = prefs.getInt("moedas", 0);
+        Integer Moedas = prefs.getInt("moedas", 0);
+        Float xp = prefs.getFloat("xp",0);
         int Nivel = XP_Manager.getNivel();
         float Xp = XP_Manager.getXp();
 
@@ -182,10 +183,10 @@ public class Perfil_Fragment extends Fragment {
         txtNomePerfil.setText(Nome);
         txtPatente.setText(Patente);
         txtNivelPerfil.setText("Nível " + String.valueOf(Nivel));
-        txtQuantGemas.setText(String.valueOf(Gemas));
+        txtQuantGemas.setText(String.valueOf(Moedas));
+        txtQuantXP.setText(String.valueOf(xp));
 
 //        txtQuantDiasSeguidos.setText(Ofensiva);
-
 
 
 
@@ -284,11 +285,20 @@ public class Perfil_Fragment extends Fragment {
                     public void sucesso(User.PerfilResponse usuario) {
 
                         String nome= usuario.nome;
+                        String patente = usuario.patente;
                         String foto = usuario.foto;
                         String banner = usuario.banner;
+                        Integer moedas = usuario.moedas;
+                        Float xp = usuario.xp;
 
 
+
+                        //Atualizo as informações para não rodar cache
                         txtNomePerfil.setText(nome);
+                        txtPatente.setText(patente);
+                        txtQuantGemas.setText(String.valueOf(moedas));
+                        txtQuantXP.setText(String.valueOf(xp));
+
 
 
 

@@ -796,6 +796,13 @@ public class User {
                     }
                     if(resposta.isSuccessful())
                     {
+
+                        //Primeiro Login se tornara Falso
+                        prefs.edit()
+                                .putBoolean("PrimeiroLogin",false)
+                                .apply();
+
+
                         //Requisição der certo
                         ConquistaResponse dados = resposta.body();
 
@@ -823,34 +830,30 @@ public class User {
 
 
 
-
-                        //Adiciono xp para o usuario
-
-                        return;
-
-
+                        //Mostrara esse popup por enquanto (AQUI AONDE VOCê VAI MOSTRAR A CONQUISTA JAO OU ADLER)
+                        Toast.makeText(context, nome_conquista, Toast.LENGTH_LONG).show();
 
                     }else {
                         //Retorna erro caso a reqsição dar errado
 
-                        String erro = "Erro ao alterar banner";
-
-                        try {
-                            String detail = resposta.errorBody().string();
-
-                            JSONObject json = new JSONObject(detail);
-
-
-                            if (detail != null) {
-                                erro = json.getString("detail");
-
-                            }
-                        } catch (Exception e) {
-                            // ignora, mantém mensagem padrão
-                        }
+//                        String erro = "Erro ao alterar banner";
+//
+//                        try {
+//                            String detail = resposta.errorBody().string();
+//
+//                            JSONObject json = new JSONObject(detail);
+//
+//
+//                            if (detail != null) {
+//                                erro = json.getString("detail");
+//
+//                            }
+//                        } catch (Exception e) {
+//                            // ignora, mantém mensagem padrão
+//                        }
 
                         //Aqui retorna o ERRO
-                        Toast.makeText(context, erro, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(context, erro, Toast.LENGTH_LONG).show();
                     }
 
 
@@ -860,11 +863,11 @@ public class User {
                 public void onFailure(Call<ConquistaResponse> call, Throwable t) {
                     // Caso deu erro na requisição
                     // erro de conexão (internet, URL, servidor fora)
-                    Toast.makeText(
-                            context,
-                            "Erro de conexão: " + t.getMessage(),
-                            Toast.LENGTH_LONG
-                    ).show();
+//                    Toast.makeText(
+//                            context,
+//                            "Erro de conexão: " + t.getMessage(),
+//                            Toast.LENGTH_LONG
+//                    ).show();
                 }
             });
 

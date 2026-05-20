@@ -305,8 +305,8 @@ public class Login extends AppCompatActivity {
                     prefs.edit()
                             .putString("token",token)
                             .putString("refresh_token",refresh_token)
+                            .putBoolean("PrimeiroLogin",true)
                             .apply();
-
 
 
                     //Vai para a HOME:
