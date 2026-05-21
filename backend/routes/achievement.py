@@ -12,6 +12,7 @@ from dependences import pegar_sessao, validar_token
 #Importando Schemas
 from schemas.AchievementSchema import AchievementSchema
 
+from sqlalchemy import select
 
 #ROTAS
 @achievement.post('/')
@@ -55,10 +56,10 @@ async def buscar_conquista(usuario = Depends(validar_token),session = Depends(pe
     id = usuario.id_usuario
 
     ##Pego as conquistas do usuario
-    conquista_usuario = (
-        session.execute(Conquista.nome_conquista,Conquista.descricao)
-        .join(Usuario_Conquista, Usuario_Conquista.conquista_id == Conquista.id_conquista)
-        .filter(Usuario_Conquista.usuario_id == id)
+    conquista_usuario = (session.execute(
+            select(Conquista.nome_conquista,Conquista.descricao)
+            .join(Usuario_Conquista,Usuario_Conquista.conquista_id == Conquista.id_conquista)
+            .where(Usuario_Conquista.usuario_id == id))
         .mappings()
         .all()
     )
