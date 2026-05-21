@@ -833,7 +833,9 @@ public class User {
                         //Mostrara esse popup por enquanto (AQUI AONDE VOCê VAI MOSTRAR A CONQUISTA JAO OU ADLER)
                         Toast.makeText(context, nome_conquista, Toast.LENGTH_LONG).show();
 
-                    }else {
+                    }
+                    else
+                    {
                         //Retorna erro caso a reqsição dar errado
 
 //                        String erro = "Erro ao alterar banner";

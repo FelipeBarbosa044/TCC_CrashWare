@@ -1,4 +1,4 @@
-package com.example.crashware.ui.anotacoes;
+package com.example.crashware.ui.Models;
 
 public class Anotacao
 {

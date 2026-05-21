@@ -1,15 +1,12 @@
 package com.example.crashware.ui.anotacoes;
 
 import static android.content.Context.MODE_PRIVATE;
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
-import com.example.crashware.ui.navegacao.Inicio_fragment;
+import com.example.crashware.ui.Adapters.Anotacao_Adapter;
 import com.example.crashware.R;
 
 import org.json.JSONArray;
@@ -40,6 +37,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
+import com.example.crashware.ui.Models.Anotacao;
 import com.google.android.material.snackbar.Snackbar;
 
 

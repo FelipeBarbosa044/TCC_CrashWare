@@ -1,4 +1,4 @@
-package com.example.crashware.ui.anotacoes;
+package com.example.crashware.ui.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.crashware.R;
+import com.example.crashware.ui.Models.Anotacao;
 
 import java.util.ArrayList;
 

@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import com.example.crashware.R;
+import com.example.crashware.ui.Models.Anotacao;
 
 import java.util.ArrayList;
 
