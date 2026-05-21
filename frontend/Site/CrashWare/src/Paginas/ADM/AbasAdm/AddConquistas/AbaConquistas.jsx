@@ -86,6 +86,45 @@ const AbaConquistas = () => {
                         </label>
                     </div> {/* Tipo */}
                 </div> {/* Nome e Tipo */}
+
+                <div className={Style.recompensas}>
+
+                    <h1>Recompensas</h1>
+
+                    <div className={Style.inputs}>
+                        <label htmlFor="qtdMoedas">Quantidade de moedas</label>
+                        <input type="text" id="qtdMoedas"/>
+                    </div>
+
+                    <div className={Style.inputs}>
+                        <label htmlFor="qtdXp">Quantidade de xp</label>
+                        <input type="text" id="qtdXp"/>
+                    </div>
+
+                </div>
+
+                <div className={Style.condicoes}>
+
+                    <div className={Style.divInputs}>
+                        <div className={Style.inputs}>
+                            <label htmlFor="condicoes">Condições</label>
+                            <input type="text" id="condicoes" maxLength="300"/>
+                            <p>max 300 caracteres</p>
+                        </div>
+                        <div className={Style.inputs}>
+                            <label htmlFor="descricao">Descrição</label>
+                            <input type="text" id="descricao" maxLength="300"/>
+                            <p>max 300 caracteres</p>
+                        </div>
+                    </div>
+
+                    
+                    <div className={Style.divDosBotoes}>
+                        <button className={Style.botoes}>Limpar campos</button>
+                        <button className={Style.botoes}>Criar</button>
+                    </div>
+                </div>
+
             </div> {/* Conteudo */}
         </>
     )

@@ -14,6 +14,7 @@ export * from './Termos';
 export * from './VerificacaoEmail';
 export * from './ConteudoHardware';
 export * from './ConteudoSoftware';
+export * from './Loja';
 
 //     Aulas
 

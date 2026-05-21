@@ -1,0 +1,148 @@
+.Caixa {
+  position: fixed;
+  top: 130px;
+  right: 15px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.Card {
+  pointer-events: all;
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border-left: 4px solid;
+  min-width: 400px;
+  max-width: 500px;
+  height: 90px;
+  animation: Entrar 0.22s ease;
+
+  display: flex;
+  align-items: center;
+}
+
+.Card_hardware {
+  background: #1a2a1a;
+  border-color: #7ecb35;
+}
+
+.Card_software {
+  background: #0f1e2e;
+  border-color: #2196f3;
+}
+
+.Card_outros {
+  background: #1e1a2e;
+  border-color: #7c4dff;
+}
+
+.Icone {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-size: 20px;
+}
+
+.Card_hardware .Icone {
+    background: linear-gradient(135deg, #a8e63d, #5db528); 
+}
+
+.Card_software .Icone { 
+    background: linear-gradient(135deg, #00bcd4, #1565c0); 
+}
+
+.Card_outros .Icone { 
+    background: #7c4dff; 
+}
+
+.IconeImagem {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.Etiqueta {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-bottom: 35px;
+}
+
+.Etiqueta_hardware { 
+    background: #1f3a10; 
+    color: #7ecb35; 
+}
+
+.Etiqueta_software { 
+    background: #0b2040;
+     color: #29b6f6; 
+}
+
+.Etiqueta_outros { 
+    background: #2a1f3e; 
+    color: #b39ddb; 
+}
+
+.Conteudo { 
+    flex: 1; 
+}
+
+.Titulo {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.Mensagem {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.Card_hardware .Titulo { 
+    color: #a8e63d;
+}
+
+.Card_hardware .Mensagem {
+    color: #6fa83a;
+}
+
+.Card_software .Titulo { 
+    color: #29b6f6; 
+}
+
+.Card_software .Mensagem { 
+    color: #1e7bb5; 
+}
+
+.Card_outros .Titulo  { 
+    color: #b39ddb; 
+}
+
+.Card_outros .Mensagem { 
+    color: #7e57c2; 
+}
+
+.BotaoFechar {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  opacity: 0.4;
+  align-self: flex-start;
+  padding: 0 4px;
+  color: inherit;
+}
+
+.BotaoFechar:hover {
+  opacity: 1;
+}

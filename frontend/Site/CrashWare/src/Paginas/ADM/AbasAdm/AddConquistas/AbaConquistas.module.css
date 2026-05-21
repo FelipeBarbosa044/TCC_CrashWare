@@ -6,25 +6,28 @@
     box-sizing: border-box;
 }
 
-.separarConteudos{
+.separarConteudos {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    align-items: flex-start;  /* era align-content: center */
+    height: auto;             /* era 100vh */
+    padding-top: 110px;       /* mesma altura do header */
 }
+
 
 .Conteudos {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-items: center;
     align-self: flex-start;
-    margin: auto;
-    margin-top: 110px;
-    
-    /* border: 2px solid var(--texto-principal); */
+    flex-wrap: wrap;
+    margin: 0 auto;      /* só centraliza horizontal */
+    padding-top: 110px;  /* empurra o conteúdo pra baixo do header */
+
     border-radius: 16px;
-    
     width: 70%;
-    height: auto;
+    height: auto;        /* sem altura fixa */
 
     font-family: "Montserrat";
     color: var(--texto-principal);
@@ -50,8 +53,8 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    width: 50%;
-    height: 100%;
+    width: 60%;
+    max-height: 260px;
 }
 
 .NomeTipo label {
@@ -365,6 +368,79 @@
 .botaoAdicionar:disabled{
     background: gray;
     cursor: not-allowed;
+}
+
+.recompensas{
+    width: 36%;
+    height: 262px !important;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-secundario);
+    border: 1px solid var(--texto-principal);
+    border-radius: 16px;
+    margin-left: 16px;
+    padding: 0px 30px;
+}
+
+.recompensas .inputs{
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.recompensas .inputs input{
+    padding: 10px;
+    border-radius: 16px;
+    margin-top: 8px;
+}
+
+.condicoes{
+    width: 97%;
+    /* max-height: 360px; */
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+
+    background-color: var(--bg-secundario);
+    border: 1px solid var(--texto-principal);
+    border-radius: 16px;
+    padding: 30px;
+}
+
+.condicoes .divInputs{
+    display: flex;
+    gap: 90px;
+}
+
+.condicoes .inputs{
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    /* margin-right: 70px; */
+}
+
+.condicoes .inputs input{
+    height: 50px;
+    border-radius: 16px;
+    margin: 10px 0px;
+}
+
+.condicoes .inputs p{
+    text-align: end;
+}
+
+.divDosBotoes{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.divDosBotoes .botoes{
+    align-content: center;
+    max-width: 300px;
 }
 
 @media (max-width: 970px) {

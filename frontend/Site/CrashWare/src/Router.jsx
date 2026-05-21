@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom"
-import { PgInicial, PgCadastro, SobreNos, PgLogin, PgErro, PgRecuperarSenha, PgVerificacaoEmail, PgPerfil, PgAnotacoes, PgConfiguracoes, PgHome, PgTermos, AbaConquistas, AbaUsuarios, PgConteudoHardware, PgAlterarSenha, AbaRelatorios, PgConteudoSoftware, AbaCriarMateria } from "./Paginas"
+import { PgInicial, PgCadastro, SobreNos, PgLogin, PgErro, PgRecuperarSenha, PgVerificacaoEmail, PgPerfil, PgAnotacoes, PgConfiguracoes, PgHome, PgTermos, AbaConquistas, AbaUsuarios, PgConteudoHardware, PgAlterarSenha, AbaRelatorios, PgConteudoSoftware, AbaCriarMateria, PgLoja } from "./Paginas"
 import { LayoutPadrao, LayoutADM, LayoutLogado } from "./Layouts"
 import { AuthProvider, RotaPrivada } from "./VerificacaoToken"
 import { AbaListarConquistas } from "./Paginas/ADM/AbasAdm/AbaListarConquistas"
@@ -132,6 +132,15 @@ const Router = () => {
                 />
                 
             </Route>
+
+                <Route
+                    path="loja"
+                    element={
+                        <RotaPrivada>
+                            <PgLoja />
+                        </RotaPrivada>
+                    }
+                />
 
             {/* ADM */}
             <Route path="/" element={<LayoutADM />}>
