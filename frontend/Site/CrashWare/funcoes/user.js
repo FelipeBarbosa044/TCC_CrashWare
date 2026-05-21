@@ -792,6 +792,7 @@ export class Usuario
     async adicionar_moeda(moedas,setDados)
     {
 
+        
 
          //Pego o token
         const token = localStorage.getItem("token")
@@ -839,5 +840,49 @@ export class Usuario
 
 
     }//adicionar_moeda
+
+    async mostrar_conquista()
+    {
+        
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+
+        try
+        {
+            
+
+            const response = await fetch("https://api-crashware.onrender.com/achievement/buscar_conquista",
+                {
+                    method: "GET",
+                    headers:
+                    {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+              
+            if(response.ok)
+            {
+                //Pego os dados
+                const dados = await response.json();
+
+                //Pego as conquistas
+                const conquistas = dados.conquistas
+
+                //Guardo as conquistas no LocalStorage
+                localStorage.setItem("usuario_conquistas", JSON.stringify(conquistas));
+
+            }else
+            {
+                const erro = await response.json();
+
+                console.log(erro.detail)
+            } 
+        }catch (error) 
+        {
+            //Erro de conexão
+            console.log(error);
+        }
+    }//Mostrar Conquistas
 
 }//classe

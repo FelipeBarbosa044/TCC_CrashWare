@@ -17,18 +17,12 @@ import { Usuario } from '../../../../funcoes/user'
 
 import { PopUp } from '../../pop-up'
 
-// Dados de exemplo para as conquistas — substitua pelos dados reais da API
-const CONQUISTAS_MOCK = [
-    { id: 1, titulo: 'Conquista de Software', descricao: 'Descrição super divertida sobre a aula concluída para adquirir a conquista.', tipo: 'software' },
-    { id: 2, titulo: 'Conquista de Hardware', descricao: 'Descrição super divertida sobre a aula concluída para adquirir a conquista.', tipo: 'hardware' },
-    { id: 3, titulo: 'Conquista de Hardware', descricao: 'Descrição super divertida sobre a aula concluída para adquirir a conquista.', tipo: 'hardware' },
-    { id: 4, titulo: 'Conquista de Software', descricao: 'Descrição super divertida sobre a aula concluída para adquirir a conquista.', tipo: 'software' },
-    { id: 5, titulo: 'Conquista de Hardware', descricao: 'Descrição super divertida sobre a aula concluída para adquirir a conquista.', tipo: 'hardware' },
-    { id: 6, titulo: 'Conquista de Hardware', descricao: 'Descrição super divertida sobre a aula concluída para adquirir a conquista.', tipo: 'hardware' },
-    { id: 7, titulo: 'Conquista de Hardware', descricao: 'Descrição super divertida sobre a aula concluída para adquirir a conquista.', tipo: 'hardware' }
-]
+
 
 const ConteudoPerfil = () => {
+
+    // Dados de exemplo para as conquistas — substitua pelos dados reais da API
+    let CONQUISTAS_MOCK = []
 
      //Navegação --> Permite eu levar o usuario para outras telas
     const Navegacao = useNavigate();
@@ -94,6 +88,7 @@ const ConteudoPerfil = () => {
     const xpAtual = xp % XpMax;
     const porcentagem = (xp / XpMax) * 100;
 
+    
 
     // //  QUERO SABER QUEM FOI
     // useEffect(() => {
@@ -104,7 +99,9 @@ const ConteudoPerfil = () => {
     //     }
     // }, []);
 
-    useEffect(() => {
+    useEffect(  () => {
+
+        carregarConquistas();
 
         const onVisible = () => {
 
@@ -123,6 +120,32 @@ const ConteudoPerfil = () => {
         };
 
     }, []);
+
+    async function carregarConquistas() {
+
+        //Resto as conquistas
+        CONQUISTAS_MOCK = [];
+
+        const user = new Usuario(token,refresh_token,Navegacao,set);
+        await user.mostrar_conquista();
+        
+        //Pega as conquistas
+        const usuario_conquistas = JSON.parse(localStorage.getItem("usuario_conquistas") || "[]");
+
+        //Pego a quantidade de consquistas
+        let quantidade_conquistas = usuario_conquistas.length
+
+        //Adiciono as conquistas na interface
+
+        for (let n = 0; n < quantidade_conquistas; n++) {
+            CONQUISTAS_MOCK.push({ titulo: usuario_conquistas[n].nome_conquista, descricao: usuario_conquistas[n].descricao})
+        }
+
+        //Exibo na hora as conquistas
+        setConquistas(CONQUISTAS_MOCK)
+
+        //
+    }
 
     if (!usuario) {
         return (

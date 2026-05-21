@@ -16,7 +16,7 @@ from sqlalchemy import select
 
 #ROTAS
 @achievement.post('/')
-async def achievement_login(dados : AchievementSchema,usuario = Depends(validar_token),session = (pegar_sessao)):
+async def achievement_login(dados : AchievementSchema,usuario = Depends(validar_token),session =Depends(pegar_sessao)):
     if usuario is None:
         raise HTTPException(status_code=404,detail="Usuário não encontrado")
     if dados.conquista_id is None:
