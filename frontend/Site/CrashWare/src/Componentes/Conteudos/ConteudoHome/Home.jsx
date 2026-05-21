@@ -10,6 +10,7 @@ import iconOfensiva from "../../../fotos/Ofensiva.svg";
 import raposaIcon from "../../../fotos/Raposa.svg";
 
 import { PopUp } from '../../pop-up';
+import { PopUpConquista } from "../../popUpConquistas";
 
 // felipe depois tenque substituir pelos dados da API
 const anotacaoItens = [
@@ -195,9 +196,8 @@ const ConteudoHome = () => {
             )}
 
         <div className={style.corpo}>
-
             <div className={style.header}>
-
+                
                 <div className={style.headerUsuario}>
                     <img
                         className={style.foto}
