@@ -81,6 +81,28 @@
             app:strokeColor="#111827"
             app:strokeWidth="2dp" />
 
+        <!-- Alterar Banner -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/alterarBanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:padding="3dp"
+            android:background="@drawable/bg_voltar"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Adicionar Anotacao -->
+            <ImageView
+                android:id="@+id/imgLapisBanner"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/lapis_icon"
+                app:layout_constraintStart_toStartOf="@id/alterarBanner"
+                app:layout_constraintTop_toTopOf="@id/alterarBanner" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <!--Imagem de Perfil -->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgFotoPerfil"
@@ -96,6 +118,27 @@
             app:shapeAppearanceOverlay="@style/CircleImage"
             app:strokeColor="#111827"
             app:strokeWidth="2dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/alterarFotoPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:padding="3dp"
+            android:background="@drawable/bg_voltar"
+            app:layout_constraintTop_toTopOf="@id/imgFotoPerfil"
+            app:layout_constraintEnd_toEndOf="@id/imgFotoPerfil">
+
+            <!-- Adicionar Anotacao -->
+            <ImageView
+                android:id="@+id/imgLapisFotoPerfil"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/lapis_icon"
+                app:layout_constraintStart_toStartOf="@id/alterarFotoPerfil"
+                app:layout_constraintTop_toTopOf="@id/alterarFotoPerfil" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Nível do Usuário -->
         <TextView
@@ -142,7 +185,7 @@
             android:id="@+id/cardXP"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:padding="10dp"
             android:background="@drawable/bg_cardefeitovidroconquistas"
             app:layout_constraintTop_toBottomOf="@id/barraProgressoPerfil"
@@ -254,7 +297,7 @@
             android:id="@+id/cardConquistas"
             android:layout_width="380dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingTop="10dp"

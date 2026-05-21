@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/fundo_claro">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Header -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@color/branco"
+            android:elevation="10dp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/addAnotacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:padding="5dp"
+                android:background="@drawable/bg_voltar"
+                app:layout_constraintTop_toTopOf="@id/header"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <!-- Adicionar Anotacao -->
+                <ImageView
+                    android:id="@+id/imgVoltarExercicios"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/seta_icon"
+                    app:layout_constraintStart_toStartOf="@id/addAnotacao"
+                    app:layout_constraintTop_toTopOf="@id/addAnotacao"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txtVoltar"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/righteous"
+                android:text="Voltar ao perfil"
+                android:textColor="@color/azul"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@id/addAnotacao"
+                app:layout_constraintTop_toTopOf="@id/addAnotacao" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Titulo Alterar Dados -->
+        <TextView
+            android:id="@+id/txtAlterarDados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/righteous"
+            android:text="Alterar dados"
+            android:textAllCaps="true"
+            android:textColor="@color/azul"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header" />
+
+        <ImageView
+            android:id="@+id/imgAlterarDados"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="-16dp"
+            android:src="@drawable/alterardados_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtAlterarDados" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardAlterarEmail"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintTop_toBottomOf="@id/imgAlterarDados"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/imgAlterarEmail"
+                android:layout_width="310dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="35dp"
+                android:src="@drawable/alteraremail_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cardAlterarEmail" />
+
+            <TextView
+                android:id="@+id/txtAlterarEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="38dp"
+                android:fontFamily="@font/righteous"
+                android:text="Alterar e-mail"
+                android:textAllCaps="true"
+                android:textColor="@color/azul"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/imgAlterarEmail"
+                app:layout_constraintTop_toTopOf="@id/imgAlterarEmail" />
+
+            <!-- Titulo E-Mail -->
+            <TextView
+                android:id="@+id/txtEmailVinculado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/righteous"
+                android:text="e-mail vinculado"
+                android:textAllCaps="true"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/imgAlterarEmail"
+                app:layout_constraintTop_toBottomOf="@+id/imgAlterarEmail"/>
+
+            <!-- Campo E-Mail -->
+            <TextView
+                android:id="@+id/campoEmailVinculado"
+                android:layout_width="310dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/bg_edittext_borda"
+                android:fontFamily="@font/pt_sans_caption_bold"
+                android:hint=""
+                android:paddingHorizontal="16dp"
+                android:textColor="#000000"
+                android:textColorHint="#500F172A"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtEmailVinculado" />
+
+            <!-- Titulo Senha -->
+            <TextView
+                android:id="@+id/txtNovoEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/righteous"
+                android:text="novo e-mail"
+                android:textAllCaps="true"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/imgAlterarEmail"
+                app:layout_constraintTop_toBottomOf="@+id/campoEmailVinculado"/>
+
+            <EditText
+                android:id="@+id/campoNovoEmail"
+                android:layout_width="310dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="2dp"
+                android:hint="seu@gmail.com"
+                android:fontFamily="@font/righteous"
+                android:textColor="#000000"
+                android:textColorHint="#500F172A"
+                android:background="@drawable/bg_edittext_borda"
+                android:padding="12dp"
+                android:inputType="textPassword"
+                app:layout_constraintTop_toBottomOf="@id/txtNovoEmail"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/btnAlterarEmail"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/btn_alterardados"
+                android:fontFamily="@font/righteous"
+                android:text="alterar"
+                android:textAllCaps="true"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null"
+                app:backgroundTintMode="add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/campoNovoEmail" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardAdicionarTelefone"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintTop_toBottomOf="@id/cardAlterarNome"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/imgAdicionarTelefone"
+                android:layout_width="310dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="35dp"
+                android:src="@drawable/adicionartelefone_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cardAdicionarTelefone" />
+
+            <TextView
+                android:id="@+id/txtAdicionarTelefone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="40dp"
+                android:fontFamily="@font/righteous"
+                android:text="Adicionar telefone"
+                android:textAllCaps="true"
+                android:textColor="@color/azul"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/imgAdicionarTelefone"
+                app:layout_constraintTop_toTopOf="@id/imgAdicionarTelefone" />
+
+            <!-- Titulo E-Mail -->
+            <TextView
+                android:id="@+id/txtNumeroTelefone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/righteous"
+                android:text="Número de telefone"
+                android:textAllCaps="true"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/imgAdicionarTelefone"
+                app:layout_constraintTop_toBottomOf="@+id/imgAdicionarTelefone"/>
+
+            <!-- Campo E-Mail -->
+            <EditText
+                android:id="@+id/campoNumeroTelefone"
+                android:layout_width="310dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/bg_edittext_borda"
+                android:fontFamily="@font/pt_sans_caption_bold"
+                android:hint="(XX) XXXXX-XXXX"
+                android:paddingHorizontal="16dp"
+                android:textColor="#000000"
+                android:textColorHint="#500F172A"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtNumeroTelefone" />
+
+            <!-- Titulo Senha -->
+            <TextView
+                android:id="@+id/txtConfirmeNumeroTelefone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/righteous"
+                android:text="confirme o número de telefone"
+                android:textAllCaps="true"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/imgAdicionarTelefone"
+                app:layout_constraintTop_toBottomOf="@+id/campoNumeroTelefone"/>
+
+            <EditText
+                android:id="@+id/campoConfirmeNumeroTelefone"
+                android:layout_width="310dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="2dp"
+                android:hint="(XX) XXXXX-XXXX"
+                android:fontFamily="@font/righteous"
+                android:textColor="#000000"
+                android:textColorHint="#500F172A"
+                android:background="@drawable/bg_edittext_borda"
+                android:padding="12dp"
+                android:inputType="textPassword"
+                app:layout_constraintTop_toBottomOf="@id/txtConfirmeNumeroTelefone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/btnAdicionarTelefone"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/btn_alterardados"
+                android:fontFamily="@font/righteous"
+                android:text="adicionar"
+                android:textAllCaps="true"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null"
+                app:backgroundTintMode="add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/campoConfirmeNumeroTelefone" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardAlterarNome"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="15dp"
+                android:background="@drawable/bg_card"
+                app:layout_constraintTop_toBottomOf="@id/cardAlterarEmail"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgAlterarNome"
+                    android:layout_width="310dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/alterarnome_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cardAlterarNome" />
+
+                <TextView
+                    android:id="@+id/txtAlterarNome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="38dp"
+                    android:fontFamily="@font/righteous"
+                    android:text="Alterar nome"
+                    android:textAllCaps="true"
+                    android:textColor="@color/azul"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/imgAlterarNome"
+                    app:layout_constraintTop_toTopOf="@id/imgAlterarNome" />
+
+                <!-- Titulo E-Mail -->
+                <TextView
+                    android:id="@+id/txtNomeAtual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/righteous"
+                    android:text="nome atual"
+                    android:textAllCaps="true"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@id/imgAlterarNome"
+                    app:layout_constraintTop_toBottomOf="@+id/imgAlterarNome"/>
+
+                <!-- Campo E-Mail -->
+                <TextView
+                    android:id="@+id/campoNomeAtual"
+                    android:layout_width="310dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/bg_edittext_borda"
+                    android:fontFamily="@font/pt_sans_caption_bold"
+                    android:hint=""
+                    android:paddingHorizontal="16dp"
+                    android:textColor="#000000"
+                    android:textColorHint="#500F172A"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtNomeAtual" />
+
+                <!-- Titulo Senha -->
+                <TextView
+                    android:id="@+id/txtNovoNome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/righteous"
+                    android:text="novo nome"
+                    android:textAllCaps="true"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@id/imgAlterarNome"
+                    app:layout_constraintTop_toBottomOf="@+id/campoNomeAtual"/>
+
+                <EditText
+                    android:id="@+id/campoNovoNome"
+                    android:layout_width="310dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="2dp"
+                    android:hint="Nome ou apelido"
+                    android:fontFamily="@font/righteous"
+                    android:textColor="#000000"
+                    android:textColorHint="#500F172A"
+                    android:background="@drawable/bg_edittext_borda"
+                    android:padding="12dp"
+                    android:inputType="textPassword"
+                    app:layout_constraintTop_toBottomOf="@id/txtNovoNome"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <Button
+                    android:id="@+id/btnAlterarNome"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/btn_alterardados"
+                    android:fontFamily="@font/righteous"
+                    android:text="alterar"
+                    android:textAllCaps="true"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null"
+                    app:backgroundTintMode="add"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/campoNovoNome" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardAlterarSenha"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintTop_toBottomOf="@id/cardAdicionarTelefone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/imgAlterarSenha"
+                android:layout_width="310dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="35dp"
+                android:src="@drawable/alterarsenha_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cardAlterarSenha" />
+
+            <TextView
+                android:id="@+id/txtAlterarSenha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="38dp"
+                android:fontFamily="@font/righteous"
+                android:text="Alterar Senha"
+                android:textAllCaps="true"
+                android:textColor="@color/azul"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/imgAlterarSenha"
+                app:layout_constraintTop_toTopOf="@id/imgAlterarSenha" />
+
+            <!-- Titulo E-Mail -->
+            <TextView
+                android:id="@+id/txtSenhaAtual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/righteous"
+                android:text="Digite sua senha atual"
+                android:textAllCaps="true"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/imgAlterarSenha"
+                app:layout_constraintTop_toBottomOf="@+id/imgAlterarSenha"/>
+
+            <EditText
+                android:id="@+id/campoSenhaAtual"
+                android:layout_width="310dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/bg_edittext_borda"
+                android:fontFamily="@font/righteous"
+                android:hint="********"
+                android:paddingHorizontal="16dp"
+                android:textColor="#000000"
+                android:textColorHint="#500F172A"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtSenhaAtual" />
+
+            <Button
+                android:id="@+id/btnConfirmarSenhaAtual"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/btn_alterardados"
+                android:fontFamily="@font/righteous"
+                android:text="confirmar"
+                android:textAllCaps="true"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null"
+                app:backgroundTintMode="add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/campoSenhaAtual" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardConecteContas"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintTop_toBottomOf="@id/cardAlterarSenha"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/imgConecteContas"
+                android:layout_width="310dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="35dp"
+                android:src="@drawable/conecteconta_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cardConecteContas" />
+
+            <TextView
+                android:id="@+id/txtConecteContas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="38dp"
+                android:fontFamily="@font/righteous"
+                android:text="Conecte suas contas"
+                android:textAllCaps="true"
+                android:textColor="@color/azul"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/imgConecteContas"
+                app:layout_constraintTop_toTopOf="@id/imgConecteContas" />
+
+            <ImageView
+                android:id="@+id/imgGoogle"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="126dp"
+                android:src="@drawable/google_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgConecteContas" />
+
+            <ImageView
+                android:id="@+id/imgGitHub"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="126dp"
+                android:layout_height="50dp"
+                android:src="@drawable/github_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgConecteContas" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/espaco_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toBottomOf="@id/cardConecteContas" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
