@@ -70,7 +70,7 @@ public class Aula extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_aula, container, false);
 
-        imgVoltarAula = view.findViewById(R.id.imgVoltarExercicios);
+        imgVoltarAula = view.findViewById(R.id.imgVoltarCampos);
         btnFazerExercicio = view.findViewById(R.id.btnFazerExercicio);
 
         btnFazerExercicio.setOnClickListener(new View.OnClickListener() {

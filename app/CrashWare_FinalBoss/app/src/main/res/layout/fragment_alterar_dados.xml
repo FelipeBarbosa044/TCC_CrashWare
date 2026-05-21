@@ -36,7 +36,7 @@
 
                 <!-- Adicionar Anotacao -->
                 <ImageView
-                    android:id="@+id/imgVoltarExercicios"
+                    android:id="@+id/imgVoltarCampos"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/seta_icon"
@@ -184,7 +184,6 @@
                 android:textColorHint="#500F172A"
                 android:background="@drawable/bg_edittext_borda"
                 android:padding="12dp"
-                android:inputType="textPassword"
                 app:layout_constraintTop_toBottomOf="@id/txtNovoEmail"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -431,7 +430,6 @@
                     android:textColorHint="#500F172A"
                     android:background="@drawable/bg_edittext_borda"
                     android:padding="12dp"
-                    android:inputType="textPassword"
                     app:layout_constraintTop_toBottomOf="@id/txtNovoNome"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />

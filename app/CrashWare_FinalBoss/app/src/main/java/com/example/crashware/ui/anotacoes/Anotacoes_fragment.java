@@ -32,6 +32,16 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
+
+import com.google.android.material.snackbar.Snackbar;
+
 
 public class Anotacoes_fragment extends Fragment {
 
@@ -101,6 +111,7 @@ public class Anotacoes_fragment extends Fragment {
 
         //LayoutManager para atualizar a cada anotação
         rvListaAnotacoes.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvListaAnotacoes.setItemAnimator(new DefaultItemAnimator());
 
         // 2. Adapter depois
         adapter = new Anotacao_Adapter(listaAnotacoes, new Anotacao_Adapter.OnItemClickListener()
@@ -134,6 +145,8 @@ public class Anotacoes_fragment extends Fragment {
 
         //Selecionando o adapter para a ArrayList
         rvListaAnotacoes.setAdapter(adapter);
+        configurarSwipe();
+
 
         txtbarraPesquisa.addTextChangedListener(new TextWatcher() {
             @Override
@@ -268,6 +281,155 @@ public class Anotacoes_fragment extends Fragment {
         {
             e.printStackTrace();
         }
-    }
+    }//
+
+    private void salvarAnotacoes()
+    {
+        try
+        {
+            JSONArray array = new JSONArray();
+
+            for (Anotacao anotacao : listaOriginal)
+            {
+                JSONObject obj = new JSONObject();
+
+                obj.put("titulo", anotacao.getTitulo());
+                obj.put("conteudo", anotacao.getConteudo());
+                obj.put("dataCriacao", anotacao.getDataCriacao());
+                obj.put("dataEdicao", anotacao.getDataEdicao());
+
+                array.put(obj);
+            }
+
+            SharedPreferences prefs =
+                    requireActivity()
+                            .getSharedPreferences("dados", MODE_PRIVATE);
+
+            prefs.edit()
+                    .putString("lista_anotacoes", array.toString())
+                    .apply();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }//
+
+    private void configurarSwipe()
+    {
+        ItemTouchHelper.SimpleCallback simpleCallback =
+                new ItemTouchHelper.SimpleCallback(
+                        0,
+                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT)
+                {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView,
+                                          @NonNull RecyclerView.ViewHolder viewHolder,
+                                          @NonNull RecyclerView.ViewHolder target)
+                    {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder,
+                                         int direction)
+                    {
+                        int position = viewHolder.getAdapterPosition();
+                        if(position == RecyclerView.NO_POSITION)
+                        {
+                            return;
+                        }
+
+                        // salva anotação removida
+                        Anotacao removida = listaAnotacoes.get(position);
+
+                        // remove da lista
+                        listaAnotacoes.remove(position);
+
+                        // remove também da lista original
+                        listaOriginal.remove(removida);
+
+                        // atualiza recyclerView
+                        adapter.notifyItemRemoved(position);
+                        adapter.notifyItemChanged(position);
+
+                        // salva alterações
+                        salvarAnotacoes();
+
+                        // snackbar desfazer
+                        Snackbar.make(
+                                        rvListaAnotacoes,
+                                        "Anotação removida",
+                                        Snackbar.LENGTH_LONG
+                                )
+
+                                .setAction("DESFAZER", v ->
+                                {
+                                    listaAnotacoes.add(position, removida);
+
+                                    listaOriginal.add(position, removida);
+
+                                    adapter.notifyItemInserted(position);
+                                    rvListaAnotacoes.scrollToPosition(position);
+
+                                    salvarAnotacoes();
+                                })
+
+                                .show();
+                    }
+
+                    @Override
+                    public void onChildDraw(@NonNull Canvas c,
+                                            @NonNull RecyclerView recyclerView,
+                                            @NonNull RecyclerView.ViewHolder viewHolder,
+                                            float dX,
+                                            float dY,
+                                            int actionState,
+                                            boolean isCurrentlyActive)
+                    {
+                        View itemView = viewHolder.itemView;
+
+                        Paint paint = new Paint();
+
+                        paint.setColor(Color.parseColor("#D32F2F"));
+
+                        if (dX > 0)
+                        {
+                            c.drawRect(
+                                    itemView.getLeft(),
+                                    itemView.getTop(),
+                                    itemView.getLeft() + dX,
+                                    itemView.getBottom(),
+                                    paint
+                            );
+                        }
+                        else
+                        {
+                            c.drawRect(
+                                    itemView.getRight() + dX,
+                                    itemView.getTop(),
+                                    itemView.getRight(),
+                                    itemView.getBottom(),
+                                    paint
+                            );
+                        }
+                        itemView.setAlpha(1 - (Math.abs(dX) / recyclerView.getWidth()));
+
+                        super.onChildDraw(
+                                c,
+                                recyclerView,
+                                viewHolder,
+                                dX,
+                                dY,
+                                actionState,
+                                isCurrentlyActive
+                        );
+                    }
+                };
+
+        new ItemTouchHelper(simpleCallback)
+                .attachToRecyclerView(rvListaAnotacoes);
+
+    }//
 
 }

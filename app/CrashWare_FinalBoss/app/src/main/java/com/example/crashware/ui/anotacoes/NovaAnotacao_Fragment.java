@@ -79,7 +79,7 @@ public class NovaAnotacao_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_nova_anotacao, container, false);
 
         //Iniciando o Layout no Código
-        imgVoltarNovaAnotacao = view.findViewById(R.id.imgVoltarExercicios);
+        imgVoltarNovaAnotacao = view.findViewById(R.id.imgVoltarCampos);
         btnSalvarNovaAnotacao = view.findViewById(R.id.btnSalvarNovaAnotacao);
         txtNovaAnotacao       = view.findViewById(R.id.txtNovaAnotacao      );
         txtTituloNovaAnotacao = view.findViewById(R.id.txtTituloNovaAnotacao);

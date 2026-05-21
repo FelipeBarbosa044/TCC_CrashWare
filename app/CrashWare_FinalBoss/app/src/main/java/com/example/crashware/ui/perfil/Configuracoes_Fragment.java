@@ -90,7 +90,7 @@ public class Configuracoes_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_configuracoes, container, false);
 
-        imgVoltarConfig     = view.findViewById(R.id.imgVoltarExercicios);
+        imgVoltarConfig     = view.findViewById(R.id.imgVoltarCampos);
         imgGelo             = view.findViewById(R.id.imgGelo);
         imgLeitura          = view.findViewById(R.id.imgLeitura);
         imgMeiaNoite        = view.findViewById(R.id.imgMeiaNoite);
@@ -107,6 +107,7 @@ public class Configuracoes_Fragment extends Fragment {
         imgGelo.setEnabled(false);
         imgLeitura.setEnabled(false);
         imgMeiaNoite.setEnabled(false);
+
 
 
 
@@ -227,6 +228,13 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
+                Fragment AlterarDadosFragment = new AlterarDados_Fragment();
+
+                getParentFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, AlterarDadosFragment)
+                        .addToBackStack(null)
+                        .commit();
 
             }
         });// Interação com Botão de alterar dados

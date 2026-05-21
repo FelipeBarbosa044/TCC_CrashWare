@@ -78,7 +78,7 @@ public class FragmentExercicios extends Fragment
         selecionar2         = view.findViewById(R.id.selecionar2        );
         selecionar3         = view.findViewById(R.id.selecionar3        );
         selecionar4         = view.findViewById(R.id.selecionar4        );
-        imgVoltarExercicios = view.findViewById(R.id.imgVoltarExercicios);
+        imgVoltarExercicios = view.findViewById(R.id.imgVoltarCampos);
 
         Toast RespostaCerta       = Toast.makeText(getContext(), "Resposta Certa!  ", LENGTH_LONG);
         Toast RespostaErrada      = Toast.makeText(getContext(), "Resposta Errada!  ", LENGTH_LONG);
