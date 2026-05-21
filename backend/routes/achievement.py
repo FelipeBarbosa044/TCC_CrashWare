@@ -15,7 +15,7 @@ from schemas.AchievementSchema import AchievementSchema
 
 #ROTAS
 @achievement.post('/')
-async def achievement_login(dados : AchievementSchema,usuario = Depends(validar_token)):
+async def achievement_login(dados : AchievementSchema,usuario = Depends(validar_token),session = (pegar_sessao)):
     if usuario is None:
         raise HTTPException(status_code=404,detail="Usuário não encontrado")
     if dados.conquista_id is None:
@@ -28,6 +28,7 @@ async def achievement_login(dados : AchievementSchema,usuario = Depends(validar_
             usuario_conquista = Usuario_Conquista(dados.conquista_id,usuario.id_usuario)
             session.add(usuario_conquista)
             session.commit()
+
 
             conquista_usuario = session.query(Usuario_Conquista).filter(Usuario_Conquista.usuario_id == usuario.id_usuario,Usuario_Conquista.conquista_id == dados.conquista_id).first()
 
@@ -46,6 +47,23 @@ async def achievement_login(dados : AchievementSchema,usuario = Depends(validar_
     else:
         raise HTTPException(status_code=409,detail="Usuario já tem essa conquista...")
 
+@achievement.get('/buscar_conquista')
+async def buscar_conquista(usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404,detail="Usuário não encontrado")
+    #Pego o ID do usuario
+    id = usuario.id_usuario
+
+    ##Pego as conquistas do usuario
+    conquista_usuario = (
+        session.query(Conquista.nome_conquista,Conquista.descricao)
+        .join(Usuario_Conquista, Usuario_Conquista.conquista_id == Conquista.id_conquista)
+        .filter(Usuario_Conquista.usuario_id == id)
+        .mappings()
+        .all()
+    )
+
+    return { "conquistas" : conquista_usuario}
 
 
 
