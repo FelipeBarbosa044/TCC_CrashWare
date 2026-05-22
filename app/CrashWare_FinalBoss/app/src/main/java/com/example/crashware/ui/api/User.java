@@ -12,6 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -1015,8 +1016,6 @@ public class User {
                 {
                     //Requisição der certo
 
-
-
                 }
 
 
@@ -1038,8 +1037,101 @@ public class User {
 
     }//adicionar_xp
 
+    //Exibir conquistas
+
+    //Resposta da API
+    public static class ExibirConquistaResponse {
+        public List<ConquistaResponse> conquistas;
 
 
+    }
+
+    // INTERFACE da API:
+    public static interface exibir_conquista {
+
+        @GET("/achievement/buscar_conquista")
+        Call<ExibirConquistaResponse> exibir(
+                @Header("Authorization") String token
+        );
+    }
+
+    public static void ExibirConquista(SharedPreferences prefs) {
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
+
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Fazendo que a interface da API seja utilizavel:
+        exibir_conquista api = retrofit.create(exibir_conquista.class);
+
+        // Monto a chamada da API
+        Call<ExibirConquistaResponse> requisicao = api.exibir(token);
+
+        // executo a requisicao:
+        requisicao.enqueue(new Callback<ExibirConquistaResponse>() {
+
+            @Override
+            public void onResponse(
+                    Call<ExibirConquistaResponse> requisicao,
+                    retrofit2.Response<ExibirConquistaResponse> resposta
+            ) {
+
+                if (resposta.isSuccessful()) {
+                    // Requisição deu certo
+
+                    //Pego a array que mantém as conquistas
+                    List<ConquistaResponse> conquistas = resposta.body().conquistas;
+
+                    //For que retorna todos os dados da array
+                    for (ConquistaResponse conquista : conquistas) {
+                        String nome = conquista.nome_conquista;
+                        String descricao = conquista.descricao;
+
+                        //Aqui só vai retornar as conquistas desbloqueadas do usuario
+
+                        //Exibo em conquistas na tela Inicio_Fragment e Conquistas_Fragment:
+                        //(BOA SORTE JOAO, TENHO OUTRAS COISAS HÁ FAZER, NÃO POSSO FICAR PARADO)
+
+
+                    }
+
+
+                } else {
+                    // Requisição deu erro
+                    String erro = "Erro Inesperado";
+
+                    //Aqui retorna o ERRO onde fica as conquistas:
+                    //Boa sorte JOAO
+                }
+            }
+
+            @Override
+            public void onFailure(
+                    Call<ExibirConquistaResponse> call,
+                    Throwable t
+            )
+            {
+
+               // Caso deu erro na requisição
+               // erro de conexão (internet, URL, servidor fora)
+
+//             Toast.makeText(
+    //                    context,
+    //                    "Erro de conexão: " + t.getMessage(),
+    //                    Toast.LENGTH_LONG
+    //            ).show();
+            }
+
+        });//enqueque
+
+    }// Exibir conquista
 
 
     }//User
