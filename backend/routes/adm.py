@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends,HTTPException
+from pygments.lexer import default
 from sqlalchemy import select
 
 #Importando tabelas:
 from models.gamificacao import Conquista
 
 #Importando SHCEMAS:
-from schemas.admSchema import ConquistaSchema
-
+from schemas.admSchema import ConquistaSchema, DeletarConquistaSchema
 
 #Instânciando roteador
 adm = APIRouter(prefix="/adm",tags=["admnistração"])
@@ -48,6 +48,21 @@ async def listar_conquista(session = Depends(pegar_sessao)):
     if not conquistas :
         raise HTTPException(status_code=204,detail="Não existe conquistas no banco de dados")
     return {"conquistas" : conquistas}
+
+
+@adm.delete('/deletar_conquista')
+async def deletar_conquista(dados : DeletarConquistaSchema ,session = Depends(pegar_sessao)):
+    conquista = session.query(Conquista).filter(Conquista.id_conquista == dados.id_conquista).first()
+    if conquista is None:
+       raise HTTPException(status_code=404,detail="Conquista não encontrada")
+    #Deleto a conquista
+    conquista.delete()
+    session.commit()
+
+    ##Retorno a resposta
+    return {"mensagem" : "Conquista deletada"}
+
+
 
 
 

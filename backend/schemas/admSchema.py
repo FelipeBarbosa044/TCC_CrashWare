@@ -13,5 +13,13 @@ class ConquistaSchema(BaseModel):
     class Config:
         from_attributes = True
 
+#SCHEMA Deltar Conquist Schema
+class DeletarConquistaSchema(BaseModel):
+     id_conquista : int
+
+     class Config:
+         from_attributes = True
+
+
 
     
