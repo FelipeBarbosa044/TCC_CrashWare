@@ -22,9 +22,9 @@ import { PopUp } from '../../pop-up'
 const ConteudoPerfil = () => {
 
     // Dados de exemplo para as conquistas — substitua pelos dados reais da API
-    let CONQUISTAS_MOCK = []
+    let CONQUISTAS_MOCK = [];
 
-     //Navegação --> Permite eu levar o usuario para outras telas
+    //Navegação --> Permite eu levar o usuario para outras telas
     const Navegacao = useNavigate();
 
     const token = localStorage.getItem("token");
@@ -38,8 +38,8 @@ const ConteudoPerfil = () => {
     );
 
     //Lista que contém todos os usestate
-    const set = [setToken,setRefresh,setDados];
-    
+    const set = [setToken, setRefresh, setDados];
+
 
     //Pego as informações do usuario
     let usuario = JSON.parse(localStorage.getItem("dados"));
@@ -75,42 +75,34 @@ const ConteudoPerfil = () => {
     const inputBanner = useRef();
 
     const [ofensiva, setOfensiva] = useState(0);
-    const [xp, setXp] = useState(usuario?.xp || 0); 
+    const [xp, setXp] = useState(usuario?.xp || 0);
     const [conquistas, setConquistas] = useState(CONQUISTAS_MOCK);
     const [totalCompras, setTotalCompras] = useState(0);
     const [totalGemas, setTotalGemas] = useState(usuario?.moedas);
     const [popup, setPopup] = useState(null);
 
     const XpMax = 500;
-    const Nivel =  1;
+    const Nivel = 1;
     const nome = usuario?.nome || "Usuário";
 
     const xpAtual = xp % XpMax;
     const porcentagem = (xp / XpMax) * 100;
 
-    
 
-    // //  QUERO SABER QUEM FOI
-    // useEffect(() => {
-    //     const informacoes = localStorage.getItem("info");
-    //     if (informacoes === "false") {
-    //         const user = new Usuario();
-    //         user.perfil(setDados);
-    //     }
-    // }, []);
 
-    useEffect(  () => {
+
+    useEffect(() => {
 
         carregarConquistas();
 
         const onVisible = () => {
 
-        //Atualiza os dados do usuario, sempre que a pagina for acessada
-        if (!document.hidden) {
-            const user = new Usuario(token,refresh_token,Navegacao,set);
-            user.perfil(setDados);
-            usuario = JSON.parse(localStorage.getItem("dados"));
-        }
+            //Atualiza os dados do usuario, sempre que a pagina for acessada
+            if (!document.hidden) {
+                const user = new Usuario(token, refresh_token, Navegacao, set);
+                user.perfil(setDados);
+                usuario = JSON.parse(localStorage.getItem("dados"));
+            }
         };
 
         document.addEventListener("visibilitychange", onVisible);
@@ -123,12 +115,12 @@ const ConteudoPerfil = () => {
 
     async function carregarConquistas() {
 
-        //Resto as conquistas
+        //Reseto as conquistas
         CONQUISTAS_MOCK = [];
 
-        const user = new Usuario(token,refresh_token,Navegacao,set);
+        const user = new Usuario(token, refresh_token, Navegacao, set);
         await user.mostrar_conquista();
-        
+
         //Pega as conquistas
         const usuario_conquistas = JSON.parse(localStorage.getItem("usuario_conquistas") || "[]");
 
@@ -138,7 +130,7 @@ const ConteudoPerfil = () => {
         //Adiciono as conquistas na interface
 
         for (let n = 0; n < quantidade_conquistas; n++) {
-            CONQUISTAS_MOCK.push({ titulo: usuario_conquistas[n].nome_conquista, descricao: usuario_conquistas[n].descricao})
+            CONQUISTAS_MOCK.push({ titulo: usuario_conquistas[n].nome_conquista, descricao: usuario_conquistas[n].descricao })
         }
 
         //Exibo na hora as conquistas
@@ -200,7 +192,7 @@ const ConteudoPerfil = () => {
                                             mensagem: 'Você precisa adicionar uma banner , para realizar essa ação'
                                         });
                                     } else {
-                                        const banner_usuario = new Usuario(token,refresh_token,Navegacao,set);
+                                        const banner_usuario = new Usuario(token, refresh_token, Navegacao, set);
                                         banner_usuario.remover_banner(setDados, setBanner, setPopup);
                                     }
                                 }}
@@ -228,12 +220,12 @@ const ConteudoPerfil = () => {
 
                                 if (banner == 'default.png') {
                                     //Adiciono a foto
-                                    const banner_usuario = new Usuario(token,refresh_token,Navegacao,set);
+                                    const banner_usuario = new Usuario(token, refresh_token, Navegacao, set);
                                     banner_usuario.adicionar_banner(conteudo, setBanner, setDados, setPopup);
 
                                 } else {
                                     //Altero a foto
-                                    const banner_usuario = new Usuario(token,refresh_token,Navegacao,set);
+                                    const banner_usuario = new Usuario(token, refresh_token, Navegacao, set);
                                     banner_usuario.alterar_banner(conteudo, setBanner, setDados, setPopup, setVersaoBanner);
 
                                 }
@@ -267,7 +259,7 @@ const ConteudoPerfil = () => {
                                                 mensagem: 'Você precisa adicionar uma foto , para realizar essa ação'
                                             });
                                         } else {
-                                            const foto_usuario = new Usuario(token,refresh_token,Navegacao,set);
+                                            const foto_usuario = new Usuario(token, refresh_token, Navegacao, set);
                                             foto_usuario.remover_foto(setDados, setFoto, setPopup);
                                         }
 
@@ -296,12 +288,12 @@ const ConteudoPerfil = () => {
 
                                     if (foto == 'default.png') {
                                         //Adiciono a foto
-                                        const foto_usuario = new Usuario(token,refresh_token,Navegacao,set);
+                                        const foto_usuario = new Usuario(token, refresh_token, Navegacao, set);
                                         foto_usuario.adicionar_foto(conteudo, setFoto, setDados, setPopup);
 
                                     } else {
                                         //Altero a foto
-                                        const foto_usuario = new Usuario(token,refresh_token,Navegacao,set);
+                                        const foto_usuario = new Usuario(token, refresh_token, Navegacao, set);
                                         foto_usuario.alterar_foto(conteudo, setFoto, setDados, setPopup, setVersaoFoto);
 
                                     }
@@ -327,12 +319,12 @@ const ConteudoPerfil = () => {
 
                                     if (banner == 'default.png') {
                                         //Adiciono o banner
-                                        const banner_usuario = new Usuario(token,refresh_token,Navegacao,set);
+                                        const banner_usuario = new Usuario(token, refresh_token, Navegacao, set);
                                         banner_usuario.adicionar_banner(conteudo, setBanner, setDados, setPopup);
 
                                     } else {
                                         //Altero o banner
-                                        const banner_usuario = new Usuario(token,refresh_token,Navegacao,set);
+                                        const banner_usuario = new Usuario(token, refresh_token, Navegacao, set);
                                         banner_usuario.alterar_banner(conteudo, setBanner, setDados, setPopup, setVersaoBanner);
 
                                     }
@@ -362,9 +354,9 @@ const ConteudoPerfil = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className={style.Frase}>
 
-                        <div></div>
-
+                        </div>
                     </div>
 
                     {/* ── Cards de Stats ─────────────────────────── */}
