@@ -24,6 +24,9 @@ const ConteudoHome = () => {
     //Popup
     const [popup, setPopup] = useState(null);
 
+    //PopupConquista
+    const [popupConquista, setPopupConquista] = useState(null);
+
     //Pego os tokens
     const token = localStorage.getItem("token");
     const refresh_token = localStorage.getItem("refresh_token");
@@ -51,7 +54,7 @@ const ConteudoHome = () => {
         user.perfil(setDados);
 
         //Conquista ao logar
-        user.conquista(9,setPopup,setDados)
+        user.conquista(9,setPopupConquista,setDados)
          
     }
 
@@ -67,6 +70,9 @@ const ConteudoHome = () => {
     const xpAtual = xp % XpMax;
     const porcentagem = (xpAtual / XpMax) * 100;
     const nome = usuario?.nome || "Usuário";
+
+    
+    
 
     const ofensiva = usuario?.ofensiva || 1;
 
@@ -169,15 +175,6 @@ const ConteudoHome = () => {
     // }
 
 
-   
-
-        
-    
-
-    // if(xp > XpMax){
-    //     Nivel += 1;
-    // }
-
     useEffect(()=>{
         if(xp > XpMax){
         Nivel += 1;
@@ -193,6 +190,14 @@ const ConteudoHome = () => {
                     mensagem={popup.mensagem}
                     onFechar={() => setPopup(null)}
                 />
+            )}
+            {popupConquista && (
+            <PopUpConquista
+                tipo={popupConquista.tipo}
+                titulo={popupConquista.titulo}
+                mensagem={popupConquista.mensagem}
+                onFechar={() => setPopupConquista(null)}
+            />
             )}
 
         <div className={style.corpo}>

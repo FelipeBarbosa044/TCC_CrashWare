@@ -638,7 +638,7 @@ export class Usuario
     }//Remover Banner
 
 
-    async conquista(conquista_id,setPopup,setDados)
+    async conquista(conquista_id,setPopupConquista,setDados)
     {
         //Verifico o token
         const usuario = new Api;
@@ -695,33 +695,46 @@ export class Usuario
 
                     
 
-
                     if(tipo_conquista == "Software")
                     {
-                        //Popup de Software aqui
+                        //Popup do tipo "Software" aqui
+                                setPopupConquista({
+                                tipo: "software",
+                                titulo: nome_conquista,
+                                mensagem: descricao
+                            });
 
 
                     }else if(tipo_conquista == "Hardware")
                     {
-                        //Popup de Hardware aqui
+
+                        //Popup do tipo "Hardware" aqui
+                          setPopupConquista({
+                                tipo: "hardware",
+                                titulo: nome_conquista,
+                                mensagem: descricao
+                            });
 
 
                     }else
                     {
                         //Popup do tipo "OUTRO" aqui
-
+                        setPopupConquista({
+                                tipo: "outros",
+                                titulo: nome_conquista,
+                                mensagem: descricao
+                            });
 
                     }
 
 
-                    //Exibo essa conquista por enquanto...
-                     setPopup({
-                        tipo: 'sucesso',
-                        titulo: nome_conquista,
-                        mensagem: descricao
-                    });
+                    // //Exibo essa conquista por enquanto...
+                    //  setPopup({
+                    //     tipo: 'sucesso',
+                    //     titulo: nome_conquista,
+                    //     mensagem: descricao
+                    // });
                     
-
                 }else
                 {
                     const erro = await response.json();
