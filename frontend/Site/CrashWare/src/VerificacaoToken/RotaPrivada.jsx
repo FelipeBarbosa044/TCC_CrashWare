@@ -31,7 +31,7 @@ const RotaPrivada = ({ children }) => {
 
         //Verifico o token
         const usuario = new Api();
-        await usuario.Verificar_Token(token,refresh_token,Navegacao,true,set)
+        await usuario.Verificar_Token(token,refresh_token,Navegacao,set,true)
 
 
     }

@@ -5,6 +5,10 @@ import { Adm } from "../../../../../funcoes/adm";
 import { PopUp } from '../../../../Componentes/pop-up';
 
 const AbaListarConquistas = () => {
+    //Inicializo para a array ficar publica
+    let CONQUISTAS_MOCK = []
+
+
     //Popup
     const [popup, setPopup] = useState(null);
 
@@ -34,17 +38,17 @@ const AbaListarConquistas = () => {
         //Pego as conquistar em uma array
         const conquistas = JSON.parse(localStorage.getItem("conquistas")) || [];
 
-        //Interace das conquistas
-        const CONQUISTAS_MOCK = []
-
+    
         //Pego a quantidade de consquistas
         let quantidade_conquistas = conquistas.length
 
-        //Adiciono as conquistas na interface
+        //Reinicio as conquistas para não duplicar
+        CONQUISTAS_MOCK = [];
 
-        for (let n = 0; n < quantidade_conquistas; n++) {
-            CONQUISTAS_MOCK.push({ id: conquistas[n].id_conquista, titulo: conquistas[n].nome_conquista, descricao: conquistas[n].descricao, tipo: conquistas[n].tipo_conquista, condicao: conquistas[n].condicao_conquista, botao: <BotoesForm texto="Excluir" /> })
-
+        for (let n = 0; n < quantidade_conquistas; n++)
+        {
+            CONQUISTAS_MOCK.push({ id: conquistas[n].id_conquista, titulo: conquistas[n].nome_conquista, descricao: conquistas[n].descricao, tipo: conquistas[n].tipo_conquista, condicao: conquistas[n].condicao_conquista, indice : n})
+  
         }
 
 
@@ -53,6 +57,8 @@ const AbaListarConquistas = () => {
 
         //Conquistas exibidas
         setConquistasExibidas(CONQUISTAS_MOCK);
+
+        
 
     }
 
@@ -74,6 +80,37 @@ const AbaListarConquistas = () => {
 
         setConquistasExibidas(resultado);
     }
+
+     async function DeletarConquista(id_conquista,indice) {
+                try
+                {
+                    //Deleto a conquista no banco de dados
+                    const conquista = new Adm;
+                    await conquista.deletar_conquista(id_conquista,setPopup)
+
+
+                    //Atualizo as conquistas
+                    
+                    setConquistas((antigas) =>
+                    antigas.filter((c) => c.id !== id_conquista)
+                        );
+
+                    setConquistasExibidas((antigas) =>
+                        antigas.filter((c) => c.id !== id_conquista)
+                            );
+                                            
+                }catch(error){
+                    setPopup({
+                        tipo: 'erro',
+                        titulo: 'Erro ao deletar conquista',
+                        mensagem: 'Conquista não encontrada'
+                    });
+
+                    console.log(error)
+
+                }
+                
+            }
 
 
     return (
@@ -115,6 +152,7 @@ const AbaListarConquistas = () => {
                                         <h6>Tipo:
                                             <span>   {c.tipo}</span>
                                         </h6>
+                                       
                                     </div>
 
                                     {AbrirConquista === c.id && (
@@ -122,8 +160,11 @@ const AbaListarConquistas = () => {
                                             <div className={Style.Coluna1}>
                                                 <h5>Descrição: </h5>
                                                 <p>{c.descricao}</p>
-                                            <p className={Style.Exlcuir}>{c.botao}</p>
-
+                                                 <BotoesForm 
+                                                    className={Style.Exlcuir}
+                                                    texto="Excluir" 
+                                                    onClick={()  =>  DeletarConquista(c.id,c.indice) } 
+                                                />
                                             </div>
                                             <div>
                                                 <h5>Condição: </h5>

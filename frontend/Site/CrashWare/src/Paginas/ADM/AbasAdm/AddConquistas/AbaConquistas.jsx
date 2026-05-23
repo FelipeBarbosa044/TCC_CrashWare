@@ -38,7 +38,6 @@ const AbaConquistas = () => {
 
     return (
         <>
-
             {/*Popup Padrão]*/}
             {popup && (
                 <PopUp
@@ -53,10 +52,10 @@ const AbaConquistas = () => {
                 <div className={Style.NomeTipo}>
 
                     {/* Nome Conquista */}
-                    <label htmlFor="NomeConsquista" className={Style.Margincima}>Nome da Conquista</label>
+                    <label htmlFor="NomeConsquista" type="text" className={Style.Margincima}>Nome da Conquista</label>
                     <CampoTexto
                         placeholder="Nome da Conquista"
-                        maxlenght={100}
+                        maxLength={100}
                         onChange={(e) => setNomeConquista(e.target.value)}
                     />
                     <p>Máx 100 caracteres</p>
@@ -93,12 +92,14 @@ const AbaConquistas = () => {
 
                     <div className={Style.inputs}>
                         <label htmlFor="qtdMoedas">Quantidade de moedas</label>
-                        <input type="text" id="qtdMoedas"/>
+                        <input  type="number"
+                                onChange={(e) => setMoedas(e.target.value)} id="qtdMoedas"/>
                     </div>
 
                     <div className={Style.inputs}>
                         <label htmlFor="qtdXp">Quantidade de xp</label>
-                        <input type="text" id="qtdXp"/>
+                        <input  type="number"
+                            onChange={(e) => setXP(e.target.value)} id="qtdXp"/>
                     </div>
 
                 </div>
@@ -108,12 +109,13 @@ const AbaConquistas = () => {
                     <div className={Style.divInputs}>
                         <div className={Style.inputs}>
                             <label htmlFor="condicoes">Condições</label>
-                            <input type="text" id="condicoes" maxLength="300"/>
+                            <input type="text" id="condicoes" maxLength="300" onChange={(e) => setCondicao(e.target.value)}/>
                             <p>max 300 caracteres</p>
+                            
                         </div>
                         <div className={Style.inputs}>
                             <label htmlFor="descricao">Descrição</label>
-                            <input type="text" id="descricao" maxLength="300"/>
+                            <input type="text" id="descricao" maxLength="300" onChange={(e) => setDescricaoConquista(e.target.value)}/>
                             <p>max 300 caracteres</p>
                         </div>
                     </div>
@@ -121,8 +123,15 @@ const AbaConquistas = () => {
                     
                     <div className={Style.divDosBotoes}>
                         <button className={Style.botoes}>Limpar campos</button>
-                        <button className={Style.botoes}>Criar</button>
+                        <button className={Style.botoes}
+                                 
+                                onClick={handleAdicionarConquista}
+                                >Criar
+                        </button>
                     </div>
+                                              
+                    
+                
                 </div>
 
             </div> {/* Conteudo */}
