@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Raposa from '../../../fotos/Raposa.svg';
 import FotoPadrao from '../../../fotos/FotoPerfilPadrao.jpeg';
 import iconConquistas from '../../../fotos/Conquistas.svg';
 import iconOfensiva from '../../../fotos/Ofensiva.svg';
@@ -87,6 +88,9 @@ const ConteudoPerfil = () => {
 
     const xpAtual = xp % XpMax;
     const porcentagem = (xp / XpMax) * 100;
+
+    //Click
+    const [click, setClick] = useState(0);
 
 
 
@@ -354,8 +358,10 @@ const ConteudoPerfil = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className={style.Frase}>
-
+                        <div className={style.raposa}>
+                            <img src={Raposa} alt="Crash" 
+                                onClick={() => setClick(click + 1)}
+                            />
                         </div>
                     </div>
 

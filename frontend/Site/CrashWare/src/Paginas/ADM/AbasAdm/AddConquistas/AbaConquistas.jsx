@@ -45,6 +45,11 @@ const AbaConquistas = () => {
 
     }
 
+    //Enter
+    const Criar = () => {
+        handleAdicionarConquista()
+    }
+
     return (
         <>
             {/*Popup Padrão]*/}
@@ -57,7 +62,13 @@ const AbaConquistas = () => {
                 />
             )}
 
-            <div className={Style.Conteudos}>
+            <div className={Style.Conteudos}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.repeat) {
+                        Criar();
+                    }
+                }}
+            >
                 <div className={Style.NomeTipo}>
 
                     {/* Nome Conquista */}
@@ -72,7 +83,7 @@ const AbaConquistas = () => {
 
                     {/* Tipo da Conquista */}
                     <h3>Tipo</h3>
-            
+
                     <div className={Style.CaixaRadio}>
                         <label className={Style.RadioTipo}>
                             <CampoTexto name="opcao" value="Software" type="radio"
@@ -140,7 +151,7 @@ const AbaConquistas = () => {
                                 value={condicao}
                             />
                             <p>max 300 caracteres</p>
-                            
+
                         </div>
                         <div className={Style.inputs}>
                             <label htmlFor="descricao">Descrição</label>
@@ -155,7 +166,7 @@ const AbaConquistas = () => {
                         </div>
                     </div>
 
-                    
+
                     <div className={Style.divDosBotoes}>
                         <BotoesForm className={Style.botoes}
                             onClick={LimparCampos}
