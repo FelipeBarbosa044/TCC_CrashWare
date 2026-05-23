@@ -56,7 +56,7 @@ async def deletar_conquista(dados : DeletarConquistaSchema ,session = Depends(pe
     if conquista is None:
        raise HTTPException(status_code=404,detail="Conquista não encontrada")
     #Deleto a conquista
-    conquista.delete()
+    session.delete(conquista)
     session.commit()
 
     ##Retorno a resposta
