@@ -11,7 +11,7 @@ import requests
 #Importando tabelas:
 from models.usuarios import Usuarios
 from models.usuarios_oauth import UsuariosOauth
-from models.gamificacao import Patente
+from models.gamificacao import Patente, Usuario_Ofensiva
 from routes.auth import auth
 
 #Instânciando roteador
@@ -62,6 +62,7 @@ async def  perfil(usuario = Depends(validar_token)):
             "banner" : usuario.banner,
             "moedas" : usuario.moedas,
             "xp" : usuario.xp,
+            "ofensiva" : usuario.ofensiva,
             "ativo": usuario.ativo,
             "patente": nome_patente,
             "adm": usuario.admin,
@@ -485,6 +486,22 @@ async def ganhar_moeda(dados : RecursoSchema,usuario = Depends(validar_token),se
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
         raise HTTPException(status_code=400, detail=str(exception))
+
+@user.post('/sicronizar_ofensiva')
+async def sicronizar_ofensiva(usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404,detail="Usuário não encontrado")
+    usuario_ofensiva = session.query(Usuario_Ofensiva).filter(Usuario_Ofensiva.id_usuario == usuario.id_usuario).first()
+    if usuario_ofensiva is None:
+        # Crio o vinculo do usuario com usuario_conquista
+        ofensiva_usuario = Usuario_Ofensiva(usuario.id_usuario)
+        session.add(ofensiva_usuario)
+        session.commit()
+    else:
+        raise HTTPException(status_code=409,detail="Usuario ja sicronizado")
+
+
+
 
 
 

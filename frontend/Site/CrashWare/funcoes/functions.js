@@ -669,7 +669,10 @@ export class Api
             {
                 if(privado == null)
                 {
-                     //Leva para a tela HOME 
+                    //Contabilizo os dias da ofensiva
+                    // SicronizarOfensiva()
+
+                    //Leva para a tela HOME 
                     Navegacao('/home');
                 }
                
@@ -759,9 +762,11 @@ export class Api
 
                 const token = dados.token;
 
-
                 //Guardo no localStorage
                 localStorage.setItem("token", token)
+
+                //Contabilizo os dias da ofensiva
+
             }
         }catch (error) 
         {

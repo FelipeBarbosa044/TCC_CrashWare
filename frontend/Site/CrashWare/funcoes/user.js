@@ -36,8 +36,11 @@ export class Usuario
                 //Caso a requisiçaõ deu certo
 
 
+
                 //Pego as informaçoes do usuario
                 const dados = await response.json();
+
+                
 
                 //Aviso para o site, que essa requisição não será necessaria fazer mais de uma vez
                 localStorage.setItem("info",true);
@@ -46,6 +49,8 @@ export class Usuario
                 localStorage.setItem("dados", JSON.stringify(dados));
 
                 setDados(dados)
+
+                
             }
             else
             {

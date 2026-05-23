@@ -65,7 +65,7 @@ const ConteudoHome = () => {
     //
 
     const XpMax = 500;
-    const [xp, setXp] = useState(usuario?.xp || 0); 
+    const [xp, setXp] = useState(usuario?.xp || 1); 
     let Nivel =  1;
     const xpAtual = xp % XpMax;
     const porcentagem = (xpAtual / XpMax) * 100;
