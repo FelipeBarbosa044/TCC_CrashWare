@@ -27,6 +27,15 @@ const AbaConquistas = () => {
         condicao &&
         opcao;
 
+    const LimparCampos = () => {
+        setNomeConquista("");
+        setDescricaoConquista("");
+        setCondicao("");
+        setMoedas("");
+        setXP("");
+        setOpcao("");
+    };
+
     const handleAdicionarConquista = () => {
         //Instâncio o objeto
         const conquista = new Adm;
@@ -54,6 +63,7 @@ const AbaConquistas = () => {
                     {/* Nome Conquista */}
                     <label htmlFor="NomeConsquista" type="text" className={Style.Margincima}>Nome da Conquista</label>
                     <CampoTexto
+                        value={nomeConquista}
                         placeholder="Nome da Conquista"
                         maxLength={100}
                         onChange={(e) => setNomeConquista(e.target.value)}
@@ -66,6 +76,7 @@ const AbaConquistas = () => {
                     <div className={Style.CaixaRadio}>
                         <label className={Style.RadioTipo}>
                             <CampoTexto name="opcao" value="Software" type="radio"
+                                checked={opcao === "Software"}
                                 onChange={(e) => setOpcao(e.target.value)}
                             />
                             <img src={ImgSoftware} alt="Software" /> Software
@@ -73,12 +84,14 @@ const AbaConquistas = () => {
 
                         <label className={Style.RadioTipo}>
                             <CampoTexto name="opcao" value="Hardware" type="radio"
+                                checked={opcao === "Hardware"}
                                 onChange={(e) => setOpcao(e.target.value)}
                             />
                             <img src={ImgHardware} alt="Hardware" /> Hardware
                         </label>
                         <label className={Style.RadioTipo}>
                             <CampoTexto name="opcao" value="Outro" type="radio"
+                                checked={opcao === "Outro"}
                                 onChange={(e) => setOpcao(e.target.value)}
                             />
                             Outro
@@ -92,14 +105,24 @@ const AbaConquistas = () => {
 
                     <div className={Style.inputs}>
                         <label htmlFor="qtdMoedas">Quantidade de moedas</label>
-                        <input  type="number"
-                                onChange={(e) => setMoedas(e.target.value)} id="qtdMoedas"/>
+                        <CampoTexto
+                            className={Style.condicoesInput}
+                            type="number"
+                            onChange={(e) => setMoedas(e.target.value)}
+                            // id="qtdMoedas"
+                            value={moedas}
+                        />
                     </div>
 
                     <div className={Style.inputs}>
                         <label htmlFor="qtdXp">Quantidade de xp</label>
-                        <input  type="number"
-                            onChange={(e) => setXP(e.target.value)} id="qtdXp"/>
+                        <CampoTexto
+                            className={Style.condicoesInput}
+                            type="number"
+                            onChange={(e) => setXP(e.target.value)}
+                            // id="qtdXp"
+                            value={xp}
+                        />
                     </div>
 
                 </div>
@@ -109,29 +132,42 @@ const AbaConquistas = () => {
                     <div className={Style.divInputs}>
                         <div className={Style.inputs}>
                             <label htmlFor="condicoes">Condições</label>
-                            <input type="text" id="condicoes" maxLength="300" onChange={(e) => setCondicao(e.target.value)}/>
+                            <CampoTexto
+                                type="text"
+                                className={Style.condicoesInput}
+                                maxLength="300"
+                                onChange={(e) => setCondicao(e.target.value)}
+                                value={condicao}
+                            />
                             <p>max 300 caracteres</p>
                             
                         </div>
                         <div className={Style.inputs}>
                             <label htmlFor="descricao">Descrição</label>
-                            <input type="text" id="descricao" maxLength="300" onChange={(e) => setDescricaoConquista(e.target.value)}/>
+                            <CampoTexto
+                                type="text"
+                                className={Style.condicoesInput}
+                                maxLength="300"
+                                onChange={(e) => setDescricaoConquista(e.target.value)}
+                                value={descricaoConquista}
+                            />
                             <p>max 300 caracteres</p>
                         </div>
                     </div>
 
                     
                     <div className={Style.divDosBotoes}>
-                        <button className={Style.botoes}>Limpar campos</button>
-                        <button className={Style.botoes}
-                                 
-                                onClick={handleAdicionarConquista}
-                                >Criar
-                        </button>
+                        <BotoesForm className={Style.botoes}
+                            onClick={LimparCampos}
+                            texto="Limpar campos"
+                        />
+
+                        <BotoesForm className={Style.botoes}
+                            disabled={!botaoliberado}
+                            onClick={handleAdicionarConquista}
+                            texto="Criar"
+                        />
                     </div>
-                                              
-                    
-                
                 </div>
 
             </div> {/* Conteudo */}

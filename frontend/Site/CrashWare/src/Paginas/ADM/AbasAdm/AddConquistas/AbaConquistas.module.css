@@ -201,6 +201,12 @@
     transition: 0.4s;
 }
 
+.botoes:disabled{
+    background: gray;
+    cursor: not-allowed;
+    transform: none;
+}
+
 .parteTelefone label{
     font-family: "Montserrat";
     color: var(--texto-principal);
@@ -418,6 +424,10 @@
     flex-direction: column;
     width: 45%;
     /* margin-right: 70px; */
+}
+
+.condicoesInput{
+    width: 100%;
 }
 
 .condicoes .inputs input{
