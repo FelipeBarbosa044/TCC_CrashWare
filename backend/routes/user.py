@@ -33,7 +33,7 @@ import os
 from dotenv import load_dotenv
 
 #Datetime
-from datetime import datetime
+from datetime import datetime, timedelta
 
 ##Carrego o .env
 load_dotenv()
@@ -509,6 +509,64 @@ async def sicronizar_ofensiva(usuario = Depends(validar_token),session = Depends
 
     else:
         raise HTTPException(status_code=409,detail="Usuario ja sicronizado")
+
+
+@user.post('/validar_ofensiva')
+async def validar_ofensiva(usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+    ##Verificar validade de ofensiva
+    usuario_ofensiva = session.query(Usuario_Ofensiva).filter(Usuario_Ofensiva.id_usuario == usuario.id_usuario).first()
+
+    if usuario_ofensiva  is None:
+        raise HTTPException(status_code=404, detail="Ofensiva não encontrada")
+
+    try:
+        # Pego a ultima data atualizada da ofensiva do usuario
+        ultima_data = usuario_ofensiva.ultima_data_valida
+
+        # Pego a data atual
+        data_atual = datetime.now()
+
+        # Calculo quantos dias passou desde o ultimo dia em que o usuario ganhou a ofensiva
+        dias_passados = (data_atual.date() - ultima_data.date()).days
+
+        if dias_passados == 1:
+            # Se a data for valida:
+            usuario.ofensiva += 1
+            usuario_ofensiva.ultima_data_valida = data_atual
+
+
+        elif dias_passados > 1:
+            # Reseto a ofensiva
+            usuario.ofensiva = 1
+            usuario_ofensiva.ultima_data_valida = data_atual
+
+        # Calculo a maior ofensiva do usuario
+        if usuario.ofensiva > usuario_ofensiva.maior_ofensiva:
+            usuario_ofensiva.maior_ofensiva = usuario.ofensiva
+
+        # Comito no banco de dados
+        session.commit()
+
+        return {"ofensiva": usuario.ofensiva,
+                "maior_ofensiva": usuario_ofensiva.maior_ofensiva
+                }
+
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
+
+
+
+
+
+
+
+
+
 
 
 
