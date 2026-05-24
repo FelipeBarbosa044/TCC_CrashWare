@@ -1,167 +1,404 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 
 .corpo {
     width: 100%;
-    height: auto;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-family: "Montserrat", sans-serif;
-    flex-wrap: nowrap;
-    padding-left: 20px;
-
-    align-items: center;
-}
-
-.Esquerda {
-    max-width: 900px;
-    width: 70%;
-
-    height: auto;
-    min-height: 200px;
-
-    border: solid var(--Branco);
-    border-radius: 12px;
-    background-color: var(--bg-secundario);
-    margin-top: 260px;
-    display: flex;
-    flex-direction: column;
-}
-
-.HeaderLateral{
-    border: solid var(--Branco);
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
-    padding: 10px;
+    padding-top: 110px;
+    padding-bottom: 40px;
 
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+
+    font-family: "Montserrat", sans-serif;
 }
 
-.BotaoNovaNota{
-    margin: 8px;
-    padding-top: 8px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    background: linear-gradient(90deg, #101017, #06060A);
-    color: var(--texto-principal);
+.container{
+    display: flex;
+    margin-top: 200px;
+    gap: 30px;
+
+    flex-wrap: wrap;
 }
 
-.BotaoNovaNota:hover{
-    color: var(--texto-principal);
+.coluna_esquerda {
+    width: 280px;
+    min-width: 240px;
+    flex-shrink: 0;
 }
 
-.Pesquisa{
-    width: 13vw;
-    text-align: center;
-    height: 4vh;
-    border-radius: 10%;
-    border: solid var(--Branco);
-}
-
-.Direita {
-    width: 75%;
-    margin-top: 100px;
+.barraLateral {
     background-color: var(--bg-secundario);
+    border: 1.5px solid var(--borda);
+    border-radius: 20px;
+    padding: 20px 16px;
+
     display: flex;
     flex-direction: column;
+    gap: 14px;
+
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-.BlocoCima {
-    width: 90%;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    justify-items: center;   
-    border: solid var(--Branco);
-    border-radius: 15px;
-    padding: 15px;
-    position: relative;
-    text-align: center; 
-    background-color: var(--bg-secundario);
-    font-family: "Montserrat", sans-serif;
-}
-
-.BlocoCima h1{
-    top: 20px;
-    color: var(--texto-principal);
-    text-decoration: underline;
-    font: bold;
-}
-
-.BotaoEditar{
-    padding-bottom: 6px;
-    padding-top: 6px;
-    padding-left: 25px;
-    padding-right: 25px;
-    display: block;
-    margin-left: auto;
-    margin-right: 15px;
-    margin-top: 2px;
-    border-radius: 12%;
-
-    position: absolute;  
-    right: 1px;         
-    top: 5px;  
-
-    background: linear-gradient(90deg, #101017, #06060A);
-    color: var(--texto-principal);  
-}
-
-.BotaoEditar:hover{
-    color: var(--texto-principal);
-}
-
-.BlocoInfos {
+.barraLateral_header {
     display: flex;
-    justify-content: space-between;
-    padding: 0 10px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.barraLateral_campoPesquisa {
     width: 100%;
-    margin-top: 10px;
-}
+    height: 42px;
+    padding: 0 14px;
 
-.BlocodeNotas{
-    display: flex;
-    justify-content: center;
-}
+    background: var(--input-bg);
+    border: 1px solid var(--borda);
+    border-radius: 10px;
 
-.ItensAnotacoes{
-    height: 10vh;
-}
-
-.ItensAnotacoes p{
-    border: solid var(--Branco);
-    padding: 10px;
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
-}
-
-
-
-.textArea {
-    width: 90%;
-    height: 65vh;
-    min-height: 400px;
-    resize: none; /* remove aquele canto arrastável */
-    padding: 20px;
-    font-size: 16px;
-    border: none;
-    outline: none;
-    border-radius: 2.90%;
-    background-color: black;
-    color: var(--texto-principal);
-    text-indent: 20px;
+    font-size: 14px;
     font-family: "Montserrat", sans-serif;
-    margin-right: 50px;
-    background-color: var(--bg-secundario);
-    border: 2px solid var(--texto-principal);
+    color: var(--texto-principal);
+
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+    transition: 0.2s;
+}
+
+.barraLateral_campoPesquisa:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+}
+
+/* ─────────────────────────────────────────
+   LISTA DE NOTAS
+───────────────────────────────────────── */
+.barraLateral_listaNotas {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    max-height: 65vh;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.barraLateral_listaNotas::-webkit-scrollbar {
+    width: 4px;
+}
+
+.barraLateral_listaNotas::-webkit-scrollbar-thumb {
+    background-color: var(--borda);
+    border-radius: 4px;
 }
 
 
+.itemBarraLateral {
+    background-color: var(--bg-terceiro);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 12px 14px;
 
-@media (max-width: 800px){
-    
+    cursor: pointer;
+    transition: 0.3s;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.itemBarraLateral:hover {
+    transform: scale(1.01);
+    background-color: var(--bg-terceiro);
+}
+
+.itemBarraLateral p {
+    color: var(--texto-principal);
+    font-size: 14px;
+    font-weight: 600;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.itemBarraLateral div {
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+
+.coluna_direita {
+    flex: 1;
+    max-width: 860px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.nota_cabecalho {
+    background-color: var(--bg-secundario);
+    border: 1.5px solid var(--borda);
+    border-radius: 20px;
+    padding: 24px 28px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.nota_cabecalho h1 {
+    width: 100%;
+    color: var(--texto-principal);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 2px 2px 8px rgba(255,255,255,0.08);
+    margin: 0;
+}
+
+.nota_inputTitulo {
+    flex: 1;
+    min-width: 180px;
+    height: 48px;
+    padding: 0 16px;
+
+    background: var(--input-bg);
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+
+    font-size: 15px;
+    font-family: "Montserrat", sans-serif;
+    color: black;
+    font-weight: 700;
+
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.35);
+    transition: 0.2s;
+}
+
+.nota_inputTitulo:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+}
+
+.nota_inputTitulo:disabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.nota_botaoEditar {
+    height: 42px;
+    padding: 0 20px;
+
+    background: var(--cor-primaria);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.nota_botaoEditar:hover {
+    background: var(--cor-primaria-hover);
+    transform: scale(1.04);
+}
+
+.nota_botaoExcluir {
+    height: 42px;
+    padding: 0 20px;
+
+    background: transparent;
+    color: var(--texto-principal);
+    border: 1.5px solid var(--borda);
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.nota_botaoExcluir:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+    transform: scale(1.04);
+}
+
+.nota_infoDatas {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.nota_infoDatas h5 {
+    color: var(--texto-secundario);
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.nota_blocoTexto {
+    background-color: var(--bg-secundario);
+    border: 1.5px solid var(--borda);
+    border-radius: 20px;
+    padding: 16px;
+
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.nota_textarea {
+    width: 100%;
+    min-height: 340px;
+    padding: 14px;
+    resize: vertical;
+
+    background: var(--input-bg);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-family: "Montserrat", sans-serif;
+    color: black;
+    font-weight: 500;
+    line-height: 1.6;
+
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: 0.2s;
+}
+
+.nota_textarea:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+}
+
+.nota_textarea:disabled {
+    opacity: 0.75;
+    cursor: default;
+    resize: none;
+}
+
+.nota_botaoCriar {
+    align-self: flex-end;
+    height: 44px;
+    padding: 0 28px;
+
+    background: var(--bg-terceiro);
+    color: var(--texto-principal);
+    border: 1.5px solid var(--borda);
+    border-radius: 28px;
+
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    cursor: pointer;
+    transition: 0.25s;
+
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.nota_botaoCriar p {
+    margin: 0;
+    color: inherit;
+}
+
+.nota_botaoCriar:hover {
+    border-color: var(--cor-primaria);
+    color: var(--cor-primaria);
+    transform: scale(1.04);
+}
+
+
+/* TABLET */
+@media (max-width: 900px) {
+
+    .corpo {
+        flex-direction: column;
+        align-items: center;
+        padding-top: 120px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .container{
+        margin-top: 150px;
+    }
+
+    .coluna_esquerda {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .barraLateral_listaNotas {
+        max-height: 220px;
+    }
+
+    .coluna_direita {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .nota_cabecalho {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nota_botaoEditar,
+    .nota_botaoExcluir {
+        width: 100%;
+    }
+
+    .nota_botaoCriar {
+        align-self: stretch;
+        text-align: center;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+
+    .corpo {
+        padding-top: 90px;
+        padding-left: 10px;
+        padding-right: 10px;
+        gap: 16px;
+    }
+
+    .barraLateral,
+    .nota_cabecalho,
+    .nota_blocoTexto {
+        border-radius: 14px;
+        padding: 14px 12px;
+    }
+
+    .nota_cabecalho h1 {
+        font-size: 1.3rem;
+    }
+
+    .nota_inputTitulo,
+    .nota_textarea {
+        font-size: 14px;
+    }
+
+    .nota_textarea {
+        min-height: 240px;
+    }
+
+    .nota_infoDatas {
+        flex-direction: column;
+        gap: 4px;
+    }
 }
