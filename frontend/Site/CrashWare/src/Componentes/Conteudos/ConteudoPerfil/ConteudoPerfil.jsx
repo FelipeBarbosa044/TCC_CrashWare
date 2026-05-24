@@ -31,6 +31,11 @@ const ConteudoPerfil = () => {
     const token = localStorage.getItem("token");
     const refresh_token = localStorage.getItem("refresh_token");
 
+    //SetMaiorOfensiva
+    const [maiorOfensiva, setMaiorOfensiva] = useState(
+    localStorage.getItem("maior_ofensiva") || 0
+    );
+
     //Uso useState para o react renderizar as informações
     const [token_state, setToken] = useState(() => localStorage.getItem("token"));
     const [refresh_token_state, setRefresh] = useState(() => localStorage.getItem("refresh_token"));
@@ -103,9 +108,13 @@ const ConteudoPerfil = () => {
 
             //Atualiza os dados do usuario, sempre que a pagina for acessada
             if (!document.hidden) {
+                //Pego os dados
                 const user = new Usuario(token, refresh_token, Navegacao, set);
                 user.perfil(setDados);
                 usuario = JSON.parse(localStorage.getItem("dados"));
+
+                //Valido a ofensiva
+                const usuario = new Usuario(setMaiorOfensiva);
             }
         };
 
@@ -116,6 +125,8 @@ const ConteudoPerfil = () => {
         };
 
     }, []);
+
+
 
     async function carregarConquistas() {
 

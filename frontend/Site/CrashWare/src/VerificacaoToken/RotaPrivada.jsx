@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthProvider";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Api } from "../../funcoes/functions";
+import { Usuario } from "../../funcoes/user";
 
 const RotaPrivada = ({ children }) => {
 
@@ -35,6 +36,8 @@ const RotaPrivada = ({ children }) => {
 
 
     }
+
+  
     
     //Sempre que a rota for chamada, eu verifico o token
     useEffect(() => {

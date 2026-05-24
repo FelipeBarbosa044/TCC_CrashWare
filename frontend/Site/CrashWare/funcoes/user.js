@@ -18,8 +18,8 @@ export class Usuario
     async perfil(setDados)
     {
         //Verifico o token
-        const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        // const usuario = new Api;
+        // usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
         try
         {
             const response = await fetch("https://api-crashware.onrender.com/user/",
@@ -645,9 +645,9 @@ export class Usuario
 
     async conquista(conquista_id,setPopupConquista,setDados)
     {
-        //Verifico o token
-        const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        // //Verifico o token
+        // const usuario = new Api;
+        // usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
         //Pego o token
         const token = localStorage.getItem("token")
@@ -902,5 +902,111 @@ export class Usuario
             console.log(error);
         }
     }//Mostrar Conquistas
+
+    //Sicronizar Ofenisva
+    async SicronizarOfensiva(setPopup)
+    {
+        //Pego o token
+        const token = localStorage.getItem("token")
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/user/sicronizar_ofensiva",
+                {
+                    method: 'POST',
+                    headers:
+                    {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+            if (response.status == 409)
+            {
+                //Ignora
+
+                return
+            }
+            if(response.ok)
+            {
+                //Ignora
+                return
+            }else
+            {
+                const erro = await response.json();
+
+                  setPopup({
+                        tipo: 'erro',
+                        titulo: 'Erro inesperado',
+                        mensagem: 'Erro ao sicronizar Ofensiva'
+                    });
+
+                //Exibo o erro no console
+                console.log(erro.detail)
+            }
+        }catch(error)
+        {
+            setPopup({
+                    tipo: 'erro',
+                    titulo: 'Erro De Conexão',
+                    mensagem: 'Erro ao sicronizar'
+            });
+            //Erro de conexão
+            console.log("Erro:", error);
+        }
+    }//Sicronizar Ofensiva
+
+
+    async ValidarOfensiva(setMaiorOfensiva,setDados)
+    {
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/user/validar_ofensiva",
+                {
+                    method: 'POST',
+                    headers:
+                    {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+            if (response.ok)
+            {
+                const dadosOfensiva = await response.json();
+
+                const ofensiva = dadosOfensiva.ofensiva
+                const maior_ofensiva = dadosOfensiva.maior_ofensiva
+
+                //Pega os dados atuais
+                const dados = JSON.parse(localStorage.getItem("dados"));
+
+                //Atualizo a ofensiva
+                dados.ofensiva = ofensiva;
+                
+                 //Salva novamente no local storage
+                localStorage.setItem("dados", JSON.stringify(dados));
+
+
+                //Atualizo a maior ofensiva
+                setMaiorOfensiva(maior_ofensiva);
+                localStorage.setItem("maior_ofensiva", maior_ofensiva);
+
+                //Atualizo o setDados
+                setDados(dados)
+               
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo no console log o erro
+                console.log("Erro ao Verificar Ofensiva" + erro.detail)
+            }
+        
+        }catch (error)
+        {
+            console.log("Erro ao Verificar Ofensiva  " + error)
+        }
+    }//ValidarOfensiva
 
 }//classe
