@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends,HTTPException
 
 ##Importando Tabelas
-from models.gamificacao import Conquista, Usuario_Conquista, session
+from models.gamificacao import Conquista, Usuario_Conquista
 
 #Instânciando roteador
 achievement = APIRouter(prefix="/achievement",tags=["conquistas"])

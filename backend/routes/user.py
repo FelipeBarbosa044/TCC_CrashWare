@@ -531,11 +531,11 @@ async def validar_ofensiva(usuario = Depends(validar_token),session = Depends(pe
         # Calculo quantos dias passou desde o ultimo dia em que o usuario ganhou a ofensiva
         dias_passados = (data_atual.date() - ultima_data.date()).days
 
+
         if dias_passados == 1:
             # Se a data for valida:
             usuario.ofensiva += 1
             usuario_ofensiva.ultima_data_valida = data_atual
-
 
         elif dias_passados > 1:
             # Reseto a ofensiva
@@ -549,9 +549,10 @@ async def validar_ofensiva(usuario = Depends(validar_token),session = Depends(pe
         # Comito no banco de dados
         session.commit()
 
-        return {"ofensiva": usuario.ofensiva,
+        return {
+                "ofensiva": usuario.ofensiva,
                 "maior_ofensiva": usuario_ofensiva.maior_ofensiva
-                }
+            }
 
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
