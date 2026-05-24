@@ -795,6 +795,8 @@ export class Usuario
 
                 //Salva novamente
                 localStorage.setItem("dados", JSON.stringify(dados));
+
+                setDados(dados)
             }
 
         }catch (error) 
@@ -849,6 +851,8 @@ export class Usuario
 
                 //Salva novamente
                 localStorage.setItem("dados", JSON.stringify(dados));
+
+                setDados(dados)
             }
 
         }catch (error) 
