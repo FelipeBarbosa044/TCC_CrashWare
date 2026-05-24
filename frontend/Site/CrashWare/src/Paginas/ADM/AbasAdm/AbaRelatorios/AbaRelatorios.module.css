@@ -38,16 +38,51 @@
     margin: 20px 0px;
 }
 
-.Buscar{
+.UsuariosCadastrados{
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    justify-self: center;
+    flex-direction: column;
     align-items: center;
-    margin: 40px 30px 40px 40px;
-    width: 100%;
-    height: 5vh;
-    gap: 6px;
+    padding: 20px;
+    border: 2px solid var(--texto-principal);
+    border-radius: 16px;
+    width: 30%;
+    align-self: center;
+    margin-bottom: 20px;
+}
+
+.UsuariosCadastrados h3{
+    font-family: "Montserrat";
+    color: var(--texto-principal);
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.UsuariosCadastrados p{
+    font-family: "Montserrat";
+    color: var(--texto-principal);
+    font-size: 18px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.UsuariosCadastrados span{
+    display: inline;
+    overflow: hidden;
+    font-size: inherit;
+    line-height: 1; 
+    width: 0;  
+    white-space: nowrap;
+    vertical-align: bottom;
+    animation: etc 1s steps(3) infinite;
+}
+
+@keyframes etc {
+    0%  { clip-path: inset(0 100% 0 0); }
+    33% { clip-path: inset(0 66% 0 0); }
+    66% { clip-path: inset(0 33% 0 0); }
+    99% { clip-path: inset(0 0% 0 0); }
+
 }
 
 .Buscar input{

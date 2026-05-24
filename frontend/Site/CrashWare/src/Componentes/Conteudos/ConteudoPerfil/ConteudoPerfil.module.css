@@ -160,7 +160,6 @@
 
 .raposa{
     display: flex;
-    width: 100%;
     justify-content: end;
     justify-self: end;
     align-items: end;
@@ -514,6 +513,10 @@
     .foto { 
         width: 80px; 
         height: 80px; 
+    }
+
+    .raposa{
+        justify-content: center;
     }
 
     .texto h3 { 
