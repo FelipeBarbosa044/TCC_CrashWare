@@ -493,10 +493,20 @@ async def sicronizar_ofensiva(usuario = Depends(validar_token),session = Depends
         raise HTTPException(status_code=404,detail="Usuário não encontrado")
     usuario_ofensiva = session.query(Usuario_Ofensiva).filter(Usuario_Ofensiva.id_usuario == usuario.id_usuario).first()
     if usuario_ofensiva is None:
-        # Crio o vinculo do usuario com usuario_conquista
-        ofensiva_usuario = Usuario_Ofensiva(usuario.id_usuario)
-        session.add(ofensiva_usuario)
-        session.commit()
+        try:
+            # Crio o vinculo do usuario com usuario_conquista
+            ofensiva_usuario = Usuario_Ofensiva(usuario.id_usuario)
+            session.add(ofensiva_usuario)
+
+            ##Dou um dia de ofensiva para o usuario
+            usuario.ofensiva += 1
+
+            session.commit()
+        except Exception as exception:
+            ##Se não der certo eu retorno o erro, e dou rollback no banco.
+            session.rollback()
+            raise HTTPException(status_code=400, detail=str(exception))
+
     else:
         raise HTTPException(status_code=409,detail="Usuario ja sicronizado")
 
