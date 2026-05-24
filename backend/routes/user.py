@@ -134,6 +134,7 @@ async def desativar_conta(usuario = Depends(validar_token),session = Depends(peg
     try:
         usuario.ativo = False
         session.commit()
+        return {"mensagem" : "Conta Desativada"}
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
