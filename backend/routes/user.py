@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends,HTTPException,UploadFile, File
 
 
 #Importando comandos do sql para o código.
-from sqlalchemy import  delete
+from sqlalchemy import delete, true
 
 #Biblioteca de requesição
 import requests
@@ -125,6 +125,22 @@ async def deletar_conta(usuario = Depends(validar_token), session = Depends(pega
         raise HTTPException(status_code=400, detail=str(exception))
 
 ##############
+
+#Rota de desativar conta
+@user.patch('/desativar_conta')
+async def desativar_conta(usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+    try:
+        usuario.ativo = False
+        session.commit()
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
+#############
+
 #Rota de adicionar foto
 @user.post('/adicionar_foto')
 async def adicionar_foto(foto : UploadFile = File(...), usuario = Depends(validar_token), session = Depends(pegar_sessao)):
