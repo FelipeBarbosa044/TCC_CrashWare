@@ -150,6 +150,72 @@ export class Usuario
     }//deletar_conta
 
 
+    async desativar_conta(setPopup)
+    {
+
+        setPopup({
+                tipo: 'aviso',
+                titulo: 'Conta',
+                mensagem: 'Deletando conta'
+            });
+
+        sleep(1000);
+
+
+        //Verifico o token
+        const usuario = new Api;
+        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/user/desativar_conta",
+                {
+                    method : "PATCH",
+                    headers : 
+                    {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+            if (response.ok)
+            {
+                const dados = await response.json();
+
+                setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'Conta',
+                    mensagem: dados.mensagem
+                });
+
+                sleep(2000);
+            }else
+            {
+                const erro = await  response.json();
+
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Conta',
+                    mensagem: "Erro ao desativar conta, tente novamente mais tarde.."
+                });
+            }
+            
+            
+        }catch (error)
+        {
+             setPopup({
+                tipo: 'erro',
+                titulo: 'Sem conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log(error)
+        }
+    }//Desativar Conta
+
+
 
     async adicionar_foto(conteudo,setFoto,setDados,setPopup)
     {
