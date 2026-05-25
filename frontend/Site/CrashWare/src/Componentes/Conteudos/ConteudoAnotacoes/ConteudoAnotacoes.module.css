@@ -71,9 +71,6 @@
     border-color: var(--cor-primaria);
 }
 
-/* ─────────────────────────────────────────
-   LISTA DE NOTAS
-───────────────────────────────────────── */
 .barraLateral_listaNotas {
     display: flex;
     flex-direction: column;

@@ -5,9 +5,7 @@ import style from './ConteudoAnotacoes.module.css'
 
 const ConteudoAnotacao = () => {
 
-    // =========================================
     // LOCAL STORAGE
-    // =========================================
     const [anotacoes, setAnotacoes] = useState(() => {
 
         const salvas = localStorage.getItem('anotacoes')
@@ -15,24 +13,16 @@ const ConteudoAnotacao = () => {
         return salvas ? JSON.parse(salvas) : []
     })
 
-    // =========================================
     // PESQUISA
-    // =========================================
     const [pesquisar, setPesquisar] = useState("")
 
-    // =========================================
     // NOTA SELECIONADA
-    // =========================================
     const [notaSelecionada, setNotaSelecionada] = useState(null)
 
-    // =========================================
     // MODO EDIÇÃO
-    // =========================================
     const [modoEdicao, setModoEdicao] = useState(false)
 
-    // =========================================
     // DADOS DA NOTA
-    // =========================================
     const [infoNota, setInfoNota] = useState({
 
         tituloAnotacao: "",
@@ -40,9 +30,7 @@ const ConteudoAnotacao = () => {
         textoAnotacao: ""
     })
 
-    // =========================================
     // SALVAR LOCAL STORAGE
-    // =========================================
     useEffect(() => {
 
         localStorage.setItem(
@@ -52,9 +40,7 @@ const ConteudoAnotacao = () => {
 
     }, [anotacoes])
 
-    // =========================================
     // CRIAR NOTA
-    // =========================================
     const criarNota = () => {
 
         if (
@@ -86,9 +72,7 @@ const ConteudoAnotacao = () => {
         setModoEdicao(false)
     }
 
-    // =========================================
     // NOVA NOTA
-    // =========================================
     const novaNota = () => {
 
         // Remove seleção
@@ -106,9 +90,7 @@ const ConteudoAnotacao = () => {
         setModoEdicao(true)
     }
 
-    // =========================================
     // SELECIONAR NOTA
-    // =========================================
     const selecionarNota = (nota) => {
 
         setNotaSelecionada(nota)
@@ -124,9 +106,7 @@ const ConteudoAnotacao = () => {
         setModoEdicao(false)
     }
 
-    // =========================================
     // EDITAR / SALVAR
-    // =========================================
     const editarNota = () => {
 
         if (!notaSelecionada) return
@@ -172,9 +152,7 @@ const ConteudoAnotacao = () => {
         setModoEdicao(false)
     }
 
-    // =========================================
     // EXCLUIR NOTA
-    // =========================================
     const excluirNota = () => {
 
         if (!notaSelecionada) return
@@ -200,9 +178,7 @@ const ConteudoAnotacao = () => {
         setModoEdicao(false)
     }
 
-    // =========================================
     // FILTRAGEM
-    // =========================================
     const anotacoesFiltradas = anotacoes.filter(n =>
 
         n.titulo.toLowerCase().includes(
@@ -214,9 +190,7 @@ const ConteudoAnotacao = () => {
         )
     )
 
-    // =========================================
     // ITEM LATERAL
-    // =========================================
     const ItensBarraLateral = ({
         nota,
         onClick
