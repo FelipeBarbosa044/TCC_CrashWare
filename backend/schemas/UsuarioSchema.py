@@ -21,7 +21,7 @@ class VerificarEmailSchema(BaseModel):
 
 #SCHEMA Reenviar Email
 class EmailSchema (BaseModel):
-    email: str
+    email: Optional[str] = None
     email_novo : Optional[str] = None
 
 
