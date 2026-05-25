@@ -133,8 +133,6 @@ async def verificar_codigo(dados : VerificarEmailSchema , session = Depends(pega
 @auth.post("/reenviar_codigo")
 async def reenviar_codigo( dados : EmailSchema, session = Depends(pegar_sessao)):
     usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
-    if usuario is None:
-        raise HTTPException(status_code=404,detail="Email não autenticado")
     #Gero novo código
     codigo , expira = gerar_codigo()
 
@@ -269,6 +267,7 @@ async def alterar_email(dados : EmailSchema,usuario = Depends(validar_token),ses
 
         #Mensagem da API
         return {"mensagem": "Email alterado com sucesso"}
+
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
