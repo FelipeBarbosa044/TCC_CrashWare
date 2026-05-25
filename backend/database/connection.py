@@ -16,7 +16,7 @@ engine = create_engine(
     pool_size=10,
     max_overflow=20,
     pool_timeout=30,
-    pool_recycle=1800,
+    pool_recycle=300,
     pool_pre_ping=True
 ) ##Crio a conexão com o banco de dados
 #connect_args={"sslmode": "require"}

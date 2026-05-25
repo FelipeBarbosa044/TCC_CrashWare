@@ -27,8 +27,7 @@ session = Session()
 
 
 try:
-    session.query(Usuarios).filter(Usuarios.email == "costasousagabriel075@gmail.com").update({"admin" : True})
-    session.commit()
+    pass
 except Exception as exception:
     session.rollback()
     raise  exception

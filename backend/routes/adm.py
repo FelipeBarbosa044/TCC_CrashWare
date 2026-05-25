@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends,HTTPException
-from pygments.lexer import default
 from sqlalchemy import select
 
 #Importando tabelas:

@@ -1,5 +1,3 @@
-from contextlib import nullcontext
-
 from fastapi import APIRouter, Depends,HTTPException
 
 

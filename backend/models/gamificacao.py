@@ -116,11 +116,6 @@ class Usuario_Ofensiva(Base):
 
 
 
-
-
-
-
-
-
+#Fecho a sessão
 session.close()
 
