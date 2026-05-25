@@ -1,93 +1,102 @@
-#  CrashWare
+<div align="center">
 
-> Plataforma de Aprendizagem Hardware e Software
+# CrashWare
+### Plataforma de Aprendizagem em Hardware e Software
+
+**Democratizando o acesso ao conhecimento em Tecnologia da Informação**
+
+[🌐 Acessar o site](https://crashware.onrender.com) · [📋 Repositório](https://github.com/FelipeBarbosa044/TCC_CrashWare)
+
+</div>
+
+
+
+## Sobre o Projeto
+
+O **CrashWare** é uma plataforma educacional desenvolvida como Trabalho de Conclusão de Curso (TCC), com o objetivo de tornar o aprendizado em Tecnologia da Informação acessível para todos — independentemente do nível de conhecimento prévio.
+
+A plataforma combina conteúdos didáticos sobre hardware e software com ferramentas modernas de aprendizagem: monitoramento de progresso, sistemas de revisão, testes personalizados e elementos de **gamificação** para manter os usuários engajados e motivados.
+
+Nosso foco está em alcançar pessoas que nunca tiveram contato com a área de TI, oferecendo uma porta de entrada clara, acessível e eficaz para o universo da tecnologia — contribuindo diretamente para o crescimento pessoal e profissional de cada usuário.
+
+
+
+## Funcionalidades
+
+- 📚 **Conteúdos variados** sobre hardware e software organizados por nível
+- 📊 **Monitoramento de progresso** individual do usuário
+- 🔁 **Sistema de revisão** com espaçamento inteligente
+- 🧪 **Testes personalizados** para fixação do conteúdo
+- 🎮 **Gamificação** para aumentar engajamento e motivação
+- 📱 **Aplicativo Android** para aprendizado em qualquer lugar
+- 🌐 **Interface web responsiva** acessível por qualquer navegador
 
 ---
 
-##  Objetivo
+## Tecnologias Utilizadas
 
-O **CrashWare** é uma plataforma educacional desenvolvida como Trabalho de Conclusão de Curso (TCC), que tem como objetivo principal oferecer um meio que auxilie os usuários a organizar e otimizar seus estudos de forma eficiente. Através de uma interface simples e intuitiva, disponibilizaremos conteúdos variados, ferramentas de monitoramento de progresso, sistemas de revisão e testes personalizados, além de elementos de gamificação para aumentar a motivação e engajamento dos alunos. Promovendo um aprendizado prático, eficaz e contínuo, com foco em hardware e software, nosso objetivo é ajudar pessoas que muitas vezes não tem acesso e nem noção básica sobre a área de Tecnologia da Informação (TI), trazendo-os esses conceitos e possibilitando a eles uma chance de aprendizado que ajude em seu crescimento pessoal e profissional.
----
-
-##  Integrantes
-
-| Nome |
-|------|
-| Davi Souza Martins |
-| Felipe Barbosa Ribeiro |
-| Fernando Rodrigues Souza |
-| Gabriel de Sousa Costa |
-| Gabriela da Rocha Reis |
-| João Vitor Duarte da Costa |
-| Matheus Adler de Andrade |
-
----
-
-##  Tecnologias Utilizadas
-
-### Site Web (Frontend)
-- React — biblioteca para construção de interfaces
-- Vite — bundler e servidor de desenvolvimento
-- Figma — prototipação e design das telas
+### Frontend Web
+| Tecnologia | Finalidade |
+|-----------|-----------|
+| React | Construção das interfaces de usuário |
+| Vite | Bundler e servidor de desenvolvimento |
+| Figma | Prototipação e design das telas |
 
 ### Aplicativo Mobile
-- Java + XML + Android Studio — desenvolvimento do aplicativo Android
-- Figma — prototipação e design das telas
+| Tecnologia | Finalidade |
+|-----------|-----------|
+| Java + XML | Desenvolvimento do app Android |
+| Android Studio | Ambiente de desenvolvimento |
+| Figma | Prototipação e design das telas |
 
-### Backend 
-- Node.js — responsável pela lógica do sistema e integração entre as partes do projeto
-- FastAPI — framework para criação de rotas e gerenciamento da API REST
-- SQLAlchemy — ORM para manipulação e comunicação com o banco de dados
+### Backend
+| Tecnologia | Finalidade |
+|-----------|-----------|
+| Node.js | Lógica do sistema e integração |
+| FastAPI | Rotas e gerenciamento da API REST |
+| SQLAlchemy | ORM para comunicação com o banco |
 
 ### Banco de Dados
-- PostgreSQL — sistema de gerenciamento de banco de dados relacional
+| Tecnologia | Finalidade |
+|-----------|-----------|
+| PostgreSQL | Sistema de gerenciamento de banco relacional |
 
----
+## Arquitetura do Projeto
 
-##  Instruções de Execução e Configuração para acesso ao site
-
-### Pré-requisitos
-
-Certifique-se de ter instalado:
-- [Node.js](https://nodejs.org/) (versão 24.14. ou superior)
-- [Git](https://git-scm.com/)
-
-### Clonando o repositório
-
-git clone https://github.com/davimartins187/TCC_CrashWare.git
-cd TCC_CrasWare
-
-### Rodando o Frontend
-
-```bash
-cd frontend/Site/CrashWare
-npm install
-npm run dev
-```
-
-O projeto estará disponível em `http://localhost:5173`
-
----
-
-##  Estrutura do Projeto
-
-```
-TCC_Repositorio/
-├── backend/
-├── database/
-├── documentação/
+TCC_CrashWare/
+├── backend/              # API REST e lógica de negócio
+├── database/             # Scripts e migrações do banco de dados
+├── documentação/         # Documentação técnica e acadêmica
 └── frontend/
     └── Site/
         └── CrashWare/
             └── src/
-                ├── Componentes/
-                ├── Layouts/
-                ├── Paginas/
-                └── ...
-```
+                ├── Componentes/   # Componentes reutilizáveis
+                ├── Layouts/       # Estruturas de página
+                └── Paginas/       # Páginas da aplicação
+
+
+## Equipe
+
+| Nome | GitHub |
+|------|--------|
+| Davi Souza Martins | [@davimartins187](https://github.com/davimartins187) |
+| Felipe Barbosa Ribeiro | [@FelipeBarbosa044](https://github.com/FelipeBarbosa044)|
+| Fernando Rodrigues Souza | [@zFrndo](https://github.com/zFrndo) |
+| Gabriel de Sousa Costa | [@theSouzaC](https://github.com/TheSousaC) |
+| Gabriela da Rocha Reis | - |
+| João Vitor Duarte da Costa | [@joaov2302](https://github.com/joaov2302) |
+| Matheus Adler de Andrade | — |
 
 ---
 
-##  Licença
+## Acesso Online
 
-Este projeto foi desenvolvido para fins acadêmicos.
+O projeto está disponível para acesso em: **[crashware.onrender.com](https://crashware.onrender.com)**
+
+---
+
+## Licença
+
+Este projeto foi desenvolvido para fins acadêmicos como Trabalho de Conclusão de Curso (TCC).  
+© 2025 — Equipe CrashWare

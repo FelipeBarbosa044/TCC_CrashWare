@@ -18,8 +18,8 @@ export class Usuario
     async perfil(setDados)
     {
         //Verifico o token
-        const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        // const usuario = new Api;
+        // usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
         try
         {
             const response = await fetch("https://api-crashware.onrender.com/user/",
@@ -36,8 +36,11 @@ export class Usuario
                 //Caso a requisiçaõ deu certo
 
 
+
                 //Pego as informaçoes do usuario
                 const dados = await response.json();
+
+                
 
                 //Aviso para o site, que essa requisição não será necessaria fazer mais de uma vez
                 localStorage.setItem("info",true);
@@ -46,6 +49,8 @@ export class Usuario
                 localStorage.setItem("dados", JSON.stringify(dados));
 
                 setDados(dados)
+
+                
             }
             else
             {
@@ -143,6 +148,72 @@ export class Usuario
         }
 
     }//deletar_conta
+
+
+    async desativar_conta(setPopup)
+    {
+
+        setPopup({
+                tipo: 'aviso',
+                titulo: 'Conta',
+                mensagem: 'Deletando conta'
+            });
+
+        sleep(1000);
+
+
+        //Verifico o token
+        const usuario = new Api;
+        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/user/desativar_conta",
+                {
+                    method : "PATCH",
+                    headers : 
+                    {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+            if (response.ok)
+            {
+                const dados = await response.json();
+
+                setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'Conta',
+                    mensagem: dados.mensagem
+                });
+
+                sleep(2000);
+            }else
+            {
+                const erro = await  response.json();
+
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Conta',
+                    mensagem: "Erro ao desativar conta, tente novamente mais tarde.."
+                });
+            }
+            
+            
+        }catch (error)
+        {
+             setPopup({
+                tipo: 'erro',
+                titulo: 'Sem conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log(error)
+        }
+    }//Desativar Conta
 
 
 
@@ -638,11 +709,11 @@ export class Usuario
     }//Remover Banner
 
 
-    async conquista(conquista_id,setPopup,setDados)
+    async conquista(conquista_id,setPopupConquista,setDados)
     {
-        //Verifico o token
-        const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        // //Verifico o token
+        // const usuario = new Api;
+        // usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
         //Pego o token
         const token = localStorage.getItem("token")
@@ -695,33 +766,46 @@ export class Usuario
 
                     
 
-
                     if(tipo_conquista == "Software")
                     {
-                        //Popup de Software aqui
+                        //Popup do tipo "Software" aqui
+                                setPopupConquista({
+                                tipo: "software",
+                                titulo: nome_conquista,
+                                mensagem: descricao
+                            });
 
 
                     }else if(tipo_conquista == "Hardware")
                     {
-                        //Popup de Hardware aqui
+
+                        //Popup do tipo "Hardware" aqui
+                          setPopupConquista({
+                                tipo: "hardware",
+                                titulo: nome_conquista,
+                                mensagem: descricao
+                            });
 
 
                     }else
                     {
                         //Popup do tipo "OUTRO" aqui
-
+                        setPopupConquista({
+                                tipo: "outros",
+                                titulo: nome_conquista,
+                                mensagem: descricao
+                            });
 
                     }
 
 
-                    //Exibo essa conquista por enquanto...
-                     setPopup({
-                        tipo: 'sucesso',
-                        titulo: nome_conquista,
-                        mensagem: descricao
-                    });
+                    // //Exibo essa conquista por enquanto...
+                    //  setPopup({
+                    //     tipo: 'sucesso',
+                    //     titulo: nome_conquista,
+                    //     mensagem: descricao
+                    // });
                     
-
                 }else
                 {
                     const erro = await response.json();
@@ -777,6 +861,8 @@ export class Usuario
 
                 //Salva novamente
                 localStorage.setItem("dados", JSON.stringify(dados));
+
+                setDados(dados)
             }
 
         }catch (error) 
@@ -831,6 +917,8 @@ export class Usuario
 
                 //Salva novamente
                 localStorage.setItem("dados", JSON.stringify(dados));
+
+                setDados(dados)
             }
 
         }catch (error) 
@@ -884,5 +972,111 @@ export class Usuario
             console.log(error);
         }
     }//Mostrar Conquistas
+
+    //Sicronizar Ofenisva
+    async SicronizarOfensiva(setPopup)
+    {
+        //Pego o token
+        const token = localStorage.getItem("token")
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/user/sicronizar_ofensiva",
+                {
+                    method: 'POST',
+                    headers:
+                    {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+            if (response.status == 409)
+            {
+                //Ignora
+
+                return
+            }
+            if(response.ok)
+            {
+                //Ignora
+                return
+            }else
+            {
+                const erro = await response.json();
+
+                  setPopup({
+                        tipo: 'erro',
+                        titulo: 'Erro inesperado',
+                        mensagem: 'Erro ao sicronizar Ofensiva'
+                    });
+
+                //Exibo o erro no console
+                console.log(erro.detail)
+            }
+        }catch(error)
+        {
+            setPopup({
+                    tipo: 'erro',
+                    titulo: 'Erro De Conexão',
+                    mensagem: 'Erro ao sicronizar'
+            });
+            //Erro de conexão
+            console.log("Erro:", error);
+        }
+    }//Sicronizar Ofensiva
+
+
+    async ValidarOfensiva(setMaiorOfensiva,setDados)
+    {
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/user/validar_ofensiva",
+                {
+                    method: 'POST',
+                    headers:
+                    {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+            if (response.ok)
+            {
+                const dadosOfensiva = await response.json();
+
+                const ofensiva = dadosOfensiva.ofensiva
+                const maior_ofensiva = dadosOfensiva.maior_ofensiva
+
+                //Pega os dados atuais
+                const dados = JSON.parse(localStorage.getItem("dados"));
+
+                //Atualizo a ofensiva
+                dados.ofensiva = ofensiva;
+                
+                 //Salva novamente no local storage
+                localStorage.setItem("dados", JSON.stringify(dados));
+
+
+                //Atualizo a maior ofensiva
+                setMaiorOfensiva(maior_ofensiva);
+                localStorage.setItem("maior_ofensiva", maior_ofensiva);
+
+                //Atualizo o setDados
+                setDados(dados)
+               
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo no console log o erro
+                console.log("Erro ao Verificar Ofensiva" + erro.detail)
+            }
+        
+        }catch (error)
+        {
+            console.log("Erro ao Verificar Ofensiva  " + error)
+        }
+    }//ValidarOfensiva
 
 }//classe

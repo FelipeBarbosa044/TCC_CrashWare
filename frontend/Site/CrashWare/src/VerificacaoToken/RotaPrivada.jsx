@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthProvider";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Api } from "../../funcoes/functions";
+import { Usuario } from "../../funcoes/user";
 
 const RotaPrivada = ({ children }) => {
 
@@ -31,10 +32,12 @@ const RotaPrivada = ({ children }) => {
 
         //Verifico o token
         const usuario = new Api();
-        await usuario.Verificar_Token(token,refresh_token,Navegacao,true,set)
+        await usuario.Verificar_Token(token,refresh_token,Navegacao,set,true)
 
 
     }
+
+  
     
     //Sempre que a rota for chamada, eu verifico o token
     useEffect(() => {

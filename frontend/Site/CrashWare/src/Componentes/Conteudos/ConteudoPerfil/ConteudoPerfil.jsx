@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Raposa from '../../../fotos/Raposa.svg';
 import FotoPadrao from '../../../fotos/FotoPerfilPadrao.jpeg';
 import iconConquistas from '../../../fotos/Conquistas.svg';
 import iconOfensiva from '../../../fotos/Ofensiva.svg';
@@ -14,7 +15,7 @@ import { useNavigate } from "react-router-dom"
 import { Api, SairDaConta } from '../../../../funcoes/functions'
 import { BotoesForm } from '../../Botoes/BotaoForm/BotaoForm'
 import { Usuario } from '../../../../funcoes/user'
-
+import { PopUpConquista } from "../../popUpConquistas";
 import { PopUp } from '../../pop-up'
 
 
@@ -29,6 +30,11 @@ const ConteudoPerfil = () => {
 
     const token = localStorage.getItem("token");
     const refresh_token = localStorage.getItem("refresh_token");
+
+    //SetMaiorOfensiva
+    const [maiorOfensiva, setMaiorOfensiva] = useState(
+    localStorage.getItem("maior_ofensiva") || 0
+    );
 
     //Uso useState para o react renderizar as informações
     const [token_state, setToken] = useState(() => localStorage.getItem("token"));
@@ -47,7 +53,7 @@ const ConteudoPerfil = () => {
     //Patente
     const Patente = usuario?.patente || "Beta";
 
-
+    
     //Trata a data do mês
     const DataCadastro = usuario?.criado_em;
 
@@ -59,21 +65,21 @@ const ConteudoPerfil = () => {
 
         return `Membro desde ${mesNome} de ${ano}`;
     };
-
+    
     // muda a foto
     const [foto, setFoto] = useState(usuario?.foto);
     const [banner, setBanner] = useState(usuario?.banner);
     const [MudarFoto, setMudarFoto] = useState(false);
     const [MudarBanner, setMudarBanner] = useState(false);
     const [aberto, setAberto] = useState(false);
-
+    
     //Cache da foto
     const [versaoFoto, setVersaoFoto] = useState(Date.now());
     const [versaoBanner, setVersaoBanner] = useState(Date.now());
-
+    
     const inputRef = useRef();
     const inputBanner = useRef();
-
+    
     const [ofensiva, setOfensiva] = useState(0);
     const [xp, setXp] = useState(usuario?.xp || 0);
     const [conquistas, setConquistas] = useState(CONQUISTAS_MOCK);
@@ -87,21 +93,36 @@ const ConteudoPerfil = () => {
 
     const xpAtual = xp % XpMax;
     const porcentagem = (xp / XpMax) * 100;
-
-
-
-
+    
+    //Click
+    const [click, setClick] = useState(0);
+    
+    //PopupConquista
+    const [popupConquista, setPopupConquista] = useState(null);
+    
+    if (click >= 10) {
+        //Crio o bjeto que contem requisições para o banco
+        const user = new Usuario();
+        user.conquista(15, setPopupConquista, setDados)
+    }
+    
+    
+    
     useEffect(() => {
-
+        
         carregarConquistas();
-
+        
         const onVisible = () => {
-
+            
             //Atualiza os dados do usuario, sempre que a pagina for acessada
             if (!document.hidden) {
+                //Pego os dados
                 const user = new Usuario(token, refresh_token, Navegacao, set);
                 user.perfil(setDados);
                 usuario = JSON.parse(localStorage.getItem("dados"));
+
+                //Valido a ofensiva
+                const usuario = new Usuario(setMaiorOfensiva);
             }
         };
 
@@ -112,6 +133,8 @@ const ConteudoPerfil = () => {
         };
 
     }, []);
+
+
 
     async function carregarConquistas() {
 
@@ -161,9 +184,17 @@ const ConteudoPerfil = () => {
                     onFechar={() => setPopup(null)}
                 />
             )}
+            {popupConquista && (
+                <PopUpConquista
+                    tipo={popupConquista.tipo}
+                    titulo={popupConquista.titulo}
+                    mensagem={popupConquista.mensagem}
+                    onFechar={() => setPopupConquista(null)}
+                />
+            )}
 
 
-            <div className={style.corpo}>
+            < div className={style.corpo}>
 
                 {/* ── Banner ─────────────────────────────────────── */}
                 <div className={style.banner}>
@@ -354,8 +385,10 @@ const ConteudoPerfil = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className={style.Frase}>
-
+                        <div className={style.raposa}>
+                            <img src={Raposa} alt="Crash"
+                                onClick={() => setClick(click + 1)}
+                            />
                         </div>
                     </div>
 
@@ -464,7 +497,7 @@ const ConteudoPerfil = () => {
                     </div> */}
 
                 </div>
-            </div>
+            </div >
         </>
     );
 };

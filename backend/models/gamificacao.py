@@ -1,7 +1,7 @@
 #Importando comandos do sql para o código.
 from encodings.punycode import selective_find
 
-from sqlalchemy import Column, Integer, Float, String, Text, ForeignKey, UniqueConstraint,DateTime, text
+from sqlalchemy import Column, Integer, Float, String, Text, ForeignKey, UniqueConstraint, DateTime, text, Boolean
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.sql import func
 
@@ -86,6 +86,38 @@ class Usuario_Conquista(Base):
     def __init__(self,conquista_id,usuario_id):
         self.conquista_id = conquista_id
         self.usuario_id = usuario_id
+
+
+
+#Tabela usuario_ofensiva
+class Usuario_Ofensiva(Base):
+    __tablename__ = "usuario_ofensiva"
+
+    #Campos da tabela
+    id_usuario_ofensiva = Column(Integer,primary_key=True,autoincrement=True)
+    id_usuario = Column(ForeignKey("usuario.id_usuario",ondelete="CASCADE"),nullable=False)
+    maior_ofensiva = Column(Integer, default=1, server_default=text("1"))
+    congelamentos = Column(Integer,default=0,server_default=text("0"))
+    congelada_ativa = Column(Boolean,default=False,server_default=text("false"))
+    ultima_data_valida = Column(DateTime,server_default=func.now())
+
+    # Criando relação com objetos (relationship)
+    usuario = relationship("Usuarios", backref=backref(
+        "usuario_ofensiva",
+        cascade="all, delete-orphan",
+        passive_deletes=True))
+
+    # Criando atributos PARA O PYTHON (Não altera nada no banco de dados)
+    def __init__(self, id_usuario,maior_ofensiva=1,congelamentos = 0,congelada_ativa = False):
+        self.id_usuario = id_usuario
+        self.maior_ofensiva = maior_ofensiva
+        self.congelamentos = congelamentos
+        self.congelada_ativa = congelada_ativa
+
+
+
+
+
 
 
 

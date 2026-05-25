@@ -36,6 +36,7 @@ class Usuarios(Base):
     admin = Column(Boolean,default=False,server_default=text("false"))
     moedas = Column(Integer,default=0,server_default=text("0"))
     xp = Column(Float,default=0,server_default=text("0.0"))
+    ofensiva = Column(Integer, default=0, server_default=text("0"))
     patente_id = Column(Integer, ForeignKey("patente.id_patente"), nullable=False, default=1, server_default=text("1"))
     codigo = Column(String(6),nullable=True)
     codigo_expirado_em = Column(DateTime(timezone=True),nullable=True)
@@ -52,7 +53,7 @@ class Usuarios(Base):
 
     # Criando atributos PARA O PYTHON (Naõ altera nada no banco de dados)
     #nivel_id
-    def __init__(self,nome_usuario,email,senha_hash,telefone = None,patente_id = 1,foto = 'default.png',banner="default.png",email_verificado=False,ativo=True,admin=False,moedas=0,xp = 0,codigo = codigo, codigo_expirado_em = codigo_expirado_em):
+    def __init__(self,nome_usuario,email,senha_hash,telefone = None,patente_id = 1,foto = 'default.png',banner="default.png",email_verificado=False,ativo=True,admin=False,moedas=0,xp = 0,ofensiva = 0,codigo = codigo, codigo_expirado_em = codigo_expirado_em):
         self.nome_usuario = nome_usuario
         self.email = email
         self.telefone = telefone
@@ -64,6 +65,7 @@ class Usuarios(Base):
         self.admin = admin
         self.moedas= moedas
         self.xp = xp
+        self.ofensiva = ofensiva
         self.patente_id = patente_id
         self.codigo = codigo
         self.codigo_expirado_em = codigo_expirado_em

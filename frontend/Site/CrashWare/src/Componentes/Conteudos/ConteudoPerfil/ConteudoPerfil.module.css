@@ -63,7 +63,7 @@
     grid-column: 1;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     padding: 20px 24px;
 }
 
@@ -156,6 +156,22 @@
     opacity: 0.65;
     margin-bottom: 12px;
     font-weight: 700;
+}
+
+.raposa{
+    display: flex;
+    justify-content: end;
+    justify-self: end;
+    align-items: end;
+}
+
+.raposa img{
+    width: 30%;
+    cursor: pointer;
+}
+
+.raposa{
+    margin-right: 20px;
 }
 
 .bolinha {
@@ -497,6 +513,10 @@
     .foto { 
         width: 80px; 
         height: 80px; 
+    }
+
+    .raposa{
+        justify-content: center;
     }
 
     .texto h3 { 

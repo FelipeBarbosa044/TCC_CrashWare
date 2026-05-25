@@ -34,7 +34,7 @@ const AuthProvider = ({ children }) => {
 
         //Verifico o token
         const usuario = new Api();
-        await usuario.Verificar_Token(token,refresh_token,Navegacao,null,set)
+        await usuario.Verificar_Token(token,refresh_token,Navegacao,set,null)
 
 
     }

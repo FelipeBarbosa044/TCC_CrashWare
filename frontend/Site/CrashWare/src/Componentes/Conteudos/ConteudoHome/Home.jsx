@@ -24,6 +24,14 @@ const ConteudoHome = () => {
     //Popup
     const [popup, setPopup] = useState(null);
 
+    //PopupConquista
+    const [popupConquista, setPopupConquista] = useState(null);
+
+    //SetMaiorOfensiva
+    const [maiorOfensiva, setMaiorOfensiva] = useState(
+    localStorage.getItem("maior_ofensiva") || 0
+    );
+
     //Pego os tokens
     const token = localStorage.getItem("token");
     const refresh_token = localStorage.getItem("refresh_token");
@@ -45,45 +53,56 @@ const ConteudoHome = () => {
 
     //Pego todas as informações do usuario
     if (informacoes == "false") {
-
-        //Faço a requisição no banco
+        //Crio o bjeto que contem requisições para o banco
         const user = new Usuario(token,refresh_token,Navegacao,set);
-        user.perfil(setDados);
+
+        //Sicronizo ofensiva do banco de dados
+        user.SicronizarOfensiva(setPopup)
 
         //Conquista ao logar
-        user.conquista(9,setPopup,setDados)
-         
+        user.conquista(9,setPopupConquista,setDados)
+
+        //Pego as informações do usuario
+        user.perfil(setDados);  
+        
     }
 
 
     //Pega os dados do usuario
-    const usuario = JSON.parse(localStorage.getItem("dados"));
+    let usuario = JSON.parse(localStorage.getItem("dados"));
 
     //
 
     const XpMax = 500;
-    const [xp, setXp] = useState(usuario?.xp || 0); 
+    let xp = usuario?.xp ?? 0; 
     let Nivel =  1;
     const xpAtual = xp % XpMax;
     const porcentagem = (xpAtual / XpMax) * 100;
-    const nome = usuario?.nome || "Usuário";
+    const nome = usuario?.nome ?? "Usuário";
 
-    const ofensiva = usuario?.ofensiva || 1;
+    
+    
+
+    const ofensiva = usuario?.ofensiva ?? 0;
 
 
 
      useEffect(() => {
-        //Atualiza os dados do usuario, sempre que a pagina for acessada
-        const onVisible = () => {
-            if (!document.hidden) {
-                const cliente = new Usuario();
-                cliente.perfil(setDados);
-            }
-        };
-        document.addEventListener("visibilitychange", onVisible);
+        // //Atualiza os dados do usuario, sempre que a pagina for acessada
+        // const onVisible = () => {
+        //     if (!document.hidden) {
+        //         const cliente = new Usuario();
+        //         cliente.perfil(setDados);
+        //     }
+        // };
+        // document.addEventListener("visibilitychange", onVisible);
+
+
+        //Valido a ofensiva
+        VerificarOfensiva();
 
         //Calcula nivel
-            switch (true)
+        switch (true)
         {
             case xp > 500 && xp <= 1000:
                 Nivel = 2; 
@@ -148,8 +167,15 @@ const ConteudoHome = () => {
             default:
                 Nivel = 1;
         }
-        return () => document.removeEventListener("visibilitychange", onVisible);
+        // return () => document.removeEventListener("visibilitychange", onVisible);
     }, []);
+
+     async function VerificarOfensiva() {
+            const user = new Usuario();
+            await user.ValidarOfensiva(setDados,setMaiorOfensiva);
+            usuario = JSON.parse(localStorage.getItem("dados"));
+
+     }
 
     const ultimaAula = {
         trilha: "Hardware",
@@ -169,15 +195,6 @@ const ConteudoHome = () => {
     // }
 
 
-   
-
-        
-    
-
-    // if(xp > XpMax){
-    //     Nivel += 1;
-    // }
-
     useEffect(()=>{
         if(xp > XpMax){
         Nivel += 1;
@@ -193,6 +210,14 @@ const ConteudoHome = () => {
                     mensagem={popup.mensagem}
                     onFechar={() => setPopup(null)}
                 />
+            )}
+            {popupConquista && (
+            <PopUpConquista
+                tipo={popupConquista.tipo}
+                titulo={popupConquista.titulo}
+                mensagem={popupConquista.mensagem}
+                onFechar={() => setPopupConquista(null)}
+            />
             )}
 
         <div className={style.corpo}>

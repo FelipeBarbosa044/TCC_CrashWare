@@ -293,6 +293,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Card Conquistas -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardConquistas"
             android:layout_width="380dp"
@@ -307,6 +308,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
+            <!-- Titulo Conquistas -->
             <TextView
                 android:id="@+id/txtConquistas"
                 android:layout_width="wrap_content"
@@ -317,328 +319,21 @@
                 android:textColor="@color/azul"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/Conquista1"
-                app:layout_constraintEnd_toEndOf="@+id/cardConquistas"
-                app:layout_constraintStart_toStartOf="@+id/cardConquistas"
-                app:layout_constraintTop_toTopOf="@id/cardConquistas" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/Conquista1"
+            <!-- Lista das Conquistas -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvConquistas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:padding="10dp"
-                android:background="@drawable/bg_cardconquista_software"
-                app:layout_constraintTop_toBottomOf="@id/txtConquistas">
+                app:layout_constraintTop_toBottomOf="@id/txtConquistas"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imgConquista1"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    android:layout_marginStart="-2dp"
-                    android:padding="2dp"
-                    android:src="@drawable/banner_icon"
-                    app:shapeAppearanceOverlay="@style/CircleImage"
-                    app:layout_constraintStart_toStartOf="@id/Conquista1"
-                    app:layout_constraintBottom_toBottomOf="@id/Conquista1"
-                    app:strokeColor="#111827"
-                    app:strokeWidth="1dp" />
-
-                <TextView
-                    android:id="@+id/txtTituloConquista1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Conquista de Software"
-                    android:textAllCaps="true"
-                    android:textColor="@color/azul"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/imgConquista1"
-                    app:layout_constraintTop_toTopOf="@id/Conquista1" />
-
-                <TextView
-                    android:id="@+id/txtDescricaoConquista1"
-                    android:layout_width="245dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Descrição super divertida sobre a aula concluída para adquirir a conquista."
-                    android:textAllCaps="true"
-                    android:textColor="#353535"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/txtTituloConquista1"
-                    app:layout_constraintStart_toStartOf="@+id/txtTituloConquista1"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/Conquista2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:background="@drawable/bg_cardconquista_hardware"
-                app:layout_constraintTop_toBottomOf="@id/Conquista1">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imgConquista2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    android:layout_marginStart="-2dp"
-                    android:padding="2dp"
-                    android:src="@drawable/banner_icon"
-                    app:shapeAppearanceOverlay="@style/CircleImage"
-                    app:layout_constraintStart_toStartOf="@id/Conquista2"
-                    app:layout_constraintBottom_toBottomOf="@id/Conquista2"
-                    app:strokeColor="#111827"
-                    app:strokeWidth="1dp" />
-
-                <TextView
-                    android:id="@+id/txtTituloConquista2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Conquista de Hardware"
-                    android:textAllCaps="true"
-                    android:textColor="@color/azul"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/imgConquista2"
-                    app:layout_constraintTop_toTopOf="@id/Conquista2"
-                    />
-
-                <TextView
-                    android:id="@+id/txtDescricaoConquista2"
-                    android:layout_width="245dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Descrição super divertida sobre a aula concluída para adquirir a conquista."
-                    android:textAllCaps="true"
-                    android:textColor="#353535"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/txtTituloConquista2"
-                    app:layout_constraintStart_toStartOf="@+id/txtTituloConquista2"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/Conquista3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:background="@drawable/bg_cardconquista_hardware"
-                app:layout_constraintTop_toBottomOf="@id/Conquista2">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imgConquista3"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    android:layout_marginStart="-2dp"
-                    android:padding="2dp"
-                    android:src="@drawable/banner_icon"
-                    app:shapeAppearanceOverlay="@style/CircleImage"
-                    app:layout_constraintStart_toStartOf="@id/Conquista3"
-                    app:layout_constraintBottom_toBottomOf="@id/Conquista3"
-                    app:strokeColor="#111827"
-                    app:strokeWidth="1dp" />
-
-                <TextView
-                    android:id="@+id/txtTituloConquista3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Conquista de Hardware"
-                    android:textAllCaps="true"
-                    android:textColor="@color/azul"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/imgConquista3"
-                    app:layout_constraintTop_toTopOf="@id/Conquista3"
-                    />
-
-                <TextView
-                    android:id="@+id/txtDescricaoConquista3"
-                    android:layout_width="245dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Descrição super divertida sobre a aula concluída para adquirir a conquista."
-                    android:textAllCaps="true"
-                    android:textColor="#353535"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/txtTituloConquista3"
-                    app:layout_constraintStart_toStartOf="@+id/txtTituloConquista3"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/Conquista4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:background="@drawable/bg_cardconquista_software"
-                app:layout_constraintTop_toBottomOf="@id/Conquista3">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imgConquista4"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    android:layout_marginStart="-2dp"
-                    android:padding="2dp"
-                    android:src="@drawable/banner_icon"
-                    app:shapeAppearanceOverlay="@style/CircleImage"
-                    app:layout_constraintStart_toStartOf="@id/Conquista4"
-                    app:layout_constraintBottom_toBottomOf="@id/Conquista4"
-                    app:strokeColor="#111827"
-                    app:strokeWidth="1dp" />
-
-                <TextView
-                    android:id="@+id/txtTituloConquista4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Conquista de Software"
-                    android:textAllCaps="true"
-                    android:textColor="@color/azul"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/imgConquista4"
-                    app:layout_constraintTop_toTopOf="@id/Conquista4"
-                    />
-
-                <TextView
-                    android:id="@+id/txtDescricaoConquista4"
-                    android:layout_width="245dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Descrição super divertida sobre a aula concluída para adquirir a conquista."
-                    android:textAllCaps="true"
-                    android:textColor="#353535"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/txtTituloConquista4"
-                    app:layout_constraintStart_toStartOf="@+id/txtTituloConquista4"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/Conquista5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:background="@drawable/bg_cardconquista_hardware"
-                app:layout_constraintTop_toBottomOf="@id/Conquista4">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imgConquista5"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    android:layout_marginStart="-2dp"
-                    android:padding="2dp"
-                    android:src="@drawable/banner_icon"
-                    app:shapeAppearanceOverlay="@style/CircleImage"
-                    app:layout_constraintStart_toStartOf="@id/Conquista5"
-                    app:layout_constraintBottom_toBottomOf="@id/Conquista5"
-                    app:strokeColor="#111827"
-                    app:strokeWidth="1dp" />
-
-                <TextView
-                    android:id="@+id/txtTituloConquista5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Conquista de Hardware"
-                    android:textAllCaps="true"
-                    android:textColor="@color/azul"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/imgConquista5"
-                    app:layout_constraintTop_toTopOf="@id/Conquista5"
-                    />
-
-                <TextView
-                    android:id="@+id/txtDescricaoConquista5"
-                    android:layout_width="245dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Descrição super divertida sobre a aula concluída para adquirir a conquista."
-                    android:textAllCaps="true"
-                    android:textColor="#353535"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/txtTituloConquista5"
-                    app:layout_constraintStart_toStartOf="@+id/txtTituloConquista5"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/Conquista6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:background="@drawable/bg_cardconquista_software"
-                app:layout_constraintTop_toBottomOf="@id/Conquista5">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imgConquista6"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    android:layout_marginStart="-2dp"
-                    android:padding="2dp"
-                    android:src="@drawable/banner_icon"
-                    app:shapeAppearanceOverlay="@style/CircleImage"
-                    app:layout_constraintStart_toStartOf="@id/Conquista6"
-                    app:layout_constraintBottom_toBottomOf="@id/Conquista6"
-                    app:strokeColor="#111827"
-                    app:strokeWidth="1dp" />
-
-                <TextView
-                    android:id="@+id/txtTituloConquista6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Conquista de Software"
-                    android:textAllCaps="true"
-                    android:textColor="@color/azul"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/imgConquista6"
-                    app:layout_constraintTop_toTopOf="@id/Conquista6"
-                    />
-
-                <TextView
-                    android:id="@+id/txtDescricaoConquista6"
-                    android:layout_width="245dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Descrição super divertida sobre a aula concluída para adquirir a conquista."
-                    android:textAllCaps="true"
-                    android:textColor="#353535"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/txtTituloConquista6"
-                    app:layout_constraintStart_toStartOf="@+id/txtTituloConquista6"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <!-- Texto Ver todas as conquistas -->
             <TextView
                 android:id="@+id/txtVerTodasConquistas"
                 android:layout_width="wrap_content"
@@ -652,19 +347,20 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/Conquista6" />
+                app:layout_constraintTop_toBottomOf="@id/rvConquistas" />
 
             <!-- Barra -->
             <View
                 android:layout_width="165dp"
                 android:layout_height="2dp"
-                android:layout_marginBottom="16dp"
                 android:background="@color/verde"
                 app:layout_constraintTop_toBottomOf="@id/txtVerTodasConquistas"
+                app:layout_constraintStart_toStartOf="@id/txtVerTodasConquistas"
                 app:layout_constraintEnd_toEndOf="@id/txtVerTodasConquistas"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Nosso espaçamento padrão -->
         <View
             android:id="@+id/espaco_nav_bar"
             android:layout_width="match_parent"

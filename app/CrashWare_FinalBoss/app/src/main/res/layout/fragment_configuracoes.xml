@@ -141,6 +141,18 @@
                 app:layout_constraintStart_toStartOf="@id/imgNotifiPerfil"
                 app:layout_constraintTop_toBottomOf="@id/imgNotifiPerfil" />
 
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchAtivarTodasNotifi"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/righteous"
+                app:thumbTint="@color/azul"
+                app:trackTint="#500F172A"
+                app:layout_constraintTop_toBottomOf="@id/imgNotifiPerfil"
+                app:layout_constraintEnd_toEndOf="@id/cardNotificacoes" />
+
             <TextView
                 android:id="@+id/txtLembreteDiario"
                 android:layout_width="wrap_content"
@@ -155,6 +167,17 @@
                 app:layout_constraintStart_toStartOf="@id/txtAtivarTodasNotifi"
                 app:layout_constraintTop_toBottomOf="@id/txtAtivarTodasNotifi" />
 
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchLembreteDiario"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/righteous"
+                app:thumbTint="@color/azul"
+                app:trackTint="#500F172A"
+                app:layout_constraintTop_toBottomOf="@id/txtAtivarTodasNotifi"
+                app:layout_constraintEnd_toEndOf="@id/switchAtivarTodasNotifi" />
+
             <TextView
                 android:id="@+id/txtNotificacoes"
                 android:layout_width="wrap_content"
@@ -168,6 +191,17 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/txtLembreteDiario"
                 app:layout_constraintTop_toBottomOf="@id/txtLembreteDiario" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchNotificacoes"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/righteous"
+                app:thumbTint="@color/azul"
+                app:trackTint="#500F172A"
+                app:layout_constraintTop_toBottomOf="@id/txtLembreteDiario"
+                app:layout_constraintEnd_toEndOf="@id/switchAtivarTodasNotifi" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -653,7 +687,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <ImageView
-                    android:id="@+id/imgTermosServico"
+                    android:id="@+id/imgTermosServicoConfig"
                     android:layout_width="28dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="2dp"
@@ -663,7 +697,7 @@
                     app:layout_constraintTop_toTopOf="@id/cardPrivacidadeSegurancaTermosServico" />
 
                 <TextView
-                    android:id="@+id/txtTermosServico"
+                    android:id="@+id/txtTermosServicoConfig"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -674,8 +708,8 @@
                     android:textColor="@color/azul"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/imgTermosServico"
-                    app:layout_constraintTop_toTopOf="@id/imgTermosServico" />
+                    app:layout_constraintStart_toEndOf="@id/imgTermosServicoConfig"
+                    app:layout_constraintTop_toTopOf="@id/imgTermosServicoConfig" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

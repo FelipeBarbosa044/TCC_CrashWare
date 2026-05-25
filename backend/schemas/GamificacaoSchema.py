@@ -10,3 +10,6 @@ class RecursoSchema(BaseModel):
     class Config:
         from_attributes = True
 
+
+
+

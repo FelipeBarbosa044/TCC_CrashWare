@@ -121,7 +121,7 @@ export class Adm
              setPopup({
                     tipo: 'erro',
                     titulo: 'Erro De Conexão',
-                    mensagem: 'Tente novamente mais tarde...'
+                    mensagem: 'Erro ao listar'
                 });
             //Erro de conexão
             console.log("Erro:", error);
@@ -130,4 +130,67 @@ export class Adm
         }//catch
             
     }//Listar Conquistas
+
+    async deletar_conquista(id_conquista,setPopup)
+    {
+        setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Conquistas',
+                    mensagem: 'Deletando conquista...'
+                });
+
+        sleep(1000)
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/adm/deletar_conquista",
+                 {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        id_conquista : id_conquista
+                        })
+                 });
+
+
+            if(response.ok)
+            {
+                //Exibo resposta da API
+                const resposta = await response.json();
+                setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'Conquista',
+                    mensagem: resposta.mensagem
+                });
+
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo o erro
+                
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Conquista',
+                    mensagem: erro.detail
+                });
+
+               
+            }
+
+        }catch(error) 
+        {
+             setPopup({
+                    tipo: 'erro',
+                    titulo: 'Erro De Conexão',
+                    mensagem: 'Erro ao deletar'
+                });
+
+            //Erro de conexão
+            console.log("Erro:", error);
+
+            sleep(1000)
+            return;
+        
+        }//catch
+    }//Deletar conquista
 }//classe

@@ -137,7 +137,7 @@
                 android:fontFamily="@font/righteous"
                 android:text="e-mail vinculado"
                 android:textAllCaps="true"
-                android:textColor="?attr/colorOnSurface"
+                android:textColor="@color/azul"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@id/imgAlterarEmail"
                 app:layout_constraintTop_toBottomOf="@+id/imgAlterarEmail"/>
@@ -149,8 +149,9 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/bg_edittext_borda"
-                android:fontFamily="@font/pt_sans_caption_bold"
+                android:fontFamily="@font/righteous"
                 android:hint=""
+                android:textSize="16dp"
                 android:paddingHorizontal="16dp"
                 android:textColor="#000000"
                 android:textColorHint="#500F172A"
@@ -168,7 +169,7 @@
                 android:fontFamily="@font/righteous"
                 android:text="novo e-mail"
                 android:textAllCaps="true"
-                android:textColor="?attr/colorOnSurface"
+                android:textColor="@color/azul"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@id/imgAlterarEmail"
                 app:layout_constraintTop_toBottomOf="@+id/campoEmailVinculado"/>
@@ -259,7 +260,7 @@
                 android:fontFamily="@font/righteous"
                 android:text="Número de telefone"
                 android:textAllCaps="true"
-                android:textColor="?attr/colorOnSurface"
+                android:textColor="@color/azul"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@id/imgAdicionarTelefone"
                 app:layout_constraintTop_toBottomOf="@+id/imgAdicionarTelefone"/>
@@ -271,7 +272,7 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/bg_edittext_borda"
-                android:fontFamily="@font/pt_sans_caption_bold"
+                android:fontFamily="@font/righteous"
                 android:hint="(XX) XXXXX-XXXX"
                 android:paddingHorizontal="16dp"
                 android:textColor="#000000"
@@ -290,7 +291,7 @@
                 android:fontFamily="@font/righteous"
                 android:text="confirme o número de telefone"
                 android:textAllCaps="true"
-                android:textColor="?attr/colorOnSurface"
+                android:textColor="@color/azul"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@id/imgAdicionarTelefone"
                 app:layout_constraintTop_toBottomOf="@+id/campoNumeroTelefone"/>
@@ -383,7 +384,7 @@
                     android:fontFamily="@font/righteous"
                     android:text="nome atual"
                     android:textAllCaps="true"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/azul"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@id/imgAlterarNome"
                     app:layout_constraintTop_toBottomOf="@+id/imgAlterarNome"/>
@@ -395,10 +396,11 @@
                     android:layout_height="48dp"
                     android:layout_marginTop="2dp"
                     android:background="@drawable/bg_edittext_borda"
-                    android:fontFamily="@font/pt_sans_caption_bold"
+                    android:fontFamily="@font/righteous"
                     android:hint=""
                     android:paddingHorizontal="16dp"
                     android:textColor="#000000"
+                    android:textSize="16sp"
                     android:textColorHint="#500F172A"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -414,7 +416,7 @@
                     android:fontFamily="@font/righteous"
                     android:text="novo nome"
                     android:textAllCaps="true"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/azul"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@id/imgAlterarNome"
                     app:layout_constraintTop_toBottomOf="@+id/campoNomeAtual"/>
@@ -505,7 +507,7 @@
                 android:fontFamily="@font/righteous"
                 android:text="Digite sua senha atual"
                 android:textAllCaps="true"
-                android:textColor="?attr/colorOnSurface"
+                android:textColor="@color/azul"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@id/imgAlterarSenha"
                 app:layout_constraintTop_toBottomOf="@+id/imgAlterarSenha"/>
@@ -605,9 +607,8 @@
                 android:src="@drawable/github_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imgConecteContas" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     <View
         android:id="@+id/espaco_nav_bar"
         android:layout_width="match_parent"
