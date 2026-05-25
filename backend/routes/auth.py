@@ -265,7 +265,7 @@ async def alterar_email(dados : EmailSchema,usuario = Depends(validar_token),ses
         raise HTTPException(status_code=401, detail="Token expirado ou inválido")
     #Altero o email
     try:
-        usuario.email = dados.email
+        usuario.email = dados.email_novo
         session.commit()
 
         #Mensagem da API
