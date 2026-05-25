@@ -258,6 +258,22 @@ async def validar_email(dados : EmailSchema,usuario = Depends(validar_token),ses
 ############################
 
 #Rota de Alterar Email
+@auth.patch('/alterar_email')
+async def alterar_email(dados : EmailSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=401, detail="Token expirado ou inválido")
+    #Altero o email
+    try:
+        usuario.email = dados.email
+        session.commit()
+
+        #Mensagem da API
+        return {"mensagem": "Email alterado com sucesso"}
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
 
 
 
