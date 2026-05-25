@@ -242,8 +242,23 @@ async def refresh_token(usuario = Depends(validar_refresh_token), session = Depe
 
 
 ##Rota de alterar e-mail
+@auth.post('/validar_email')
+async def validar_email(dados : EmailSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=401, detail="Token expirado ou inválido")
+    email = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+    if email is not None:
+        #Se email não chegar nulo
+        raise HTTPException(status_code=409,detail="Esse email já foi autenticado, tente outro")
+    else:
+        #Validaçao aprovada
+        return {"mensagem" : "Estamos te redirecionando..."}
+
 
 ############################
+
+#Rota de Alterar Email
+
 
 
 
