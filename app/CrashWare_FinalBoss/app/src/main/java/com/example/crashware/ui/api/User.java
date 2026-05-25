@@ -42,7 +42,7 @@ public class User {
         public Float xp;
         public Boolean ativo;
         public String patente;
-        public Integer nivel;
+        public Integer ofensiva;
         public Boolean adm;
         public String criado_em;
     }

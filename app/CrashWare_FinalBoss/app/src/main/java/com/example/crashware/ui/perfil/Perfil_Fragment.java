@@ -297,7 +297,7 @@ public class Perfil_Fragment extends Fragment {
                         txtNomePerfil.setText(nome);
                         txtPatente.setText(patente);
                         txtQuantGemas.setText(String.valueOf(moedas));
-                        txtQuantXP.setText(String.valueOf(xp));
+                        txtQuantXP.setText(String.format("%.0f/500 XP", xp));
 
 
 

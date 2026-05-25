@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.crashware.R;
 import com.example.crashware.ui.api.Auth;
+import com.example.crashware.ui.api.Ofensiva;
 import com.example.crashware.ui.api.User;
 import com.example.crashware.ui.aulas.ModuloHardware;
 import com.example.crashware.ui.aulas.ModuloSoftware;
@@ -79,18 +80,20 @@ public class Inicio_fragment extends Fragment {
 
         prefs = requireContext().getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
 
+        //Adiciono a conquista de login e sicronizo a ofensiva
+        PrimeiroLogin();
 
         // Coleto as informações do usuário
         Perfil();
 
-        //Adiciono a conquista de login
-        PrimeiroLogin();
+        ValidarOfensiva();
+
+
 
         XP_Manager = new XP_Manager(requireContext());
 
 
-        auth = FirebaseAuth.getInstance();
-        db = FirebaseDatabase.getInstance().getReference("usuarios");
+
     }
 
     @Nullable
@@ -191,7 +194,12 @@ public class Inicio_fragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        //Atualizo a ofensiva
+        ValidarOfensiva();
+
+        //Carrego as informaçoes do usuario novamente
         Perfil();
+
     }
 
     // =========================
@@ -275,22 +283,25 @@ public class Inicio_fragment extends Fragment {
                     public void sucesso(User.PerfilResponse usuario) {
 
                         String nome = usuario.nome;
-
+                        String email = usuario.email;
                         String banner = usuario.banner;
-
                         Integer moedas = usuario.moedas;
                         Float xp = usuario.xp;
+                        Integer ofensiva = usuario.ofensiva;
+
 
 
                         String foto = usuario.foto;
 
                         // Salvo os dados no SharedPreferences
                         prefs.edit()
+                                .putString("email",email)
                                 .putString("foto", foto)
                                 .putString("nome", nome)
                                 .putString("banner",banner)
                                 .putInt("moedas",moedas)
                                 .putFloat("xp",xp)
+                                .putInt("ofensiva",ofensiva)
                                 .putInt("nivel", XP_Manager.getNivel())
 
                                 .commit();
@@ -310,6 +321,10 @@ public class Inicio_fragment extends Fragment {
 
                         // Atualiza nome
                         txtNomeInicio.setText(nome);
+
+                        //Atualiza a ofensiva
+                        txtOfensiva.setText(String.valueOf(ofensiva + " dias"));
+
                     }
                 });//Perfil
 
@@ -329,11 +344,31 @@ public class Inicio_fragment extends Fragment {
 
         if(PrimeiroLogin == true)
         {
+            //Exibo a conquista
             User.Conquista(9,prefs,requireContext());
+
+            //Sicronizo com o banco de dados a ofensiva
+            Ofensiva.SicronizarOfensiva(prefs,requireContext());
         }
 
 
-    }
+    }//Primeiro login
+
+
+    private void ValidarOfensiva() {
+
+        //Verifico o token
+        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+            @Override
+            public void onSuccess() {
+                //chamo a requisição de validar ofensiva
+                Ofensiva.ValidarOfensiva(prefs, requireContext());
+            }
+        });
+
+
+    }//Validar Ofensiva
+
 
     // =========================
     // CARREGAR IMAGEM
