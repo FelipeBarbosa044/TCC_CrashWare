@@ -132,10 +132,7 @@ async def verificar_codigo(dados : VerificarEmailSchema , session = Depends(pega
 
 @auth.post("/reenviar_codigo")
 async def reenviar_codigo( dados : EmailSchema, session = Depends(pegar_sessao)):
-    if dados.email_novo != None:
-        usuario = session.query(Usuarios).filter(Usuarios.email == dados.email_novo).first()
-    else:
-        usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     #Gero novo código
     codigo , expira = gerar_codigo()
 
