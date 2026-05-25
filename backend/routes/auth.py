@@ -132,6 +132,11 @@ async def verificar_codigo(dados : VerificarEmailSchema , session = Depends(pega
 
 @auth.post("/reenviar_codigo")
 async def reenviar_codigo( dados : EmailSchema, session = Depends(pegar_sessao)):
+    if dados.email_novo is None:
+        email = dados.email
+    else:
+        email = dados.email_novo
+
     usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     #Gero novo código
     codigo , expira = gerar_codigo()
@@ -142,7 +147,7 @@ async def reenviar_codigo( dados : EmailSchema, session = Depends(pegar_sessao))
     session.commit()
 
     #Envio email
-    enviar_email(codigo, dados.email)
+    enviar_email(codigo, email)
 
     return {"mensagem": "Código Reenviado!"}
 
