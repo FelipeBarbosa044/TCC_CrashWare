@@ -22,6 +22,33 @@
     justify-content: center;
 }
 
+.Carregamento {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.Carregamento h3 {
+    padding: 14px 22px;
+
+    color: var(--texto-principal);
+    letter-spacing: 0.1em;
+    font-size: 25px;
+}
+
+.Carregamento p {
+    font-size: 18px;
+    color: var(--texto-principal);
+    text-align: center;
+    margin-top: 12px;
+}
+
 .header {
     display: flex;
     align-items: center;

@@ -29,7 +29,7 @@ const ConteudoHome = () => {
 
     //SetMaiorOfensiva
     const [maiorOfensiva, setMaiorOfensiva] = useState(
-    localStorage.getItem("maior_ofensiva") || 0
+        localStorage.getItem("maior_ofensiva") || 0
     );
 
     //Pego os tokens
@@ -47,24 +47,24 @@ const ConteudoHome = () => {
     );
 
     //Lista que contém todos os usestate
-    const set = [setToken,setRefresh,setDados];
+    const set = [setToken, setRefresh, setDados];
 
     const informacoes = localStorage.getItem("info")
 
     //Pego todas as informações do usuario
     if (informacoes == "false") {
         //Crio o bjeto que contem requisições para o banco
-        const user = new Usuario(token,refresh_token,Navegacao,set);
+        const user = new Usuario(token, refresh_token, Navegacao, set);
 
         //Sicronizo ofensiva do banco de dados
         user.SicronizarOfensiva(setPopup)
 
         //Conquista ao logar
-        user.conquista(9,setPopupConquista,setDados)
+        user.conquista(9, setPopupConquista, setDados)
 
         //Pego as informações do usuario
-        user.perfil(setDados);  
-        
+        user.perfil(setDados);
+
     }
 
 
@@ -74,20 +74,20 @@ const ConteudoHome = () => {
     //
 
     const XpMax = 500;
-    let xp = usuario?.xp ?? 0; 
-    let Nivel =  1;
+    let xp = usuario?.xp ?? 0;
+    let Nivel = 1;
     const xpAtual = xp % XpMax;
     const porcentagem = (xpAtual / XpMax) * 100;
     const nome = usuario?.nome ?? "Usuário";
 
-    
-    
+
+
 
     const ofensiva = usuario?.ofensiva ?? 0;
 
 
 
-     useEffect(() => {
+    useEffect(() => {
         // //Atualiza os dados do usuario, sempre que a pagina for acessada
         // const onVisible = () => {
         //     if (!document.hidden) {
@@ -102,66 +102,65 @@ const ConteudoHome = () => {
         VerificarOfensiva();
 
         //Calcula nivel
-        switch (true)
-        {
+        switch (true) {
             case xp > 500 && xp <= 1000:
-                Nivel = 2; 
+                Nivel = 2;
                 break;
 
-            case xp > 1000  &&  xp <= 1500:
-                Nivel = 3; 
+            case xp > 1000 && xp <= 1500:
+                Nivel = 3;
                 break;
 
             case xp > 1500 && xp <= 2000:
-                Nivel = 4; 
+                Nivel = 4;
                 break;
 
             case xp > 2000 && xp <= 2500:
-                Nivel = 5; 
+                Nivel = 5;
                 break;
 
             case xp > 2500 && xp <= 3000:
-                Nivel = 6; 
+                Nivel = 6;
                 break;
 
             case xp > 3500 && xp <= 4000:
-                Nivel = 7; 
+                Nivel = 7;
                 break;
 
             case xp > 4000 && xp <= 4500:
-                Nivel = 8; 
+                Nivel = 8;
                 break;
 
             case xp > 4500 && xp <= 5000:
-                Nivel = 9; 
+                Nivel = 9;
                 break;
 
             case xp > 5000 && xp <= 6000:
-                Nivel = 10; 
+                Nivel = 10;
                 break;
 
             case xp > 5500 && xp <= 6000:
-                Nivel = 10; 
+                Nivel = 10;
                 break;
 
             case xp > 6000 && xp <= 6500:
-                Nivel = 11; 
+                Nivel = 11;
                 break;
 
             case xp > 6500 && xp <= 7000:
-                Nivel = 12; 
+                Nivel = 12;
                 break;
 
             case xp > 7000 && xp <= 7500:
-                Nivel = 13; 
+                Nivel = 13;
                 break;
 
             case xp > 7500 && xp <= 8000:
-                Nivel = 14; 
+                Nivel = 14;
                 break;
 
             case xp > 8000:
-                Nivel = 15; 
+                Nivel = 15;
                 break;
 
             default:
@@ -170,12 +169,12 @@ const ConteudoHome = () => {
         // return () => document.removeEventListener("visibilitychange", onVisible);
     }, []);
 
-     async function VerificarOfensiva() {
-            const user = new Usuario();
-            await user.ValidarOfensiva(setDados,setMaiorOfensiva);
-            usuario = JSON.parse(localStorage.getItem("dados"));
+    async function VerificarOfensiva() {
+        const user = new Usuario();
+        await user.ValidarOfensiva(setDados, setMaiorOfensiva);
+        usuario = JSON.parse(localStorage.getItem("dados"));
 
-     }
+    }
 
     const ultimaAula = {
         trilha: "Hardware",
@@ -184,22 +183,25 @@ const ConteudoHome = () => {
         proximoModulo: "Introdução ao Hardware",
     };
 
-    // if (!usuario) {
-    //     return (
-    //         <div className={style.corpo} style={{ justifyContent: "center" }}>
-    //             <span style={{ color: "#8b90a0", letterSpacing: "0.1em", fontSize: "13px" }}>
-    //                 CARREGANDO...
-    //             </span>
-    //         </div>
-    //     );
-    // }
-
-
-    useEffect(()=>{
-        if(xp > XpMax){
-        Nivel += 1;
+    if (!usuario && !xpAtual && !ofensiva) {
+        return (
+            <div className={style.Carregamento}>
+                <h3>
+                    CARREGANDO...
+                </h3>
+                <p>
+                    Crash está tentando recuperar suas informações, aguarde um momento.
+                </p>
+            </div>
+        );
     }
-    }, [Nivel])
+
+
+    // useEffect(() => {
+    //     if (xp > XpMax) {
+    //         Nivel += 1;
+    //     }
+    // }, [Nivel])
     return (
 
         <>
@@ -212,135 +214,135 @@ const ConteudoHome = () => {
                 />
             )}
             {popupConquista && (
-            <PopUpConquista
-                tipo={popupConquista.tipo}
-                titulo={popupConquista.titulo}
-                mensagem={popupConquista.mensagem}
-                onFechar={() => setPopupConquista(null)}
-            />
+                <PopUpConquista
+                    tipo={popupConquista.tipo}
+                    titulo={popupConquista.titulo}
+                    mensagem={popupConquista.mensagem}
+                    onFechar={() => setPopupConquista(null)}
+                />
             )}
 
-        <div className={style.corpo}>
-            <div className={style.header}>
-                
-                <div className={style.headerUsuario}>
-                    <img
-                        className={style.foto}
-                        src={`https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/${usuario?.foto}`}
-                        alt="Foto de perfil"
-                        onClick={() =>{
-                            Navegacao('/perfil')
-                        }
-                            
-                    }
-                    />
+            <div className={style.corpo}>
+                <div className={style.header}>
 
-                    <div className={style.headerTexto}>
-                        <p className={style.bemVindo}>BEM-VINDO DE VOLTA,</p>
-                        <h2 className={style.nomeUsuario}>{nome}</h2>
+                    <div className={style.headerUsuario}>
+                        <img
+                            className={style.foto}
+                            src={`https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/${usuario?.foto}`}
+                            alt="Foto de perfil"
+                            onClick={() => {
+                                Navegacao('/perfil')
+                            }
 
-                        <div className={style.Nivel}>
-                            <div className={style.NivelTopo}>
-                                <span>Nível {Nivel}</span>
-                                <span>{xpAtual}/{XpMax} XP</span>       
-                            </div>
-                            <div className={style.Barra}>
-                                <div
-                                    className={style.Progresso}
-                                    style={{ width: `${porcentagem}%` }}
-                                />
+                            }
+                        />
+
+                        <div className={style.headerTexto}>
+                            <p className={style.bemVindo}>BEM-VINDO DE VOLTA,</p>
+                            <h2 className={style.nomeUsuario}>{nome}</h2>
+
+                            <div className={style.Nivel}>
+                                <div className={style.NivelTopo}>
+                                    <span>Nível {Nivel}</span>
+                                    <span>{xpAtual}/{XpMax} XP</span>
+                                </div>
+                                <div className={style.Barra}>
+                                    <div
+                                        className={style.Progresso}
+                                        style={{ width: `${porcentagem}%` }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className={style.ofensiva}>
+                    <div className={style.ofensiva}>
 
-                    <div className={style.raposa}>
-                        <img src={raposaIcon} alt="" />
-                    </div>
-
-                    <div className={style.infoOfensiva}>
-                        <img src={iconOfensiva} alt="Ofensiva" className={style.ofensivaIcon} />
-                        <span className={style.ofensivaDias}>{ofensiva} Dias</span>
-                        <p className={style.ofensivaLabel}>Consecutivos<br />de ofensiva</p>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div className={style.grade}>
-
-                <div className={style.aulaAtual}>
-                    <p className={style.aulaTag}>{ultimaAula.trilha} | {ultimaAula.numero}</p>
-                    <h3 className={style.aulaTitulo}>{ultimaAula.titulo}</h3>
-
-                    <Link to="/aula">
-                        <button className={style.btnRetomar}>Retomar</button>
-                    </Link>
-
-                    <div className={style.proximoModulo}>
-                        <span className={style.proximoLabel}>Próximo Módulo</span>
-                        <div className={style.proximoItem}>
-                            <div className={style.proximoDot} />
-                            <p>{ultimaAula.proximoModulo}</p>
+                        <div className={style.raposa}>
+                            <img src={raposaIcon} alt="" />
                         </div>
-                    </div>
-                </div>
 
-                <div className={style.anotacoes}>
-                    <h4 className={style.secaoTitulo}>ÚLTIMAS ANOTAÇÕES</h4>
-
-                    <div className={style.listaAnotacoes}>
-                        {anotacaoItens.map((a) => (
-                            <div key={a.id} className={style.itemAnotacao}>
-                                <p className={style.anotacaoTitulo}>{a.titulo}</p>
-                                <span className={style.anotacaoData}>{a.data}</span>
-                            </div>
-                        ))}
-                    </div>
-
-                    <Link to="/anotacoes">
-                        <button className={style.verTodas}>Ver todas as anotações</button>
-                    </Link>
-                </div>
-
-            </div>
-
-            <div className={style.trilhasContainer}>
-                <h4 className={style.secaoTitulo}>TRILHAS</h4>
-
-                <div className={style.trilhas}>
-
-                    <div className={style.trilhaHardware}>
-                        <img src={hardwareIcon} alt="Hardware" />
-                        <div>
-                            <h3>Hardware</h3>
-                            <p>Desvende a arquitetura das máquinas de forma acessível</p>
+                        <div className={style.infoOfensiva}>
+                            <img src={iconOfensiva} alt="Ofensiva" className={style.ofensivaIcon} />
+                            <span className={style.ofensivaDias}>{ofensiva} Dias</span>
+                            <p className={style.ofensivaLabel}>Consecutivos<br />de ofensiva</p>
                         </div>
-                        <Link to="/hardware">
-                            <button className={style.btnExplorar}>EXPLORAR &gt;</button>
+
+                    </div>
+
+                </div>
+
+
+                <div className={style.grade}>
+
+                    <div className={style.aulaAtual}>
+                        <p className={style.aulaTag}>{ultimaAula.trilha} | {ultimaAula.numero}</p>
+                        <h3 className={style.aulaTitulo}>{ultimaAula.titulo}</h3>
+
+                        <Link to="/aula">
+                            <button className={style.btnRetomar}>Retomar</button>
                         </Link>
+
+                        <div className={style.proximoModulo}>
+                            <span className={style.proximoLabel}>Próximo Módulo</span>
+                            <div className={style.proximoItem}>
+                                <div className={style.proximoDot} />
+                                <p>{ultimaAula.proximoModulo}</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className={style.trilhaSoftware}>
-                        <img src={softwareIcon} alt="Software" />
-                        <div>
-                            <h3>Software</h3>
-                            <p>Decifre a linguagem dos sistemas de forma intuitiva</p>
+                    <div className={style.anotacoes}>
+                        <h4 className={style.secaoTitulo}>ÚLTIMAS ANOTAÇÕES</h4>
+
+                        <div className={style.listaAnotacoes}>
+                            {anotacaoItens.map((a) => (
+                                <div key={a.id} className={style.itemAnotacao}>
+                                    <p className={style.anotacaoTitulo}>{a.titulo}</p>
+                                    <span className={style.anotacaoData}>{a.data}</span>
+                                </div>
+                            ))}
                         </div>
-                        <Link to="/software">
-                            <button className={style.btnExplorar}>EXPLORAR &gt;</button>
+
+                        <Link to="/anotacoes">
+                            <button className={style.verTodas}>Ver todas as anotações</button>
                         </Link>
                     </div>
 
                 </div>
-            </div>
 
-        </div>
-    </>    
+                <div className={style.trilhasContainer}>
+                    <h4 className={style.secaoTitulo}>TRILHAS</h4>
+
+                    <div className={style.trilhas}>
+
+                        <div className={style.trilhaHardware}>
+                            <img src={hardwareIcon} alt="Hardware" />
+                            <div>
+                                <h3>Hardware</h3>
+                                <p>Desvende a arquitetura das máquinas de forma acessível</p>
+                            </div>
+                            <Link to="/hardware">
+                                <button className={style.btnExplorar}>EXPLORAR &gt;</button>
+                            </Link>
+                        </div>
+
+                        <div className={style.trilhaSoftware}>
+                            <img src={softwareIcon} alt="Software" />
+                            <div>
+                                <h3>Software</h3>
+                                <p>Decifre a linguagem dos sistemas de forma intuitiva</p>
+                            </div>
+                            <Link to="/software">
+                                <button className={style.btnExplorar}>EXPLORAR &gt;</button>
+                            </Link>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </>
     );
 };
 
