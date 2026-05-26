@@ -8,3 +8,4 @@ export * from './pop-up';
 export * from './Rodape';
 export * from './Tema';
 export * from './popUpConquistas';
+export * from './popUpBanido';

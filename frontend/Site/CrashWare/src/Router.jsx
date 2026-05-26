@@ -44,7 +44,6 @@ const Router = () => {
                 <Route path="recuperar-senha" element={<PgRecuperarSenha />} />
                 <Route path="verificacao-email" element={<PgVerificacaoEmail />} />
                 <Route path="alterar-senha" element={<PgAlterarSenha />} />
-                <Route path="sobre-nos" element={<SobreNos />} />
                 <Route path="*" element={<PgErro />} />
             </Route>
 
@@ -131,8 +130,6 @@ const Router = () => {
                     }
                 />
                 
-            </Route>
-
                 <Route
                     path="loja"
                     element={
@@ -150,6 +147,8 @@ const Router = () => {
                         </RotaPrivada>
                     }
                 />
+
+            </Route>
 
             {/* ADM */}
             <Route path="/" element={<LayoutADM />}>

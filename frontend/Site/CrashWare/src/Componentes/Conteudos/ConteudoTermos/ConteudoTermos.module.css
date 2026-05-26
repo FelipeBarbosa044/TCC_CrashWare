@@ -82,7 +82,7 @@
 
 @media (max-width: 1250px) {
     .bodySubstituto{
-        width: 100vw;
+        width: 97vw;
     }
 
     .contato p{
@@ -91,6 +91,11 @@
 }
 
 @media (max-width: 600px){
+    
+    .bodySubstituto{
+        width: 97vw;
+    }
+    
     .bodySubstituto h1{
         font-size: 30px;
         text-align: center;
