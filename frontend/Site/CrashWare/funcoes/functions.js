@@ -1,3 +1,5 @@
+import { Configurações } from "./configurações";
+
 /*Sleep*/
 export function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -254,8 +256,10 @@ export class Api
     }
 
 
-    async Verificar_Codigo(email,codigo,setPopup,setPodeNavegar,Navegacao)
+    async Verificar_Codigo(email,codigo,setPopup,setPodeNavegar,Navegacao,setDados,email_novo = null)
     {
+
+
         //  exibi um popup de aviso
         setPopup({
             tipo: 'aviso',
@@ -284,6 +288,7 @@ export class Api
                 if (response.ok === false) {
 
                     const erroCodigo = await response.json()
+
                     setPopup({
                         tipo: 'aviso',
                         titulo: '⚠️',
@@ -295,15 +300,25 @@ export class Api
                     //Controle de navegação
                     const rec_senha = localStorage.getItem("rec_senha")
 
-                    setPopup({
-                        tipo: 'sucesso',
-                        titulo: 'Emal Verificado!',
-                        mensagem: 'Estamos te redirecionando...'
-                    });
+                    const alterar_email = localStorage.getItem("alterar_email")
 
-                    await sleep(3000)  /*-> Faz que espere 3 segundos*/
+                    if(email_novo == null)
+                        setPopup({
+                            tipo: 'sucesso',
+                            titulo: 'Emal Verificado!',
+                            mensagem: 'Estamos te redirecionando...'
+                        });
+                        await sleep(3000)  /*-> Faz que espere 3 segundos*/
+                        
 
-                    if(rec_senha == "false"){
+                    if(alterar_email == "true")
+                    {
+                        //Altero o email
+                        const usuario = new Configurações();
+                        usuario.Alterar_Email(email_novo,setPopup,setDados,Navegacao)
+
+                    }else if (rec_senha == "false")
+                    {
                         setPodeNavegar.current = true;
                         Navegacao("/login")
                         // , { replace: true }
@@ -334,8 +349,10 @@ export class Api
 
 
 
-    async Enviar_Codigo(email,setPopup,loading,timer,setLoading,setTimer,setEnviarCodigo)
+    async Enviar_Codigo(email,setPopup,loading,timer,setLoading,setTimer,setEnviarCodigo,email_novo = null)
     {
+
+
         if (loading || timer > 0) return;
         setLoading(true);
         setEnviarCodigo(true);
@@ -348,7 +365,8 @@ export class Api
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        email: email
+                        email: email,
+                        email_novo : email_novo
                     })
                 }
             );

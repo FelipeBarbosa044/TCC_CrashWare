@@ -35,6 +35,7 @@ const CVerificacaoEmail = () => {
     //Recebe Os dados
     const mensagem = location.state?.mensagem;
     const email = location.state?.email;
+    const email_novo = location.state?.email_novo;
     const nome = location.state?.nome;
     const origem = location.state?.origem;
 
@@ -42,6 +43,11 @@ const CVerificacaoEmail = () => {
     //Nome maiusculo
     const nomeM = nome?.toUpperCase() || "";
 
+
+    //setDados
+     const [dados, setDados] = useState(() =>
+        JSON.parse(localStorage.getItem("dados")) || null
+    );
 
 
     //Block de navegação
@@ -95,13 +101,13 @@ const CVerificacaoEmail = () => {
         const usuario = new Api();
 
         //Chamo o método
-        usuario.Enviar_Codigo(email, setPopup, loading, timer, setLoading, setTimer, setEnviarCodigo);
+        usuario.Enviar_Codigo(email, setPopup, loading, timer, setLoading, setTimer, setEnviarCodigo,email_novo);
 
     }
 
     const handleVericarEmail = async () => {
         const usuario = new Api();
-        usuario.Verificar_Codigo(email, codigo, setPopup, setPodeNavegar, Navegacao)
+        usuario.Verificar_Codigo(email, codigo, setPopup, setPodeNavegar, Navegacao,setDados,email_novo)
     }
 
 
@@ -144,7 +150,7 @@ const CVerificacaoEmail = () => {
             <div className={style.corpo}>
                 <div className={style.container}>
                     <h1>Bem-Vindo {nomeM}!!!</h1>
-                    <p className={style.texto}>Verifique o Código enviado para o email: <span>{email}</span></p>
+                    <p className={style.texto}>Verifique o Código enviado para o email: <span>{email_novo || email}</span></p>
 
                     <CampoTexto type="text" placeholder="Insira o Código"
                         className={style.inputClasse}

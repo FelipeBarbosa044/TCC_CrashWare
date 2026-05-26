@@ -25,6 +25,7 @@ import googleIcon from "../../../fotos/google.png";
 import githubIcon from "../../../fotos/github.png";
 import { SairDaConta } from '../../../../funcoes/functions';
 import { Usuario } from '../../../../funcoes/user';
+import { Configurações } from '../../../../funcoes/configurações';
 
 const ItemBarraLateral = ({ descricao, img, onClick }) => {
     return (
@@ -36,12 +37,24 @@ const ItemBarraLateral = ({ descricao, img, onClick }) => {
 };
 
 const ConteudoConfiguracoes = () => {
+
+    //State dos campos
+    const [email, setEmailNovo] = useState("");
+
+
+
+
+    //Popup e visual
     const [tema, setTema] = useState(localStorage.getItem('TemaSelecionado') || 'Claro');
     const [popupAtivo, setPopupAtivo] = useState(null); // null | 'sair' | 'desativar' | 'excluir'
     const [popup, setPopup] = useState(null);
     //Navegação --> Permite eu levar o usuario para outras telas
     const Navegacao = useNavigate();
     
+     //Pego os tokens
+    const token = localStorage.getItem("token");
+    const refresh_token = localStorage.getItem("refresh_token");
+
 
 
 
@@ -147,6 +160,14 @@ const ConteudoConfiguracoes = () => {
         );
     }
 
+    //Validar Email
+    const ValidarEmail = async () => {
+
+        //Requisição de validar email
+        const campo = new Configurações(token,refresh_token,Navegacao,set)
+        await campo.Validar_Email(email,setPopup)
+    }
+
     return (
         <>
 
@@ -222,9 +243,17 @@ const ConteudoConfiguracoes = () => {
                         </div>
                         <div className={Style.campoForm}>
                             <label htmlFor="idNovoEmail">Novo e-mail</label>
-                            <input type="text" placeholder='seugmail@gmail.com' id='idNovoEmail' />
+                            <input 
+                                type="email"
+                                maxLength={200}
+                                placeholder="E-mail*"
+                                id='idNovoEmail' 
+                                value={email}
+                                onChange={(e) => setEmailNovo(e.target.value)}
+                                autoComplete='email'
+                            />
                         </div>
-                        <button className={Style.botoes}>Alterar</button>
+                        <button className={Style.botoes} onClick={ValidarEmail}>Alterar</button>
                     </div>
 
                     <div className={Style.parteTelefone}>

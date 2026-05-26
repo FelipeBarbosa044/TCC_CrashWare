@@ -10,7 +10,7 @@ const CONFIG = {
   outros:   { icone: null,         tag: "CONQUISTA", alt: "Conquista" },
 };
 
-const PopUpConquista = ({ tipo = "outros", titulo, mensagem, onFechar, duracao = 4000 }) => {
+const PopUpConquista = ({ tipo = "outros", titulo, mensagem, onFechar, duracao = 15000 }) => {
 
   useEffect(() => {
     if (!duracao) return;

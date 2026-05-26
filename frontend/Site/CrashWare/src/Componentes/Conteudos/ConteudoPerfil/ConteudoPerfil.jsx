@@ -121,8 +121,6 @@ const ConteudoPerfil = () => {
                 user.perfil(setDados);
                 usuario = JSON.parse(localStorage.getItem("dados"));
 
-                //Valido a ofensiva
-                const usuario = new Usuario(setMaiorOfensiva);
             }
         };
 
