@@ -267,7 +267,7 @@ public class Login extends AppCompatActivity {
 
                     // Envia para a tela de VERIFICAR EMAIL:
                     Intent i = new Intent(Login.this, ConfirmarIdentidade.class);
-                    i.putExtra("email_usuario", email);
+                    i.putExtra("emailUsuario", email);
                     startActivity(i);
                     finish();
 

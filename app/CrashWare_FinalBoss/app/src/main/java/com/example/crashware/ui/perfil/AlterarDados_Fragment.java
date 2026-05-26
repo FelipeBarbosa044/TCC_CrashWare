@@ -188,15 +188,6 @@ public class AlterarDados_Fragment extends Fragment {
                     });
 
 
-
-
-//                    txtEmailVinculado.setText(email);
-
-
-//                    // salva no SharedPreferences
-//                    prefs.edit().putString("email", email).apply();
-
-//                    Sucesso.show();
                 }
             }
         });//

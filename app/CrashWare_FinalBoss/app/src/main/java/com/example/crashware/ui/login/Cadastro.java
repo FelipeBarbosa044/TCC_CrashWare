@@ -257,7 +257,7 @@ public class Cadastro extends AppCompatActivity {
                     Intent i = new Intent(Cadastro.this, ConfirmarIdentidade.class);
                     // passando os dados
                     i.putExtra("nome_usuario", nome);
-                    i.putExtra("email_usuario", email);
+                    i.putExtra("emailUsuario", email);
 
                     startActivity(i);
                     finish();
