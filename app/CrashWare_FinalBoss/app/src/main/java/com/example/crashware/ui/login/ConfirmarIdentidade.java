@@ -1,6 +1,8 @@
 package com.example.crashware.ui.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -21,6 +23,11 @@ import android.widget.Toast;
 
 
 import com.example.crashware.R;
+import com.example.crashware.ui.api.Auth;
+import com.example.crashware.ui.api.Configuracoes;
+import com.example.crashware.ui.navegacao.Home;
+import com.example.crashware.ui.navegacao.Inicio_fragment;
+import com.example.crashware.ui.perfil.AlterarDados_Fragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +45,7 @@ import org.json.JSONObject;
 public class ConfirmarIdentidade extends AppCompatActivity {
 
 
-
+    SharedPreferences prefs;
 
     Button btnVerificar, btnEnviar;
 
@@ -47,6 +54,8 @@ public class ConfirmarIdentidade extends AppCompatActivity {
     EditText txtCodigoVerificacao;
 
     String emailUsuario;
+
+    String emailNovo = null;
 
 
     // Dados que vai para a API:
@@ -65,9 +74,11 @@ public class ConfirmarIdentidade extends AppCompatActivity {
     //Request Enviar Email
     class Reenviar_EmailRequest {
         String email;
-        public  Reenviar_EmailRequest(String email) {
+        String email_novo;
+        public  Reenviar_EmailRequest(String email,String email_novo) {
 
             this.email = email;
+            this.email_novo = email_novo;
         }
     }
 
@@ -101,6 +112,9 @@ public class ConfirmarIdentidade extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        prefs = this.getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_confirmar_identidade);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main2), (v, insets) -> {
@@ -122,8 +136,11 @@ public class ConfirmarIdentidade extends AppCompatActivity {
         txtCodigoVerificacao = findViewById(R.id.txtCodigoVerificacao);
 
         //Pego o email da outra tela
-        emailUsuario = getIntent().getStringExtra("email_usuario");
-        txtNomeEmail.setText(emailUsuario);
+        emailUsuario = getIntent().getStringExtra("emailUsuario");
+        emailNovo = getIntent().getStringExtra("emailNovo");
+
+        //Mudo o email na exibição
+        txtNomeEmail.setText(emailNovo != null ? emailNovo : emailUsuario);
 
         btnEnviar.setEnabled(true);
 
@@ -133,7 +150,7 @@ public class ConfirmarIdentidade extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                VerificarEmail();
+                VerificarEmail(prefs);
 
 
             }
@@ -170,10 +187,17 @@ public class ConfirmarIdentidade extends AppCompatActivity {
         }.start();
     }//
 
-    private void VerificarEmail()
+    private void VerificarEmail(SharedPreferences prefs)
     {
+
+        //Verifico a navegação do usuario
+        String alterar_email = prefs.getString("alterar_email", "false");
+
+
+
         String codigo = txtCodigoVerificacao.getText().toString().trim();
         String email = emailUsuario;
+        String email_novo = emailNovo;
 
         if (emailUsuario == null || emailUsuario.isEmpty()) {
             Toast.makeText(this, "Erro ao obter email", Toast.LENGTH_LONG).show();
@@ -230,12 +254,40 @@ public class ConfirmarIdentidade extends AppCompatActivity {
                 //Se a requisição der certo
                 if (resposta.isSuccessful()){
 
-                    Toast.makeText(ConfirmarIdentidade.this, "Código Verificado", Toast.LENGTH_LONG).show();
 
-                    //Vai para a tela de login
-                    Intent i = new Intent(ConfirmarIdentidade.this, Login.class);
-                    startActivity(i);
-                    finish();
+
+
+                    if(alterar_email.equals("true")) {
+
+                        Toast.makeText(ConfirmarIdentidade.this, "Alterando email...", Toast.LENGTH_LONG).show();
+
+                        //Altero o valor do alterar emial no sharedePreferences
+                        prefs.edit()
+                                .putString("alterar_email","false")
+                                .apply();
+
+                        //Verifico o token
+                        Auth.verificarToken(ConfirmarIdentidade.this, prefs, true, new Auth.AuthCallback() {
+                            @Override
+                            public void onSuccess() {
+
+                                //Altero o email
+                                Configuracoes.Alterar_Email(email_novo,prefs,ConfirmarIdentidade.this);
+
+
+
+                            }
+                        });
+                    }else
+                    {
+                        Toast.makeText(ConfirmarIdentidade.this, "Código Verificado", Toast.LENGTH_LONG).show();
+
+                        //Vai para a tela de login
+                        Intent i = new Intent(ConfirmarIdentidade.this, Login.class);
+                        startActivity(i);
+                        finish();
+                    }
+
 
                 }else{
                     //Se o codigo estiver errado
@@ -274,7 +326,9 @@ public class ConfirmarIdentidade extends AppCompatActivity {
 
     private void ReenviarCodigo()
     {
+
         String email = emailUsuario;
+        String email_novo = emailNovo;
 
         if (emailUsuario == null || emailUsuario.isEmpty()) {
             Toast.makeText(this, "Erro ao obter email", Toast.LENGTH_LONG).show();
@@ -283,7 +337,7 @@ public class ConfirmarIdentidade extends AppCompatActivity {
 
 
         // Objeto que vou enviar para a API:
-        Reenviar_EmailRequest dados = new Reenviar_EmailRequest(email);
+        Reenviar_EmailRequest dados = new Reenviar_EmailRequest(email,email_novo);
 
         // Criando a API
         Retrofit retrofit = new Retrofit.Builder()

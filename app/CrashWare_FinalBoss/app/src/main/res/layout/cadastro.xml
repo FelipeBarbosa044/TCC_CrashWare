@@ -246,7 +246,7 @@
                 android:layout_marginHorizontal="32dp"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/bg_edittext_borda"
-                android:fontFamily="@font/pt_sans_caption_bold"
+                android:fontFamily="@font/righteous"
                 android:hint="Confirmar senha"
                 android:inputType="textPassword"
                 android:textColor="#000000"

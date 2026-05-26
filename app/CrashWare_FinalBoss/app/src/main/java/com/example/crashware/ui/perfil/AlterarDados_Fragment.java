@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.crashware.R;
+import com.example.crashware.ui.api.Auth;
+import com.example.crashware.ui.api.Configuracoes;
 import com.example.crashware.ui.aulas.ModuloSoftware;
 import com.example.crashware.ui.senha.RedefinirSenha;
 
@@ -146,28 +149,54 @@ public class AlterarDados_Fragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                String novoEmail = txtNovoEmail.getText().toString().trim();
-                String emailAtual = txtEmailVinculado.getText().toString().trim();
+                String novoEmail = txtNovoEmail.getText().toString().trim().toLowerCase();
+                String emailAtual = txtEmailVinculado.getText().toString().trim().toLowerCase();
 
                 if (novoEmail.isEmpty())
                 {
                     Preencha.show();
-                }//se Campo de nome for vazio mostra a mensagem para preencher
-                else if (novoEmail.equals(emailAtual))
+                    return;
+                }//se Campo de email for vazio mostra a mensagem para preencher
+                if (novoEmail.contains(" ") || !Patterns.EMAIL_ADDRESS.matcher(novoEmail).matches()) {
+                    Toast.makeText(requireContext(), "Email inválido", Toast.LENGTH_LONG).show();
+                    return;
+                }//Caso o email novo não seguir o padrão de email ou se estiver espaço no meio
+                if(novoEmail.equals(emailAtual))
                 {
                     DiferenteEmail.show();
+                    return;
                 }//se for igual o email vinculado, mostra mensagem que precisa ser diferente
                 else
                 {
-                    email = novoEmail;
 
-                    txtEmailVinculado.setText(email);
+                    //Exibo na tela
+                    Toast.makeText(requireContext(), "Validando email...", Toast.LENGTH_LONG).show();
+
                     txtNovoEmail.setText("");
 
-                    // salva no SharedPreferences
-                    prefs.edit().putString("email", email).apply();
+                    //Verifico o token
+                    Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
 
-                    Sucesso.show();
+                        @Override
+                        public void onSuccess() {
+
+                            Configuracoes.Validar_Email(emailAtual, novoEmail, prefs, AlterarDados_Fragment.this);
+
+
+                        }
+
+                    });
+
+
+
+
+//                    txtEmailVinculado.setText(email);
+
+
+//                    // salva no SharedPreferences
+//                    prefs.edit().putString("email", email).apply();
+
+//                    Sucesso.show();
                 }
             }
         });//

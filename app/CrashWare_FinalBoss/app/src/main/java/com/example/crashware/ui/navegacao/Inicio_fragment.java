@@ -1,5 +1,7 @@
 package com.example.crashware.ui.navegacao;
 
+import static android.widget.Toast.LENGTH_LONG;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 import android.animation.ObjectAnimator;
 import android.view.animation.DecelerateInterpolator;
 import android.animation.ValueAnimator;
+import android.widget.Toast;
 
 import com.example.crashware.ui.sistemas.XP_Manager;
 
@@ -48,7 +51,7 @@ public class Inicio_fragment extends Fragment {
 
     private TextView txtNomeInicio, txtAulasConcluidas, txtOfensiva, txtNivelInicio, txtXpInicio;
     private ShapeableImageView imgfotoInicio;
-    ImageView imgNotificacoes;
+    ImageView imgNotificacoes, imgRaposa;
 
     private FirebaseAuth auth;
     private DatabaseReference db;
@@ -65,6 +68,8 @@ public class Inicio_fragment extends Fragment {
     Button btnRetomar;
 
     XP_Manager XP_Manager;
+
+    int Carinho = 0;
 
     // =========================
     // OFENSIVA
@@ -117,9 +122,12 @@ public class Inicio_fragment extends Fragment {
         btnRetomar          = view.findViewById(R.id.btnRetomar              );
         txtXpInicio         = view.findViewById(R.id.txtXPInicio             );
         imgNotificacoes     = view.findViewById(R.id.layoutSino              );
+        imgRaposa           = view.findViewById(R.id.imgRaposa);
 
         // Atualiza a interface de XP e nível
         atualizarInterfaceXp();
+
+        Toast conquista = Toast.makeText(getContext(),"ConquistaAdquirida",LENGTH_LONG);
 
 
         //Chamar função Ofensiva
@@ -145,6 +153,22 @@ public class Inicio_fragment extends Fragment {
         };
 
         prefs.registerOnSharedPreferenceChangeListener(listenerFoto);
+
+        imgRaposa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+//                conquista.show();
+//
+//                Carinho ++;
+//                //
+//                if (Carinho >= 10)
+//                {
+//                    Toast.makeText(getContext(),"Conquista adquirida", LENGTH_LONG).show();
+//
+//                }
+            }
+        });
 
         btnRetomar.setOnClickListener(new View.OnClickListener() {
             @Override
