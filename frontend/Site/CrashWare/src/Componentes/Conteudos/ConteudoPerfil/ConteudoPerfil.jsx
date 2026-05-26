@@ -103,7 +103,7 @@ const ConteudoPerfil = () => {
     if (click >= 10) {
         //Crio o bjeto que contem requisições para o banco
         const user = new Usuario();
-        user.conquista(15, setPopupConquista, setDados)
+        user.conquista(17, setPopupConquista, setDados)
     }
     
     

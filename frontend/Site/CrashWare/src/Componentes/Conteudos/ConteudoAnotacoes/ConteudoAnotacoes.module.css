@@ -18,7 +18,7 @@
 
 .container{
     display: flex;
-    margin-top: 200px;
+    margin-top: 20px;
     gap: 30px;
 
     flex-wrap: wrap;
@@ -261,7 +261,7 @@
     width: 100%;
     min-height: 340px;
     padding: 14px;
-    resize: vertical;
+    /* resize: vertical; */
 
     background: var(--input-bg);
     border: 1px solid var(--borda);
@@ -273,6 +273,7 @@
     font-weight: 500;
     line-height: 1.6;
 
+    resize: none;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
     transition: 0.2s;
 }

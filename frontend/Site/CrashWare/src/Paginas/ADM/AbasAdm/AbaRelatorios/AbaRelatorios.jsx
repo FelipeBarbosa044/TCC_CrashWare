@@ -22,7 +22,7 @@ const AbaRelatorios = () =>{
                         <p>Em breve<span>...</span></p>
                     </div>
 
-                    <div>
+                    <div className={Style.Acertos}>
                         <h3>Taxa de Acertos por Aula</h3>
                         <p>Em breve...</p>
                     </div>
