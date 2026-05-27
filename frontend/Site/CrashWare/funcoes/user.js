@@ -652,9 +652,9 @@ export class Usuario
 
     async conquista(conquista_id,setPopupConquista,setDados)
     {
-        // //Verifico o token
-        // const usuario = new Api;
-        // usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        //Verifico o token
+        const usuario = new Api;
+        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
         //Pego o token
         const token = localStorage.getItem("token")
@@ -872,6 +872,10 @@ export class Usuario
 
     async mostrar_conquista()
     {
+        //Verifico o token
+        const usuario = new Api;
+        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+
         
         //Pego o token
         const token = localStorage.getItem("token")
@@ -879,7 +883,6 @@ export class Usuario
 
         try
         {
-            
 
             const response = await fetch("https://api-crashware.onrender.com/achievement/buscar_conquista",
                 {
@@ -917,6 +920,11 @@ export class Usuario
     //Sicronizar Ofenisva
     async SicronizarOfensiva(setPopup)
     {
+        //Verifico o token
+        const usuario = new Api;
+        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+
+
         //Pego o token
         const token = localStorage.getItem("token")
         try

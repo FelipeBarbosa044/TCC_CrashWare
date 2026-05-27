@@ -1,5 +1,3 @@
-from os.path import defpath
-
 from fastapi import APIRouter, Depends,HTTPException
 
 
@@ -249,7 +247,7 @@ async def adicionar_telefone(dados : TelefoneSchema,usuario = Depends(validar_to
 
 ############################
 ##Rota De Verificar Telefone
-@auth.post('verificar_telefone')
+@auth.post('/verificar_telefone')
 async def verificar_telefone(dados : TelefoneSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
     if usuario is None:
         raise HTTPException(status_code=401, detail="Token expirado ou inválido")

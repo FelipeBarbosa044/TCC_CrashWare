@@ -13,11 +13,12 @@ DATABASE_URL = os.getenv("DATABASE_URL") #Crio uma variável que recebe uma vari
 
 engine = create_engine(
     DATABASE_URL,
-    pool_size=10,
-    max_overflow=20,
+    pool_size=3,
+    max_overflow=2,
     pool_timeout=30,
     pool_recycle=300,
     pool_pre_ping=True
+
 ) ##Crio a conexão com o banco de dados
 #connect_args={"sslmode": "require"}
 

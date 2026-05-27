@@ -53,18 +53,23 @@ const ConteudoHome = () => {
 
     //Pego todas as informações do usuario
     if (informacoes == "false") {
-        //Crio o bjeto que contem requisições para o banco
+    CarregarInformacoes();
+
+    }
+
+    async function CarregarInformacoes() {
+        
+         //Crio o bjeto que contem requisições para o banco
         const user = new Usuario(token, refresh_token, Navegacao, set);
 
         //Sicronizo ofensiva do banco de dados
-        user.SicronizarOfensiva(setPopup)
+        await user.SicronizarOfensiva(setPopup)
 
         //Conquista ao logar
-        user.conquista(9, setPopupConquista, setDados)
+        await user.conquista(9, setPopupConquista, setDados)
 
         //Pego as informações do usuario
-        user.perfil(setDados);
-
+        await user.perfil(setDados);
     }
 
 
@@ -190,7 +195,7 @@ const ConteudoHome = () => {
                     CARREGANDO...
                 </h3>
                 <p>
-                    Crash está tentando recuperar suas informações, aguarde um momento.
+                    O Crash está preparando tudo para você. Aguarde um momento.
                 </p>
             </div>
         );

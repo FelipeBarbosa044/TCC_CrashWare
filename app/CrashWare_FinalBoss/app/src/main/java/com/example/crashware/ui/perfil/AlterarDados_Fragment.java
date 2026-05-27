@@ -267,7 +267,7 @@ public class AlterarDados_Fragment extends Fragment {
 
                                 //Verifico a senha
                                 Configuracoes.Verificar_Senha(senha,email, prefs, AlterarDados_Fragment.this);
-                                
+
                             }
 
                         });
