@@ -297,7 +297,7 @@ async def alterar_email(dados : EmailSchema,usuario = Depends(validar_token),ses
 
 #Rota de Verificar Senha
 @auth.post('/verificar_senha')
-async def verificar_senha(dados : SenhaSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+async def verificar_senha(dados : SenhaSchema,usuario = Depends(validar_token)):
     if usuario is None:
         raise HTTPException(status_code=401, detail="Token expirado ou inválido")
     if criptografia.verify(dados.senha , usuario.senha_hash) == False:

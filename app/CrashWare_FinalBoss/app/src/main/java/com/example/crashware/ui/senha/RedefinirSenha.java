@@ -2,7 +2,9 @@ package com.example.crashware.ui.senha;
 
 import static android.widget.Toast.LENGTH_LONG;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -37,7 +39,10 @@ import org.json.JSONObject;
 
 public class RedefinirSenha extends AppCompatActivity {
 
+    SharedPreferences prefs;
+
     Button btnConfirmarNovaSenha;
+
 
     EditText txtCampoNovaSenha, txtCampoConfirmarNovaSenha;
 
@@ -72,6 +77,9 @@ public class RedefinirSenha extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        prefs = this.getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.redefinir_senha);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.Redefinir), (v, insets) ->
@@ -155,6 +163,11 @@ public class RedefinirSenha extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+
+                //Verifico a navegação do usuario
+                String logado = prefs.getString("logado", "false");
+
+
                 String email = emailUsuario;
                 String senha = txtCampoNovaSenha.getText().toString().trim();
                 String senhaconfirma = txtCampoConfirmarNovaSenha.getText().toString().trim();
@@ -211,6 +224,25 @@ public class RedefinirSenha extends AppCompatActivity {
                         { // Caso retorne a API Retorne uma mensagem.
                             if (resposta.isSuccessful())
                             {
+
+
+
+                                if(logado.equals("true"))
+                                {
+                                    //Deleto o token e o refresh_token
+                                    prefs.edit()
+                                            .remove("token")
+                                            .remove("refresh_token")
+                                            .remove("foto")
+                                            .apply();
+
+                                    //Altero o valor do "logado" no sharedePreferences
+                                    prefs.edit()
+                                            .putString("logado","false")
+                                            .apply();
+
+                                }
+
                                 Toast.makeText(RedefinirSenha.this, "Senha Alterada com sucesso!", Toast.LENGTH_LONG).show();
 
                                 //Vai para a tela de LOGIN
@@ -218,10 +250,12 @@ public class RedefinirSenha extends AppCompatActivity {
                                 startActivity(i);
                                 finish();
 
+
+
                             }else
                             {
                                 // erro da API (400, 422, 500...)
-                                String erro = "Erro em alterar a senha";
+                                String erro = "Erro em Alterar a Senha";
 
                                 try {
                                     String detail = resposta.errorBody().string();

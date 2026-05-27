@@ -14,6 +14,7 @@ import com.example.crashware.ui.login.Cadastro;
 import com.example.crashware.ui.login.ConfirmarIdentidade;
 import com.example.crashware.ui.login.Login;
 import com.example.crashware.ui.navegacao.Home;
+import com.example.crashware.ui.senha.RedefinirSenha;
 
 import org.json.JSONObject;
 
@@ -482,6 +483,122 @@ public class Configuracoes {
 
 
     }//Alterar Nome
+
+
+    //Verificar Senha
+
+    //Envia para a API
+    static class SenhaRequest {
+        String senha;
+        public SenhaRequest(String senha) {
+            this.senha = senha;
+        }
+    }
+
+
+
+    // Armazena a resposta da API:
+    public static class VerificarSenhaResponse {
+        String mensagem;
+    }
+
+    // INTERFACE da API:
+    public static interface VerificarSenha {
+        @POST("/auth/verificar_senha")
+        Call<VerificarSenhaResponse> verificar(
+                @Header("Authorization") String token,
+                @Body SenhaRequest request
+        );
+    }//Interface
+
+    public static void Verificar_Senha(String senha,String email,SharedPreferences prefs,Fragment fragment) {
+
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
+
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        // Objeto que vou enviar para a API:
+        SenhaRequest valor = new SenhaRequest(senha);
+
+        // Fazendo que a interface da API seja utilizavel:
+        VerificarSenha api = retrofit.create(VerificarSenha.class);
+
+        // Monto a chamada da API:
+        Call<VerificarSenhaResponse> requisicao = api.verificar(token, valor);
+
+        requisicao.enqueue(new Callback<VerificarSenhaResponse>() {
+            @Override
+            public void onResponse(
+                    Call<VerificarSenhaResponse> requisicao,
+                    retrofit2.Response<VerificarSenhaResponse> resposta
+            ) {
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+                    //Salvo o valor no SharedPreferences
+                    prefs.edit()
+                            .putString("logado","true")
+                            .apply();
+
+                    //Levo para a tela de alterar senha
+                    Intent i = new Intent(fragment.requireContext(), RedefinirSenha.class);
+                    // passando os dados
+                    i.putExtra("email_usuario", email);
+                    fragment.requireContext().startActivity(i);
+                    fragment.requireActivity().finish();
+
+                } else {
+                    //Retorna erro caso a reqsição estiver errada
+
+                    String erro = "Erro ao Verificar Senha";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    Toast.makeText(fragment.requireContext(), erro, Toast.LENGTH_LONG).show();
+
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VerificarSenhaResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+                Toast.makeText(
+                        fragment.requireContext(),
+                        "Erro de conexão: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+
+
+        });
+
+
+    }//Verificar Senha
 
 
 

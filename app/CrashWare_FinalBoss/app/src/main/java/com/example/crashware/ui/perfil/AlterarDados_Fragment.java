@@ -233,17 +233,49 @@ public class AlterarDados_Fragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                Intent alterarSenha = new Intent(getActivity(), RedefinirSenha.class);
-                startActivity(alterarSenha);
-                //verifica a tela atual e redireciona para a Activity desejada
 
-//                if (txtSenhaAtual.getText().toString().equals(senha))
-//                {
-//                    Intent alterarSenha = new Intent(getActivity(), RedefinirSenha.class);
-//                    startActivity(alterarSenha);
-//                    //verifica a tela atual e redireciona para a Activity desejada
-//                }
+                String senha = txtSenhaAtual.getText().toString();
 
+                //Verifico o token
+                Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+
+                    @Override
+                    public void onSuccess() {
+
+                        // validação de tamanho da senha
+                        if (senha.length() < 8) {
+                            Toast.makeText(requireContext(), "Senha deve ter no mínimo 8 caracteres", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        //
+
+                        // validação se a senha possui espaços
+
+                        if (senha.contains(" ")) {
+                            Toast.makeText(requireContext(), "Senha não pode conter espaços", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        //Exibo na tela
+                        Toast.makeText(requireContext(), "Verificando Senha...", Toast.LENGTH_LONG).show();
+
+                        //Verifico o token
+                        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+
+                            @Override
+                            public void onSuccess() {
+
+                                //Verifico a senha
+                                Configuracoes.Verificar_Senha(senha,email, prefs, AlterarDados_Fragment.this);
+                                
+                            }
+
+                        });
+
+
+                    }
+
+                });
 
             }
         });//Interação com botão de alterar senha
