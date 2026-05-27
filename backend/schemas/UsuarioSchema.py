@@ -37,4 +37,11 @@ class UsuarioLoginSchema (BaseModel):
     class Config:
         from_attributes = True
 
+#Schema nome
+class NomeSchema(BaseModel):
+     nome : str
+
+     class Config:
+         from_attributes = True
+
 

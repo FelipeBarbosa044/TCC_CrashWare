@@ -15,7 +15,7 @@ from dependences import pegar_sessao,  validar_refresh_token , validar_token
 from security import criptografia
 
 #Importando SHCEMAS:
-from schemas.UsuarioSchema import CadastroSchema, VerificarEmailSchema , EmailSchema , UsuarioLoginSchema
+from schemas.UsuarioSchema import CadastroSchema, VerificarEmailSchema , EmailSchema , UsuarioLoginSchema, NomeSchema
 
 
 #Biblioteca que gera números aletórios:
@@ -239,6 +239,21 @@ async def refresh_token(usuario = Depends(validar_refresh_token), session = Depe
 
 
 ##Rota de alterar Nome
+@auth.patch('/alterar_nome')
+async def alterar_nome(dados : NomeSchema ,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=401, detail="Token expirado ou inválido")
+    try:
+        usuario.nome = dados.nome
+        session.commit()
+
+        # Mensagem da API
+        return {"mensagem": "Nome alterado com sucesso!"}
+
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
 
 
 ############################
