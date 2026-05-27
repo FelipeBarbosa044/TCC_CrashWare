@@ -110,7 +110,6 @@ const ConteudoPerfil = () => {
     
     useEffect(() => {
         
-        carregarConquistas();
         
         const onVisible = () => {
             
@@ -120,10 +119,12 @@ const ConteudoPerfil = () => {
                 const user = new Usuario(token, refresh_token, Navegacao, set);
                 user.perfil(setDados);
                 usuario = JSON.parse(localStorage.getItem("dados"));
-
+                
             }
         };
 
+        carregarConquistas();
+        
         document.addEventListener("visibilitychange", onVisible);
 
         return () => {

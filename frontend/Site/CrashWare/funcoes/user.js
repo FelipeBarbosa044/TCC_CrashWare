@@ -82,7 +82,7 @@ export class Usuario
 
         //Verifico o token
         const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
         setPopup({
                 tipo: 'aviso',
@@ -162,7 +162,7 @@ export class Usuario
     {
         //Verifico o token
         const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
         //Pego o token
         const token = localStorage.getItem("token")
@@ -243,7 +243,7 @@ export class Usuario
     {
         //Verifico o token
         const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
         //Pego o token
         const token = localStorage.getItem("token")
@@ -328,7 +328,7 @@ export class Usuario
     {
         //Verifico o token
         const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
         //Pego o token
         const token = localStorage.getItem("token")
@@ -407,7 +407,7 @@ export class Usuario
     {
         //Verifico o token
         const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
         //Pego o token
         const token = localStorage.getItem("token")
@@ -490,7 +490,7 @@ export class Usuario
     {
         //Verifico o token
         const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
         //Pego o token
         const token = localStorage.getItem("token")
@@ -575,7 +575,7 @@ export class Usuario
     {
         //Verifico o token
         const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
         
         //Pego o token
         const token = localStorage.getItem("token")
@@ -654,7 +654,7 @@ export class Usuario
     {
         //Verifico o token
         const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
         //Pego o token
         const token = localStorage.getItem("token")
@@ -872,9 +872,9 @@ export class Usuario
 
     async mostrar_conquista()
     {
-        //Verifico o token
-        const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        // //Verifico o token
+        // const usuario = new Api;
+        // await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
         
         //Pego o token
@@ -920,9 +920,9 @@ export class Usuario
     //Sicronizar Ofenisva
     async SicronizarOfensiva(setPopup)
     {
-        //Verifico o token
-        const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        // //Verifico o token
+        // const usuario = new Api;
+        // await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
 
         //Pego o token
@@ -976,6 +976,10 @@ export class Usuario
 
     async ValidarOfensiva(setMaiorOfensiva,setDados)
     {
+        //Verifico o token
+        const usuario = new Api;
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        
         //Pego o token
         const token = localStorage.getItem("token")
 
