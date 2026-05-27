@@ -244,7 +244,7 @@ async def alterar_nome(dados : NomeSchema ,usuario = Depends(validar_token),sess
     if usuario is None:
         raise HTTPException(status_code=401, detail="Token expirado ou inválido")
     try:
-        usuario.nome = dados.nome.title()
+        usuario.nome_usuario = dados.nome.title()
         session.commit()
 
         # Mensagem da API
