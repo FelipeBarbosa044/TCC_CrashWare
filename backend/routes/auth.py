@@ -1,3 +1,5 @@
+from os.path import defpath
+
 from fastapi import APIRouter, Depends,HTTPException
 
 
@@ -15,7 +17,7 @@ from dependences import pegar_sessao,  validar_refresh_token , validar_token
 from security import criptografia
 
 #Importando SHCEMAS:
-from schemas.UsuarioSchema import CadastroSchema, VerificarEmailSchema , EmailSchema , UsuarioLoginSchema, NomeSchema,SenhaSchema
+from schemas.UsuarioSchema import CadastroSchema, VerificarEmailSchema , EmailSchema , UsuarioLoginSchema, NomeSchema,SenhaSchema,TelefoneSchema
 
 
 #Biblioteca que gera números aletórios:
@@ -229,11 +231,55 @@ async def refresh_token(usuario = Depends(validar_refresh_token), session = Depe
 ##################
 
 ##Rota de Adicionar Telefone
+@auth.post('/adicionar_telefone')
+async def adicionar_telefone(dados : TelefoneSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=401, detail="Token expirado ou inválido")
+    try:
+        usuario.telefone = dados.telefone
+        session.commit()
+
+        return {"mensagem" : "Telefone Adicionado!"}
+
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
 
 
 ############################
+##Rota De Verificar Telefone
+@auth.post('verificar_telefone')
+async def verificar_telefone(dados : TelefoneSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=401, detail="Token expirado ou inválido")
+    telefone = session.query(Usuarios).filter(Usuarios.telefone == dados.telefone).first()
 
+    #Verifico se já existe o telefone
+
+    if telefone is None:
+        return {"mensagem" : "Telefone Aprovado"}
+    else:
+        raise HTTPException(status_code=409,detail="Telefone Já Autenticado , Tente Outro")
+
+
+
+############################
 ##Rota De alterar Telefone
+@auth.patch('/alterar_telefone')
+async def alterar_telefone(dados: TelefoneSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=401, detail="Token expirado ou inválido")
+    try:
+        usuario.telefone = dados.telefone
+        session.commit()
+
+        return {"mensagem": "Telefone Alterado!"}
+
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
 
 ############################
 
@@ -267,10 +313,10 @@ async def validar_email(dados : EmailSchema,usuario = Depends(validar_token),ses
     email = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     if email is not None:
         #Se email não chegar nulo
-        raise HTTPException(status_code=409,detail="Esse email já foi autenticado, tente outro")
+        raise HTTPException(status_code=409,detail="Email Já Autenticado, Tente Outro")
     else:
         #Validaçao aprovada
-        return {"mensagem" : "Estamos te redirecionando..."}
+        return {"mensagem" : "Email Aprovado"}
 
 
 ############################

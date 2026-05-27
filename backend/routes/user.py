@@ -58,6 +58,7 @@ async def  perfil(usuario = Depends(validar_token)):
         return{
             "nome" : usuario.nome_usuario.title(),
             "email" : usuario.email.lower(),
+            "telefone" : usuario.telefone,
             "foto" : usuario.foto,
             "banner" : usuario.banner,
             "moedas" : usuario.moedas,

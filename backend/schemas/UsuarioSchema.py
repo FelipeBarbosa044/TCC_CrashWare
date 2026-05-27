@@ -44,9 +44,16 @@ class NomeSchema(BaseModel):
      class Config:
          from_attributes = True
 
-#Schema nome
+#Schema senha
 class SenhaSchema(BaseModel):
      senha : str
+
+     class Config:
+         from_attributes = True
+
+#Telefone schema
+class TelefoneSchema(BaseModel):
+     telefone : str
 
      class Config:
          from_attributes = True
