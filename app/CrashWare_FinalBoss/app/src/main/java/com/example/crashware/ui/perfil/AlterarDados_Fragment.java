@@ -21,6 +21,7 @@ import com.example.crashware.R;
 import com.example.crashware.ui.api.Auth;
 import com.example.crashware.ui.api.Configuracoes;
 import com.example.crashware.ui.aulas.ModuloSoftware;
+import com.example.crashware.ui.login.ConfirmarIdentidade;
 import com.example.crashware.ui.senha.RedefinirSenha;
 
 
@@ -105,6 +106,7 @@ public class AlterarDados_Fragment extends Fragment {
         Toast Preencha = Toast.makeText(getContext(), "Preencha o campo Requisitado!", Toast.LENGTH_LONG);
         Toast DiferenteEmail = Toast.makeText(getContext(), "O Novo Email deve ser diferente do anterior!", Toast.LENGTH_LONG);
         Toast DiferenteNome = Toast.makeText(getContext(), "O Novo Nome deve ser diferente do anterior!", Toast.LENGTH_LONG);
+        Toast NomeSemNumero = Toast.makeText(getContext(),"O nome não pode ter números",Toast.LENGTH_LONG);
         Toast Sucesso = Toast.makeText(getContext(), "Campo Alterado com sucesso!", Toast.LENGTH_LONG);
         Toast Telefone = Toast.makeText(getContext(), "Telefone adicionado", Toast.LENGTH_LONG);
         Toast FalhaTelefone = Toast.makeText(getContext(), "Campo de confirmação deve ser igual ao telefone!", Toast.LENGTH_LONG);
@@ -118,29 +120,41 @@ public class AlterarDados_Fragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                String novoNome = txtNovoNome.getText().toString().trim();
-                String nomeAtual = txtNomeVinculado.getText().toString().trim();
+                String novoNome = txtNovoNome.getText().toString().trim().toLowerCase();
+                String nomeAtual = txtNomeVinculado.getText().toString().trim().toLowerCase();
 
                 if (novoNome.isEmpty())
                 {
                     Preencha.show();
+                    return;
                 }
-                else if (novoNome.equals(nomeAtual))
+                if(!novoNome.matches("^[A-Za-zÀ-ÿ]+(\\s[A-Za-zÀ-ÿ]+)*$"))
+                {
+                    NomeSemNumero.show();
+                    return;
+                }//Nome não pode ter numero
+                if(novoNome.equals(nomeAtual))
                 {
                     DiferenteNome.show();
+                    return;
                 }
-                else
-                {
-                    nome = novoNome;
 
-                    txtNomeVinculado.setText(nome);
-                    txtNovoNome.setText("");
+                txtNovoNome.setText("");
 
-                    // salva no SharedPreferences
-                    prefs.edit().putString("nome", nome).apply();
+                //Salvo o valor no SharedPreferences
+                prefs.edit()
+                        .putString("alterar_nome","true")
+                        .apply();
 
-                    Sucesso.show();
-                }
+                // ir para Verifição de Email
+                Intent i = new Intent(requireContext(), ConfirmarIdentidade.class);
+                // passando os dados
+                i.putExtra("nome", novoNome);
+                i.putExtra("emailUsuario", email);
+                startActivity(i);
+                requireActivity().finish();
+
+
             }
         });//
 

@@ -57,6 +57,8 @@ public class ConfirmarIdentidade extends AppCompatActivity {
 
     String emailNovo = null;
 
+    String nomeUsuario = null;
+
 
     // Dados que vai para a API:
 
@@ -135,7 +137,8 @@ public class ConfirmarIdentidade extends AppCompatActivity {
         txtTempoEnviar       = findViewById(R.id.txtTempoEnviar      );
         txtCodigoVerificacao = findViewById(R.id.txtCodigoVerificacao);
 
-        //Pego o email da outra tela
+        //Pego os valores de outra tela
+        nomeUsuario = getIntent().getStringExtra("nome");
         emailUsuario = getIntent().getStringExtra("emailUsuario");
         emailNovo = getIntent().getStringExtra("emailNovo");
 
@@ -193,11 +196,15 @@ public class ConfirmarIdentidade extends AppCompatActivity {
         //Verifico a navegação do usuario
         String alterar_email = prefs.getString("alterar_email", "false");
 
+        //Verifico a navegação do usuario
+        String alterar_nome = prefs.getString("alterar_nome", "false");
+
 
 
         String codigo = txtCodigoVerificacao.getText().toString().trim();
         String email = emailUsuario;
         String email_novo = emailNovo;
+        String nome  = nomeUsuario;
 
         if (emailUsuario == null || emailUsuario.isEmpty()) {
             Toast.makeText(this, "Erro ao obter email", Toast.LENGTH_LONG).show();
@@ -222,7 +229,7 @@ public class ConfirmarIdentidade extends AppCompatActivity {
 
 
         //Mensagem caso passa da validaçao:
-        Toast.makeText(this, "Verificando Código", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Verificando Código...", Toast.LENGTH_LONG).show();
 
         // Objeto que vou enviar para a API:
         Verificar_EmailRequest dados = new Verificar_EmailRequest(email , codigo);
@@ -255,13 +262,11 @@ public class ConfirmarIdentidade extends AppCompatActivity {
                 if (resposta.isSuccessful()){
 
 
-
-
                     if(alterar_email.equals("true")) {
 
                         Toast.makeText(ConfirmarIdentidade.this, "Alterando email...", Toast.LENGTH_LONG).show();
 
-                        //Altero o valor do alterar emial no sharedePreferences
+                        //Altero o valor do alterar email no sharedePreferences
                         prefs.edit()
                                 .putString("alterar_email","false")
                                 .apply();
@@ -271,9 +276,30 @@ public class ConfirmarIdentidade extends AppCompatActivity {
                             @Override
                             public void onSuccess() {
 
+                                Toast.makeText(ConfirmarIdentidade.this, "Alterando nome...", Toast.LENGTH_LONG).show();
+
+                                //Altero o valor do alterar nome no sharedePreferences
+                                prefs.edit()
+                                        .putString("alterar_nome","false")
+                                        .apply();
                                 //Altero o email
                                 Configuracoes.Alterar_Email(email_novo,prefs,ConfirmarIdentidade.this);
 
+
+
+                            }
+
+                        });
+                    }else if(alterar_nome.equals("true"))
+                    {
+
+                        //Verifico o token
+                        Auth.verificarToken(ConfirmarIdentidade.this, prefs, true, new Auth.AuthCallback() {
+                            @Override
+                            public void onSuccess() {
+
+                                //Altero o nome
+                                Configuracoes.Alterar_Nome(nome,prefs,ConfirmarIdentidade.this);
 
 
                             }

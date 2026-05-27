@@ -362,6 +362,127 @@ public class Configuracoes {
 
     }//Deletar Conta
 
+    //Alterar Nome
+    //Envia para a API
+    static class NomeRequest {
+        String nome;
+        public NomeRequest(String nome) {
+            this.nome = nome;
+        }
+    }
+
+
+
+    // Armazena a resposta da API:
+    public static class AlterarNomeResponse {
+        String mensagem;
+    }
+
+    // INTERFACE da API:
+    public static interface AlterarNome {
+        @PATCH("/auth/alterar_nome")
+        Call<AlterarNomeResponse> alterar(
+                @Header("Authorization") String token,
+                @Body NomeRequest request
+        );
+    }//Interface
+
+    public static void Alterar_Nome(String nome,SharedPreferences prefs,Activity context) {
+
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
+
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        // Objeto que vou enviar para a API:
+        NomeRequest valor = new NomeRequest(nome);
+
+        // Fazendo que a interface da API seja utilizavel:
+        AlterarNome api = retrofit.create(AlterarNome.class);
+
+        // Monto a chamada da API:
+        Call<AlterarNomeResponse> requisicao = api.alterar(token, valor);
+
+        requisicao.enqueue(new Callback<AlterarNomeResponse>() {
+            @Override
+            public void onResponse(
+                    Call<AlterarNomeResponse> requisicao,
+                    retrofit2.Response<AlterarNomeResponse> resposta
+            ) {
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+                    AlterarNomeResponse api = resposta.body();
+
+                    // salva no SharedPreferences
+                    prefs.edit().putString("nome", nome).apply();
+
+                    //Retorno a mensagem da API
+                    Toast.makeText(context, api.mensagem, Toast.LENGTH_LONG).show();
+
+                    //Faço ele retornar para a tela home
+                    Intent i = new Intent(context, Home.class);
+                    context.startActivity(i);
+                    context.finish();
+
+
+                } else {
+                    //Retorna erro caso a reqsição estiver errada
+
+                    String erro = "Erro ao alterar nome";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    Toast.makeText(context, erro, Toast.LENGTH_LONG).show();
+
+
+                    //Faço ele retornar para a tela home
+                    Intent i = new Intent(context, Home.class);
+                    context.startActivity(i);
+                    context.finish();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AlterarNomeResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+                Toast.makeText(
+                        context,
+                        "Erro de conexão: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+
+
+        });
+
+
+
+    }//Alterar Nome
+
 
 
 }//Configurações
