@@ -38,7 +38,6 @@ const LayoutADM = () => {
 
     const conteudosBarraLateral = [
         { id: 1, descricao: "Relatórios", acao: null, to: "/relatorio" },
-        { id: 2, descricao: "Conteudos", acao: 'sair' },
         { id: 3, descricao: "Conquistas", acao: 'conquistas' },
         { id: 4, descricao: "Usuarios", acao: null, to: '/usuarios' },
         { id: 5, descricao: "Notificações", acao: 'notificacoes' },

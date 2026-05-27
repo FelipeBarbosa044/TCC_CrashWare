@@ -26,6 +26,7 @@ import githubIcon from "../../../fotos/github.png";
 import { SairDaConta } from '../../../../funcoes/functions';
 import { Usuario } from '../../../../funcoes/user';
 import { Configurações } from '../../../../funcoes/configurações';
+import { CampoTexto } from '../../CampoTexto';
 
 const ItemBarraLateral = ({ descricao, img, onClick }) => {
     return (
@@ -40,7 +41,31 @@ const ConteudoConfiguracoes = () => {
 
     //State dos campos
     const [email, setEmailNovo] = useState("");
+    const [telefone, setTelefone] = useState("");
+    const [telefoneConfirmacao, setTelefoneConfirmacao] = useState("");
 
+    //Formatar Telefone
+    function formatarTelefone(valor) {
+
+    valor = valor.replace(/\D/g, '');
+    valor = valor.slice(0, 11);
+
+    valor = valor.replace(
+        /^(\d{2})(\d)/,
+        '($1) $2'
+    );
+
+    valor = valor.replace(
+        /(\d{1})(\d{4})(\d{4})$/,
+        '$1 $2-$3'
+    );
+    return valor;
+}
+
+    // DESFORMATAR TELEFONE     FELIPE MEXER AQUI
+
+    // const telefoneLimpo = telefone.replace(/\D/g, '');
+    // const telefoneConfirmacaoLimpo = telefoneConfirmacao.replace(/\D/g, '');
 
 
 
@@ -50,8 +75,8 @@ const ConteudoConfiguracoes = () => {
     const [popup, setPopup] = useState(null);
     //Navegação --> Permite eu levar o usuario para outras telas
     const Navegacao = useNavigate();
-    
-     //Pego os tokens
+
+    //Pego os tokens
     const token = localStorage.getItem("token");
     const refresh_token = localStorage.getItem("refresh_token");
 
@@ -73,7 +98,7 @@ const ConteudoConfiguracoes = () => {
     );
 
     //Lista que contém todos os usestate
-    const set = [setToken,setRefresh,setDados];
+    const set = [setToken, setRefresh, setDados];
 
     //Pego as informações do usuario
     const usuario = JSON.parse(localStorage.getItem("dados"));
@@ -87,7 +112,7 @@ const ConteudoConfiguracoes = () => {
             primeiroClick: async () => {
 
                 //Saio da Conta
-                await SairDaConta(setToken, setRefresh, setDados,setPopup)
+                await SairDaConta(setToken, setRefresh, setDados, setPopup)
 
 
 
@@ -121,7 +146,7 @@ const ConteudoConfiguracoes = () => {
                     Navegacao,
                     set
                 );
-                await user.deletar_conta(setToken, setRefresh, setDados,setPopup)
+                await user.deletar_conta(setToken, setRefresh, setDados, setPopup)
             },
             segundoClick: () => setPopupAtivo(null),
         },
@@ -164,8 +189,8 @@ const ConteudoConfiguracoes = () => {
     const ValidarEmail = async () => {
 
         //Requisição de validar email
-        const campo = new Configurações(token,refresh_token,Navegacao,set)
-        await campo.Validar_Email(email,setPopup)
+        const campo = new Configurações(token, refresh_token, Navegacao, set)
+        await campo.Validar_Email(email, setPopup)
     }
 
     return (
@@ -243,11 +268,11 @@ const ConteudoConfiguracoes = () => {
                         </div>
                         <div className={Style.campoForm}>
                             <label htmlFor="idNovoEmail">Novo e-mail</label>
-                            <input 
+                            <input
                                 type="email"
                                 maxLength={200}
                                 placeholder="E-mail*"
-                                id='idNovoEmail' 
+                                id='idNovoEmail'
                                 value={email}
                                 onChange={(e) => setEmailNovo(e.target.value)}
                                 autoComplete='email'
@@ -259,11 +284,24 @@ const ConteudoConfiguracoes = () => {
                     <div className={Style.parteTelefone}>
                         <div className={Style.campoForm}>
                             <label htmlFor="idNumeroTel">Número de Telefone</label>
-                            <input type="text" placeholder='xx-xxxxx-xxxx' id='idNumeroTel' />
+
+                            <CampoTexto type="text"
+                                placeholder='xx-xxxxx-xxxx'
+                                value={telefone}
+                                onChange={(e) => setTelefone(
+                                    formatarTelefone(e.target.value))} />
                         </div>
+
                         <div className={Style.campoForm}>
+
                             <label htmlFor="idConfirmeNumeroTel">Confirme o número de telefone</label>
-                            <input type="text" placeholder='xx-xxxxx-xxxx' id='idConfirmeNumeroTel' />
+
+                            <CampoTexto type="text"
+                                placeholder='xx-xxxxx-xxxx'
+                                id='idConfirmeNumeroTel'
+                                value={telefoneConfirmacao}
+                                onChange={(e) => setTelefoneConfirmacao(
+                                    formatarTelefone(e.target.value))} />
                         </div>
                         <button className={Style.botoes}>Adicionar</button>
                     </div>

@@ -182,7 +182,7 @@
     border: none;
     width: 16vw;
 
-    color: var(--texto-secundario);
+    color: black;
     font-family: "Montserrat";
     font-weight: 500;
 }
@@ -193,6 +193,7 @@
     flex: 1 1 80px;
     gap: 4px;
     width: 50%;
+    color: var(--texto-principal);
 }
 
 .campoForm p{
@@ -398,6 +399,7 @@
         flex-direction: column;
         padding: 0px;
         margin-bottom: 10px;
+        color: var(--texto-principal);
 
     }
 
