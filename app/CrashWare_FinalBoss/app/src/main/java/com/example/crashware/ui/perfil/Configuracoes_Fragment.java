@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.crashware.R;
+import com.example.crashware.ui.api.Auth;
+import com.example.crashware.ui.api.Configuracoes;
 import com.example.crashware.ui.login.Login;
 
 //
@@ -203,7 +205,7 @@ public class Configuracoes_Fragment extends Fragment {
                             .remove("foto")
                             .apply();
 
-                    //Vou para o login(futuramente para a tela de carregamento)
+                    //Vou para o login
                     Intent i = new Intent(requireContext(), Login.class);
                     startActivity(i);
 
@@ -223,6 +225,50 @@ public class Configuracoes_Fragment extends Fragment {
 
             }
         });//Interação com botão sair da conta
+
+        ExcluirConta.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+
+                builder.setTitle("Excluir Conta");
+
+                builder.setMessage("Deseja realmente excluir sua conta?");
+
+                // Botão SIM
+                builder.setPositiveButton("Sim", (dialog, which) -> {
+
+                    //Verifico o token
+                    Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+
+                        @Override
+                        public void onSuccess() {
+
+                            Toast.makeText(getContext(), "Excluindo conta...", Toast.LENGTH_LONG).show();
+
+
+                            Configuracoes.Deletar_Conta(prefs,Configuracoes_Fragment.this);
+
+                        }
+
+                    });
+
+                });
+
+                // Botão NÃO
+                builder.setNegativeButton("Cancelar", (dialog, which) -> {
+
+                    dialog.dismiss();
+
+                });
+
+                builder.show();
+
+
+            }
+        });//Interação com botão exlcuir conta
 
         AlterarDadosUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
