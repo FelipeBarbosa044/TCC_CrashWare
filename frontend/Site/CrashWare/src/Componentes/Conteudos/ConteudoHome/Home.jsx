@@ -11,6 +11,7 @@ import raposaIcon from "../../../fotos/Raposa.svg";
 
 import { PopUp } from '../../pop-up';
 import { PopUpConquista } from "../../popUpConquistas";
+import { PopUpBanido } from "../../popUpBanido/PopUpBanido";
 
 // felipe depois tenque substituir pelos dados da API
 const anotacaoItens = [
@@ -26,6 +27,9 @@ const ConteudoHome = () => {
 
     //PopupConquista
     const [popupConquista, setPopupConquista] = useState(null);
+
+    //PopupBanido/Desativado
+    const [banido, setBanido] = useState(false);
 
     //SetMaiorOfensiva
     const [maiorOfensiva, setMaiorOfensiva] = useState(
@@ -53,6 +57,7 @@ const ConteudoHome = () => {
 
     //Pego todas as informações do usuario
     if (informacoes == "false") {
+
     CarregarInformacoes();
 
     }
@@ -76,7 +81,13 @@ const ConteudoHome = () => {
     //Pega os dados do usuario
     let usuario = JSON.parse(localStorage.getItem("dados"));
 
-    //
+    
+    useEffect(() => {
+    //Verifico se usuario esta banido/desativado
+    if (usuario?.ativo === false) {
+        setBanido(true);
+    }
+    }, [usuario?.ativo]);
 
     const XpMax = 500;
     let xp = usuario?.xp ?? 0;
@@ -226,6 +237,12 @@ const ConteudoHome = () => {
                     onFechar={() => setPopupConquista(null)}
                 />
             )}
+
+           {banido && 
+           <PopUpBanido 
+            onFechar={() => setBanido(false)} 
+            />}
+
 
             <div className={style.corpo}>
                 <div className={style.header}>

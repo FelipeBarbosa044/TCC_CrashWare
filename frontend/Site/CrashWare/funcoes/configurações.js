@@ -21,7 +21,7 @@ export class Configurações
         setPopup({
                 tipo: 'aviso',
                 titulo: 'Conta',
-                mensagem: 'Deletando conta'
+                mensagem: 'Desativando conta...'
             });
 
         sleep(1000);
@@ -29,7 +29,7 @@ export class Configurações
 
         //Verifico o token
         const usuario = new Api;
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
         //Pego o token
         const token = localStorage.getItem("token")
@@ -55,7 +55,7 @@ export class Configurações
                     mensagem: dados.mensagem
                 });
 
-                sleep(2000);
+                await sleep(2000);
 
                 await SairDaConta(setToken,setRefresh,setDados);
 
@@ -91,7 +91,7 @@ export class Configurações
 
         //Verifico o token
         const usuario = new Api();
-        usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
         //Pego o token
         const token = localStorage.getItem("token")

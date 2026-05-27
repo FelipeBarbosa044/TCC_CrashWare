@@ -127,7 +127,21 @@ const ConteudoConfiguracoes = () => {
             paragrafo: "Deseja desativar sua conta?",
             primeiroBotao: "Desativar",
             segundoBotao: "Cancelar",
-            primeiroClick: () => { setPopupAtivo(null); },
+            primeiroClick: async () => { 
+
+                setPopupAtivo(null); 
+
+                //Desativo a conta
+                const user = new Configurações(
+                    localStorage.getItem("token"),
+                    localStorage.getItem("refresh_token"),
+                    Navegacao,
+                    set
+                );
+                user.desativar_conta(setPopup,setToken,setRefresh,setDados)
+
+
+            },
             segundoClick: () => setPopupAtivo(null),
         },
         excluir: {

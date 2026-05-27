@@ -1,6 +1,17 @@
+import { SairDaConta } from "../../../funcoes/functions";
 import Style from "./PopUpBanido.module.css";
+// PopUpBanido.jsx
+import { useState } from "react";
+
+
 
 const PopUpBanido = ({ onFechar }) => {
+        const [token_state, setToken] = useState(() => localStorage.getItem("token"));
+        const [refresh_token_state, setRefresh] = useState(() => localStorage.getItem("refresh_token"));
+        const [dados, setDados] = useState(() =>
+            JSON.parse(localStorage.getItem("dados")) || null
+        );
+    
     return (
         <>
             <div className={Style.fundoEscurecido} />
@@ -9,13 +20,13 @@ const PopUpBanido = ({ onFechar }) => {
                 <div className={Style.icone}>
                     {/* tenque colocar a imagem eu vejo amanha */}
                 </div>
-                <h1>Conta Banida</h1>
+                <h1>Conta Banida/Desativada</h1>
                 <p>
-                    Sua conta foi banida por violar os termos de serviço da plataforma.
-                    Caso acredite que isso foi um erro, entre em contato com o suporte.
+                    Sua conta está banida ou desativada.
+                    Caso queira solicitar a recuperação da conta, entre em contato com o suporte: plataformacrashware@gmail.com     
                 </p>
                     <div className={Style.botoes}>
-                        <button className={Style.primeiroBotao} onClick={onFechar}>
+                        <button className={Style.primeiroBotao} onClick={() => SairDaConta(setToken, setRefresh, setDados)}>
                             Entendi
                         </button>
                     </div>
