@@ -158,10 +158,10 @@ public class Perfil_Fragment extends Fragment {
         int Nivel = XP_Manager.getNivel();
         float Xp = XP_Manager.getXp();
 
-        //Arraylist das conquistas
+        // Lista que vai armazenar as conquistas recentes
         List<Conquista> conquistasRecentes = new ArrayList<>();
 
-        //Fazendo as conquistas aparecerem uma em baixo da outra
+// Layout do RecyclerView
         rvConquistas.setLayoutManager(
                 new LinearLayoutManager(
                         getContext(),
@@ -170,38 +170,62 @@ public class Perfil_Fragment extends Fragment {
                 )
         );
 
-        //adicionar conquistas manualmente
-        // Conquistas
-        conquistasRecentes.add(new Conquista(
-                "Primeira Aula",
-                "Complete sua primeira aula",
-                R.drawable.banner_icon
-        ));
-
-        conquistasRecentes.add(new Conquista(
-                "Programador",
-                "Complete 10 exercícios",
-                R.drawable.banner_icon
-        ));
-
-        conquistasRecentes.add(new Conquista(
-                "Persistente",
-                "Entre no app por 7 dias",
-                R.drawable.banner_icon
-        ));
-
-        // Pega somente 3
-        List<Conquista> recentes = conquistasRecentes.subList(
-                0,
-                Math.min(conquistasRecentes.size(), 3)
-        );
-
-        // Adapter
+// Adapter do RecyclerView
         ConquistaAdapter adapter =
-                new ConquistaAdapter(recentes);
+                new ConquistaAdapter(conquistasRecentes);
 
-        // RecyclerView
+// Define o adapter
         rvConquistas.setAdapter(adapter);
+
+        /*
+         * Busca as conquistas da API
+         */
+        User.ExibirConquista(
+                prefs,
+
+                new User.ConquistaCallback() {
+
+                    @Override
+                    public void sucesso(
+                            List<User.ConquistaResponse> conquistasApi
+                    ) {
+
+                        // Limpa a lista antiga
+                        conquistasRecentes.clear();
+
+                        /*
+                         * Pega no máximo 3 conquistas
+                         */
+                        int limite =
+                                Math.min(conquistasApi.size(), 3);
+
+                        /*
+                         * Percorre somente as 3 primeiras
+                         */
+                        for(int i = 0; i < limite; i++)
+                        {
+
+                            // Pega a conquista atual
+                            User.ConquistaResponse conquista =
+                                    conquistasApi.get(i);
+
+                            // Cria objeto da RecyclerView
+                            Conquista novaConquista =
+                                    new Conquista(
+                                            conquista.nome_conquista,
+                                            conquista.descricao,
+                                            R.drawable.banner_icon
+                                    );
+
+                            // Adiciona na lista
+                            conquistasRecentes.add(novaConquista);
+                        }
+
+                        // Atualiza RecyclerView
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+        );
 
         //função que atualiza o progresso do xp
         atualizarXp();
