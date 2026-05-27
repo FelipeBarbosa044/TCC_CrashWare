@@ -15,7 +15,7 @@ from dependences import pegar_sessao,  validar_refresh_token , validar_token
 from security import criptografia
 
 #Importando SHCEMAS:
-from schemas.UsuarioSchema import CadastroSchema, VerificarEmailSchema , EmailSchema , UsuarioLoginSchema, NomeSchema
+from schemas.UsuarioSchema import CadastroSchema, VerificarEmailSchema , EmailSchema , UsuarioLoginSchema, NomeSchema,SenhaSchema
 
 
 #Biblioteca que gera números aletórios:
@@ -292,6 +292,21 @@ async def alterar_email(dados : EmailSchema,usuario = Depends(validar_token),ses
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
         raise HTTPException(status_code=400, detail=str(exception))
+
+
+
+#Rota de Verificar Senha
+@auth.post('/verificar_senha')
+async def verificar_senha(dados : SenhaSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=401, detail="Token expirado ou inválido")
+    if criptografia.verify(dados.senha , usuario.senha_hash) == False:
+        raise HTTPException(status_code=401, detail="Senha incorreta")
+    else:
+        return {"mensagem" : "Senha Aprovada!"}
+
+
+
 
 
 
