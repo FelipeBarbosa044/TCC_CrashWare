@@ -16,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.crashware.ui.Adapters.ConquistaAdapter;
+import com.example.crashware.ui.Models.Conquista;
 import com.example.crashware.ui.sistemas.XP_Manager;
 
 import com.bumptech.glide.Glide;
@@ -27,6 +29,11 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Perfil_Fragment extends Fragment {
 
@@ -43,6 +50,8 @@ public class Perfil_Fragment extends Fragment {
     ProgressBar BarraProgressoPerfil;
 
     XP_Manager XP_Manager;
+
+    RecyclerView rvConquistas;
 
     private ActivityResultLauncher<String[]> escolherFoto;
 
@@ -137,7 +146,8 @@ public class Perfil_Fragment extends Fragment {
         imgConfigPerfil       = view.findViewById(R.id.imgConfigPerfil      );
         imgBanner             = view.findViewById(R.id.imgBanner            );
         txtNivelPerfil        = view.findViewById(R.id.txtNivelPerfil       );
-        BarraProgressoPerfil = view.findViewById(R.id.barraProgressoPerfil  );
+        BarraProgressoPerfil  = view.findViewById(R.id.barraProgressoPerfil );
+        rvConquistas          = view.findViewById(R.id.rvConquistas         );
 
 
         //Pego os dados no SharedPreferences
@@ -148,8 +158,55 @@ public class Perfil_Fragment extends Fragment {
         int Nivel = XP_Manager.getNivel();
         float Xp = XP_Manager.getXp();
 
+        //Arraylist das conquistas
+        List<Conquista> conquistasRecentes = new ArrayList<>();
+
+        //Fazendo as conquistas aparecerem uma em baixo da outra
+        rvConquistas.setLayoutManager(
+                new LinearLayoutManager(
+                        getContext(),
+                        LinearLayoutManager.VERTICAL,
+                        false
+                )
+        );
+
+        //adicionar conquistas manualmente
+        // Conquistas
+        conquistasRecentes.add(new Conquista(
+                "Primeira Aula",
+                "Complete sua primeira aula",
+                R.drawable.banner_icon
+        ));
+
+        conquistasRecentes.add(new Conquista(
+                "Programador",
+                "Complete 10 exercícios",
+                R.drawable.banner_icon
+        ));
+
+        conquistasRecentes.add(new Conquista(
+                "Persistente",
+                "Entre no app por 7 dias",
+                R.drawable.banner_icon
+        ));
+
+        // Pega somente 3
+        List<Conquista> recentes = conquistasRecentes.subList(
+                0,
+                Math.min(conquistasRecentes.size(), 3)
+        );
+
+        // Adapter
+        ConquistaAdapter adapter =
+                new ConquistaAdapter(recentes);
+
+        // RecyclerView
+        rvConquistas.setAdapter(adapter);
+
         //função que atualiza o progresso do xp
         atualizarXp();
+
+
 
 
         // Listener da foto

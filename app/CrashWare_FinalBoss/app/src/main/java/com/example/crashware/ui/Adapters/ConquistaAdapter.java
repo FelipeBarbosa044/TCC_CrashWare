@@ -27,7 +27,7 @@ public class ConquistaAdapter extends RecyclerView.Adapter<ConquistaAdapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_conquista_hardware, parent, false);
+                .inflate(R.layout.item_conquista, parent, false);
 
         return new ViewHolder(view);
     }
@@ -56,7 +56,7 @@ public class ConquistaAdapter extends RecyclerView.Adapter<ConquistaAdapter.View
         {
             super(itemView);
 
-            titulo = itemView.findViewById(R.id.txtTitulo);
+            titulo = itemView.findViewById(R.id.txtTituloConquista);
             descricao = itemView.findViewById(R.id.txtDescricaoConquista);
             imagem = itemView.findViewById(R.id.imgConquista);
         }

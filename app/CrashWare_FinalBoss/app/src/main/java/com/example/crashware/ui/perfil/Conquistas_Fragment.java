@@ -3,6 +3,8 @@ package com.example.crashware.ui.perfil;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.crashware.R;
+import com.example.crashware.ui.Adapters.ConquistaAdapter;
+import com.example.crashware.ui.Models.Conquista;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +24,12 @@ import com.example.crashware.R;
  * create an instance of this fragment.
  */
 public class Conquistas_Fragment extends Fragment {
+
+
+    RecyclerView rvConquistasAdquiridas, rvConquistasBloqueadas;
+
+    List<Conquista> listaConquistas;
+    List<Conquista> listaConquistasBloqueadas;
 
     ImageView imgVoltar;
     private static final String ARG_PARAM1 = "param1";
@@ -64,6 +77,8 @@ public class Conquistas_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_conquistas, container, false);
 
         imgVoltar = view.findViewById(R.id.imgVoltarCampos);
+        rvConquistasAdquiridas = view.findViewById(R.id.rvConquistasAdquiridas);
+        rvConquistasBloqueadas = view.findViewById(R.id.rvConquistasBloqueadas);
 
         imgVoltar.setOnClickListener(new View.OnClickListener()
         {
@@ -78,6 +93,43 @@ public class Conquistas_Fragment extends Fragment {
 
             }
         });//Interação com imagem de voltar
+
+        // Layout do RecyclerView
+        rvConquistasAdquiridas.setLayoutManager(
+                new LinearLayoutManager(getContext())
+        );
+        //Bloqueadas
+        rvConquistasBloqueadas.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        // Criando lista
+        listaConquistas = new ArrayList<>();
+        listaConquistasBloqueadas = new ArrayList<>();
+
+        // Adicionando itens
+        listaConquistas.add(new Conquista(
+                "Primeira Aula",
+                "Complete sua primeira aula",
+                R.drawable.banner_icon
+        ));
+
+        listaConquistas.add(new Conquista(
+                "Programador",
+                "Complete 10 exercícios",
+                R.drawable.banner_icon
+        ));
+
+        listaConquistas.add(new Conquista(
+                "Persistente",
+                "Entre no app por 7 dias",
+                R.drawable.banner_icon
+        ));
+
+        // Adapter
+        ConquistaAdapter adapter = new ConquistaAdapter(listaConquistas);
+
+        // Passando adapter
+        rvConquistasAdquiridas.setAdapter(adapter);
 
 
         return view;
