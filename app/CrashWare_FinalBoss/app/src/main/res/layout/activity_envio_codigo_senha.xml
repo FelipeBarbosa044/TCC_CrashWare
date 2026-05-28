@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/Envio"
-    android:fillViewport="true"
-    android:background="?attr/android:windowBackground">
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -178,7 +177,7 @@
 
             <!-- Botão Reenviar -->
             <Button
-                android:id="@+id/btnEnviar"
+                android:id="@+id/btnReceber"
                 android:layout_width="260dp"
                 android:layout_height="48dp"
                 android:layout_marginHorizontal="32dp"
@@ -211,7 +210,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnEnviar" />
+                app:layout_constraintTop_toBottomOf="@+id/btnReceber" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

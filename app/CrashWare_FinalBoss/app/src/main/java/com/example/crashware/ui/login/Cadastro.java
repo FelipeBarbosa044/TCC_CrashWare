@@ -201,14 +201,16 @@ public class Cadastro extends AppCompatActivity {
 
         //Email não pode ter espaço EX: "jo ao@gmail.com", o trim() só tira o espaço dos lados.
 
-        if (email.contains(" ") || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (email.contains(" ") || !Patterns.EMAIL_ADDRESS.matcher(email).matches())
+        {
             Toast.makeText(this, "Email inválido", Toast.LENGTH_LONG).show();
             return;
         }
         //
 
         // validação de tamanho da senha
-        if (senha.length() < 8) {
+        if (senha.length() < 8)
+        {
             Toast.makeText(this, "Senha deve ter no mínimo 8 caracteres", Toast.LENGTH_LONG).show();
             return;
         }
@@ -216,7 +218,8 @@ public class Cadastro extends AppCompatActivity {
 
         // validação se a senha possui espaços
 
-        if (senha.contains(" ")) {
+        if (senha.contains(" "))
+        {
             Toast.makeText(this, "Senha não pode conter espaços", Toast.LENGTH_LONG).show();
             return;
         }

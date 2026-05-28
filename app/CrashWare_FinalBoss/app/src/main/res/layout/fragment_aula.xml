@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/fundo_claro">
+    android:layout_height="match_parent">
 
     <!-- Header -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,7 +85,7 @@
                 android:fontFamily="@font/battambang_bold"
                 android:lineSpacingExtra="-10sp"
                 android:text="Como vai funcionar esse curso?"
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@id/imgVideo"
                 app:layout_constraintTop_toTopOf="@id/imgVideo" />
@@ -100,7 +99,7 @@
                 android:fontFamily="@font/battambang"
                 android:lineSpacingExtra="-10sp"
                 android:text="22 minutos"
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@id/imgVideo"
                 app:layout_constraintTop_toBottomOf="@id/txtTituloAula" />
@@ -114,7 +113,7 @@
                 android:fontFamily="@font/battambang"
                 android:lineSpacingExtra="-10sp"
                 android:text="+50 XP ao concluir"
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/txtTituloAula"
                 app:layout_constraintTop_toBottomOf="@id/txtTituloAula" />

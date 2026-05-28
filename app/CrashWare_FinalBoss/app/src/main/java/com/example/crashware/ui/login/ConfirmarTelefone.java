@@ -1,6 +1,16 @@
 package com.example.crashware.ui.login;
 
+import static android.widget.Toast.LENGTH_LONG;
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +22,13 @@ import com.example.crashware.R;
 
 public class ConfirmarTelefone extends AppCompatActivity {
 
+    EditText txtCodigoTel;
+    TextView txtTel;
+
+    Button btnVerificar, btnReceber;
+
+    SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,5 +39,59 @@ public class ConfirmarTelefone extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        prefs = this.getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
+
+
+        String numerotelefone = prefs.getString("numerotelefone", null);
+
+        txtTel = findViewById(R.id.txtConfirmarNumero);
+        txtCodigoTel = findViewById(R.id.txtCodigoVerificacao);
+        btnReceber = findViewById(R.id.btnReceber);
+        btnVerificar = findViewById(R.id.btnVerificar);
+
+        Toast CodIncorreto = Toast.makeText(this,"Código Incorreto! Tente novamente",LENGTH_LONG);
+        Toast Preencha = Toast.makeText(this,"Preencha o código",LENGTH_LONG);
+
+
+        txtTel.setText(numerotelefone);
+
+        String CodigoTel = txtCodigoTel.getText().toString().trim();
+
+        btnVerificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if (!CodigoTel.equals("certo"))
+                {
+                    CodIncorreto.show();
+                }
+
+                else if (CodigoTel.isEmpty())
+                {
+                    Preencha.show();
+
+                }
+
+                else
+                {
+                    //api do filipi
+
+                }
+
+            }
+        });//
+
+        btnReceber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                //api de enviar o codigo du filipito
+
+            }
+        });//
+
+
+
     }
 }
