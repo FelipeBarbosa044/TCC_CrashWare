@@ -5,6 +5,7 @@ import Style from "./ConteudoConfiguracoes.module.css";
 
 //Importo o Popup
 import { PopUp } from "../../pop-up";
+import { BotoesForm } from "../../Botoes";
 
 import perfilModoClaro from "../../../fotos/claro/login_icon_claro.svg";
 import perfilModoEscuro from "../../../fotos/escuro/login_icon.svg";
@@ -47,25 +48,30 @@ const ConteudoConfiguracoes = () => {
     //Formatar Telefone
     function formatarTelefone(valor) {
 
-    valor = valor.replace(/\D/g, '');
-    valor = valor.slice(0, 11);
+        valor = valor.replace(/\D/g, '');
+        valor = valor.slice(0, 11);
 
-    valor = valor.replace(
-        /^(\d{2})(\d)/,
-        '($1) $2'
-    );
+        valor = valor.replace(
+            /^(\d{2})(\d)/,
+            '($1) $2'
+        );
 
-    valor = valor.replace(
-        /(\d{1})(\d{4})(\d{4})$/,
-        '$1 $2-$3'
-    );
-    return valor;
-}
+        valor = valor.replace(
+            /(\d{1})(\d{4})(\d{4})$/,
+            '$1 $2-$3'
+        );
+        return valor;
+    }
 
     // DESFORMATAR TELEFONE     FELIPE MEXER AQUI
 
     // const telefoneLimpo = telefone.replace(/\D/g, '');
     // const telefoneConfirmacaoLimpo = telefoneConfirmacao.replace(/\D/g, '');
+
+
+    //Mexer aqui felipe
+    const [senha, setSenha] = useState("");
+
 
 
 
@@ -127,9 +133,9 @@ const ConteudoConfiguracoes = () => {
             paragrafo: "Deseja desativar sua conta?",
             primeiroBotao: "Desativar",
             segundoBotao: "Cancelar",
-            primeiroClick: async () => { 
+            primeiroClick: async () => {
 
-                setPopupAtivo(null); 
+                setPopupAtivo(null);
 
                 //Desativo a conta
                 const user = new Configurações(
@@ -138,7 +144,7 @@ const ConteudoConfiguracoes = () => {
                     Navegacao,
                     set
                 );
-                user.desativar_conta(setPopup,setToken,setRefresh,setDados)
+                user.desativar_conta(setPopup, setToken, setRefresh, setDados)
 
 
             },
@@ -320,10 +326,21 @@ const ConteudoConfiguracoes = () => {
                         <button className={Style.botoes}>Adicionar</button>
                     </div>
 
-                    <div className={Style.alterarSenha}>
-                        <p>Alterar senha atual</p>
+                    <div className={Style.parteSenha}>
+
+                        <div className={Style.campoForm}>
+                            <label htmlFor="idSenhaAtual">Alterar Senha</label>
+                            <CampoTexto type="password"
+                                placeholder='Senha*'
+                                value={senha}
+                                onChange={(e) => setSenha(e.target.value)}
+                            />
+                        </div>
+
                         <Link to="/recuperar-senha">
-                            <button>Alterar</button>
+                            <BotoesForm className={Style.botoes}
+                                texto="Alterar Senha"
+                            />
                         </Link>
                     </div>
 

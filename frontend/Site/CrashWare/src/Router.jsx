@@ -68,6 +68,13 @@ const Router = () => {
                     }
                 />
 
+                <Route path="alterar-senha" element={
+                    <RotaPrivada>
+                        <PgAlterarSenha />
+                    </RotaPrivada>
+                }
+                />
+
                 <Route
                     path="anotacoes"
                     element={
@@ -86,14 +93,14 @@ const Router = () => {
                     }
                 />
 
-                <Route
+                {/* <Route
                     path="termos"
                     element={
                         <RotaPrivada>
                             <PgTermos />
                         </RotaPrivada>
                     }
-                />
+                />  oq fazer aqui?????????????? tá bugando*/}
 
                 <Route
                     path="hardware"
@@ -112,8 +119,8 @@ const Router = () => {
                     }
                 />
 
-                <Route 
-                    path="comoFunciona" 
+                <Route
+                    path="comoFunciona"
                     element={
                         <RotaPrivada>
                             <PgComoFunciona />
@@ -129,7 +136,7 @@ const Router = () => {
                         </RotaPrivada>
                     }
                 />
-                
+
                 <Route
                     path="loja"
                     element={
@@ -189,11 +196,11 @@ const Router = () => {
                     }
                 />
 
-                <Route 
+                <Route
                     path="/criar-materia"
                     element={
                         <RotaPrivada>
-                            <AbaCriarMateria/>
+                            <AbaCriarMateria />
                         </RotaPrivada>
                     }
                 />

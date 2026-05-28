@@ -130,6 +130,16 @@
     gap: 6px;
 }
 
+.parteSenha{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 40px auto;
+    width: 50%;
+    gap: 6px;
+}
+
 .parteEmail label{
     font-family: "Montserrat";
     color: var(--texto-principal);
@@ -187,6 +197,34 @@
     font-weight: 500;
 }
 
+.parteSenha label{
+    font-family: "Montserrat";
+    color: var(--texto-principal);
+    font-weight: 700;
+}
+
+.parteSenha input{
+    margin-right: 60px;
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 8px;
+    border: none;
+    width: 16vw;
+
+    color: black;
+    font-family: "Montserrat";
+    font-weight: 500;
+    font-size: 14px;
+}
+
+/* .ParteSenha a{
+    font-family: "Montserrat";
+    color: var(--texto-principal);
+    font-weight: 500;
+    text-decoration: underline;
+    margin-left: 60px;
+} */
+
 .campoForm {
     display: flex;
     flex-direction: column;
@@ -203,21 +241,21 @@
     margin-right: 50px;
 }
 
-.alterarSenha{
+.ParteSenha {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 40px;
 }
 
-.alterarSenha p{
+.ParteSenha p{
     font-family: "Montserrat";
     color: var(--texto-principal);
     font-weight: 700;
     font-size: 18px;
 }
 
-.alterarSenha button{
+.ParteSenha button{
     background: linear-gradient(90deg, #101017, #06060A);
     border: none;
     color: white;
@@ -231,7 +269,7 @@
     margin-top: 26px;
 }
 
-.alterarSenha button{
+.ParteSenha button{
     transform: scale(1.03) translateY(-4px);
     transition: 0.4s;
 }
