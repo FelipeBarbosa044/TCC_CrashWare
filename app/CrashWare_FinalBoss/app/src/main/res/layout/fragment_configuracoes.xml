@@ -543,6 +543,47 @@
                     app:layout_constraintTop_toTopOf="@id/imgConfigUserSairConta" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardConfigUsuarioDesativarConta"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/bg_cardimportanteperfil"
+                app:layout_constraintTop_toBottomOf="@id/cardConfigUsuarioSairConta"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgConfigUserDesativarConta"
+                    android:layout_width="30dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/desativar_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cardConfigUsuarioDesativarConta" />
+
+                <TextView
+                    android:id="@+id/txtDesativarConta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/righteous"
+                    android:text="Desativar conta"
+                    android:textAllCaps="true"
+                    android:textColor="#C20508"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/imgConfigUserDesativarConta"
+                    app:layout_constraintTop_toTopOf="@id/imgConfigUserDesativarConta" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardConfigUsuarioExluirConta"
@@ -556,7 +597,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:background="@drawable/bg_cardimportanteperfil"
-                app:layout_constraintTop_toBottomOf="@id/cardConfigUsuarioSairConta"
+                app:layout_constraintTop_toBottomOf="@id/cardConfigUsuarioDesativarConta"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 

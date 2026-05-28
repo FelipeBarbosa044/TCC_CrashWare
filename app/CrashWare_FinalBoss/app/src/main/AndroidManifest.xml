@@ -13,67 +13,69 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CrashWare">
         <activity
+            android:name=".ui.login.ConfirmarTelefone"
+            android:exported="false" />
+        <activity
             android:name=".ui.aulas.ModuloSoftware"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize"
-            android:exported="false" />
-        <activity
-            android:name=".ui.aulas.ModuloHardware"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize"
-            android:exported="false" />
-        <activity
-            android:name=".ui.aulas.ContainerSoftware"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize"
-            android:exported="false" />
-        <activity
-            android:name=".ui.aulas.ContainerHardware"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize"
-            android:exported="false" />
-        <activity
-            android:name=".ui.senha.RedefinirSenha"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize"
-            android:exported="false" />
-        <activity
-            android:name=".ui.login.ConfirmarIdentidade"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize"
-            android:exported="false" />
-        <activity
-            android:name=".ui.senha.EnvioCodigo_Senha"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize"
-            android:exported="false" />
-        <activity
-            android:name=".ui.login.Login"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize"
-            android:exported="false" />
-        <activity
-            android:name=".ui.navegacao.Home"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize"
-            android:exported="true" />
-        <activity
-            android:name=".ui.senha.RecuperarSenha"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize"
-            android:exported="false" />
-        <activity
-            android:name=".ui.login.Cadastro"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.aulas.ModuloHardware"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.aulas.ContainerSoftware"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.aulas.ContainerHardware"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.senha.RedefinirSenha"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.ConfirmarIdentidade"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.senha.EnvioCodigo_Senha"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.Login"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.navegacao.Home"
+            android:configChanges="orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.senha.RecuperarSenha"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.Cadastro"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.navegacao.carregamento"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
-            android:exported="true">
-
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
