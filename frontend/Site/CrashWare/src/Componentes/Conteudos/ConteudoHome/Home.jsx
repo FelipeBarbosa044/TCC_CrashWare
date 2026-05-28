@@ -339,11 +339,13 @@ const ConteudoHome = () => {
                     <div className={style.trilhas}>
 
                         <div className={style.trilhaHardware}>
-                            <img src={hardwareIcon} alt="Hardware" />
-                            <div>
-                                <h3>Hardware</h3>
-                                <p>Desvende a arquitetura das máquinas de forma acessível</p>
-                            </div>
+
+                                <img src={hardwareIcon} alt="Hardware" />
+                                <div>
+                                    <h3>Hardware</h3>
+                                    <p>Desvende a arquitetura das máquinas de forma acessível</p>
+                                </div>
+                                
                             <Link to="/hardware">
                                 <button className={style.btnExplorar}>EXPLORAR &gt;</button>
                             </Link>
