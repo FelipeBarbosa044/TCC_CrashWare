@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/fundo_claro">
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -69,7 +68,7 @@
             android:fontFamily="@font/righteous"
             android:text="Alterar dados"
             android:textAllCaps="true"
-            android:textColor="@color/azul"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"

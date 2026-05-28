@@ -69,7 +69,7 @@
             android:fontFamily="@font/righteous"
             android:text="CONFIGURAÇÕES"
             android:textAllCaps="true"
-            android:textColor="@color/azul"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"

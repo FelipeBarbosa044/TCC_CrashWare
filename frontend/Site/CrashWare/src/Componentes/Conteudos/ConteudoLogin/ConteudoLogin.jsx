@@ -136,6 +136,7 @@ const ConteudoLogin = () => {
                     />
 
                 </div>
+                
                 <p className={style.Cadastrar}>
                     Não tem uma Conta? 
                     <Link to="/cadastro">Cadastre-se</Link>

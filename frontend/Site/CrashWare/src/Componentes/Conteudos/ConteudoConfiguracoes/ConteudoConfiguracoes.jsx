@@ -288,122 +288,122 @@ const ConteudoConfiguracoes = () => {
                 />
             )}
 
-            <div className={Style.separarConteudos}>
-                <div className={Style.barraLateral}>
-                    <h1>Configurações de usuário</h1>
-                    <hr />
+            <div className={Style.corpo}>
+                <div className={Style.separarConteudos}>
+                    <div className={Style.barraLateral}>
+                        <h1>Configurações de usuário</h1>
+                        <hr />
 
-                    <div className={Style.itensBarraLateral}>
-                        {conteudosBarraLateral.map((item) => (
-                            <ItemBarraLateral
-                                key={item.id}
-                                descricao={item.descricao}
-                                img={item.img}
-                                onClick={item.acao ? () => setPopupAtivo(item.acao) : undefined}
-                            />
-                        ))}
+                        <div className={Style.itensBarraLateral}>
+                            {conteudosBarraLateral.map((item) => (
+                                <ItemBarraLateral
+                                    key={item.id}
+                                    descricao={item.descricao}
+                                    img={item.img}
+                                    onClick={item.acao ? () => setPopupAtivo(item.acao) : undefined}
+                                />
+                            ))}
 
-                        <div className={Style.destaque}>
-                            <ItemBarraLateral
-                                descricao="Desativar Conta"
-                                img={desativarConta}
-                                onClick={() => setPopupAtivo('desativar')}
-                            />
-                            <ItemBarraLateral
-                                descricao="Excluir Conta"
-                                img={excluirConta}
-                                onClick={() => setPopupAtivo('excluir')}
-                            />
+                            <div className={Style.destaque}>
+                                <ItemBarraLateral
+                                    descricao="Desativar Conta"
+                                    img={desativarConta}
+                                    onClick={() => setPopupAtivo('desativar')}
+                                />
+                                <ItemBarraLateral
+                                    descricao="Excluir Conta"
+                                    img={excluirConta}
+                                    onClick={() => setPopupAtivo('excluir')}
+                                />
+                            </div>
                         </div>
-                    </div>
 
-                    <h1>Privacidade e Segurança</h1>
-                    <hr />
+                        <h1>Privacidade e Segurança</h1>
+                        <hr />
 
-                    <ItemBarraLateral
-                        descricao={"Sobre"}
-                        img={sobreModoClaro}
-                    />
-                    <Link to="/termos">
                         <ItemBarraLateral
-                            descricao={"Termos de Serviço"}
-                            img={termosModoClaro}
+                            descricao={"Sobre"}
+                            img={sobreModoClaro}
                         />
-                    </Link>
-                </div>
-
-                <div className={Style.Conteudos}>
-                    <h1>Dados do Perfil</h1>
-
-                    <div className={Style.parteEmail}>
-                        <div className={Style.campoForm}>
-                            <label htmlFor="idEmailVinculado">E-mail vinculado</label>
-                            <p>{usuario.email}</p>
-                        </div>
-                        <div className={Style.campoForm}>
-                            <label htmlFor="idNovoEmail">Novo e-mail</label>
-                            <input
-                                type="email"
-                                maxLength={200}
-                                placeholder="E-mail*"
-                                id='idNovoEmail'
-                                value={email}
-                                onChange={(e) => setEmailNovo(e.target.value)}
-                                autoComplete='email'
-                            />
-                        </div>
-                        <button className={Style.botoes} onClick={ValidarEmail}>Alterar</button>
-                    </div>
-
-                    <div className={Style.parteTelefone}>
-                        <div className={Style.campoForm}>
-                            <label htmlFor="idNumeroTel">Número de Telefone</label>
-
-                            <CampoTexto type="text"
-                                placeholder='xx-xxxxx-xxxx'
-                                value={telefone}
-                                onChange={(e) => setTelefone(
-                                    formatarTelefone(e.target.value))} />
-                        </div>
-
-                        <div className={Style.campoForm}>
-
-                            <label htmlFor="idConfirmeNumeroTel">Confirme o número de telefone</label>
-
-                            <CampoTexto type="text"
-                                placeholder='xx-xxxxx-xxxx'
-                                id='idConfirmeNumeroTel'
-                                value={telefoneConfirmacao}
-                                onChange={(e) => setTelefoneConfirmacao(
-                                    formatarTelefone(e.target.value))} />
-                        </div>
-                        <button className={Style.botoes} onClick={VerificarTelefone}>Adicionar</button>
-                    </div>
-
-                    <div className={Style.parteSenha}>
-
-                        <div className={Style.campoForm}>
-                            <label htmlFor="idSenhaAtual">Alterar Senha</label>
-                            <CampoTexto type="password"
-                                placeholder='Senha Atual*'
-                                value={senha}
-                                onChange={(e) => setSenha(e.target.value)}
-                            />
-                        </div>
-
-                        <Link>
-                            <BotoesForm className={Style.botoes}
-                                texto="Confirmar"
-                                onClick={VerificarSenha}
+                        <Link to="/termos">
+                            <ItemBarraLateral
+                                descricao={"Termos de Serviço"}
+                                img={termosModoClaro}
                             />
                         </Link>
                     </div>
 
-                    <div className={Style.conectarContas}>
-                        <h2>Conecte suas contas para login</h2>
-                        <div className={Style.imagens}>
-                            <img src={googleIcon} alt="google" />
-                            <img src={githubIcon} alt="github" />
+                    <div className={Style.Conteudos}>
+                        <h1>Dados do Perfil</h1>
+
+                        <div className={Style.parteEmail}>
+                            <div className={Style.campoForm}>
+                                <label htmlFor="idEmailVinculado">E-mail vinculado</label>
+                                <p>{usuario.email}</p>
+                            </div>
+                            <div className={Style.campoForm}>
+                                <label htmlFor="idNovoEmail">Novo e-mail</label>
+                                <input
+                                    type="email"
+                                    maxLength={200}
+                                    placeholder="E-mail*"
+                                    id='idNovoEmail'
+                                    value={email}
+                                    onChange={(e) => setEmailNovo(e.target.value)}
+                                    autoComplete='email'
+                                />
+                            </div>
+                            <button className={Style.botoes} onClick={ValidarEmail}>Alterar</button>
+                        </div>
+
+                        <div className={Style.parteTelefone}>
+                            <div className={Style.campoForm}>
+                                <label htmlFor="idNumeroTel">Número de Telefone</label>
+
+                                <CampoTexto type="text"
+                                    placeholder='xx-xxxxx-xxxx'
+                                    value={telefone}
+                                    onChange={(e) => setTelefone(
+                                        formatarTelefone(e.target.value))} />
+                            </div>
+
+                            <div className={Style.campoForm}>
+
+                                <label htmlFor="idConfirmeNumeroTel">Confirme o número de telefone</label>
+
+                                <CampoTexto type="text"
+                                    placeholder='xx-xxxxx-xxxx'
+                                    id='idConfirmeNumeroTel'
+                                    value={telefoneConfirmacao}
+                                    onChange={(e) => setTelefoneConfirmacao(
+                                        formatarTelefone(e.target.value))} />
+                            </div>
+                            <button className={Style.botoes} onClick={VerificarTelefone}>Adicionar</button>
+                        </div>
+
+                        <div className={Style.parteSenha}>
+
+                            <div className={Style.campoForm}>
+                                <label htmlFor="idSenhaAtual">Alterar Senha</label>
+                                <CampoTexto type="password"
+                                    placeholder='Senha Atual*'
+                                    value={senha}
+                                    onChange={(e) => setSenha(e.target.value)}
+                                />                   
+                            </div>
+                            <Link>                          <BotoesForm className={Style.botoes}
+                                    texto="Confirmar"
+                                    onClick={VerificarSenha}
+                                />
+                            </Link>
+                        </div>
+
+                        <div className={Style.conectarContas}>
+                            <h2>Conecte suas contas para login</h2>
+                            <div className={Style.imagens}>
+                                <img src={googleIcon} alt="google" />
+                                <img src={githubIcon} alt="github" />
+                            </div>
                         </div>
                     </div>
                 </div>

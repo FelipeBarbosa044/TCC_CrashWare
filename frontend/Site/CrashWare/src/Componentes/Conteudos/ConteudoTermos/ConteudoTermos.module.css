@@ -101,3 +101,10 @@
         text-align: center;
     }
 }
+
+@media (max-width: 400px) {
+
+    .textos p{
+        width: 90vw;
+    }
+}

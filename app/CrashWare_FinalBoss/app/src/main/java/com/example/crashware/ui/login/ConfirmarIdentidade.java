@@ -25,9 +25,6 @@ import android.widget.Toast;
 import com.example.crashware.R;
 import com.example.crashware.ui.api.Auth;
 import com.example.crashware.ui.api.Configuracoes;
-import com.example.crashware.ui.navegacao.Home;
-import com.example.crashware.ui.navegacao.Inicio_fragment;
-import com.example.crashware.ui.perfil.AlterarDados_Fragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -131,7 +128,7 @@ public class ConfirmarIdentidade extends AppCompatActivity {
 
         });
 
-        btnEnviar            = findViewById(R.id.btnEnviar           );
+        btnEnviar            = findViewById(R.id.btnReceber);
         btnVerificar         = findViewById(R.id.btnVerificar        );
         txtNomeEmail         = findViewById(R.id.txtNomeEmail        );
         txtTempoEnviar       = findViewById(R.id.txtTempoEnviar      );

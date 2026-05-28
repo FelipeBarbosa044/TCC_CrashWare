@@ -31,7 +31,7 @@
     font-size: 2.5rem;
 }
 
-h1 {
+.popUp h1 {
     font-family: "Montserrat";
     color: #e05252 !important;
     font-weight: 700;
@@ -40,8 +40,7 @@ h1 {
 
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.87);
 }
-
-p {
+.popUp p{
     font-family: "Montserrat";
     color: #ffffff;
     font-weight: 500;

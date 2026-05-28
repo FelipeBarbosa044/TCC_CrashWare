@@ -93,14 +93,14 @@ const Router = () => {
                     }
                 />
 
-                {/* <Route
+                <Route
                     path="termos"
                     element={
                         <RotaPrivada>
                             <PgTermos />
                         </RotaPrivada>
                     }
-                />  oq fazer aqui?????????????? tá bugando*/}
+                />  
 
                 <Route
                     path="verificar-telefone"

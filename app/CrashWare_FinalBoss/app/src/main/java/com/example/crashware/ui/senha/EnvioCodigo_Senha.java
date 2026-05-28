@@ -21,10 +21,6 @@ import com.example.crashware.R;
 // Funções que permitem requisições para a API (retrofit)
 
 
-import com.example.crashware.R;
-import com.example.crashware.ui.login.ConfirmarIdentidade;
-import com.example.crashware.ui.login.Login;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -111,7 +107,7 @@ public class EnvioCodigo_Senha extends AppCompatActivity {
         txtCodigo       = findViewById(R.id.txtCodigoVerificacao);
         txtNomeEmail    = findViewById(R.id.txtNomeEmail        );
         txtTempoEnviar  = findViewById(R.id.txtTempoEnviar      );
-        btnEnviarCod    = findViewById(R.id.btnEnviar           );
+        btnEnviarCod    = findViewById(R.id.btnReceber);
         btnVerificarCod = findViewById(R.id.btnVerificar        );
 
 

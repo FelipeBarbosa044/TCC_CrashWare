@@ -22,6 +22,7 @@ import com.example.crashware.ui.api.Auth;
 import com.example.crashware.ui.api.Configuracoes;
 import com.example.crashware.ui.aulas.ModuloSoftware;
 import com.example.crashware.ui.login.ConfirmarIdentidade;
+import com.example.crashware.ui.login.ConfirmarTelefone;
 import com.example.crashware.ui.senha.RedefinirSenha;
 
 
@@ -217,13 +218,19 @@ public class AlterarDados_Fragment extends Fragment {
                 {
                     Preencha.show();
                 }//se os Campos forem vazio mostra a mensagem para preencher
+
                 else if (!telefone.equals(confirmarTelefone))
                 {
                     FalhaTelefone.show();
                 }//se o telefone for diferente da confirmação, mostra mensagem de erro
+
                 else
                 {
+                    String numerotelefone = txtConfirmarTelefone.getText().toString();
                     Telefone.show();
+                    prefs.edit()
+                            .putString("telefone",numerotelefone)
+                            .commit();
                 }
 
             }
