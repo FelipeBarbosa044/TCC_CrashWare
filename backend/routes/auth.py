@@ -76,17 +76,23 @@ def gerar_codigo():
 def EnviarSms(codigo,destinario):
     #Crio o SMS
     try:
-        cliente.messages.create(
+        mensagem = cliente.messages.create(
             from_=TWILIO_PHONE_NUMBER,
             to=f"+55{destinario}",
             body=f"Equipe CrashWare: o codigo de verificacao  expira em 10 minutos. CODIGO: {codigo}"
         )
+
+        #Retorno  para a rota que chamou
+        return mensagem.sid
+
     except Exception as erro:
         print("Erro ao enviar SMS:", erro)
         raise HTTPException(
             status_code=500,
             detail="Erro ao enviar SMS de verificacao"
         )
+
+
 
 
 def enviar_email(codigo, destinario):
@@ -203,7 +209,6 @@ async def enviar_sms(dados : TelefoneSchema,session = Depends(pegar_sessao)):
     session.commit()
 
     # Envio  o SMS
-
     EnviarSms(codigo,dados.telefone)
 
     return {"mensagem": "SMS Enviado!"}
