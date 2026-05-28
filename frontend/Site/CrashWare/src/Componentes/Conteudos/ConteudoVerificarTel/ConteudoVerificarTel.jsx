@@ -1,60 +1,49 @@
-import { useState, useEffect, useRef } from "react";
-import { Link, useBlocker, useLocation, useNavigate } from "react-router-dom";
-import { CampoTexto } from "../../CampoTexto";
-import { BotoesForm } from "../../Botoes";
-import style from './CVerificacaoEmail.module.css'
+import style from './ConteudoVerificarTel.module.css'
+
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { PopUp } from '../../pop-up';
+import { CampoTexto } from '../../CampoTexto';
+import { BotoesForm } from '../../Botoes/';
 
-//Importando sleep
-import { Api, sleep } from "../../../../funcoes/functions"
+const ConteudoVerificarTel = () => {
 
-const CVerificacaoEmail = () => {
-
-    //Instancionando a API para receber dados do usuário
+    //Instancia a API para receber dados do usuário
     const usuario = JSON.parse(localStorage.getItem("dados"));
 
 
-
     //useState/variaveis
+    const [codigo, setCodigo] = useState('');
+    const [mostrarModal, setMostrarModal] = useState(false);
     const [timer, setTimer] = useState(0);
     const [loading, setLoading] = useState(false);
     const [verificando, setVerificando] = useState(false);
-    const [codigo, setCodigo] = useState("");
     const [enviarcodigo, setEnviarCodigo] = useState(false);
     const [erro, setErro] = useState("");
-    const setPodeNavegar = useRef(false);
-    const [mostrarModal, setMostrarModal] = useState(false);
 
-    //Variavel da popup
+    const setPodeNavegar = useState(false);
+    const tema = localStorage.getItem('tema') || 'claro';
+
+
+    //variavel da popup
     const [popup, setPopup] = useState(null);
 
-    //Navegação e recebimento de dados
-    const location = useLocation();
-    const Navegacao = useNavigate();
-
-    //Recebe Os dados
-    const mensagem = location.state?.mensagem;
-    const email = location.state?.email;
-    const email_novo = location.state?.email_novo;
-    const nome = location.state?.nome;
-    const origem = location.state?.origem;
-
-
-    //Nome maiusculo
-    const nomeM = nome?.toUpperCase() || "";
-
-
     //setDados
-     const [dados, setDados] = useState(() =>
+    const [dados, setDados] = useState(() =>
         JSON.parse(localStorage.getItem("dados")) || null
     );
 
+    //Navegação
+    const Navegacao = useNavigate();
+    const location = useLocation();
+    const origem = location.state?.origem;
+    const telefone = location.state?.telefone || "";
 
     //Block de navegação
 
     useEffect(() => {
-        if (!location.state?.email) {
-            Navegacao(origem || "/login");
+        if (!location.state?.telefone) {
+            Navegacao(origem || "/configuracoes");
         }
     }, []);
 
@@ -95,25 +84,9 @@ const CVerificacaoEmail = () => {
         return () => clearInterval(intervalo);
     }, [timer]);
 
-    //Função de reenviar o código
-    const ReenviarCodigo = async () => {
-        //Instâncio o objeto 
-        const usuario = new Api();
-
-        //Chamo o método
-        usuario.Enviar_Codigo(email, setPopup, loading, timer, setLoading, setTimer, setEnviarCodigo,email_novo);
-
-    }
-
-    const handleVericarEmail = async () => {
-        const usuario = new Api();
-        usuario.Verificar_Codigo(email, codigo, setPopup, setPodeNavegar, Navegacao,setDados,email_novo)
-    }
-
-
     return (
-        <>
 
+        <div>
             {popup && (
                 <PopUp
                     tipo={popup.tipo}
@@ -147,42 +120,43 @@ const CVerificacaoEmail = () => {
                 </div>
             )}
 
+
             <div className={style.corpo}>
                 <div className={style.container}>
-                    <h1>Bem-Vindo {nomeM}!!!</h1>
-                    <p className={style.texto}>Verifique o Código enviado para o email: <span>{email_novo || email}</span></p>
+                    <h1>Confirmar Telefone</h1>
 
-                    <CampoTexto type="text" placeholder="Insira o Código"
-                        className={style.inputClasse}
-                        // ref={inputRef}   
-                        value={codigo}
-                        maxLength={6}
-                        onChange={(e) => {
-                            const valor = e.target.value.replace(/\D/g, '').slice(0, 6);
-                            setCodigo(valor); //Só aceita números.
-                        }}
-                    />
+                    <h2>Digite o código de verificação que enviamos no seu <span>SMS</span></h2>
 
-                    {erro && <p className={style.erro}>{erro}</p>}
-
+                    <h3><span>{telefone}</span></h3>
+                    <div className={style.senhaWrapper}>
+                        <CampoTexto
+                            type="text"
+                            className={style.inputClasse}
+                            placeholder="Código de verificação*"
+                            value={codigo}
+                            onChange={(e) => {
+                                const valor = e.target.value.replace(/\D/g, '').slice(0, 6);
+                                setCodigo(valor); //Só aceita números.
+                            }}
+                        />
+                    </div>
 
                     <BotoesForm
                         texto={loading ? "Espere..." : timer > 0 ? `Reenviar em ${timer}s` : "Enviar Código"} className={style.btnEnviar}
-                        onClick={ReenviarCodigo}
+                        // onClick={ReenviarCodigo}
                         disabled={timer > 0 || loading}
                     />
 
                     <BotoesForm
                         texto="Verificar"
                         className={style.btnEnviar}
-                        onClick={handleVericarEmail}
+                        // onClick={handleVericarEmail}
                         disabled={!enviarcodigo || loading}
                     />
                 </div>
-            </div >
-        </>
+            </div>
+        </div>
     )
 }
 
-//exportação da função
-export { CVerificacaoEmail }
+export { ConteudoVerificarTel }
