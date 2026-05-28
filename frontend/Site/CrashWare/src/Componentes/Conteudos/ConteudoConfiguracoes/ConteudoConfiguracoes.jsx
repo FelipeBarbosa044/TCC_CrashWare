@@ -85,7 +85,7 @@ const ConteudoConfiguracoes = () => {
     const token = localStorage.getItem("token");
     const refresh_token = localStorage.getItem("refresh_token");
 
-    
+
 
     useEffect(() => {
         const checarTema = (e) => setTema(e.detail);
@@ -210,55 +210,61 @@ const ConteudoConfiguracoes = () => {
     const ValidarEmail = async () => {
 
         //Requisição de validar email
-        
+
         await campo.Validar_Email(email, setPopup)
     }
 
-     //Validar Email
+    //Validar Email
     const VerificarSenha = async () => {
 
         if (senha.length < 8) {
-                setPopup({
-                    tipo: 'aviso',
-                    titulo: 'Erro no formulário',
-                    mensagem: "Senha deve conter pelo menos 8 caracteres"
-                });
-                return;
-            }
+            setPopup({
+                tipo: 'aviso',
+                titulo: 'Erro no formulário',
+                mensagem: "Senha deve conter pelo menos 8 caracteres"
+            });
+            return;
+        }
 
         if (senha.includes(" ")) {
             setPopup({
-                    tipo: 'aviso',
-                    titulo: 'Erro no formulário',
-                    mensagem: "Senha não pode conter espaços"
-                });
+                tipo: 'aviso',
+                titulo: 'Erro no formulário',
+                mensagem: "Senha não pode conter espaços"
+            });
             return;
         }
 
 
-        await campo.Verificar_Senha(senha,dados.email,setPodeNavegar, setPopup)  
-        
+        await campo.Verificar_Senha(senha, dados.email, setPodeNavegar, setPopup)
+
     }
 
-     //Verificar Telefone
+    //Verificar Telefone
     const VerificarTelefone = async () => {
 
-        if(telefoneLimpo != telefoneConfirmacaoLimpo)
-        {
+        if (telefoneLimpo != telefoneConfirmacaoLimpo) {
             setPopup({
-                    tipo: 'aviso',
-                    titulo: 'Erro no formulário',
-                    mensagem: "Telefone não coincidem"
-                });
+                tipo: 'aviso',
+                titulo: 'Erro no formulário',
+                mensagem: "Telefone não coincidem"
+            });
             return;
         }
         //Rota de verificar o telefone
         //Por enquanto deixe vazio aqui
 
 
-        
+
         //Levo para a tela de Enviar SMS(gabriel)
-        //->
+        //-> falta criar a página
+        Navegacao("/verificar-telefone",
+            { state:
+                { 
+                    telefone: telefoneLimpo
+                },
+                origem: "/configuracoes"
+            });
     }
 
     return (
