@@ -376,7 +376,258 @@ export class Configurações
 
             console.log("Erro ao verificar senha: " + error)
         }
+    }//Verificar Senha
+
+    //Verificar Telefone
+    async Verificar_Telefone(telefone,email,setPopup,Navegacao)
+    {
+        setPopup({
+                tipo: 'aviso',
+                titulo: 'Telefone',
+                mensagem: 'Verificando Telefone...'
+            });
+
+        //Verifico o token
+        const usuario = new Api();
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/auth/verificar_telefone",
+                {
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        telefone : telefone
+                    })
+                });
+
+            if (response.ok)
+            {
+                //Levo para a tela de verificar telefone
+
+                Navegacao("/verificar-telefone",
+                { state:
+                    {    
+                        telefone: telefone,
+                        email : email
+                    },
+                        origem: "/configuracoes"
+                });
+            }else
+            {
+                const erro = await response.json();
+
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Telefone',
+                    mensagem: erro.detail
+                });
+
+            }
+                
+            
+        }catch(error){
+            //Erro na API ou de Conexão
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Erro De Conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log("Erro ao Verificar Telefone: " + error)
+        }
+
     }
+
+    //Enviar SMS
+    async Enviar_SMS(telefone,email,setPopup)
+    {
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/auth/enviar_sms",
+            {
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        telefone : telefone,
+                        email : email
+                    })
+           
+            });
+
+            if(response.ok)
+            {
+                //Bloqueio o botão por 10 minutos
+
+
+                const resposta = await response.json();
+                 setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'SMS',
+                    mensagem: resposta.mensagem
+                });
+                
+            }else
+            {
+                const erro = await response.json();
+
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'SMS',
+                    mensagem: erro.detail
+                });
+
+                console.log(erro.detail)
+
+            }
+        } catch(error){
+            //Erro na API ou de Conexão
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Erro De Conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log("Erro ao Enviar SMS : " + error)
+        }
+        
+   
+    }//Enviar SMS
+
+    //Verificar SMS
+
+    async Verificar_SMS(telefone,email,codigo,setPopup,Navegacao,setDados)
+    {
+         setPopup({
+                tipo: 'aviso',
+                titulo: 'Verificação',
+                mensagem: 'Verificando Código...'
+            });
+
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/auth/verificar_sms",
+                {
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        telefone : telefone,
+                        email : email,
+                        codigo : codigo
+                    })
+                });
+
+            if (response.ok)
+                {
+                    const AddTelefone = localStorage.getItem("adicionar_telefone" , "true")
+
+                    if(AddTelefone == "true")
+                    {
+                        //Chamo o método de adicionar telefone
+                        await AddTelefone(telefone,email,setPopup,setDados,Navegacao)
+                        return;
+                    }
+
+                    //Vai para alterar senha aqui
+                    
+                }
+            
+        }catch(error){
+            //Erro na API ou de Conexão
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Erro De Conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log("Erro ao Verificar SMS : " + error)
+        }
+    }
+
+
+    async Adicionar_Telefone(telefone,email,setPopup,setDados,Navegacao)
+    {
+        localStorage.setItem("adicionar_telefone" , "false")
+
+         setPopup({
+                tipo: 'aviso',
+                titulo: 'Telefone',
+                mensagem: 'Adicionando telefone...'
+            });
+
+        try
+        {
+            const  response = await fetch("https://api-crashware.onrender.com/auth/adicionar_telefone",
+                {
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        telefone : telefone,
+                        email : email
+                    })
+                });
+
+            if(response.ok )
+            {
+
+                //Atualizo no LocalStorage
+                //Pega os dados atuais
+                const dados = JSON.parse(localStorage.getItem("dados"));
+
+                //Atualiza apenas o email
+                dados.telefone = telefone;
+
+                //Salva novamente
+                localStorage.setItem("dados", JSON.stringify(dados));
+
+                //Atualiza o setDados
+                setDados(dados)
+
+                setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'Telefone Adicionado',
+                    mensagem: 'Estamos te redirecionando...'
+                });
+
+                sleep(2000)
+
+                //Levo para a Home
+                Navegacao('/home')
+            }else
+            {
+                const erro = await response.json();
+
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Tente Mais Tarde...',
+                    mensagem: erro.detail
+                });
+            }
+            
+        }catch(error){
+            //Erro na API ou de Conexão
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Erro De Conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log("Erro ao adicionar telefone : " + error)
+        }
+    }//Adicionar Telefone
 
 
 }//Configurações
