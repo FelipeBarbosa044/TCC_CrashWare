@@ -205,14 +205,12 @@ async def enviar_sms(dados : TelefoneSchema,session = Depends(pegar_sessao)):
         usuario = session.query(Usuarios).filter(Usuarios.telefone == dados.telefone).first()
 
 
-
-
     # Verifico se está valido o sms
     if (usuario.sms != None):
         # Pego a validade e a data Atual
         validade = usuario.sms_expirado_em + timedelta(minutes=10)
         agora = datetime.now(timezone.utc)
-        
+
         if(agora > validade):
             raise HTTPException(status_code=409, detail="Código Já Enviado!")
 
@@ -228,6 +226,30 @@ async def enviar_sms(dados : TelefoneSchema,session = Depends(pegar_sessao)):
     EnviarSms(codigo,dados.telefone)
 
     return {"mensagem": "SMS Enviado!"}
+#########################
+@auth.post("/verificar_sms")
+async def verificar_sms(dados : VerificarEmailSchema , session = Depends(pegar_sessao)):
+    # Pego o usuario pelo email ou pelo o telefone
+    if (dados.email != None):
+        usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+    else:
+        usuario = session.query(Usuarios).filter(Usuarios.telefone == dados.telefone).first()
+    if usuario is  None:
+        raise HTTPException(status_code=404,detail="Email e Telefone não autenticado")
+
+    if usuario.sms != dados.sms:
+        raise HTTPException(status_code=400, detail="SMS invalido!")
+
+    if usuario.sms_expirado_em < datetime.now(timezone.utc):
+        raise HTTPException(status_code=410, detail="SMS expirado!")
+
+
+    return {"mensagem": "SMS verificado com sucesso!"}
+
+
+
+
+
 #########################
 
 @auth.post("/login")
@@ -307,9 +329,12 @@ async def refresh_token(usuario = Depends(validar_refresh_token), session = Depe
 
 ##Rota de Adicionar Telefone
 @auth.post('/adicionar_telefone')
-async def adicionar_telefone(dados : TelefoneSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+async def adicionar_telefone(dados : TelefoneSchema,session = Depends(pegar_sessao)):
+    # Pego o usuario pelo email ou pelo o telefone
+    if (dados.email != None):
+        usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     if usuario is None:
-        raise HTTPException(status_code=401, detail="Token expirado ou inválido")
+        raise HTTPException(status_code=404, detail="Email não autenticado")
     try:
         usuario.telefone = dados.telefone
         session.commit()
