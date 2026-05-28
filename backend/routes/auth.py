@@ -228,20 +228,20 @@ async def enviar_sms(dados : TelefoneSchema,session = Depends(pegar_sessao)):
     return {"mensagem": "SMS Enviado!"}
 #########################
 @auth.post("/verificar_sms")
-async def verificar_sms(dados : VerificarEmailSchema , session = Depends(pegar_sessao)):
+async def verificar_sms(dados : TelefoneSchema , session = Depends(pegar_sessao)):
     # Pego o usuario pelo email ou pelo o telefone
     if (dados.email != None):
         usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     else:
         usuario = session.query(Usuarios).filter(Usuarios.telefone == dados.telefone).first()
     if usuario is  None:
-        raise HTTPException(status_code=404,detail="Email e Telefone não autenticado")
+        raise HTTPException(status_code=404,detail="Email e telefone não autenticado")
 
-    if usuario.sms != dados.sms:
-        raise HTTPException(status_code=400, detail="SMS invalido!")
+    if usuario.sms != dados.codigo:
+        raise HTTPException(status_code=400, detail="Código invalido!")
 
     if usuario.sms_expirado_em < datetime.now(timezone.utc):
-        raise HTTPException(status_code=410, detail="SMS expirado!")
+        raise HTTPException(status_code=410, detail="Código expirado!")
 
 
     return {"mensagem": "SMS verificado com sucesso!"}

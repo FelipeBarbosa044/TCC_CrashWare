@@ -55,8 +55,11 @@ class SenhaSchema(BaseModel):
 class TelefoneSchema(BaseModel):
      telefone : str
      email : Optional[str] = None
+     codigo: Optional[str] = None
 
      class Config:
          from_attributes = True
+
+
 
 
