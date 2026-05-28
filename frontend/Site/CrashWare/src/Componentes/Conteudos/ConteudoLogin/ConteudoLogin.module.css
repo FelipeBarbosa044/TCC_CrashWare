@@ -15,8 +15,8 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
     justify-self: center;
+    align-items: center;
     font-family: "Montserrat", sans-serif;
     padding-top: 120px;
 }
@@ -229,4 +229,38 @@
     .Cadastrar{
         font-size: 13px;
     }
+}
+
+@media (max-width: 400px){
+
+  .inputClasse{
+    padding-left: 0px;
+    text-align: start;
+  }
+  
+  .container {
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+
+  .container h1{
+    font-size: 28px ; 
+  }
+
+  .Cadastrar {
+    width: 80%;
+    text-align: center; 
+  }
+
+  .outrasFormasLogin{
+    margin-left: 8px;
+  }
+
+  .Esqueceu p{
+    font-size: 13px !important;
+  }
+
+  .btnLogar {
+    margin-bottom: 0px;
+  }
 }

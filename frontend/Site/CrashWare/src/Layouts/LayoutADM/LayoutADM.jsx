@@ -38,10 +38,9 @@ const LayoutADM = () => {
 
     const conteudosBarraLateral = [
         { id: 1, descricao: "Relatórios", acao: null, to: "/relatorio" },
-        { id: 3, descricao: "Conquistas", acao: 'conquistas' },
-        { id: 4, descricao: "Usuarios", acao: null, to: '/usuarios' },
-        { id: 5, descricao: "Notificações", acao: 'notificacoes' },
-        { id: 6, descricao: "Materias", acao: 'Materias' },
+        { id: 2, descricao: "Conquistas", acao: 'conquistas' },
+        { id: 3, descricao: "Usuarios", acao: null, to: '/usuarios' },
+        { id: 4, descricao: "Materias", acao: 'Materias' },
     ];
 
     const ItemBarraLateral = ({ descricao, img, onClick, to }) => {

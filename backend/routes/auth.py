@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends,HTTPException
-
+from requests import delete
+from sqlalchemy import null
 
 #Importando tabelas:
 from models.usuarios import Usuarios
@@ -36,11 +37,33 @@ from jose import jwt,JWTError
 import os
 from dotenv import load_dotenv
 
+
+#Biblioteca de SMS
+from twilio.rest import Client
+
+
+
+
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 PASSWORD_EMAIL = os.getenv("PASSWORD_EMAIL")
 ALGORITIMO = os.getenv("ALGORITIMO")
+
+
+#TWILIO SMS
+
+#Id da minha conta da twillio
+ACOUNT_SID = os.getenv("ACOUNT_SID")
+
+#Conexão com a API da twillio
+AUTH_TOKEN = os.getenv("AUTH_TOKEN")
+
+TWILIO_PHONE_NUMBER= os.getenv("TWILIO_PHONE_NUMBER")
+
+#Conexão com a API da twillio
+cliente = Client(ACOUNT_SID,AUTH_TOKEN)
+
 
 #Funções
 def gerar_codigo():
@@ -49,6 +72,21 @@ def gerar_codigo():
 
     return codigo , expira_em
 ######
+
+def EnviarSms(codigo,destinario):
+    #Crio o SMS
+    try:
+        cliente.messages.create(
+            from_=TWILIO_PHONE_NUMBER,
+            to=f"+55{destinario}",
+            body=f"Equipe CrashWare: o codigo de verificacao  expira em 10 minutos. CODIGO: {codigo}"
+        )
+    except Exception as erro:
+        print("Erro ao enviar SMS:", erro)
+        raise HTTPException(
+            status_code=500,
+            detail="Erro ao enviar SMS de verificacao"
+        )
 
 
 def enviar_email(codigo, destinario):
@@ -149,9 +187,27 @@ async def reenviar_codigo( dados : EmailSchema, session = Depends(pegar_sessao))
     #Envio email
     enviar_email(codigo, email)
 
-    return {"mensagem": "Código Reenviado!"}
+    return {"mensagem": "Código Enviado!"}
 
 ########################
+@auth.post('/enviar_sms')
+async def enviar_sms(dados : TelefoneSchema,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.telefone == dados.telefone).first()
+
+    # Gero novo código
+    codigo, expira = gerar_codigo()
+
+    # Atualizo o banco
+    usuario.codigo = codigo
+    usuario.codigo_expirado_em = expira
+    session.commit()
+
+    # Envio  o SMS
+
+    EnviarSms(codigo,dados.telefone)
+
+    return {"mensagem": "SMS Enviado!"}
+#########################
 
 @auth.post("/login")
 async def login(dados : UsuarioLoginSchema , session = Depends(pegar_sessao)):
@@ -280,6 +336,29 @@ async def alterar_telefone(dados: TelefoneSchema,usuario = Depends(validar_token
         raise HTTPException(status_code=400, detail=str(exception))
 
 ############################
+#Rota de remover telefone
+@auth.delete('remover_telefone')
+async def remover_telefone (dados : TelefoneSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=401, detail="Token expirado ou inválido")
+    telefone = session.query(Usuarios).filter(Usuarios.telefone == dados.telefone).first()
+    if telefone is None:
+        raise HTTPException(status_code=404, detail="Adicione um número de telefone para realizar esse serviço")
+
+    #Removo o telefone do usuario
+    try:
+        usuario.telefone = None
+        session.commit()
+
+        return {"mensagem" : "Telefone removido com sucesso"}
+
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
+
+#############################
 
 
 ##Rota de alterar Nome

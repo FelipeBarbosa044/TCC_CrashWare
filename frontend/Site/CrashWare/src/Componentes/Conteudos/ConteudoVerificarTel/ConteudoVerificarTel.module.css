@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* ===== LAYOUT ===== */
+
+.corpo {
+    width: 90vw;
+    min-height: 100vh;
+    background-color: var(--bg-quarto);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-self: center;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* ===== CONTAINER ===== */
+
+.container {
+    width: 70%;
+    height: 100%;
+    max-width: 520px;
+    text-align: center;
+    align-self: center;
+
+    border: 1px solid var(--texto-principal);
+    background-color: var(--bg-terceiro);
+
+    padding: 30px;
+    border-radius: 30px;
+
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.637);
+}
+
+/* ===== TÍTULO ===== */
+
+.container h1 {
+    color: var(--texto-principal);
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-family: "Montserrat", sans-serif;
+    margin: 30px 0px 16px 0px;
+    text-shadow: 2px 2px 8px white;
+}
+
+/* ===== TEXTO DESCRIÇÃO ===== */
+
+.texto {
+    color: var(--texto-principal);
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 4px;
+    line-height: 1.5;
+}
+
+.container span {
+    color: var(--Botao-gradiente1);
+    font-weight: 700;
+    font-size: 20px;
+}
+
+/* ===== INPUT ===== */
+
+.inputClasse {
+    width: 80%;
+    height: 50px;
+    margin: 20px 0px 20px 0px;
+    padding: 0 20px;
+
+    background: var(--input-bg);
+    border: 1px solid var(--borda);
+    border-radius: 6px;
+
+    font-size: 16px;
+    font-family: "Montserrat";
+    font-weight: 600;
+
+    transition: 0.2s;
+    box-shadow: 0px 5px 6px -2px rgba(0, 0, 0, 0.5);
+}
+
+.inputClasse:focus {
+    outline: none;
+}
+
+/* ===== ERRO ===== */
+
+.erro {
+    color: var(--Vermelho);
+    font-family: "Montserrat", sans-serif;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+/* ===== BOTÕES ===== */
+
+.btnEnviar {
+    width: 70%;
+    height: 5vh;
+    min-height: 44px;
+
+    background: var(--bg-principal);
+    border: none;
+    border-radius: 28px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--texto-principal);
+
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.btnEnviar:hover {
+    background-color: var(--bg-terceiro);
+    border: 1px solid var(--texto-principal);
+    color: var(--texto-principal);
+    transform: scale(1.03);
+}
+
+.btnEnviar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ===== MODAL OVERLAY ===== */
+
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    backdrop-filter: blur(4px);
+}
+
+.modal {
+    background: var(--bg-terceiro);
+    color: var(--texto-principal);
+    border: 1px solid var(--texto-principal);
+    border-radius: 30px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.637);
+    padding: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 90%;
+    max-width: 400px;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+}
+
+.modal h4 {
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 8px white
+}
+
+/* ===== BOTÕES DO MODAL ===== */
+
+.btnSair {
+    background-color: var(--texto-secundario);
+    color: var(--vermelho-forte-msm-sair);
+    width: 70%;
+    min-height: 44px;
+    border-radius: 28px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btnSair:hover {
+    transform: scale(1.03);
+    opacity: 0.85;
+}
+
+.btnFicar {
+    background-color: var(--cor-primaria);
+    color: var(--texto-principal);
+    width: 70%;
+    min-height: 44px;
+    border-radius: 28px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btnFicar:hover {
+    background-color: var(--cor-primaria-hover);
+    transform: scale(1.03);
+}
+
+/* ===== RESPONSIVO ===== */
+
+@media (max-width: 500px) {
+    .container {
+        width: 90%;
+    }
+
+    .container h1 {
+        font-size: 1.4rem;
+        margin: 20px 0 12px 0;
+    }
+
+    .inputClasse {
+        height: 45px;
+        font-size: 14px;
+    }
+
+    .btnEnviar {
+        width: 80%;
+        font-size: 15px;
+    }
+
+    .btnSair,
+    .btnFicar {
+        width: 80%;
+    }
+
+    container span{
+        font-size: 16px;
+    }
+}

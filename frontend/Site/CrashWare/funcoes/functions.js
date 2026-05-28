@@ -19,6 +19,7 @@ export async function SairDaConta(setToken,setRefresh,setDados){
 
     //Faço com que o site entenda que precisara buscar as informações denovo
     localStorage.setItem("info",false)
+    localStorage.setItem("logout",false)
 
     //Deleto o ID do LocalStorage
     // await localStorage.removeItem("id");
@@ -29,6 +30,7 @@ export async function SairDaConta(setToken,setRefresh,setDados){
     setDados(null);
     // setId(null);
 
+    
     //Levo para a tela inicial
     window.location.href = '/'
 
@@ -544,7 +546,7 @@ export class Api
 
 
 
-    async Alterar_Senha(email,senha,confirmaSenha,setPopup,Navegacao)
+    async Alterar_Senha(email,senha,confirmaSenha,setPopup,Navegacao,setToken,setRefresh,setDados)
     {
 
         const validarCampos = () => 
@@ -611,13 +613,23 @@ export class Api
 
             }else
             {
+                const logout = localStorage.getItem("logout");
+
+
                 setPopup({
                     tipo: 'sucesso',
                     titulo: 'Senha atualizada com sucesso',
                     mensagem: 'Estamos te redirecionando...'
                 });
 
-                await sleep(3000) /* Faz com que espere 3 segundos*/
+                await sleep(2000) /* Faz com que espere 2 segundos*/
+
+                if(logout == "true")
+                {
+                    //Deslogo ele da conta
+                    await SairDaConta(setToken,setRefresh,setDados)
+                    return;
+                }
 
                 Navegacao("/login");
 

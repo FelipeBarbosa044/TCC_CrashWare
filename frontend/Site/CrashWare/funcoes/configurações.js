@@ -311,5 +311,72 @@ export class Configurações
 
     }//Alterar email
 
+    //Verificar Senha
+    async Verificar_Senha(senha,email,setPodeNavegar,setPopup)
+    {
+
+        setPopup({
+                tipo: 'aviso',
+                titulo: 'Senha',
+                mensagem: 'Verificando Senha...'
+            });
+
+        //Verifico o token
+        const usuario = new Api();
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/auth/verificar_senha",
+                {
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        senha : senha
+                    })
+                });
+
+                if(response.ok)
+                {
+
+                    //Controle de Navegação
+                    localStorage.setItem("logout","true");
+
+
+                    setPodeNavegar.current = true;
+                    this.Navegacao("/alterar-senha",{
+                        state:{
+                            email: email.replace(/\s/g, "").toLowerCase()
+                        }//state
+                    })
+                }else
+                {
+                    const erro = await response.json();
+
+                    setPopup({
+                        tipo: 'erro',
+                        titulo: 'Senha',
+                        mensagem: erro.detail
+                    });
+                }
+            
+        }catch(error){
+            //Erro na API ou de Conexão
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Erro De Conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log("Erro ao verificar senha: " + error)
+        }
+    }
+
 
 }//Configurações

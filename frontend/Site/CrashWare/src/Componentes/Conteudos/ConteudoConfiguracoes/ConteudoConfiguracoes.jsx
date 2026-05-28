@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Style from "./ConteudoConfiguracoes.module.css";
 
 //Importo o Popup
 import { PopUp } from "../../pop-up";
+import { BotoesForm } from "../../Botoes";
 
 import perfilModoClaro from "../../../fotos/claro/login_icon_claro.svg";
 import perfilModoEscuro from "../../../fotos/escuro/login_icon.svg";
@@ -47,39 +48,42 @@ const ConteudoConfiguracoes = () => {
     //Formatar Telefone
     function formatarTelefone(valor) {
 
-    valor = valor.replace(/\D/g, '');
-    valor = valor.slice(0, 11);
+        valor = valor.replace(/\D/g, '');
+        valor = valor.slice(0, 11);
 
-    valor = valor.replace(
-        /^(\d{2})(\d)/,
-        '($1) $2'
-    );
+        valor = valor.replace(
+            /^(\d{2})(\d)/,
+            '($1) $2'
+        );
 
-    valor = valor.replace(
-        /(\d{1})(\d{4})(\d{4})$/,
-        '$1 $2-$3'
-    );
-    return valor;
-}
+        valor = valor.replace(
+            /(\d{1})(\d{4})(\d{4})$/,
+            '$1 $2-$3'
+        );
+        return valor;
+    }
 
-    // DESFORMATAR TELEFONE     FELIPE MEXER AQUI
+    //Telefone limpo
+    const telefoneLimpo = telefone.replace(/\D/g, '');
+    const telefoneConfirmacaoLimpo = telefoneConfirmacao.replace(/\D/g, '');
 
-    // const telefoneLimpo = telefone.replace(/\D/g, '');
-    // const telefoneConfirmacaoLimpo = telefoneConfirmacao.replace(/\D/g, '');
 
-
+    //Senha
+    const [senha, setSenha] = useState("");
 
     //Popup e visual
     const [tema, setTema] = useState(localStorage.getItem('TemaSelecionado') || 'Claro');
     const [popupAtivo, setPopupAtivo] = useState(null); // null | 'sair' | 'desativar' | 'excluir'
     const [popup, setPopup] = useState(null);
+
+
     //Navegação --> Permite eu levar o usuario para outras telas
     const Navegacao = useNavigate();
+    const setPodeNavegar = useRef(false);
 
     //Pego os tokens
     const token = localStorage.getItem("token");
     const refresh_token = localStorage.getItem("refresh_token");
-
 
 
 
@@ -103,6 +107,10 @@ const ConteudoConfiguracoes = () => {
     //Pego as informações do usuario
     const usuario = JSON.parse(localStorage.getItem("dados"));
 
+
+    //Objeto da classe configurações 
+    const campo = new Configurações(token, refresh_token, Navegacao, set)
+
     // Configurações de cada popup
     const configsPopup = {
         sair: {
@@ -113,7 +121,6 @@ const ConteudoConfiguracoes = () => {
 
                 //Saio da Conta
                 await SairDaConta(setToken, setRefresh, setDados, setPopup)
-
 
 
                 setPopupAtivo(null);
@@ -127,9 +134,9 @@ const ConteudoConfiguracoes = () => {
             paragrafo: "Deseja desativar sua conta?",
             primeiroBotao: "Desativar",
             segundoBotao: "Cancelar",
-            primeiroClick: async () => { 
+            primeiroClick: async () => {
 
-                setPopupAtivo(null); 
+                setPopupAtivo(null);
 
                 //Desativo a conta
                 const user = new Configurações(
@@ -138,7 +145,7 @@ const ConteudoConfiguracoes = () => {
                     Navegacao,
                     set
                 );
-                user.desativar_conta(setPopup,setToken,setRefresh,setDados)
+                user.desativar_conta(setPopup, setToken, setRefresh, setDados)
 
 
             },
@@ -203,8 +210,61 @@ const ConteudoConfiguracoes = () => {
     const ValidarEmail = async () => {
 
         //Requisição de validar email
-        const campo = new Configurações(token, refresh_token, Navegacao, set)
+
         await campo.Validar_Email(email, setPopup)
+    }
+
+    //Validar Email
+    const VerificarSenha = async () => {
+
+        if (senha.length < 8) {
+            setPopup({
+                tipo: 'aviso',
+                titulo: 'Erro no formulário',
+                mensagem: "Senha deve conter pelo menos 8 caracteres"
+            });
+            return;
+        }
+
+        if (senha.includes(" ")) {
+            setPopup({
+                tipo: 'aviso',
+                titulo: 'Erro no formulário',
+                mensagem: "Senha não pode conter espaços"
+            });
+            return;
+        }
+
+
+        await campo.Verificar_Senha(senha, dados.email, setPodeNavegar, setPopup)
+
+    }
+
+    //Verificar Telefone
+    const VerificarTelefone = async () => {
+
+        if (telefoneLimpo != telefoneConfirmacaoLimpo) {
+            setPopup({
+                tipo: 'aviso',
+                titulo: 'Erro no formulário',
+                mensagem: "Telefone não coincidem"
+            });
+            return;
+        }
+        //Rota de verificar o telefone
+        //Por enquanto deixe vazio aqui
+
+
+
+        //Levo para a tela de Enviar SMS(gabriel)
+        //-> falta criar a página
+        Navegacao("/verificar-telefone",
+            { state:
+                { 
+                    telefone: telefoneLimpo
+                },
+                origem: "/configuracoes"
+            });
     }
 
     return (
@@ -228,110 +288,122 @@ const ConteudoConfiguracoes = () => {
                 />
             )}
 
-            <div className={Style.separarConteudos}>
-                <div className={Style.barraLateral}>
-                    <h1>Configurações de usuário</h1>
-                    <hr />
+            <div className={Style.corpo}>
+                <div className={Style.separarConteudos}>
+                    <div className={Style.barraLateral}>
+                        <h1>Configurações de usuário</h1>
+                        <hr />
 
-                    <div className={Style.itensBarraLateral}>
-                        {conteudosBarraLateral.map((item) => (
-                            <ItemBarraLateral
-                                key={item.id}
-                                descricao={item.descricao}
-                                img={item.img}
-                                onClick={item.acao ? () => setPopupAtivo(item.acao) : undefined}
-                            />
-                        ))}
+                        <div className={Style.itensBarraLateral}>
+                            {conteudosBarraLateral.map((item) => (
+                                <ItemBarraLateral
+                                    key={item.id}
+                                    descricao={item.descricao}
+                                    img={item.img}
+                                    onClick={item.acao ? () => setPopupAtivo(item.acao) : undefined}
+                                />
+                            ))}
 
-                        <div className={Style.destaque}>
-                            <ItemBarraLateral
-                                descricao="Desativar Conta"
-                                img={desativarConta}
-                                onClick={() => setPopupAtivo('desativar')}
-                            />
-                            <ItemBarraLateral
-                                descricao="Excluir Conta"
-                                img={excluirConta}
-                                onClick={() => setPopupAtivo('excluir')}
-                            />
+                            <div className={Style.destaque}>
+                                <ItemBarraLateral
+                                    descricao="Desativar Conta"
+                                    img={desativarConta}
+                                    onClick={() => setPopupAtivo('desativar')}
+                                />
+                                <ItemBarraLateral
+                                    descricao="Excluir Conta"
+                                    img={excluirConta}
+                                    onClick={() => setPopupAtivo('excluir')}
+                                />
+                            </div>
                         </div>
-                    </div>
 
-                    <h1>Privacidade e Segurança</h1>
-                    <hr />
+                        <h1>Privacidade e Segurança</h1>
+                        <hr />
 
-                    <ItemBarraLateral
-                        descricao={"Sobre"}
-                        img={sobreModoClaro}
-                    />
-                    <Link to="/termos">
                         <ItemBarraLateral
-                            descricao={"Termos de Serviço"}
-                            img={termosModoClaro}
+                            descricao={"Sobre"}
+                            img={sobreModoClaro}
                         />
-                    </Link>
-                </div>
-
-                <div className={Style.Conteudos}>
-                    <h1>Dados do Perfil</h1>
-
-                    <div className={Style.parteEmail}>
-                        <div className={Style.campoForm}>
-                            <label htmlFor="idEmailVinculado">E-mail vinculado</label>
-                            <p>{usuario.email}</p>
-                        </div>
-                        <div className={Style.campoForm}>
-                            <label htmlFor="idNovoEmail">Novo e-mail</label>
-                            <input
-                                type="email"
-                                maxLength={200}
-                                placeholder="E-mail*"
-                                id='idNovoEmail'
-                                value={email}
-                                onChange={(e) => setEmailNovo(e.target.value)}
-                                autoComplete='email'
+                        <Link to="/termos">
+                            <ItemBarraLateral
+                                descricao={"Termos de Serviço"}
+                                img={termosModoClaro}
                             />
-                        </div>
-                        <button className={Style.botoes} onClick={ValidarEmail}>Alterar</button>
-                    </div>
-
-                    <div className={Style.parteTelefone}>
-                        <div className={Style.campoForm}>
-                            <label htmlFor="idNumeroTel">Número de Telefone</label>
-
-                            <CampoTexto type="text"
-                                placeholder='xx-xxxxx-xxxx'
-                                value={telefone}
-                                onChange={(e) => setTelefone(
-                                    formatarTelefone(e.target.value))} />
-                        </div>
-
-                        <div className={Style.campoForm}>
-
-                            <label htmlFor="idConfirmeNumeroTel">Confirme o número de telefone</label>
-
-                            <CampoTexto type="text"
-                                placeholder='xx-xxxxx-xxxx'
-                                id='idConfirmeNumeroTel'
-                                value={telefoneConfirmacao}
-                                onChange={(e) => setTelefoneConfirmacao(
-                                    formatarTelefone(e.target.value))} />
-                        </div>
-                        <button className={Style.botoes}>Adicionar</button>
-                    </div>
-
-                    <div className={Style.alterarSenha}>
-                        <p>Alterar senha atual</p>
-                        <Link to="/recuperar-senha">
-                            <button>Alterar</button>
                         </Link>
                     </div>
 
-                    <div className={Style.conectarContas}>
-                        <h2>Conecte suas contas para login</h2>
-                        <div className={Style.imagens}>
-                            <img src={googleIcon} alt="google" />
-                            <img src={githubIcon} alt="github" />
+                    <div className={Style.Conteudos}>
+                        <h1>Dados do Perfil</h1>
+
+                        <div className={Style.parteEmail}>
+                            <div className={Style.campoForm}>
+                                <label htmlFor="idEmailVinculado">E-mail vinculado</label>
+                                <p>{usuario.email}</p>
+                            </div>
+                            <div className={Style.campoForm}>
+                                <label htmlFor="idNovoEmail">Novo e-mail</label>
+                                <input
+                                    type="email"
+                                    maxLength={200}
+                                    placeholder="E-mail*"
+                                    id='idNovoEmail'
+                                    value={email}
+                                    onChange={(e) => setEmailNovo(e.target.value)}
+                                    autoComplete='email'
+                                />
+                            </div>
+                            <button className={Style.botoes} onClick={ValidarEmail}>Alterar</button>
+                        </div>
+
+                        <div className={Style.parteTelefone}>
+                            <div className={Style.campoForm}>
+                                <label htmlFor="idNumeroTel">Número de Telefone</label>
+
+                                <CampoTexto type="text"
+                                    placeholder='xx-xxxxx-xxxx'
+                                    value={telefone}
+                                    onChange={(e) => setTelefone(
+                                        formatarTelefone(e.target.value))} />
+                            </div>
+
+                            <div className={Style.campoForm}>
+
+                                <label htmlFor="idConfirmeNumeroTel">Confirme o número de telefone</label>
+
+                                <CampoTexto type="text"
+                                    placeholder='xx-xxxxx-xxxx'
+                                    id='idConfirmeNumeroTel'
+                                    value={telefoneConfirmacao}
+                                    onChange={(e) => setTelefoneConfirmacao(
+                                        formatarTelefone(e.target.value))} />
+                            </div>
+                            <button className={Style.botoes} onClick={VerificarTelefone}>Adicionar</button>
+                        </div>
+
+                        <div className={Style.parteSenha}>
+
+                            <div className={Style.campoForm}>
+                                <label htmlFor="idSenhaAtual">Alterar Senha</label>
+                                <CampoTexto type="password"
+                                    placeholder='Senha Atual*'
+                                    value={senha}
+                                    onChange={(e) => setSenha(e.target.value)}
+                                />                   
+                            </div>
+                            <Link>                          <BotoesForm className={Style.botoes}
+                                    texto="Confirmar"
+                                    onClick={VerificarSenha}
+                                />
+                            </Link>
+                        </div>
+
+                        <div className={Style.conectarContas}>
+                            <h2>Conecte suas contas para login</h2>
+                            <div className={Style.imagens}>
+                                <img src={googleIcon} alt="google" />
+                                <img src={githubIcon} alt="github" />
+                            </div>
                         </div>
                     </div>
                 </div>

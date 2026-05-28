@@ -577,3 +577,55 @@ div.raposa{
         align-items: flex-start;
     }
 }
+
+@media (max-width: 400px){
+
+    .header{
+        margin-top: 100px;
+    }
+    
+    .ofensiva{
+        text-align: center;
+        justify-content: space-around;
+
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    div.raposa img{
+        width: 60px ;
+    }
+
+    .ofensiva img{
+        width: 20px;
+    }
+
+    .ofensivaDias{
+        font-size: 15px;
+    }
+
+    .ofensivaLabel{
+        font-size: 8px;
+    }
+
+    div.trilhaHardware img,
+    div.trilhaSoftware img{
+        width: 100%;
+        text-align: center;
+    }
+
+    div.trilhaHardware a{
+        width: 100%;
+        height: 36px;
+    }
+
+    div.trilhaSoftware a{
+        width: 100%;
+        height: 36px;
+    }
+
+    .btnExplorar{
+        width: 80%;
+        height: 100%;
+    }
+}
