@@ -186,7 +186,7 @@ const ConteudoHome = () => {
     }, []);
 
     async function VerificarOfensiva() {
-        const user = new Usuario();
+        const user = new Usuario(token, refresh_token, Navegacao, set);
         await user.ValidarOfensiva(setDados, setMaiorOfensiva);
         usuario = JSON.parse(localStorage.getItem("dados"));
 
@@ -206,7 +206,7 @@ const ConteudoHome = () => {
                     CARREGANDO...
                 </h3>
                 <p>
-                    O Crash está preparando tudo para você. Aguarde um momento.
+                    Estamos preparando tudo para você. Aguarde um momento.
                 </p>
             </div>
         );

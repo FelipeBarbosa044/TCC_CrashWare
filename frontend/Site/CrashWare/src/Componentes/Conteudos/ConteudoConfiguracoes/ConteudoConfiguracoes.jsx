@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Style from "./ConteudoConfiguracoes.module.css";
@@ -63,31 +63,29 @@ const ConteudoConfiguracoes = () => {
         return valor;
     }
 
-    // DESFORMATAR TELEFONE     FELIPE MEXER AQUI
+    //Telefone limpo
+    const telefoneLimpo = telefone.replace(/\D/g, '');
+    const telefoneConfirmacaoLimpo = telefoneConfirmacao.replace(/\D/g, '');
 
-    // const telefoneLimpo = telefone.replace(/\D/g, '');
-    // const telefoneConfirmacaoLimpo = telefoneConfirmacao.replace(/\D/g, '');
 
-
-    //Mexer aqui felipe
+    //Senha
     const [senha, setSenha] = useState("");
-
-
-
 
     //Popup e visual
     const [tema, setTema] = useState(localStorage.getItem('TemaSelecionado') || 'Claro');
     const [popupAtivo, setPopupAtivo] = useState(null); // null | 'sair' | 'desativar' | 'excluir'
     const [popup, setPopup] = useState(null);
+
+
     //Navegação --> Permite eu levar o usuario para outras telas
     const Navegacao = useNavigate();
+    const setPodeNavegar = useRef(false);
 
     //Pego os tokens
     const token = localStorage.getItem("token");
     const refresh_token = localStorage.getItem("refresh_token");
 
-
-
+    
 
     useEffect(() => {
         const checarTema = (e) => setTema(e.detail);
@@ -109,6 +107,10 @@ const ConteudoConfiguracoes = () => {
     //Pego as informações do usuario
     const usuario = JSON.parse(localStorage.getItem("dados"));
 
+
+    //Objeto da classe configurações 
+    const campo = new Configurações(token, refresh_token, Navegacao, set)
+
     // Configurações de cada popup
     const configsPopup = {
         sair: {
@@ -119,7 +121,6 @@ const ConteudoConfiguracoes = () => {
 
                 //Saio da Conta
                 await SairDaConta(setToken, setRefresh, setDados, setPopup)
-
 
 
                 setPopupAtivo(null);
@@ -209,8 +210,55 @@ const ConteudoConfiguracoes = () => {
     const ValidarEmail = async () => {
 
         //Requisição de validar email
-        const campo = new Configurações(token, refresh_token, Navegacao, set)
+        
         await campo.Validar_Email(email, setPopup)
+    }
+
+     //Validar Email
+    const VerificarSenha = async () => {
+
+        if (senha.length < 8) {
+                setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Erro no formulário',
+                    mensagem: "Senha deve conter pelo menos 8 caracteres"
+                });
+                return;
+            }
+
+        if (senha.includes(" ")) {
+            setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Erro no formulário',
+                    mensagem: "Senha não pode conter espaços"
+                });
+            return;
+        }
+
+
+        await campo.Verificar_Senha(senha,dados.email,setPodeNavegar, setPopup)  
+        
+    }
+
+     //Verificar Telefone
+    const VerificarTelefone = async () => {
+
+        if(telefoneLimpo != telefoneConfirmacaoLimpo)
+        {
+            setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Erro no formulário',
+                    mensagem: "Telefone não coincidem"
+                });
+            return;
+        }
+        //Rota de verificar o telefone
+        //Por enquanto deixe vazio aqui
+
+
+        
+        //Levo para a tela de Enviar SMS(gabriel)
+        //->
     }
 
     return (
@@ -323,7 +371,7 @@ const ConteudoConfiguracoes = () => {
                                 onChange={(e) => setTelefoneConfirmacao(
                                     formatarTelefone(e.target.value))} />
                         </div>
-                        <button className={Style.botoes}>Adicionar</button>
+                        <button className={Style.botoes} onClick={VerificarTelefone}>Adicionar</button>
                     </div>
 
                     <div className={Style.parteSenha}>
@@ -331,15 +379,16 @@ const ConteudoConfiguracoes = () => {
                         <div className={Style.campoForm}>
                             <label htmlFor="idSenhaAtual">Alterar Senha</label>
                             <CampoTexto type="password"
-                                placeholder='Senha*'
+                                placeholder='Senha Atual*'
                                 value={senha}
                                 onChange={(e) => setSenha(e.target.value)}
                             />
                         </div>
 
-                        <Link to="/recuperar-senha">
+                        <Link>
                             <BotoesForm className={Style.botoes}
-                                texto="Alterar Senha"
+                                texto="Confirmar"
+                                onClick={VerificarSenha}
                             />
                         </Link>
                     </div>

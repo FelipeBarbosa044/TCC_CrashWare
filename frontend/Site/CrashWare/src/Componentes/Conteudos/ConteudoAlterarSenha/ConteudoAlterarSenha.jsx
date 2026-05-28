@@ -22,6 +22,17 @@ const ConteudoAlterarSenha = () => {
     const [mostrar, setMostrar] = useState(false);
     const [mostrarConfimar, setMostrarConfimar] = useState(false);
 
+
+    //Usestates do token refresh e dados
+    const [token_state, setToken] = useState(() => localStorage.getItem("token"));
+
+    const [refresh_token_state, setRefresh] = useState(() => localStorage.getItem("refresh_token"));
+
+    const [dados, setDados] = useState(() =>
+        JSON.parse(localStorage.getItem("dados")) || null
+    );
+    
+
     //Variavel da popup
     const [popup, setPopup] = useState(null);
 
@@ -65,7 +76,7 @@ const ConteudoAlterarSenha = () => {
         const usuario = new Api();
 
         //Chamo o método
-        usuario.Alterar_Senha(email,senha,confirmaSenha,setPopup,Navegacao);
+        usuario.Alterar_Senha(email,senha,confirmaSenha,setPopup,Navegacao,setToken,setRefresh,setDados);
 
 
         
