@@ -205,12 +205,14 @@ async def enviar_sms(dados : TelefoneSchema,session = Depends(pegar_sessao)):
         usuario = session.query(Usuarios).filter(Usuarios.telefone == dados.telefone).first()
 
 
-    #Pego a validade e a data Atual
-    validade = usuario.sms_expirado_em  + timedelta(minutes=10)
-    agora = datetime.now(timezone.utc)
+
 
     # Verifico se está valido o sms
     if (usuario.sms != None):
+        # Pego a validade e a data Atual
+        validade = usuario.sms_expirado_em + timedelta(minutes=10)
+        agora = datetime.now(timezone.utc)
+        
         if(agora > validade):
             raise HTTPException(status_code=409, detail="Código Já Enviado!")
 
