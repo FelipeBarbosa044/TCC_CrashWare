@@ -44,6 +44,7 @@ const ConteudoConfiguracoes = () => {
     const [email, setEmailNovo] = useState("");
     const [telefone, setTelefone] = useState("");
     const [telefoneConfirmacao, setTelefoneConfirmacao] = useState("");
+    const [nome, setNome] = useState("");
 
     //Formatar Telefone
     function formatarTelefone(valor) {
@@ -354,6 +355,26 @@ const ConteudoConfiguracoes = () => {
                                 />
                             </div>
                             <button className={Style.botoes} onClick={ValidarEmail}>Alterar</button>
+                        </div>
+
+                        <div className={Style.parteNome}>
+                            <div className={Style.campoForm}>
+                                <label htmlFor="idNomeVinculado">Nome Atual</label>
+                                <p>{usuario.nome}</p>
+                            </div>
+                            <div className={Style.campoForm}>
+                                <label htmlFor="idNovoNome">Novo Nome</label>
+                                <input
+                                    type="text"
+                                    maxLength={200}
+                                    placeholder="Nome*"
+                                    id='idNovoNome'
+                                    value={nome}
+                                    onChange={(e) => setNome(e.target.value)}
+                                    autoComplete='name'
+                                />
+                            </div>
+                            <button className={Style.btnNome} >Alterar</button>
                         </div>
 
                         <div className={Style.parteTelefone}>
