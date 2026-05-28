@@ -200,7 +200,7 @@ async def reenviar_codigo( dados : EmailSchema, session = Depends(pegar_sessao))
 async def enviar_sms(dados : TelefoneSchema,session = Depends(pegar_sessao)):
     #Pego o usuario pelo email ou pelo o telefone
     if (dados.email != None):
-        usuario = session.query(Usuarios).filter(Usuarios.telefone == dados.email).first()
+        usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     else:
         usuario = session.query(Usuarios).filter(Usuarios.telefone == dados.telefone).first()
 
