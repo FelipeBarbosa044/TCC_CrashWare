@@ -198,14 +198,28 @@ async def reenviar_codigo( dados : EmailSchema, session = Depends(pegar_sessao))
 ########################
 @auth.post('/enviar_sms')
 async def enviar_sms(dados : TelefoneSchema,session = Depends(pegar_sessao)):
-    usuario = session.query(Usuarios).filter(Usuarios.telefone == dados.telefone).first()
+    #Pego o usuario pelo email ou pelo o telefone
+    if (dados.email != None):
+        usuario = session.query(Usuarios).filter(Usuarios.telefone == dados.email).first()
+    else:
+        usuario = session.query(Usuarios).filter(Usuarios.telefone == dados.telefone).first()
+
+
+    #Pego a validade e a data Atual
+    validade = usuario.sms_expirado_em  + timedelta(minutes=10)
+    agora = datetime.now(timezone.utc)
+
+    # Verifico se está valido o sms
+    if (usuario.sms != None):
+        if(agora > validade):
+            raise HTTPException(status_code=409, detail="Código Já Enviado!")
 
     # Gero novo código
     codigo, expira = gerar_codigo()
 
     # Atualizo o banco
-    usuario.codigo = codigo
-    usuario.codigo_expirado_em = expira
+    usuario.sms = codigo
+    usuario.sms_expirado_em = expira
     session.commit()
 
     # Envio  o SMS

@@ -54,6 +54,7 @@ class SenhaSchema(BaseModel):
 #Telefone schema
 class TelefoneSchema(BaseModel):
      telefone : str
+     email : Optional[str] = None
 
      class Config:
          from_attributes = True
