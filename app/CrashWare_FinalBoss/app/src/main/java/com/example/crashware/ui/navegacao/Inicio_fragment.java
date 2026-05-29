@@ -158,13 +158,13 @@ public class Inicio_fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-
+                conquista.show();
 
                 Carinho ++;
                 //
                 if (Carinho >= 10)
                 {
-                    conquista.show();
+                    Toast.makeText(getContext(),"Conquista adquirida", LENGTH_LONG).show();
 
                 }
             }
@@ -241,10 +241,10 @@ public class Inicio_fragment extends Fragment {
         // Animação da Barra de XP
         ObjectAnimator animacaoBarra = ObjectAnimator.ofInt
                 (
-                BarraProgressoNivel,
-                "progress",
-                BarraProgressoNivel.getProgress(),
-                xp
+                        BarraProgressoNivel,
+                        "progress",
+                        BarraProgressoNivel.getProgress(),
+                        xp
                 );
 
         animacaoBarra.setDuration(700);

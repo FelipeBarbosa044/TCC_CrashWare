@@ -60,7 +60,7 @@ public class User {
         void sucesso(PerfilResponse usuario);
     }
 
-    public static void Perfil(Context context, SharedPreferences prefs,PerfilCallback callback) {
+    public static void Perfil(Context context, SharedPreferences prefs, PerfilCallback callback) {
 
         //Pego o valor do token
         String token = prefs.getString("token", null);
@@ -138,7 +138,7 @@ public class User {
     public static class Adicionar_FotoResponse {
         public String mensagem;
         public String foto;
-       
+
     }
 
     // INTERFACE da API:
@@ -150,7 +150,6 @@ public class User {
                 @Part MultipartBody.Part foto
         );
     }
-
 
 
     public static void Adicionar_Foto(Context context, SharedPreferences prefs, Uri uri, ImageView imgfotoInicio) {
@@ -203,7 +202,7 @@ public class User {
 
 
             // Monto a chamada da API:
-            Call<Adicionar_FotoResponse> requisicao = api.adicionar(token,fotoPart);
+            Call<Adicionar_FotoResponse> requisicao = api.adicionar(token, fotoPart);
 
             requisicao.enqueue(new Callback<Adicionar_FotoResponse>() {
                 @Override
@@ -297,9 +296,7 @@ public class User {
     }
 
 
-
-    public static void Alterar_Foto(Context context, SharedPreferences prefs, Uri uri, ImageView img)
-    {
+    public static void Alterar_Foto(Context context, SharedPreferences prefs, Uri uri, ImageView img) {
 
         //Pego o valor do token
         String token = prefs.getString("token", null);
@@ -446,7 +443,6 @@ public class User {
     }
 
 
-
     public static void Adicionar_Banner(Context context, SharedPreferences prefs, Uri uri, ImageView img) {
         //Pego o valor do token
         String token = prefs.getString("token", null);
@@ -591,9 +587,7 @@ public class User {
     }
 
 
-
-    public static void Alterar_Banner(Context context, SharedPreferences prefs, Uri uri, ImageView img)
-    {
+    public static void Alterar_Banner(Context context, SharedPreferences prefs, Uri uri, ImageView img) {
 
         //Pego o valor do token
         String token = prefs.getString("token", null);
@@ -736,108 +730,99 @@ public class User {
 
     //Resposta da API
     public static class ConquistaResponse {
-            public String nome_conquista;
-            public String descricao;
-            public String tipo_conquista;
-            public Integer moeda_bonus;
-            public Float xp_bonus;
+        public String nome_conquista;
+        public String descricao;
+        public String tipo_conquista;
+        public Integer moeda_bonus;
+        public Float xp_bonus;
 
 
-        }
+    }
 
-        // INTERFACE da API:
-        public static interface conquista {
+    // INTERFACE da API:
+    public static interface conquista {
 
-            @POST("/achievement/")
-            Call<ConquistaResponse> conquistar(
+        @POST("/achievement/")
+        Call<ConquistaResponse> conquistar(
 
-                    @Header("Authorization") String token,
-                    @Body ConquistaRequest request
-            );
-        }
+                @Header("Authorization") String token,
+                @Body ConquistaRequest request
+        );
+    }
 
-        public static void Conquista(Integer conquista_id,SharedPreferences prefs,Context context)
-        {
+    public static void Conquista(Integer conquista_id, SharedPreferences prefs, Context context) {
 
-            //Pego o valor do token
-            String token = prefs.getString("token", null);
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
 
-            //Preparo ele para enviar para o header da requisição
-            token = "Bearer " + token;
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
 
-            //Objeto do login
-            ConquistaRequest dados = new ConquistaRequest(conquista_id);
-
-
-            // Criando a API
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://api-crashware.onrender.com/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            // Fazendo que a interface da API seja utilizavel:
-            conquista api = retrofit.create(conquista.class);
+        //Objeto do login
+        ConquistaRequest dados = new ConquistaRequest(conquista_id);
 
 
-            // Monto a chamada da API
-            Call<ConquistaResponse> requisicao = api.conquistar(token,dados);
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-            // executo a requisicao:
-            requisicao.enqueue(new Callback<ConquistaResponse>() {
-                @Override
-                public void onResponse(
-                        Call<ConquistaResponse> requisicao,
-                        retrofit2.Response<ConquistaResponse> resposta
-                )
-                {
-                    if(resposta.code() == 409)
-                    {
-                        //Ignora
-                        return;
+        // Fazendo que a interface da API seja utilizavel:
+        conquista api = retrofit.create(conquista.class);
+
+
+        // Monto a chamada da API
+        Call<ConquistaResponse> requisicao = api.conquistar(token, dados);
+
+        // executo a requisicao:
+        requisicao.enqueue(new Callback<ConquistaResponse>() {
+            @Override
+            public void onResponse(
+                    Call<ConquistaResponse> requisicao,
+                    retrofit2.Response<ConquistaResponse> resposta
+            ) {
+                if (resposta.code() == 409) {
+                    //Ignora
+                    return;
+                }
+                if (resposta.isSuccessful()) {
+
+                    //Primeiro Login se tornara Falso
+                    prefs.edit()
+                            .putBoolean("PrimeiroLogin", false)
+                            .apply();
+
+
+                    //Requisição der certo
+                    ConquistaResponse dados = resposta.body();
+
+                    String nome_conquista = dados.nome_conquista;
+
+                    String descricao = dados.descricao;
+
+                    String tipo_conquista = dados.tipo_conquista;
+
+                    Integer moedas_bonus = dados.moeda_bonus;
+
+                    Float xp_bonus = dados.xp_bonus;
+
+                    if (moedas_bonus != 0) {
+                        //Adiciono moeda para o usuario
+                        adicionar_moeda(moedas_bonus, prefs);
                     }
-                    if(resposta.isSuccessful())
-                    {
 
-                        //Primeiro Login se tornara Falso
-                        prefs.edit()
-                                .putBoolean("PrimeiroLogin",false)
-                                .apply();
-
-
-                        //Requisição der certo
-                        ConquistaResponse dados = resposta.body();
-
-                        String nome_conquista = dados.nome_conquista;
-
-                        String descricao = dados.descricao;
-
-                        String tipo_conquista = dados.tipo_conquista;
-
-                        Integer moedas_bonus = dados.moeda_bonus;
-
-                        Float xp_bonus = dados.xp_bonus;
-
-                        if(moedas_bonus != 0)
-                        {
-                            //Adiciono moeda para o usuario
-                            adicionar_moeda(moedas_bonus,prefs);
-                        }
-
-                        if(xp_bonus != 0)
-                        {
-                            //Adiciono xp para o usuario
-                            adicionar_xp(xp_bonus,prefs);
-                        }
-
-
-
-                        //Mostrara esse popup por enquanto (AQUI AONDE VOCê VAI MOSTRAR A CONQUISTA JAO OU ADLER)
-                        Toast.makeText(context, nome_conquista, Toast.LENGTH_LONG).show();
-
+                    if (xp_bonus != 0) {
+                        //Adiciono xp para o usuario
+                        adicionar_xp(xp_bonus, prefs);
                     }
-                    else
-                    {
-                        //Retorna erro caso a reqsição dar errado
+
+
+                    //Mostrara esse popup por enquanto (AQUI AONDE VOCê VAI MOSTRAR A CONQUISTA JAO OU ADLER)
+                    Toast.makeText(context, nome_conquista, Toast.LENGTH_LONG).show();
+
+                } else {
+                    //Retorna erro caso a reqsição dar errado
 
 //                        String erro = "Erro ao alterar banner";
 //
@@ -855,116 +840,112 @@ public class User {
 //                            // ignora, mantém mensagem padrão
 //                        }
 
-                        //Aqui retorna o ERRO
+                    //Aqui retorna o ERRO
 //                        Toast.makeText(context, erro, Toast.LENGTH_LONG).show();
-                    }
+                }
 
 
-                }//oResponse
+            }//oResponse
 
-                @Override
-                public void onFailure(Call<ConquistaResponse> call, Throwable t) {
-                    // Caso deu erro na requisição
-                    // erro de conexão (internet, URL, servidor fora)
+            @Override
+            public void onFailure(Call<ConquistaResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
 //                    Toast.makeText(
 //                            context,
 //                            "Erro de conexão: " + t.getMessage(),
 //                            Toast.LENGTH_LONG
 //                    ).show();
-                }
-            });
-
-        }//Conquista
-
-        //adicionar_moeda
-
-        // Dados que vai para a API:
-        static class RecursosRequest {
-
-            public Integer moedas;
-            public Float xp;
-
-
-            public RecursosRequest(Integer moedas, Float xp) {
-                this.moedas = moedas;
-                this.xp = xp;
             }
+        });
+
+    }//Conquista
+
+    //adicionar_moeda
+
+    // Dados que vai para a API:
+    static class RecursosRequest {
+
+        public Integer moedas;
+        public Float xp;
+
+
+        public RecursosRequest(Integer moedas, Float xp) {
+            this.moedas = moedas;
+            this.xp = xp;
         }
+    }
 
-        //Resposta da API
-        public static class RecursosResponse {
-           //Ignora
+    //Resposta da API
+    public static class RecursosResponse {
+        //Ignora
 
-        }
+    }
 
-        // INTERFACE da API:
-        public static interface moeda {
+    // INTERFACE da API:
+    public static interface moeda {
 
-            @POST("/user/moeda")
-            Call<RecursosResponse> adicionar(
+        @POST("/user/moeda")
+        Call<RecursosResponse> adicionar(
 
-                    @Header("Authorization") String token,
-                    @Body RecursosRequest request
-            );
-        }
+                @Header("Authorization") String token,
+                @Body RecursosRequest request
+        );
+    }
 
-        public static void adicionar_moeda(Integer moedas,SharedPreferences prefs)
-        {
-            //Pego o valor do token
-            String token = prefs.getString("token", null);
+    public static void adicionar_moeda(Integer moedas, SharedPreferences prefs) {
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
 
-            //Preparo ele para enviar para o header da requisição
-            token = "Bearer " + token;
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
 
-            //Objeto do login
-            RecursosRequest dados = new RecursosRequest(moedas,null);
-
-
-            // Criando a API
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://api-crashware.onrender.com/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            // Fazendo que a interface da API seja utilizavel:
-            moeda api = retrofit.create(moeda.class);
-
-            // Monto a chamada da API
-            Call<RecursosResponse> requisicao = api.adicionar(token,dados);
-
-            // executo a requisicao:
-            requisicao.enqueue(new Callback<RecursosResponse>() {
-                @Override
-                public void onResponse(
-                        Call<RecursosResponse> requisicao,
-                        retrofit2.Response<RecursosResponse> resposta
-                )
-                {
-                    if(resposta.isSuccessful())
-                    {
-                        //Requisição der certo
-
-                        
-                    }
+        //Objeto do login
+        RecursosRequest dados = new RecursosRequest(moedas, null);
 
 
-                }//oResponse
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-                @Override
-                public void onFailure(Call<RecursosResponse> call, Throwable t) {
-                    // Caso deu erro na requisição
-                    // erro de conexão (internet, URL, servidor fora)
+        // Fazendo que a interface da API seja utilizavel:
+        moeda api = retrofit.create(moeda.class);
+
+        // Monto a chamada da API
+        Call<RecursosResponse> requisicao = api.adicionar(token, dados);
+
+        // executo a requisicao:
+        requisicao.enqueue(new Callback<RecursosResponse>() {
+            @Override
+            public void onResponse(
+                    Call<RecursosResponse> requisicao,
+                    retrofit2.Response<RecursosResponse> resposta
+            ) {
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+
+                }
+
+
+            }//oResponse
+
+            @Override
+            public void onFailure(Call<RecursosResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
 //                    Toast.makeText(
 //                            context,
 //                            "Erro de conexão: " + t.getMessage(),
 //                            Toast.LENGTH_LONG
 //                    ).show();
-                }
-            });
+            }
+        });
 
 
-
-        }//adicionar_xp
+    }//adicionar_xp
 
 
     //Adicionar XP
@@ -980,8 +961,7 @@ public class User {
         );
     }
 
-    public static void adicionar_xp(Float xp,SharedPreferences prefs)
-    {
+    public static void adicionar_xp(Float xp, SharedPreferences prefs) {
         //Pego o valor do token
         String token = prefs.getString("token", null);
 
@@ -989,7 +969,7 @@ public class User {
         token = "Bearer " + token;
 
         //Objeto do login
-        RecursosRequest dados = new RecursosRequest(null,xp);
+        RecursosRequest dados = new RecursosRequest(null, xp);
 
 
         // Criando a API
@@ -1002,7 +982,7 @@ public class User {
         xp api = retrofit.create(xp.class);
 
         // Monto a chamada da API
-        Call<RecursosResponse> requisicao = api.adicionar(token,dados);
+        Call<RecursosResponse> requisicao = api.adicionar(token, dados);
 
         // executo a requisicao:
         requisicao.enqueue(new Callback<RecursosResponse>() {
@@ -1010,10 +990,8 @@ public class User {
             public void onResponse(
                     Call<RecursosResponse> requisicao,
                     retrofit2.Response<RecursosResponse> resposta
-            )
-            {
-                if(resposta.isSuccessful())
-                {
+            ) {
+                if (resposta.isSuccessful()) {
                     //Requisição der certo
 
                 }
@@ -1032,7 +1010,6 @@ public class User {
 //                ).show();
             }
         });
-
 
 
     }//adicionar_xp
@@ -1055,26 +1032,30 @@ public class User {
         );
     }
 
-    public static void ExibirConquista(SharedPreferences prefs) {
-        //Pego o valor do token
+    // Callback
+    public interface ConquistaCallback {
+        void sucesso(List<ConquistaResponse> conquistas);
+    }
+
+    // Exibir conquistas
+    public static void ExibirConquista(
+            SharedPreferences prefs,
+            ConquistaCallback callback
+    ) {
+
         String token = prefs.getString("token", null);
 
-        //Preparo ele para enviar para o header da requisição
         token = "Bearer " + token;
 
-        // Criando a API
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api-crashware.onrender.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        // Fazendo que a interface da API seja utilizavel:
         exibir_conquista api = retrofit.create(exibir_conquista.class);
 
-        // Monto a chamada da API
         Call<ExibirConquistaResponse> requisicao = api.exibir(token);
 
-        // executo a requisicao:
         requisicao.enqueue(new Callback<ExibirConquistaResponse>() {
 
             @Override
@@ -1084,54 +1065,48 @@ public class User {
             ) {
 
                 if (resposta.isSuccessful()) {
-                    // Requisição deu certo
 
-                    //Pego a array que mantém as conquistas
-                    List<ConquistaResponse> conquistas = resposta.body().conquistas;
+                    List<ConquistaResponse> conquistas =
+                            resposta.body().conquistas;
 
-                    //For que retorna todos os dados da array
-                    for (ConquistaResponse conquista : conquistas) {
-                        String nome = conquista.nome_conquista;
-                        String descricao = conquista.descricao;
+                    callback.sucesso(conquistas);
 
-                        //Aqui só vai retornar as conquistas desbloqueadas do usuario
-
-                        //Exibo em conquistas na tela Inicio_Fragment e Conquistas_Fragment:
-                        //(BOA SORTE JOAO, TENHO OUTRAS COISAS HÁ FAZER, NÃO POSSO FICAR PARADO)
-
-
-                    }
-
-
-                } else {
-                    // Requisição deu erro
-                    String erro = "Erro Inesperado";
-
-                    //Aqui retorna o ERRO onde fica as conquistas:
-                    //Boa sorte JOAO
                 }
             }
 
             @Override
-            public void onFailure(
-                    Call<ExibirConquistaResponse> call,
-                    Throwable t
-            )
+            public void onFailure
+                    (
+                            Call<ExibirConquistaResponse> call,
+                            Throwable t
+                    )
             {
 
-               // Caso deu erro na requisição
-               // erro de conexão (internet, URL, servidor fora)
-
-//             Toast.makeText(
-    //                    context,
-    //                    "Erro de conexão: " + t.getMessage(),
-    //                    Toast.LENGTH_LONG
-    //            ).show();
             }
+        });
+    }
+}
 
-        });//enqueque
-
-    }// Exibir conquista
-
-
-    }//User
+//            @Override
+//            public void onFailure(
+//                    Call<ExibirConquistaResponse> call,
+//                    Throwable t
+//            )
+//            {
+//
+//               // Caso deu erro na requisição
+//               // erro de conexão (internet, URL, servidor fora)
+//
+////             Toast.makeText(
+//    //                    context,
+//    //                    "Erro de conexão: " + t.getMessage(),
+//    //                    Toast.LENGTH_LONG
+//    //            ).show();
+//            }
+//
+//        });//enqueque
+//
+//    }// Exibir conquista
+//
+//
+//    }//User

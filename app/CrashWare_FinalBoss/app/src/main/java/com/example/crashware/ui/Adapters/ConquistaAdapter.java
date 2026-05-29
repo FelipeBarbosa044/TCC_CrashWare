@@ -43,7 +43,8 @@ public class ConquistaAdapter extends RecyclerView.Adapter<ConquistaAdapter.View
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return lista.size();
     }
 
