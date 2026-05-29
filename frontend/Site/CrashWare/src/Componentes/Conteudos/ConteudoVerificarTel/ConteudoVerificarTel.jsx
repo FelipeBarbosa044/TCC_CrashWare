@@ -18,7 +18,6 @@ const ConteudoVerificarTel = () => {
     const [timer, setTimer] = useState(0);
     const [loading, setLoading] = useState(false);
     const [verificando, setVerificando] = useState(false);
-    const [enviarcodigo, setEnviarCodigo] = useState(false);
     const [erro, setErro] = useState("");
 
     const setPodeNavegar = useState(false);
@@ -38,6 +37,8 @@ const ConteudoVerificarTel = () => {
     const location = useLocation();
     const origem = location.state?.origem;
     const telefone = location.state?.telefone || "";
+
+    const telefoneF = telefone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3"); //Formata o telefone para exibição
 
     //Block de navegação
 
@@ -79,7 +80,7 @@ const ConteudoVerificarTel = () => {
 
         const intervalo = setInterval(() => {
             setTimer((prev) => prev - 1);
-        }, 1000);
+        }, 10000);
 
         return () => clearInterval(intervalo);
     }, [timer]);
@@ -127,7 +128,7 @@ const ConteudoVerificarTel = () => {
 
                     <h2>Digite o código de verificação que enviamos no seu <span>SMS</span></h2>
 
-                    <h3><span>{telefone}</span></h3>
+                    <h3><span>{telefoneF}</span></h3>
                     <div className={style.senhaWrapper}>
                         <CampoTexto
                             type="text"
@@ -151,7 +152,7 @@ const ConteudoVerificarTel = () => {
                         texto="Verificar"
                         className={style.btnEnviar}
                         // onClick={handleVericarEmail}
-                        disabled={!enviarcodigo || loading}
+                        // disabled={!enviarcodigo || loading}
                     />
                 </div>
             </div>
