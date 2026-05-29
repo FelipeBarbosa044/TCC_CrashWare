@@ -193,7 +193,7 @@ const ConteudoVerificarTel = () => {
                     <BotoesForm
                         texto="Verificar"
                         className={style.btnEnviar}
-                        // onClick={handleVericarEmail}
+                         onClick={VerificarSMS}
                         // disabled={!enviarcodigo || loading}
                     />
                 </div>
