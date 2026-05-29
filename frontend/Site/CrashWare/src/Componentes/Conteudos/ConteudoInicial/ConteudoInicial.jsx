@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import FMenina_claro from '../../../fotos/claro/NovaMenina.svg';
 import FMenina_escuro from '../../../fotos/escuro/NovaMenina.svg';
+import Raposa_SoftWare from '../../../fotos/Raposa_SoftWare.png';
 import apleModoClaro from '../../../fotos/claro/apple-logo-svgrepo-com.svg';
 import apleModoEscuro from '../../../fotos/escuro/apple_icon.svg';
 import googlePlayModoClaro from '../../../fotos/claro/play.svg';
@@ -86,8 +87,6 @@ const ConteudoInicial = () => {
                 <section className={Style.Materiais}>
 
                     <div className={Style.CaixaMateriais}>
-                        <h2>Materiais Revisados</h2>
-
                         {/* Hardware */}
                         <section className={Style.ConteudoHardware}>
 
@@ -131,7 +130,7 @@ const ConteudoInicial = () => {
                             </div>
 
                             <div className={Style.ConteudoSoftware_img}>
-                                <div>img</div>
+                                <img src={Raposa_SoftWare} alt="raposa de software" />
                             </div>
 
                         </section>
