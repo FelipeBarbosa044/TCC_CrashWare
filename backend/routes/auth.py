@@ -367,9 +367,10 @@ async def verificar_telefone(dados : TelefoneSchema,usuario = Depends(validar_to
 ############################
 ##Rota De alterar Telefone
 @auth.patch('/alterar_telefone')
-async def alterar_telefone(dados: TelefoneSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+async def alterar_telefone(dados: TelefoneSchema,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.telefone == dados.telefone).first()
     if usuario is None:
-        raise HTTPException(status_code=401, detail="Token expirado ou inválido")
+        raise HTTPException(status_code=401, detail="Telefone não autenticado")
     try:
         usuario.telefone = dados.telefone
         session.commit()
