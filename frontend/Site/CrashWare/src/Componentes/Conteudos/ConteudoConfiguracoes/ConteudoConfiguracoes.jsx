@@ -108,6 +108,14 @@ const ConteudoConfiguracoes = () => {
     //Pego as informações do usuario
     const usuario = JSON.parse(localStorage.getItem("dados"));
 
+
+    if(usuario?.telefone != null)
+    {
+        //BOA SORTE GABRIEL
+
+
+    }
+
     const emailAtual = usuario?.email;
 
 
@@ -244,9 +252,9 @@ const ConteudoConfiguracoes = () => {
     }
 
     //Verificar Telefone
-    const AdicionarTelefone = async () => {
+    const VerificarTelefone = async () => {
 
-        localStorage.setItem("adicionar_telefone" , "true")
+        
 
         if (telefoneLimpo != telefoneConfirmacaoLimpo) {
             setPopup({
@@ -266,8 +274,24 @@ const ConteudoConfiguracoes = () => {
             return;
         }
 
-        //Rota de verificar o telefone
-        await campo.Verificar_Telefone(telefoneLimpo,emailAtual,setPopup,Navegacao)
+        
+        if(usuario?.telefone != null)
+        {
+            localStorage.setItem("alterar_telefone" , "true")
+
+            //Rota de alterar Telefone
+            await campo.Verificar_Telefone(telefoneLimpo,emailAtual,setPopup,Navegacao)
+
+        }else
+        {
+
+            localStorage.setItem("adicionar_telefone" , "true")
+
+            //Rota de add o telefone
+            //Rota de verificar o telefone
+            await campo.Verificar_Telefone(telefoneLimpo,emailAtual,setPopup,Navegacao)
+        }
+        
 
     }
 
@@ -325,10 +349,12 @@ const ConteudoConfiguracoes = () => {
                         <h1>Privacidade e Segurança</h1>
                         <hr />
 
-                        <ItemBarraLateral
-                            descricao={"Sobre"}
-                            img={sobreModoClaro}
-                        />
+                        <Link to={"/sobre"}>    
+                            <ItemBarraLateral
+                                descricao={"Sobre"}
+                                img={sobreModoClaro}
+                            />
+                        </Link>
                         <Link to="/termos">
                             <ItemBarraLateral
                                 descricao={"Termos de Serviço"}
@@ -377,7 +403,7 @@ const ConteudoConfiguracoes = () => {
                                     autoComplete='name'
                                 />
                             </div>
-                            <button className={Style.btnNome} >Alterar</button>
+                            <button className={Style.botoes} >Alterar</button>
                         </div>
 
                         <div className={Style.parteTelefone}>
@@ -388,7 +414,9 @@ const ConteudoConfiguracoes = () => {
                                     placeholder='xx-xxxxx-xxxx'
                                     value={telefone}
                                     onChange={(e) => setTelefone(
-                                        formatarTelefone(e.target.value))} />
+                                        formatarTelefone(e.target.value))} 
+                                    className={Style.campoForm2}
+                                        />
                             </div>
 
                             <div className={Style.campoForm}>
@@ -402,7 +430,7 @@ const ConteudoConfiguracoes = () => {
                                     onChange={(e) => setTelefoneConfirmacao(
                                         formatarTelefone(e.target.value))} />
                             </div>
-                            <button className={Style.botoes} onClick={AdicionarTelefone}>Adicionar</button>
+                            <button className={Style.botoes} onClick={VerificarTelefone}>Adicionar</button>
                         </div>
 
                         <div className={Style.parteSenha}>
@@ -413,6 +441,7 @@ const ConteudoConfiguracoes = () => {
                                     placeholder='Senha Atual*'
                                     value={senha}
                                     onChange={(e) => setSenha(e.target.value)}
+                                    className={Style.campoForm2}
                                 />                   
                             </div>
                             <Link>                          <BotoesForm className={Style.botoes}

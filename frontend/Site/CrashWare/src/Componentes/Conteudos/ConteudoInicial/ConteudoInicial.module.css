@@ -7,21 +7,19 @@
 /* ===== CONTAINER PRINCIPAL ===== */
 .corpo{
     height: 100%;
-    background-color: var(--bg-secundario);
+    background-color: var(--bg-principal);
+    /* background: linear-gradient(to bottom, var(--bg-secundario), var(--blur)); */
     width: 100%;
-    padding-top: 260px;
-    margin-bottom: 20px;
-    border-radius: 20px;
+    padding-top: 100px;
 }
 
 .MainEstilo {
-    max-width: 1100px;
+    min-width: 1100px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     /* padding-top: 80px; */
-    background-color: var(--bg-secundario);
     font-family: "Montserrat", sans-serif;
     border-radius: 20px;
 }
@@ -43,7 +41,9 @@
     justify-content: space-between;
     gap: 32px;
     width: 100%;
-    padding: 48px 40px 40px;
+    padding-bottom: 30px;
+    background: var(--gradiente-inicial);
+
 }
 
 .Apresentacao_texto {
@@ -120,6 +120,7 @@
     width: 100%;
     padding: 28px 40px;
     box-shadow: none;
+    background-color: var(--bg-terceiro);
 }
 
 .Chamada h3 {
@@ -156,18 +157,10 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 30px 40px;
+    padding: 30px 0px;
+    background-color: var(--bg-secundario);
 }
 
-.Materiais h2 {
-    background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-size: clamp(28px, 4vw, 50px);
-    text-align: center;
-    margin: 10px 0 30px;
-}
 
 /* ===== HARDWARE ===== */
 .ConteudoHardware {
@@ -177,9 +170,8 @@
     justify-self: center;
 
     gap: 48px;
-    width: 100%;
+    width: 80vw;
     margin-bottom: 50px;
-    width: 800px;
 }
 
 .ConteudoHardware_img {
@@ -214,21 +206,19 @@
 .ConteudoHardware_texto h2 {
     font-size: clamp(20px, 2.5vw, 38px);
     font-weight: 800;
-    color: var(--cor-primaria);
+    background: linear-gradient(90deg,#A9CD08,#2BCA23,#019898);
     margin-bottom: 8px;
     text-align: center;
-    background: none;
-    -webkit-text-fill-color: var(--cor-primaria);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .ConteudoHardware_texto h4 {
     font-size: clamp(14px, 2vw, 22px);
     font-weight: 700;
     padding: 12px 0 4px;
-    background: linear-gradient(90deg, var(--cor-primaria), var(--cor-primaria-hover));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #15C021;
     text-align: center;
 }
 
@@ -259,20 +249,22 @@
     justify-self: center;
 
     gap: 48px;
-    width: 800px;
+    width: 80vw;
     margin-bottom: 30px;
 }
 
-.ConteudoSoftware_img {
+.ConteudoSoftware_img img {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-shrink: 0;
+    width: 260px;
+    background-color: var(--bg-secundario);
 }
 
 .ConteudoSoftware_img div {
-    width: 260px;
-    height: 180px;
+    width: 10px;
+    height: 10%;
     border-radius: 16px;
     border: 2px dashed var(--cor-secundaria);
     background: rgba(0, 200, 255, 0.05);
@@ -295,11 +287,12 @@
 .ConteudoSoftware_texto h2 {
     font-size: clamp(20px, 2.5vw, 38px);
     font-weight: 800;
-    color: var(--cor-secundaria);
     margin-bottom: 8px;
     text-align: center;
-    background: none;
-    -webkit-text-fill-color: var(--cor-secundaria);
+        background: linear-gradient(90deg,#19C4D0,#1893C7,#1964D1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     text-align: center;
 }
 
@@ -307,10 +300,7 @@
     font-size: clamp(14px, 2vw, 22px);
     font-weight: 700;
     padding: 12px 0 4px;
-    background: linear-gradient(90deg, var(--cor-secundaria-hover), var(--cor-secundaria));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #1893C7;
     text-align: center;
 }
 
@@ -334,11 +324,10 @@
 
 /* ===== TEXTO FINAL ===== */
 .aplicativo {
-    margin-top: 60px;
     text-align: center;
     padding: 40px 20px;
     width: 100%;
-    background-color: var(--bg-secundario);
+    background: var(--app-bg);
 }
 
 .Caixa {
@@ -348,7 +337,7 @@
 }
 
 .aplicativo h2 {
-    background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+    background: var(--gradiente-app);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -425,8 +414,13 @@
 
 /* ===== RESPONSIVIDADE (max 700px) ===== */
 @media (max-width: 700px) {
+
+    .corpo{
+        padding-top: 150px;
+    }
+
     .MainEstilo {
-        padding-top: 70px ;
+        padding-top: 0px ;
     }
 
     /* Hero */
@@ -553,4 +547,33 @@
         font-size: 5.5vw;
     }
 
+    .botoesInstalar{
+        gap: 20px;
+    }
+
+    .aplicativo{
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    .Chamada{
+        width: 70%;
+    }
+
+    .Chamada h3{
+        font-size: 16px;
+    }
+
+    .Chamada h5{
+        font-size: 11px;
+        width: 100%;
+    }
+
+    .Chamada hr{
+        width: 100%;
+    }
+
+    .ConteudoHardware, .ConteudoSoftware{
+        width: 70%;
+    }
 }

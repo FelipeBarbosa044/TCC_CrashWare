@@ -447,8 +447,11 @@ export class Configurações
     }
 
     //Enviar SMS
-    async Enviar_SMS(telefone,email,setPopup)
+    async Enviar_SMS(telefone,email,setPopup, loading, timer, setLoading, setTimer,setEnviarCodigo = null)
     {
+        if (loading || timer > 0) return;
+        setLoading(true);
+        setEnviarCodigo(true);
         try
         {
             const response = await fetch("https://api-crashware.onrender.com/auth/enviar_sms",
@@ -467,7 +470,7 @@ export class Configurações
             if(response.ok)
             {
                 //Bloqueio o botão por 10 minutos
-
+                setTimer(600); // 10 minutos em segundos
 
                 const resposta = await response.json();
                  setPopup({
@@ -530,17 +533,38 @@ export class Configurações
 
             if (response.ok)
                 {
-                    const AddTelefone = localStorage.getItem("adicionar_telefone" , "true")
+                    const AddTelefone = localStorage.getItem("adicionar_telefone")
+
+                    const AlterarTelefone = localStorage.getItem("alterar_telefone")
 
                     if(AddTelefone == "true")
                     {
                         //Chamo o método de adicionar telefone
-                        await AddTelefone(telefone,email,setPopup,setDados,Navegacao)
+                        await this.Adicionar_Telefone(telefone,email,setPopup,setDados,Navegacao)
                         return;
+                    }else if (AlterarTelefone == "true")
+                    {
+                        //Chamo o método de alterar telefone
+                        await this.Alterar_Telefone(telefone,setPopup,setDados,Navegacao)
+                    }else
+                    {
+                        //Vai para alterar senha aqui
                     }
 
-                    //Vai para alterar senha aqui
                     
+                    
+                }else
+                {
+                    const erro = await response.json();
+
+                     setPopup({
+                        tipo: 'erro',
+                        titulo: 'SMS',
+                        mensagem: erro.detail
+                    });
+
+
+
                 }
             
         }catch(error){
@@ -558,13 +582,15 @@ export class Configurações
 
     async Adicionar_Telefone(telefone,email,setPopup,setDados,Navegacao)
     {
-        localStorage.setItem("adicionar_telefone" , "false")
+        
 
          setPopup({
                 tipo: 'aviso',
                 titulo: 'Telefone',
                 mensagem: 'Adicionando telefone...'
             });
+
+        await sleep(1000)
 
         try
         {
@@ -582,6 +608,9 @@ export class Configurações
 
             if(response.ok )
             {
+
+                //Controle de Navegação
+                localStorage.setItem("adicionar_telefone" , "false")
 
                 //Atualizo no LocalStorage
                 //Pega os dados atuais
@@ -602,7 +631,7 @@ export class Configurações
                     mensagem: 'Estamos te redirecionando...'
                 });
 
-                sleep(2000)
+                await sleep(2000)
 
                 //Levo para a Home
                 Navegacao('/home')
@@ -615,6 +644,8 @@ export class Configurações
                     titulo: 'Tente Mais Tarde...',
                     mensagem: erro.detail
                 });
+
+
             }
             
         }catch(error){
@@ -630,4 +661,77 @@ export class Configurações
     }//Adicionar Telefone
 
 
+    async Alterar_Telefone(telefone,setPopup,setDados,Navegacao)
+    {
+         setPopup({
+                tipo: 'aviso',
+                titulo: 'Telefone',
+                mensagem: 'Alterando telefone...'
+            });
+
+        await sleep(1000)
+
+        try
+        {
+             const  response = await fetch("https://api-crashware.onrender.com/auth/alterar_telefone",
+                {
+                    method: "PATCH",
+                    headers: { 
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        telefone : telefone
+                    })
+                });
+
+            if(response.ok)
+            {
+                //Controle de Navegação
+                localStorage.setItem("alterar_telefone" , "false")
+
+                //Atualizo no LocalStorage
+                //Pega os dados atuais
+                const dados = JSON.parse(localStorage.getItem("dados"));
+
+                //Atualiza apenas o email
+                dados.telefone = telefone;
+
+                //Salva novamente
+                localStorage.setItem("dados", JSON.stringify(dados));
+
+                //Atualiza o setDados
+                setDados(dados)
+
+                setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'Telefone Alterado',
+                    mensagem: 'Estamos te redirecionando...'
+                });
+
+                await sleep(2000)
+
+                //Levo para a Home
+                Navegacao('/home')
+            }else
+            {
+                const erro = await response.json();
+
+                 setPopup({
+                    tipo: 'erro',
+                    titulo: 'Telefone',
+                    mensagem: erro.detail
+                });
+            }
+        }catch(error){
+            //Erro na API ou de Conexão
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Erro De Conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log("Erro ao Alterar telefone : " + error)
+        }
+
+    }
 }//Configurações

@@ -10,6 +10,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+
+    min-height: 100vh;
+    padding-top: 220px;
 }
 
 .barraLateral {
@@ -24,6 +27,8 @@
     margin-top: 110px;
     margin-bottom: 150px;
     margin-left: 20px;
+
+    max-height: 700px;
 }
 
 .barraLateral h1 {

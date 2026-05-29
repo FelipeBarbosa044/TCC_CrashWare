@@ -3,14 +3,23 @@
 
 /* TEMA CLARO */
 .Claro {
-  --bg-principal: #FAFAFC;
-  --bg-secundario: #ffffff30;
+  --bg-principal: #3B77BE;
+  --bg-secundario: #f0f2f5fb;
   --bg-terceiro: #FFFFFF80;
   --texto-quarto: ##787A81CC;
 
+    --app-bg: var(--bg-principal);
 
-  --Cabecalho:#6C6A6A30;
-  --Rodape: #6c6a6a;
+
+  --blur: #66666680;
+  --blur1: #62bef3a2;
+
+  --gradiente-inicial:linear-gradient(to bottom, var(--bg-principal), var(--blur1));
+
+  --gradiente-app: linear-gradient(90deg, #032A5C, #0654B8, #032A5C);
+
+  --Cabecalho:##FFFFFF4D;
+  --Rodape: #6C6A6A1E;
 
   --input-bg:#F8FAFC; 
 
@@ -18,9 +27,8 @@
   --Blocos: #ffffff4d;
   --shadow-texto: #FFFFFF;
 
-  
   --texto-principal: #272727;
-  --texto-secundario: #636669;
+  --texto-secundario: #FFFFFF;
   --texto-terceiro: #0F172A80;
   --texto-quarto: ##787A81CC;
 
@@ -71,13 +79,19 @@
 
 /* TEMA ESCURO */
 .Escuro {
-  --bg-principal: #010002;
-  --bg-secundario: #1a1a1a5f;
-  --bg-terceiro: #141414d0;
+  --bg-principal: #101123;
+  --bg-secundario: #040110;
+  --bg-terceiro: black;
   --texto-quarto: ##;
   
   --borda: #d1d5db;
 
+  --blur: #161836;
+    --gradiente-inicial:linear-gradient(to bottom, var(--bg-principal), var(--blur));
+
+    --app-bg: var(--bg-terceiro);
+
+      --gradiente-app: linear-gradient(90deg, #032A5C, #0654B8, #032A5C);
 
   --texto-principal: #f5f5f5;
   --texto-secundario: #edf2f8;
@@ -135,7 +149,6 @@
   --popup-sucesso-texto: #3da121;
   --popup-sucesso-icone-bg: #28e269;
   --popup-sucesso-icone-cor: #1c1101;
-
 
 
   /* Atualização pro perfil */
