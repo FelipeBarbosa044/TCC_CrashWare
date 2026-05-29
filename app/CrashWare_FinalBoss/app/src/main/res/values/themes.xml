@@ -1,46 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.CrashWare" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorSurface">#FFFFFF</item>
+        <item name="colorOnSurface">#0F172A</item>
 
-        <item name="colorSurface">@color/branco</item>
-        <item name="colorOnSurface">@color/fonte_modoescuro</item>
+        <item name="android:colorBackground">#F5F5F5</item>
 
-        <item name="colorPrimarySurface">@color/branco</item>
+        <item name="colorPrimarySurface">#FFFFFF</item>
         <item name="colorOnPrimarySurface">#000000</item>
-
         <item name="colorSecondaryContainer">#00FFFFFF</item>
+
+        <item name="colorOutline">#C8D1D5</item>
     </style>
 
     <style name="Theme.CrashWare" parent="Base.Theme.CrashWare" />
 
-    <style name="CircleImage">
-        <item name="cornerSize">50%</item>
-    </style>
-
-    <style name="Imagemhome" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">15%</item>
-    </style>
-
-    <style name="Banner" parent="">
-        <item name="cornerFamily">rounded</item>
-    </style>
+    <style name="CircleImage"><item name="cornerSize">50%</item></style>
+    <style name="Imagemhome" parent=""><item name="cornerFamily">rounded</item><item name="cornerSize">15%</item></style>
+    <style name="Banner" parent=""><item name="cornerFamily">rounded</item></style>
 
     <color name="bg_vidro_transparente">#FFFFFF</color>
-
-    <style name="Theme.CrashWare.Gelo" parent="Theme.Material3.Light.NoActionBar">
-        <item name="colorPrimary">#78CED9</item>
-        <item name="android:colorBackground">#43C9DB</item>
-    </style>
-
-    <style name="Theme.CrashWare.MeiaNoite" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="colorPrimary">#3F51B5</item>
-        <item name="android:colorBackground">#000000</item>
-    </style>
-
-    <style name="Theme.CrashWare.Leitura" parent="Theme.Material3.Light.NoActionBar">
-        <item name="colorPrimary">#FF9800</item>
-        <item name="android:colorBackground">#FFF3E0</item>
-    </style>
-
 </resources>

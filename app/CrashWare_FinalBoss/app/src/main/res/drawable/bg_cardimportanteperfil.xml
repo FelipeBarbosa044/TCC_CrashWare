@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Cor de fundo -->
-    <solid android:color="@color/branco"/>
+    <solid android:color="?attr/background"/>
 
     <!-- Borda -->
     <stroke

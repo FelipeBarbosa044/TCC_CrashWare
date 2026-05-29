@@ -126,14 +126,6 @@ public class carregamento extends AppCompatActivity {
                 setTheme(R.style.Theme_CrashWare);
                 break;
 
-            case "gelo":
-                setTheme(R.style.Theme_CrashWare_Gelo);
-                break;
-
-            case "meia_noite":
-                setTheme(R.style.Theme_CrashWare_MeiaNoite);
-                break;
-
             default:
                 setTheme(R.style.Theme_CrashWare);
                 break;

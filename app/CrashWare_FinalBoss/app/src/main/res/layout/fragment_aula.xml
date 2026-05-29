@@ -11,7 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:background="@color/branco"
+        android:background="?attr/colorPrimarySurface"
         android:elevation="10dp"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/righteous"
             android:text="Voltar às aulas"
-            android:textColor="@color/azul"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@id/addAnotacao"
             app:layout_constraintTop_toTopOf="@id/addAnotacao" />
@@ -157,7 +157,7 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/inter_extrabold"
                 android:text="Introdução"
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/cardArtigo"
@@ -174,7 +174,7 @@
 Este curso foi desenvolvido para levar você do nível iniciante até uma compreensão sólida sobre o funcionamento dos computadores e dispositivos eletrônicos.
 
 Nesta unidade inicial, o objetivo não é apenas apresentar peças, mas construir entendimento. Antes de aprender a montar ou diagnosticar problemas, é essencial compreender como os componentes funcionam individualmente e como trabalham juntos dentro de um sistema."
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/cardArtigo"
@@ -187,7 +187,7 @@ Nesta unidade inicial, o objetivo não é apenas apresentar peças, mas construi
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/inter_extrabold"
                 android:text="O que você aprenderá neste curso?"
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/cardArtigo"
@@ -202,7 +202,7 @@ Nesta unidade inicial, o objetivo não é apenas apresentar peças, mas construi
                 android:text="      O CashWare não é um conteúdo para memorização rápida, mas um processo de construção gradual de conhecimento. Cada conceito serve de base para o próximo, desenvolvendo não apenas o “como fazer”, mas principalmente o “por que fazer”.
 
 O aprendizado técnico acontece com prática e revisão. Com o tempo, os conceitos passam a fazer sentido de forma mais natural e conectada."
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/cardArtigo"
@@ -215,7 +215,7 @@ O aprendizado técnico acontece com prática e revisão. Com o tempo, os conceit
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/inter_extrabold"
                 android:text="Evolução e Base Profissional"
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/cardArtigo"
@@ -230,7 +230,7 @@ O aprendizado técnico acontece com prática e revisão. Com o tempo, os conceit
                 android:text="      Mesmo que as tecnologias mudem, os fundamentos permanecem. Ao dominar essa base, você estará preparado para aprender novas ferramentas, compreender especificações técnicas e evoluir na área.
 
 Este curso é o alicerce da sua formação. Mais do que montar máquinas, você aprenderá a entender a lógica física que permite que elas funcionem."
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/cardArtigo"

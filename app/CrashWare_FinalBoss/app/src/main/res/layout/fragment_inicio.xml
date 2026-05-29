@@ -16,7 +16,7 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/branco"
+            android:background="?attr/colorPrimarySurface"
             android:elevation="10dp"
             android:paddingLeft="20dp"
             android:paddingTop="15dp"
@@ -36,7 +36,7 @@
                 app:layout_constraintStart_toStartOf="@id/header"
                 app:layout_constraintTop_toTopOf="@id/header"
                 app:shapeAppearanceOverlay="@style/CircleImage"
-                app:strokeColor="#111827"
+                app:strokeColor="?attr/colorOnSurface"
                 app:strokeWidth="1dp" />
 
             <!--Nome do Usuário -->
@@ -47,7 +47,7 @@
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/righteous"
                 android:text=""
-                android:textColor="#0F172A"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="28sp"
                 app:layout_constraintStart_toEndOf="@id/imgFotoInicio"
                 app:layout_constraintTop_toTopOf="@id/imgFotoInicio" />
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/righteous"
                 android:text="NÍVEL 8"
-                android:textColor="#0F172A"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@id/txtNomeInicio"
                 app:layout_constraintTop_toBottomOf="@id/txtNomeInicio" />
@@ -97,7 +97,7 @@
                 android:fontFamily="@font/righteous"
                 android:text="400/500 xp"
                 android:textAllCaps="true"
-                android:textColor="#0F172A"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/layoutSino"
                 app:layout_constraintTop_toTopOf="@id/txtNivelInicio" />
@@ -211,7 +211,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/righteous"
                     android:text="Próximo Módulo"
-                    android:textColor="#555B68"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -316,7 +316,7 @@
                         android:layout_marginTop="-5dp"
                         android:fontFamily="@font/inter_semibold"
                         android:text="Desvende a arquitetura das máquinas de forma acessível."
-                        android:textColor="#555B68"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="14sp"
                         app:layout_constraintTop_toBottomOf="@id/txtModuloHardware"
                         app:layout_constraintStart_toStartOf="@id/txtModuloHardware"/>
@@ -389,7 +389,7 @@
                         android:layout_marginTop="-5dp"
                         android:fontFamily="@font/inter_semibold"
                         android:text="Decifre a linguagem dos sistemas de forma intuitiva."
-                        android:textColor="#555B68"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="14sp"
                         app:layout_constraintTop_toBottomOf="@id/txtModuloSoftware"
                         app:layout_constraintStart_toStartOf="@id/txtModuloSoftware"/>
@@ -448,7 +448,7 @@
                         android:layout_marginEnd="4dp"
                         android:fontFamily="@font/righteous"
                         android:text="58 dias"
-                        android:textColor="#555B68"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toEndOf="@id/cardDiasConsecutivos"
                         app:layout_constraintTop_toTopOf="@id/cardDiasConsecutivos" />
@@ -460,7 +460,7 @@
                         android:fontFamily="@font/inter_semibold"
                         android:text="consecutivos de ofensiva "
                         android:textAlignment="textEnd"
-                        android:textColor="#555B68"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@id/txtDiasConsecutivos"
                         app:layout_constraintTop_toBottomOf="@id/txtDiasConsecutivos" />
@@ -494,7 +494,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/righteous"
                         android:text="1"
-                        android:textColor="#555B68"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="20sp"
                         app:layout_constraintTop_toBottomOf="@id/imgAulasConcluidas"
                         app:layout_constraintEnd_toEndOf="@id/cardAulasConcluidas"
@@ -507,7 +507,7 @@
                         android:fontFamily="@font/inter_semibold"
                         android:text="Aulas Concluídas"
                         android:textAlignment="center"
-                        android:textColor="#555B68"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@id/cardAulasConcluidas"
                         app:layout_constraintStart_toStartOf="@id/cardAulasConcluidas"

@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/fundo_claro">
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -66,7 +65,7 @@
             android:layout_width="360dp"
             android:layout_height="40dp"
             android:background="@drawable/bg_cards"
-            android:textColor="@color/preto"
+            android:textColor="?attr/colorOnSurface"
             android:layout_marginTop="30dp"
             android:layout_marginStart="55dp"
             android:layout_marginEnd="55dp"
@@ -76,7 +75,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:hint="Pesquise"
-            android:textColorHint="@color/azul"
+            android:textColorHint="?attr/colorOnSurface"
             app:layout_constraintTop_toBottomOf="@id/header"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

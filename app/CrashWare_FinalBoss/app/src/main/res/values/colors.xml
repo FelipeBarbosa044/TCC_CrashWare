@@ -6,7 +6,6 @@
     <color name="fonte_modoclaro">#F8FAFC</color>
     <color name="fonte_modoescuro">#0F172A</color>
     <color name="hint_modoclaro">#500F172A</color>
-    <color name="linha_modoclaro">#0F172A</color>
     <color name="azul">#0F172A</color>
     <color name="fundo_claro">#FFFFFF</color>
 </resources>

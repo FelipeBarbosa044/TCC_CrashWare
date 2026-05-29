@@ -1,8 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.CrashWare" parent="Theme.Material3.DayNight.NoActionBar">
-<!--        <item></item>-->
-    </style>
-    <color name="bg_vidro_transparente">#141414</color> <!-- Preto suave -->
 
+        <item name="android:colorBackground">#202020</item>
+
+        <item name="colorSurface">#1E1E1E</item>
+
+        <item name="colorOnSurface">#FFFFFF</item>
+
+        <item name="colorPrimarySurface">#141414</item>
+        <item name="colorOnPrimarySurface">#FFFFFF</item>
+
+        <item name="colorOutline">#FFFFFF</item>
+    </style>
+
+    <color name="bg_vidro_transparente">#141414</color>
 </resources>
