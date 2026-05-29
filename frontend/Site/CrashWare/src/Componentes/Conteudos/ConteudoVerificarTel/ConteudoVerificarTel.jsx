@@ -19,6 +19,7 @@ const ConteudoVerificarTel = () => {
     const [mostrarModal, setMostrarModal] = useState(false);
     const [enviarcodigo, setEnviarCodigo] = useState(false);
     const [timer, setTimer] = useState(0);
+    let minutos, segundos;
     const [loading, setLoading] = useState(false);
     const [verificando, setVerificando] = useState(false);
     const [erro, setErro] = useState("");
@@ -111,8 +112,10 @@ const ConteudoVerificarTel = () => {
                 });
                 
             //Chamo o método de Enviar SMS
-            await api.Enviar_SMS(telefone,email,setPopup, loading, timer, setLoading, setTimer,setEnviarCodigo)
+            await api.Enviar_SMS(telefone,email,setPopup, loading, timer, setLoading, setTimer,setEnviarCodigo);
             
+            minutos = Math.floor(timer / 60);
+            segundos = timer % 60;
         }
 
     const VerificarSMS = async () =>
@@ -186,10 +189,11 @@ const ConteudoVerificarTel = () => {
                     </div>
 
                     <BotoesForm
-                        texto={loading ? "Espere..." : timer > 0 ? `Reenviar em ${timer}s` : "Enviar SMS"} className={style.btnEnviar}
+                        texto={loading ? "Espere..." : timer > 0 ? `Reenviar em ${String(minutos).padStart(2, '0')}:${String(segs).padStart(2, '0')}` : "Enviar SMS"} className={style.btnEnviar}
                          onClick={EnviarSMS}
                         disabled={timer > 0 || loading}
                     />
+                    {/* `${String(minutos).padStart(2, '0')}:${String(segs).padStart(2, '0')}` */}
 
                     <BotoesForm
                         texto="Verificar"
