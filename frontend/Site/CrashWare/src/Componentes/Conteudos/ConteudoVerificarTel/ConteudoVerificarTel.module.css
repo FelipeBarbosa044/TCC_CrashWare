@@ -32,6 +32,10 @@
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.637);
 }
 
+.container h2{
+    color: var(--texto-principal);
+}
+
 /* ===== TÍTULO ===== */
 
 .container h1 {
