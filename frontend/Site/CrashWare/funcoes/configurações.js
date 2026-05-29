@@ -447,8 +447,11 @@ export class Configurações
     }
 
     //Enviar SMS
-    async Enviar_SMS(telefone,email,setPopup)
+    async Enviar_SMS(telefone,email,setPopup, loading, timer, setLoading, setTimer,setEnviarCodigo = null)
     {
+        if (loading || timer > 0) return;
+        setLoading(true);
+        setEnviarCodigo(true);
         try
         {
             const response = await fetch("https://api-crashware.onrender.com/auth/enviar_sms",
@@ -467,7 +470,7 @@ export class Configurações
             if(response.ok)
             {
                 //Bloqueio o botão por 10 minutos
-
+                setTimer(600); // 10 minutos em segundos
 
                 const resposta = await response.json();
                  setPopup({
