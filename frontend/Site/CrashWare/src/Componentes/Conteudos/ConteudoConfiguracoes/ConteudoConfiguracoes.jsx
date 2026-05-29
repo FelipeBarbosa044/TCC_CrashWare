@@ -108,6 +108,8 @@ const ConteudoConfiguracoes = () => {
     //Pego as informações do usuario
     const usuario = JSON.parse(localStorage.getItem("dados"));
 
+    const emailAtual = usuario?.email;
+
 
     //Objeto da classe configurações 
     const campo = new Configurações(token, refresh_token, Navegacao, set)
@@ -242,30 +244,31 @@ const ConteudoConfiguracoes = () => {
     }
 
     //Verificar Telefone
-    const VerificarTelefone = async () => {
+    const AdicionarTelefone = async () => {
+
+        localStorage.setItem("adicionar_telefone" , "true")
 
         if (telefoneLimpo != telefoneConfirmacaoLimpo) {
             setPopup({
                 tipo: 'aviso',
                 titulo: 'Erro no formulário',
-                mensagem: "Telefone não coincidem"
+                mensagem: "Telefones não coincidem"
             });
             return;
         }
-        //Rota de verificar o telefone
-        //Por enquanto deixe vazio aqui
 
-
-
-        //Levo para a tela de Enviar SMS(gabriel)
-        //-> falta criar a página
-        Navegacao("/verificar-telefone",
-            { state:
-                { 
-                    telefone: telefoneLimpo
-                },
-                origem: "/configuracoes"
+        if (telefoneLimpo.length < 11) {
+            setPopup({
+                tipo: 'aviso',
+                titulo: 'Erro no formulário',
+                mensagem: "Telefone deve conter 11 dígitos"
             });
+            return;
+        }
+
+        //Rota de verificar o telefone
+        await campo.Verificar_Telefone(telefoneLimpo,emailAtual,setPopup,Navegacao)
+
     }
 
     return (
@@ -399,7 +402,7 @@ const ConteudoConfiguracoes = () => {
                                     onChange={(e) => setTelefoneConfirmacao(
                                         formatarTelefone(e.target.value))} />
                             </div>
-                            <button className={Style.botoes} onClick={VerificarTelefone}>Adicionar</button>
+                            <button className={Style.botoes} onClick={AdicionarTelefone}>Adicionar</button>
                         </div>
 
                         <div className={Style.parteSenha}>

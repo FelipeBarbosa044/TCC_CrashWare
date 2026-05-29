@@ -5,10 +5,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { PopUp } from '../../pop-up';
 import { CampoTexto } from '../../CampoTexto';
 import { BotoesForm } from '../../Botoes/';
+import { Api } from '../../../../funcoes/functions';
+import { Configurações } from '../../../../funcoes/configurações';
 
 const ConteudoVerificarTel = () => {
 
-    //Instancia a API para receber dados do usuário
+    //Instancia objeto que contém dados do usuário
     const usuario = JSON.parse(localStorage.getItem("dados"));
 
 
@@ -23,20 +25,34 @@ const ConteudoVerificarTel = () => {
     const setPodeNavegar = useState(false);
     const tema = localStorage.getItem('tema') || 'claro';
 
+    //Pego os tokens
+    const token = localStorage.getItem("token");
+    const refresh_token = localStorage.getItem("refresh_token");
 
     //variavel da popup
     const [popup, setPopup] = useState(null);
 
-    //setDados
+    //UseState de dados do usuario
+    const [token_state, setToken] = useState(() => localStorage.getItem("token"));
+    const [refresh_token_state, setRefresh] = useState(() => localStorage.getItem("refresh_token"));
     const [dados, setDados] = useState(() =>
         JSON.parse(localStorage.getItem("dados")) || null
     );
+
+    //Lista que contém todos os usestate
+    const set = [setToken, setRefresh, setDados];
 
     //Navegação
     const Navegacao = useNavigate();
     const location = useLocation();
     const origem = location.state?.origem;
     const telefone = location.state?.telefone || "";
+    const email = location.state?.email;
+
+
+    //Instancia objeto da classe Configurações
+    const api = new Configurações(token,refresh_token,Navegacao,set);
+
 
     const telefoneF = telefone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3"); //Formata o telefone para exibição
 
@@ -84,6 +100,32 @@ const ConteudoVerificarTel = () => {
 
         return () => clearInterval(intervalo);
     }, [timer]);
+
+    const EnviarSMS = async () =>
+        {
+             setPopup({
+                    tipo: 'aviso',
+                    titulo: 'SMS',
+                    mensagem: 'Enviando SMS...'
+                });
+                
+            //Chamo o método de Enviar SMS
+            await api.Enviar_SMS(telefone,email,setPopup)
+            
+        }
+
+    const VerificarSMS = async () =>
+        {
+             setPopup({
+                    tipo: 'aviso',
+                    titulo: 'SMS',
+                    mensagem: 'Verificando SMS...'
+                });
+                
+            //Chamo o método de Verificar SMS
+            await api.Verificar_SMS(telefone,email,codigo,setPopup,Navegacao,setDados)
+            
+        }
 
     return (
 
@@ -143,8 +185,8 @@ const ConteudoVerificarTel = () => {
                     </div>
 
                     <BotoesForm
-                        texto={loading ? "Espere..." : timer > 0 ? `Reenviar em ${timer}s` : "Enviar Código"} className={style.btnEnviar}
-                        // onClick={ReenviarCodigo}
+                        texto={loading ? "Espere..." : timer > 0 ? `Reenviar em ${timer}s` : "Enviar SMS"} className={style.btnEnviar}
+                         onClick={EnviarSMS}
                         disabled={timer > 0 || loading}
                     />
 
