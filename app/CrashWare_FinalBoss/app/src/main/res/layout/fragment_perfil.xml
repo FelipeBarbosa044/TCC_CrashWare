@@ -16,7 +16,7 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:background="@color/branco"
+            android:background="?attr/colorPrimarySurface"
             android:elevation="10dp"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/righteous"
                 android:text="Davidson"
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +115,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header"
             app:shapeAppearanceOverlay="@style/CircleImage"
-            app:strokeColor="#111827"
+            app:strokeColor="?attr/colorOnSurface"
             app:strokeWidth="2dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -147,7 +147,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/righteous"
             android:text="NÍVEL 8"
-            android:textColor="#0F172A"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/barraProgressoPerfil"
             app:layout_constraintTop_toBottomOf="@id/imgFotoPerfil" />
@@ -174,7 +174,7 @@
             android:fontFamily="@font/righteous"
             android:text="400/500 xp"
             android:textAllCaps="true"
-            android:textColor="#0F172A"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@id/barraProgressoPerfil"
             app:layout_constraintTop_toTopOf="@id/txtNivelPerfil" />
@@ -186,7 +186,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:padding="10dp"
-            android:background="@drawable/bg_cardefeitovidroconquistas"
+            android:background="@drawable/bg_cards"
             app:layout_constraintTop_toBottomOf="@id/barraProgressoPerfil"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -212,7 +212,7 @@
                 android:text="GEMAS"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imgXP"
                 app:layout_constraintTop_toTopOf="@id/cardXP" />
@@ -228,7 +228,7 @@
                 android:text="163"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/cardXP"
                 app:layout_constraintTop_toTopOf="@id/cardXP" />
@@ -242,7 +242,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:padding="10dp"
-            android:background="@drawable/bg_cardefeitovidroconquistas"
+            android:background="@drawable/bg_cards"
             app:layout_constraintTop_toBottomOf="@id/cardXP"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -269,7 +269,7 @@
                 android:text="Patente"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imgPatente"
                 app:layout_constraintTop_toTopOf="@id/cardPatentePerfil" />
@@ -285,7 +285,7 @@
                 android:text="Alpha"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/cardPatentePerfil"
                 app:layout_constraintTop_toTopOf="@id/cardPatentePerfil" />
@@ -302,7 +302,7 @@
             android:paddingRight="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="15dp"
-            android:background="@drawable/bg_cardefeitovidroconquistas"
+            android:background="@drawable/bg_cards"
             app:layout_constraintTop_toBottomOf="@id/cardPatentePerfil"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -315,7 +315,7 @@
                 android:fontFamily="@font/righteous"
                 android:text="Conquistas"
                 android:textAllCaps="true"
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"

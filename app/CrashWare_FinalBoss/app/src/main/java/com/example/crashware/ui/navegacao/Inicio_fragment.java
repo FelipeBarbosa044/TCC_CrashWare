@@ -1,6 +1,7 @@
 package com.example.crashware.ui.navegacao;
 
 import static android.widget.Toast.LENGTH_LONG;
+import static android.widget.Toast.LENGTH_SHORT;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -158,14 +159,19 @@ public class Inicio_fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                conquista.show();
+
 
                 Carinho ++;
                 //
-                if (Carinho >= 10)
+                if (Carinho == 10)
                 {
-                    Toast.makeText(getContext(),"Conquista adquirida", LENGTH_LONG).show();
+                    conquista.show();
+                    //add conquista de carinho
+                }
 
+                else if (Carinho > 10)
+                {
+                    Toast.makeText(getContext(),"Quanto amor ein pae!", LENGTH_SHORT).show();
                 }
             }
         });

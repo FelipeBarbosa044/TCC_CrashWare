@@ -32,7 +32,6 @@ public class carregamento extends AppCompatActivity {
     //Memória do app
     SharedPreferences prefs;
 
-    private static final String KEY_THEME = "theme";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,7 +39,7 @@ public class carregamento extends AppCompatActivity {
         prefs = getSharedPreferences("CrashWare", MODE_PRIVATE);
 
 
-        aplicarTema();//carregando tema para o app
+        //aplicarTema();//carregando tema para o app
 
         super.onCreate(savedInstanceState);
         //Criando arquivo na memoria do app "CrashWare"
@@ -116,20 +115,20 @@ public class carregamento extends AppCompatActivity {
         handler.post(runnable);
     }
 
-    private void aplicarTema()
-    {
-        String tema = prefs.getString(ThemeConfig.KEY_THEME, "claro");
-
-        switch (tema)
-        {
-            case "escuro":
-                setTheme(R.style.Theme_CrashWare);
-                break;
-
-            default:
-                setTheme(R.style.Theme_CrashWare);
-                break;
-        }
-    }
+//    private void aplicarTema()
+//    {
+//        String tema = prefs.getString(ThemeConfig.KEY_THEME, "claro");
+//
+//        switch (tema)
+//        {
+//            case "escuro":
+//                setTheme(R.style.Theme_CrashWare);
+//                break;
+//
+//            default:
+//                setTheme(R.style.Theme_CrashWare);
+//                break;
+//        }
+//    }
 
 }
