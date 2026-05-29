@@ -11,7 +11,7 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:background="@color/branco"
+            android:background="?attr/colorPrimarySurface"
             android:elevation="10dp"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/righteous"
                 android:text="Voltar"
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="24sp"
                 app:layout_constraintStart_toEndOf="@id/addAnotacao"
                 app:layout_constraintTop_toTopOf="@id/addAnotacao" />
@@ -61,7 +61,7 @@
                 android:fontFamily="@font/righteous"
                 android:text="Editar"
                 android:textAllCaps="true"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/colorSurface"
                 android:textSize="18sp"
                 app:backgroundTint="@null"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +86,7 @@
             android:layout_width="375dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_cardanotacao_titulo"
+            android:background="@drawable/bg_cards"
             android:fontFamily="@font/righteous"
             android:padding="8dp"
             android:text="ESTRUTURA CONDICIONAL"
@@ -166,7 +166,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:padding="5dp"
-            android:background="@drawable/bg_cardanotacao"
+            android:background="@drawable/bg_cards"
             app:layout_constraintTop_toBottomOf="@id/txtCriadoEm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -187,7 +187,7 @@ Em um primeiro momento, é necessário entender a relação entre a dinâmica so
 Sob outra ótica, a compreensão acerca da importância da ancestralidade na formação da autoimagem e da noção de pertencimento de cada indivíduo é imperativa. Para isso, a filósofa brasileira Marilena Chauí defende a ideia de que, enquanto os animais são naturais, os humanos são culturais — ou seja, a cultura que cada pessoa está inserida compõe a essência desse ser. A partir disso, compreende-se que o silenciamento da herança africana nega a uma grande parte do povo brasileiro a sua própria essência, o que constitui uma violência estrutural e resulta numa noção de não pertencimento generalizada e em uma autoimagem defasada. Frente a isso, o Estado deve agir em prol da promoção de manifestações culturais afro-brasileiras.
 
 Em suma, conclui-se que a desvalorização da cultura africana está diretamente relacionada a um processo sistemático de silenciamento de grupos oprimidos e resulta na falta de pertencimento de muitos indivíduos. Portanto, cabe ao Estado, por meio de uma parceria entre o Ministério da Economia (ME) e o Ministério da Educação e da Cultura (MEC), desenvolver manifestações culturais afro-brasileiras nas escolas, como, por exemplo, peças teatrais e festivais de dança, música e arte, assim como investir financeiramente na promoção de artistas e escritores que têm suas carreiras relacionadas à herança africana. Por fim, essas ações serão responsáveis por impedir o perpetuamento da desvalorização da cultura africana no Brasil. "
-                android:textColor="@color/azul"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="@id/cardAnotacao"
                 app:layout_constraintHorizontal_bias="0.466"

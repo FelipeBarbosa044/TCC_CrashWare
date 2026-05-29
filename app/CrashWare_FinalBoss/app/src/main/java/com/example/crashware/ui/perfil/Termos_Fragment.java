@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.crashware.R;
 
@@ -16,6 +17,8 @@ import com.example.crashware.R;
  * create an instance of this fragment.
  */
 public class Termos_Fragment extends Fragment {
+
+    ImageView imgVoltar;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +64,21 @@ public class Termos_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_termos, container, false);
+        View view = inflater.inflate(R.layout.fragment_termos, container, false);
+
+        imgVoltar = view.findViewById(R.id.imgVoltarCampos);
+
+        imgVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                requireActivity()//puxa o fragment atual
+                        .getSupportFragmentManager()//acessa o gerenciador das fragments
+                        .popBackStack();//simula o botão "voltar" do celular
+
+            }
+        });
+
+        return view;
     }
 }

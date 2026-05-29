@@ -231,6 +231,8 @@ public class Conquistas_Fragment extends Fragment {
                 }
         );
 
+
+
         // Retorna a View do Fragment
         return view;
     }

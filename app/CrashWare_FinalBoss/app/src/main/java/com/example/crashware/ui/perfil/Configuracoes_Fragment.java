@@ -40,6 +40,10 @@ public class Configuracoes_Fragment extends Fragment {
     //Memória do app
     SharedPreferences prefs;
 
+    public static final int TEMA_Sistema=0;
+    public static final int TEMA_Escuro=1;
+    public static final int TEMA_Claro=2;
+    public static final int TEMA_Gelo=3;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -117,7 +121,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                salvarTema("sistema");
+              //  AlterarTemaPara(TEMA_Sistema);
 
             }
         });
@@ -126,7 +130,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                salvarTema("claro");
+             //   AlterarTemaPara(TEMA_Claro);
 
             }
         });//
@@ -135,7 +139,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                salvarTema("escuro");
+              //  AlterarTemaPara(TEMA_Escuro);
             }
         });//
 
@@ -143,7 +147,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                salvarTema("gelo");
+             //   AlterarTemaPara(TEMA_Gelo);
 
             }
         });//
@@ -152,7 +156,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                salvarTema("leitura");
+
             }
         });//
 
@@ -160,7 +164,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                salvarTema("meia_noite");
+
 
             }
         });
@@ -286,6 +290,33 @@ public class Configuracoes_Fragment extends Fragment {
         });// Interação com Botão de alterar dados
 
 
+        TermosDeServiço.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Fragment TermosFragmento = new Termos_Fragment();
+
+                getParentFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, TermosFragmento)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });//interação com o botão que leva para a tela de termos e serviço
+
+        Sobre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Fragment SobreFragmento = new Sobre_Fragment();
+
+                getParentFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, SobreFragmento)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });//interação com o botão que leva para a tela de 'Sobre'
 
 
 
@@ -293,6 +324,25 @@ public class Configuracoes_Fragment extends Fragment {
 
     }
 
+//    private void AlterarTemaPara(int NovaOpcao)
+//    {
+//        if (prefs != null && getActivity() != null)
+//        {
+//            int TemaAtual =prefs.getInt("temaOpcao",TEMA_Sistema);
+//
+//            if (TemaAtual != NovaOpcao)
+//            {
+//                SharedPreferences.Editor editor = prefs.edit();
+//                editor.putInt("temaOpcao",NovaOpcao );
+//                editor.apply();
+//
+//             //   getActivity().recreate();
+//            }
+//
+//        }
+
+
+//    }
     private void salvarTema(String tema)
     {
         prefs.edit()
