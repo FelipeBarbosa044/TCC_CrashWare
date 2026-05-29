@@ -16,7 +16,7 @@
     display: flex;
     flex-direction: column;
     justify-items: center;
-    align-self: center;
+    align-self: flex-start;
     margin: auto;
     margin-top: 110px;
 
@@ -27,6 +27,7 @@
     width: 65vw;
     height: auto;
     margin-bottom: 30px;
+    padding-bottom: 30px;
 }
 
 .Conteudos h1{

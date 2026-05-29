@@ -32,7 +32,7 @@ const LayoutPadrao = () => {
                                 <p>Plataforma de Aprendizado de Hardware e Software</p>
                             </div>
 
-                            <div className={Style.Colunas}>
+                            {/* <div className={Style.Colunas}> */}
                                 <div className={Style.RedesSociais}>
                                     <h5>Redes Sociais</h5>
                                     <div className={Style.Tamanho}>
@@ -57,7 +57,7 @@ const LayoutPadrao = () => {
                                         <p>Politica de Privacidade</p>
                                     </Link>
                                 </div>
-                            </div>
+                            {/* </div> */}
 
                         </div>
 

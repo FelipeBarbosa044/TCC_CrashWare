@@ -43,7 +43,11 @@
 
 @media (max-width: 500px) {
     .Botao {
-        width: 160px;
+        width: 150px;
+    }
+
+    .Botao a{
+        height: 50px;
     }
     
     .Botao img {

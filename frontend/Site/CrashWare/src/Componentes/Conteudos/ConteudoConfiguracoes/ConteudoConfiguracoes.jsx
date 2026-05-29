@@ -349,10 +349,12 @@ const ConteudoConfiguracoes = () => {
                         <h1>Privacidade e Segurança</h1>
                         <hr />
 
-                        <ItemBarraLateral
-                            descricao={"Sobre"}
-                            img={sobreModoClaro}
-                        />
+                        <Link to={"/sobre"}>    
+                            <ItemBarraLateral
+                                descricao={"Sobre"}
+                                img={sobreModoClaro}
+                            />
+                        </Link>
                         <Link to="/termos">
                             <ItemBarraLateral
                                 descricao={"Termos de Serviço"}
@@ -401,7 +403,7 @@ const ConteudoConfiguracoes = () => {
                                     autoComplete='name'
                                 />
                             </div>
-                            <button className={Style.btnNome} >Alterar</button>
+                            <button className={Style.botoes} >Alterar</button>
                         </div>
 
                         <div className={Style.parteTelefone}>
@@ -412,7 +414,9 @@ const ConteudoConfiguracoes = () => {
                                     placeholder='xx-xxxxx-xxxx'
                                     value={telefone}
                                     onChange={(e) => setTelefone(
-                                        formatarTelefone(e.target.value))} />
+                                        formatarTelefone(e.target.value))} 
+                                    className={Style.campoForm2}
+                                        />
                             </div>
 
                             <div className={Style.campoForm}>
@@ -437,6 +441,7 @@ const ConteudoConfiguracoes = () => {
                                     placeholder='Senha Atual*'
                                     value={senha}
                                     onChange={(e) => setSenha(e.target.value)}
+                                    className={Style.campoForm2}
                                 />                   
                             </div>
                             <Link>                          <BotoesForm className={Style.botoes}

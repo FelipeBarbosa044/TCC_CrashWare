@@ -9,13 +9,13 @@
 }
 
 .corpo {
-    width: 90vw;
+    width: 100vw;
     min-height: 100vh;
     background-color: var(--bg-quarto);
 
     display: flex;
     flex-direction: column;
-    justify-self: center;
+    justify-content: center;
     align-items: center;
     font-family: "Montserrat", sans-serif;
     padding-top: 120px;
