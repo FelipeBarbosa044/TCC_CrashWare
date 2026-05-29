@@ -158,15 +158,15 @@ public class Inicio_fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-//                conquista.show();
-//
-//                Carinho ++;
-//                //
-//                if (Carinho >= 10)
-//                {
-//                    Toast.makeText(getContext(),"Conquista adquirida", LENGTH_LONG).show();
-//
-//                }
+
+
+                Carinho ++;
+                //
+                if (Carinho >= 10)
+                {
+                    conquista.show();
+
+                }
             }
         });
 
