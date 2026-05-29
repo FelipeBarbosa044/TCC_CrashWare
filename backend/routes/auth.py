@@ -211,7 +211,7 @@ async def enviar_sms(dados : TelefoneSchema,session = Depends(pegar_sessao)):
         validade = usuario.sms_expirado_em + timedelta(minutes=10)
         agora = datetime.now(timezone.utc)
 
-        if(agora > validade):
+        if(validade > agora):
             raise HTTPException(status_code=409, detail="Código Já Enviado!")
 
     # Gero novo código
