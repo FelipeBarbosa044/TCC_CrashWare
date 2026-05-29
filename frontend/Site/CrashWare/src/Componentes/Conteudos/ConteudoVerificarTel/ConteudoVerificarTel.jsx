@@ -17,6 +17,7 @@ const ConteudoVerificarTel = () => {
     //useState/variaveis
     const [codigo, setCodigo] = useState('');
     const [mostrarModal, setMostrarModal] = useState(false);
+    const [enviarcodigo, setEnviarCodigo] = useState(false);
     const [timer, setTimer] = useState(0);
     const [loading, setLoading] = useState(false);
     const [verificando, setVerificando] = useState(false);
@@ -110,7 +111,7 @@ const ConteudoVerificarTel = () => {
                 });
                 
             //Chamo o método de Enviar SMS
-            await api.Enviar_SMS(telefone,email,setPopup)
+            await api.Enviar_SMS(telefone,email,setPopup, loading, timer, setLoading, setTimer,setEnviarCodigo)
             
         }
 
