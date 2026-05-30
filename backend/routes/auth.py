@@ -208,7 +208,7 @@ async def enviar_sms(dados : TelefoneSchema,session = Depends(pegar_sessao)):
     # Verifico se está valido o sms
     if (usuario.sms != None):
         # Pego a validade e a data Atual
-        validade = usuario.sms_expirado_em + timedelta(minutes=10)
+        validade = usuario.sms_expirado_em
         agora = datetime.now(timezone.utc)
 
         if(validade > agora):
