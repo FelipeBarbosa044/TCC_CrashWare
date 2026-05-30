@@ -385,9 +385,20 @@ const ConteudoPerfil = () => {
                             </div>
                         </div>
                         <div className={style.raposa}>
-                            <img src={Raposa} alt="Crash"
-                                onClick={() => setClick(click + 1)}
-                            />
+                            <div className={style.realmenteRaposa}>
+                                <img src={Raposa} alt="Crash"
+                                    onClick={() => setClick(click + 1)}
+                                />
+                            </div>
+
+                            <div className={style.maiorOfensiva}>
+                                <img src={iconOfensiva} alt="" />
+
+                                <div className={style.mostrarMaiorOfensiva}>
+                                    <p>Maior ofensiva</p>
+                                    <p>{maiorOfensiva}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

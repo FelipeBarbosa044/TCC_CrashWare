@@ -51,7 +51,7 @@
   --popup-erro-icone-bg: #dc2626;
   --popup-erro-icone-cor: #ffffff;
 
-  --popup-aviso-bg: #fffbeb;
+  --popup-aviso-bg: #fce381;
   --popup-aviso-borda: #d97706;
   --popup-aviso-titulo: #92400e;
   --popup-aviso-texto: #78350f;
@@ -61,12 +61,12 @@
   /*POPUP SUCESSO (VAI FAZER O TCC QUE DIA DAVISON?)*/
 
   /* perdão mano */
-  --popup-aviso-bg: #eae9e2;
-  --popup-aviso-borda: #0d4c00;
-  --popup-aviso-titulo: #4e9c39;
-  --popup-aviso-texto: #2b6e18;
-  --popup-aviso-icone-bg: #1fad51;
-  --popup-aviso-icone-cor: #ffffff;
+  --popup-sucesso-bg: #eae9e2;
+  --popup-sucesso-borda: #0d4c00;
+  --popup-sucesso-titulo: #4e9c39;
+  --popup-sucesso-texto: #2b6e18;
+  --popup-sucesso-icone-bg: #1fad51;
+  --popup-sucesso-icone-cor: #ffffff;
 
   --Botao-gradiente1:#67AAF9;
   --Botao-gradiente2:#338CE0;

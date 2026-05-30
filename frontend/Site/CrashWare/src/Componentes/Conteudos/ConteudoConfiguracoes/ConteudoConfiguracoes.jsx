@@ -364,103 +364,123 @@ const ConteudoConfiguracoes = () => {
                     </div>
 
                     <div className={Style.Conteudos}>
-                        <h1>Dados do Perfil</h1>
 
-                        <div className={Style.parteEmail}>
-                            <div className={Style.campoForm}>
-                                <label htmlFor="idEmailVinculado">E-mail vinculado</label>
-                                <p>{usuario.email}</p>
+                        <h1>Dados do perfil</h1>
+                        <div className={Style.secaoDados}>
+                            <div className={Style.preencherDados}>
+                                <div className={Style.campoForm}>
+                                    <label>E-mail vinculado</label>
+                                    <p>{usuario.email}</p>
+                                </div>
+                                <div className={Style.inputContainer}>
+                                    <label htmlFor="idNovoEmail">Novo e-mail</label>
+                                    <input
+                                        type="email"
+                                        maxLength={200}
+                                        placeholder="E-mail*"
+                                        id="idNovoEmail"
+                                        value={email}
+                                        onChange={(e) => setEmailNovo(e.target.value)}
+                                    />
+                                </div>
                             </div>
-                            <div className={Style.campoForm}>
-                                <label htmlFor="idNovoEmail">Novo e-mail</label>
-                                <input
-                                    type="email"
-                                    maxLength={200}
-                                    placeholder="E-mail*"
-                                    id='idNovoEmail'
-                                    value={email}
-                                    onChange={(e) => setEmailNovo(e.target.value)}
-                                    autoComplete='email'
-                                />
-                            </div>
-                            <button className={Style.botoes} onClick={ValidarEmail}>Alterar</button>
+                            <button
+                                className={Style.botoes}
+                                onClick={ValidarEmail}
+                            >
+                                Alterar
+                            </button>
                         </div>
-
-                        <div className={Style.parteNome}>
-                            <div className={Style.campoForm}>
-                                <label htmlFor="idNomeVinculado">Nome Atual</label>
-                                <p>{usuario.nome}</p>
+                        <div className={Style.secaoDados}>
+                            <div className={Style.preencherDados}>
+                                <div className={Style.campoForm}>
+                                    <label>Nome Atual</label>
+                                    <p>{usuario.nome}</p>
+                                </div>
+                                <div className={Style.inputContainer}>
+                                    <label htmlFor="idNovoNome">Novo Nome</label>
+                                    <input
+                                        type="text"
+                                        maxLength={200}
+                                        placeholder="Nome*"
+                                        id="idNovoNome"
+                                        value={nome}
+                                        onChange={(e) => setNome(e.target.value)}
+                                    />
+                                </div>
                             </div>
-                            <div className={Style.campoForm}>
-                                <label htmlFor="idNovoNome">Novo Nome</label>
-                                <input
-                                    type="text"
-                                    maxLength={200}
-                                    placeholder="Nome*"
-                                    id='idNovoNome'
-                                    value={nome}
-                                    onChange={(e) => setNome(e.target.value)}
-                                    autoComplete='name'
-                                />
-                            </div>
-                            <button className={Style.botoes} >Alterar</button>
+                            <button className={Style.botoes}>
+                                Alterar
+                            </button>
                         </div>
-
-                        <div className={Style.parteTelefone}>
-                            <div className={Style.campoForm}>
-                                <label htmlFor="idNumeroTel">Número de Telefone</label>
-
-                                <CampoTexto type="text"
-                                    placeholder='xx-xxxxx-xxxx'
-                                    value={telefone}
-                                    onChange={(e) => setTelefone(
-                                        formatarTelefone(e.target.value))} 
-                                    className={Style.campoForm2}
-                                        />
+                        <div className={Style.secaoDados}>
+                            <div className={Style.preencherDados}>
+                                <div className={Style.inputContainer}>
+                                    <label>Número de Telefone</label>
+                                    <CampoTexto
+                                        type="text"
+                                        placeholder="xx-xxxxx-xxxx"
+                                        value={telefone}
+                                        onChange={(e) =>
+                                            setTelefone(
+                                                formatarTelefone(e.target.value)
+                                            )
+                                        }
+                                    />
+                                </div>
+                                <div className={Style.inputContainer}>
+                                    <label>Confirme o número</label>
+                                    <CampoTexto
+                                        type="text"
+                                        placeholder="xx-xxxxx-xxxx"
+                                        value={telefoneConfirmacao}
+                                        onChange={(e) =>
+                                            setTelefoneConfirmacao(
+                                                formatarTelefone(e.target.value)
+                                            )
+                                        }
+                                    />
+                                </div>
                             </div>
-
-                            <div className={Style.campoForm}>
-
-                                <label htmlFor="idConfirmeNumeroTel">Confirme o número de telefone</label>
-
-                                <CampoTexto type="text"
-                                    placeholder='xx-xxxxx-xxxx'
-                                    id='idConfirmeNumeroTel'
-                                    value={telefoneConfirmacao}
-                                    onChange={(e) => setTelefoneConfirmacao(
-                                        formatarTelefone(e.target.value))} />
-                            </div>
-                            <button className={Style.botoes} onClick={VerificarTelefone}>Adicionar</button>
+                            <button
+                                className={Style.botoes}
+                                onClick={VerificarTelefone}
+                            >
+                                Adicionar
+                            </button>
                         </div>
-
-                        <div className={Style.parteSenha}>
-
-                            <div className={Style.campoForm}>
-                                <label htmlFor="idSenhaAtual">Alterar Senha</label>
-                                <CampoTexto type="password"
-                                    placeholder='Senha Atual*'
-                                    value={senha}
-                                    onChange={(e) => setSenha(e.target.value)}
-                                    className={Style.campoForm2}
-                                />                   
+                        <div className={Style.secaoDados}>
+                            <div className={Style.preencherDados}>
+                                <div className={Style.inputContainer}>
+                                    <label>Alterar Senha</label>
+                                    <CampoTexto
+                                        type="password"
+                                        placeholder="Senha Atual*"
+                                        value={senha}
+                                        onChange={(e) =>
+                                            setSenha(e.target.value)
+                                        }
+                                    />
+                                </div>
                             </div>
-                            <Link>                          <BotoesForm className={Style.botoes}
-                                    texto="Confirmar"
-                                    onClick={VerificarSenha}
-                                />
-                            </Link>
+                            <BotoesForm
+                                className={Style.botoes}
+                                texto="Confirmar"
+                                onClick={VerificarSenha}
+                            />
                         </div>
+                    
 
-                        <div className={Style.conectarContas}>
-                            <h2>Conecte suas contas para login</h2>
-                            <div className={Style.imagens}>
-                                <img src={googleIcon} alt="google" />
-                                <img src={githubIcon} alt="github" />
+                            <div className={Style.conectarContas}>
+                                <h2>Conecte suas contas para login</h2>
+                                <div className={Style.imagens}>
+                                    <img src={googleIcon} alt="google" />
+                                    <img src={githubIcon} alt="github" />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
             {configAtual && (
                 <PopUpConfirmacao

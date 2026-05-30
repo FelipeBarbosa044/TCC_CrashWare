@@ -7,8 +7,8 @@
 }
 
 .corpo{
-    width: 98vw;
-    padding-top: 280px  ;
+    width: 100%;
+    padding-top: 280px;
     padding-bottom: 40px;
 
     display: flex;
@@ -248,7 +248,7 @@
     .introducao,
     .fundamentos,
     .componentes{
-        width: 100%;
+        width: 90%;
         padding: 15px;
     }
 

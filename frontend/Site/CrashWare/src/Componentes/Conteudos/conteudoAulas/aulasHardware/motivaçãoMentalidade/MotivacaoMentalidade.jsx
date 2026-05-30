@@ -1,16 +1,8 @@
 import { ModeloBase } from "../../modelo base";
 
-import Prism from "prismjs";
-import "prismjs/themes/prism-tomorrow.css";
-import "prismjs/components/prism-javascript";
-
 import { useEffect } from "react";
 
 const MotivacaoMentalidade = () => {
-
-    useEffect(() => {
-        Prism.highlightAll();
-    }, []);
 
     return (
         <ModeloBase 
@@ -39,18 +31,6 @@ const MotivacaoMentalidade = () => {
                     <p>
                         A área de hardware vai muito além de montar computadores.
                     </p>
-
-                    <h2>Exemplo de código JavaScript</h2>
-
-                    <pre>
-                        <code className="language-javascript">
-{`function estudarHardware() {
-    console.log("Aprendendo hardware todos os dias!");
-}
-
-estudarHardware();`}
-                        </code>
-                    </pre>
 
                     <h2>Continue praticando</h2>
 

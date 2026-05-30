@@ -13,7 +13,7 @@
     flex-direction: column;
     gap: 14px;
     padding: 24px 20px 60px;
-    padding-top: 100px;
+    padding-top: 200px;
     max-width: 1020px;
     margin: 0 auto;
     font-family: 'Montserrat', sans-serif;
@@ -523,18 +523,35 @@ div.raposa{
     color: #4e8cc8;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 864px) {
     .grade {
         grid-template-columns: 1fr;
     }
 
-    .trilhas {
-        grid-template-columns: 1fr;
+    /* .trilhaSoftware {
+        display: flex;
+        flex-direction: column;
+
+        align-self: center;
+    }
+
+    .trilhaSoftware img{
+        align-self: center;
+    } */
+
+    .btnExplorar{
+        width: 34vw;
+        align-content: center;
     }
 
     .ofensiva {
         min-width: 100px;
         padding: 12px 16px;
+    }
+
+    .trilhas{
+        display: flex;
+        flex-direction: column;
     }
 }
 
@@ -547,7 +564,7 @@ div.raposa{
 
     .ofensiva {
         flex-direction: row;
-        justify-content: flex-start;
+        justify-content: space-around;
         gap: 12px;
         text-align: left;
     }
@@ -570,18 +587,23 @@ div.raposa{
         max-width: 100%;
     }
 
+    .trilhas{
+        flex-direction: column !important;
+        display: flex !important;
+    }
+
     .trilhaHardware,
     .trilhaSoftware {
         flex-direction: column;
         text-align: center;
-        align-items: flex-start;
+        align-items: center;
     }
 }
 
-@media (max-width: 400px){
+@media (max-width: 440px){
 
     .header{
-        margin-top: 100px;
+        margin-top: 0px;
     }
     
     .ofensiva{

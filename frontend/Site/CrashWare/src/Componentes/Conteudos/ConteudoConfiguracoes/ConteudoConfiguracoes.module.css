@@ -26,7 +26,7 @@
     border-radius: 16px;
     padding: 10px;
     min-width: 15vw;
-
+    max-height: 600px;
 
     margin-top: 70px;
     margin-bottom: 150px;
@@ -106,14 +106,14 @@
 .Conteudos {
     display: flex;
     flex-direction: column;
-    justify-items: center;
-    align-self: center;
-    margin: auto;
+    align-content: flex-start;
+    margin: 70px auto;
     background-color: #6C6A6A30;
     border-radius: 16px;
 
     width: 60vw;
     height: auto;
+    min-height: 520px;
     border: 1px solid var(--texto-principal);
 }
 
@@ -126,37 +126,81 @@
     margin: 30px 0px;
 }
 
-.parteEmail, .parteTelefone, .parteSenha, .parteNome{
+.secaoDados {
+    width: 100%;
+
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 40px auto;
-    width: 80%;
+
+    gap: 40px;
+
+    margin-bottom: 40px;
+}
+
+.preencherDados {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.campoForm {
+    display: flex;
+    flex-direction: column;
+
+    width: 250px;
+
     gap: 6px;
 }
 
-.parteSenha{
-    width: 60%;
-}
-
-.parteEmail label, .parteNome label{
-    font-family: "Montserrat";
+.campoForm label {
     color: var(--texto-principal);
+    font-family: "Montserrat";
     font-weight: 700;
-    max-width: 260px !important;
 }
 
-.parteEmail input, .parteNome input {
-    margin-right: 60px;
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 8px;
-    border: none;
-
+.campoForm p {
+    color: var(--texto-secundario);
     font-family: "Montserrat";
     font-weight: 500;
-    width: 16vw;
+
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+
+    width: 240px;
+
+    gap: 6px;
+}
+
+.inputContainer label {
+    color: var(--texto-principal);
+    font-family: "Montserrat";
+    font-weight: 700;
+}
+
+.inputContainer input {
+    width: 100%;
+
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: var(--texto-principal);
+
+    color: var(--texto-secundario);
+
+    font-family: "Montserrat";
+    font-size: 14px;
+}
+
+.inputContainer input:focus {
+    outline: none;
 }
 
 .botoes{
@@ -164,7 +208,7 @@
     border: none;
     color: white;
     width: 100%;
-    max-width: 260px;
+    max-width: 180px;
     min-width: 237px;
     height: 40px;
     border-radius: 12px;
@@ -172,101 +216,11 @@
 
     font-family: "Montserrat";
     font-weight: 700;
-    margin-top: 26px;
+    margin-top: 16.5px;
+
 }
 
 .botoes:hover{
-    transform: scale(1.03) translateY(-4px);
-    transition: 0.4s;
-}
-
-.parteTelefone label{
-    font-family: "Montserrat";
-    color: var(--texto-principal);
-    font-weight: 700;
-}
-
-.parteTelefone input{
-    margin-right: 60px;
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 8px;
-    border: none;
-    width: 16vw;
-
-    color: black;
-    font-family: "Montserrat";
-    font-weight: 500;
-}
-
-.parteSenha label{
-    font-family: "Montserrat";
-    color: var(--texto-principal);
-    font-weight: 700;
-}
-
-.parteSenha input{
-    margin-right: 60px;
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 8px;
-    border: none;
-    width: 16vw;
-
-    color: black;
-    font-family: "Montserrat";
-    font-weight: 500;
-    font-size: 14px;
-}
-
-
-.campoForm {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 80px;
-    gap: 4px;
-    width: 50%;
-    /* max-width: 400px; */
-    color: var(--texto-principal);
-}
-
-.campoForm p{
-    color: var(--texto-principal);
-    font-family: "Montserrat";
-    font-weight: 500;
-    margin-right: 50px;
-}
-
-.campoForm2{
-    width: 80% !important;
-}
-
-.parteEmail .campoForm p{
-    max-width: 200px;
-}
-
-.ParteSenha p{
-    font-family: "Montserrat";
-    color: var(--texto-principal);
-    font-weight: 700;
-    font-size: 18px;
-}
-
-.ParteSenha button{
-    background: linear-gradient(90deg, #101017, #06060A);
-    border: none;
-    color: white;
-    width: 100%;
-    height: 40px;
-    border-radius: 12px;
-    padding: 10px;
-
-    font-family: "Montserrat";
-    font-weight: 700;
-    margin-top: 26px;
-}
-
-.ParteSenha button{
     transform: scale(1.03) translateY(-4px);
     transition: 0.4s;
 }
@@ -394,68 +348,71 @@
     background-color: rgba(255, 255, 255, 0.16);
 }
 
-@media (max-width: 1100px) {
-    .separarConteudos {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .barraLateral {
-        width: 90vw;
-        min-width: unset;
-        margin: 20px;
-        flex-direction: column;
-        margin-top: 50px !important;
-    }
-
-    .barraLateral h1{
-        text-indent: 30px;
-    }
-
-    .Conteudos {
-        min-width: 90vw;
-        flex-direction: column;
-        margin-bottom: 30px;
-
-    }
-
-    .botoes{
-        width: 20%;
-        margin: 0;
-    }
-
-    .itemBarraLateral {
-        width: 90%;
-        margin: 0px auto 12px auto;
-    }
-
-    .parteEmail, .parteTelefone, .parteSenha{
-        width: 100%;
-        flex-direction: column;
-        padding: 0px;
-        margin-bottom: 10px;
-        color: var(--texto-principal);
-
-    }
-
-
-    .parteTelefone input, .parteEmail input, .ParteSenha input{
-        width: 100%;
-    }
-
-    .alterarSenha{
-        margin-top: 30px;
-    }
-    
-    .conectarContas h2{
-        font-size: 3.4vw !important;
-    }
-}
-
-@media (max-width: 400px){
+@media (max-width: 1420px) {
 
     .Conteudos{
         align-items: center;
+    }
+
+    .secaoDados {
+        flex-direction: column;
+        gap: 15px;
+        width: 70%;
+
+        justify-items: center;
+    }
+
+    .preencherDados {
+        flex-direction: column;
+        width: 90%;
+        gap: 15px;
+    }
+
+    .campoForm,
+    .inputContainer {
+        width: 100%;
+    }
+
+    .botoes {
+        width: 100%;
+        max-width: 300px;
+        min-width: 0;
+    }
+
+    .conectarContas{
+        width: 70%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 873px){
+    
+    .separarConteudos{
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    .barraLateral{
+        min-height: 620px;
+    }
+}
+
+@media (max-width: 725px){
+
+    .separarConteudos{
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    .Conteudos{
+        align-items: center;
+        justify-items: center;
+        width: 90vw;
+    }
+
+    .barraLateral{
+        width: 90vw;
+        margin: auto;
     }
 
     .parteEmail{
@@ -486,5 +443,21 @@
 
     .barraLateral h1{
         text-align: center;
+    }
+}
+
+@media (max-width: 600px){
+
+    .secaoDados{
+        width: 100%;
+    }
+
+    .conectarContas h2{
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .campoForm {
+        width: 300px;
     }
 }
