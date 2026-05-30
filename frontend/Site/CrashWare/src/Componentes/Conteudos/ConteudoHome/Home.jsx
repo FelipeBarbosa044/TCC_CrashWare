@@ -58,20 +58,20 @@ const ConteudoHome = () => {
     //Pego todas as informações do usuario
     if (informacoes == "false") {
 
-    CarregarInformacoes();
+        CarregarInformacoes();
 
     }
 
     async function VerificarOfensiva() {
         const user = new Usuario(token, refresh_token, Navegacao, set);
-        await user.ValidarOfensiva(setMaiorOfensiva,setDados);
+        await user.ValidarOfensiva(setMaiorOfensiva, setDados);
         usuario = JSON.parse(localStorage.getItem("dados"));
 
     }
 
     async function CarregarInformacoes() {
-        
-         //Crio o bjeto que contem requisições para o banco
+
+        //Crio o bjeto que contem requisições para o banco
         const user = new Usuario(token, refresh_token, Navegacao, set);
 
         //Sicronizo ofensiva do banco de dados
@@ -91,27 +91,30 @@ const ConteudoHome = () => {
     //Pega os dados do usuario
     let usuario = JSON.parse(localStorage.getItem("dados"));
 
-    
+
     useEffect(() => {
-    //Verifico se usuario esta banido/desativado
-    if (usuario?.ativo === false) {
-        setBanido(true);
-    }
+        //Verifico se usuario esta banido/desativado
+        if (usuario?.ativo === false) {
+            setBanido(true);
+        }
     }, [usuario?.ativo]);
 
-    const XpMax = 500;
+    // const XpMax = 500;
     let xp = usuario?.xp ?? 0;
-    let Nivel = 1;
-    const xpAtual = xp % XpMax;
-    const porcentagem = (xpAtual / XpMax) * 100;
+    const xpAtual = xp % 500;
+    const porcentagem = (xpAtual / 500) * 100;
     const nome = usuario?.nome ?? "Usuário";
+
+
+    const Nivel = Math.min(Math.floor(xp / 500) + 1, 15);
+
+
+
 
 
 
 
     const ofensiva = usuario?.ofensiva ?? 0;
-
-
 
     useEffect(() => {
         // //Atualiza os dados do usuario, sempre que a pagina for acessada
@@ -127,73 +130,8 @@ const ConteudoHome = () => {
         //Valido a ofensiva
         VerificarOfensiva();
 
-        //Calcula nivel
-        switch (true) {
-            case xp > 500 && xp <= 1000:
-                Nivel = 2;
-                break;
-
-            case xp > 1000 && xp <= 1500:
-                Nivel = 3;
-                break;
-
-            case xp > 1500 && xp <= 2000:
-                Nivel = 4;
-                break;
-
-            case xp > 2000 && xp <= 2500:
-                Nivel = 5;
-                break;
-
-            case xp > 2500 && xp <= 3000:
-                Nivel = 6;
-                break;
-
-            case xp > 3500 && xp <= 4000:
-                Nivel = 7;
-                break;
-
-            case xp > 4000 && xp <= 4500:
-                Nivel = 8;
-                break;
-
-            case xp > 4500 && xp <= 5000:
-                Nivel = 9;
-                break;
-
-            case xp > 5000 && xp <= 6000:
-                Nivel = 10;
-                break;
-
-            case xp > 5500 && xp <= 6000:
-                Nivel = 10;
-                break;
-
-            case xp > 6000 && xp <= 6500:
-                Nivel = 11;
-                break;
-
-            case xp > 6500 && xp <= 7000:
-                Nivel = 12;
-                break;
-
-            case xp > 7000 && xp <= 7500:
-                Nivel = 13;
-                break;
-
-            case xp > 7500 && xp <= 8000:
-                Nivel = 14;
-                break;
-
-            case xp > 8000:
-                Nivel = 15;
-                break;
-
-            default:
-                Nivel = 1;
-        }
-        // return () => document.removeEventListener("visibilitychange", onVisible);
     }, []);
+
 
 
     const ultimaAula = {
@@ -242,10 +180,10 @@ const ConteudoHome = () => {
                 />
             )}
 
-           {banido && 
-           <PopUpBanido 
-            onFechar={() => setBanido(false)} 
-            />}
+            {banido &&
+                <PopUpBanido
+                    onFechar={() => setBanido(false)}
+                />}
 
 
             <div className={style.corpo}>
@@ -270,7 +208,7 @@ const ConteudoHome = () => {
                             <div className={style.Nivel}>
                                 <div className={style.NivelTopo}>
                                     <span>Nível {Nivel}</span>
-                                    <span>{xpAtual}/{XpMax} XP</span>
+                                    <span>{xpAtual} XP</span>
                                 </div>
                                 <div className={style.Barra}>
                                     <div
@@ -344,12 +282,12 @@ const ConteudoHome = () => {
 
                         <div className={style.trilhaHardware}>
 
-                                <img src={hardwareIcon} alt="Hardware" />
-                                <div>
-                                    <h3>Hardware</h3>
-                                    <p>Desvende a arquitetura das máquinas de forma acessível</p>
-                                </div>
-                                
+                            <img src={hardwareIcon} alt="Hardware" />
+                            <div>
+                                <h3>Hardware</h3>
+                                <p>Desvende a arquitetura das máquinas de forma acessível</p>
+                            </div>
+
                             <Link to="/hardware">
                                 <button className={style.btnExplorar}>EXPLORAR &gt;</button>
                             </Link>

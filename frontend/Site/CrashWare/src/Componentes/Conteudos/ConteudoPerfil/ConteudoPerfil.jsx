@@ -81,19 +81,20 @@ const ConteudoPerfil = () => {
     const inputBanner = useRef();
     
     const [ofensiva, setOfensiva] = useState(0);
-    const [xp, setXp] = useState(usuario?.xp || 0);
     const [conquistas, setConquistas] = useState(CONQUISTAS_MOCK);
     const [totalCompras, setTotalCompras] = useState(0);
     const [totalGemas, setTotalGemas] = useState(usuario?.moedas);
     const [popup, setPopup] = useState(null);
 
-    const XpMax = 500;
-    const Nivel = 1;
+    // const XpMax = 500;
+    let xp = usuario?.xp ?? 0;
+    
+    const xpAtual = xp % 500;
+    const Nivel = Math.min(Math.floor(xp / 500) + 1, 15);
+    
+    const porcentagem = (xpAtual / 500) * 100;
     const nome = usuario?.nome || "Usuário";
 
-    const xpAtual = xp % XpMax;
-    const porcentagem = (xp / XpMax) * 100;
-    
     //Click
     const [click, setClick] = useState(0);
     
@@ -374,7 +375,7 @@ const ConteudoPerfil = () => {
                             <div className={style.Nivel}>
                                 <div className={style.NivelTopo}>
                                     <p>Nível {Nivel}</p>
-                                    <span>{xpAtual}/{XpMax} XP</span>
+                                    <span>{xpAtual} XP</span>
                                 </div>
 
                                 <div className={style.Barra}>
