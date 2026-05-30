@@ -149,8 +149,8 @@ const CVerificacaoEmail = () => {
 
             <div className={style.corpo}>
                 <div className={style.container}>
-                    <h1>Bem-Vindo {nomeM}!!!</h1>
-                    <p className={style.texto}>Verifique o Código enviado para o email: <span>{email_novo || email}</span></p>
+                    <h1>VERIFICAÇÃO DO EMAIL</h1>
+                    <h2 className={style.texto}>Clique no botão para enviarmos um código de verificação no seu email: <span>{email_novo || email}</span></h2>
 
                     <CampoTexto type="text" placeholder="Insira o Código"
                         className={style.inputClasse}

@@ -62,6 +62,13 @@ const ConteudoHome = () => {
 
     }
 
+    async function VerificarOfensiva() {
+        const user = new Usuario(token, refresh_token, Navegacao, set);
+        await user.ValidarOfensiva(setMaiorOfensiva,setDados);
+        usuario = JSON.parse(localStorage.getItem("dados"));
+
+    }
+
     async function CarregarInformacoes() {
         
          //Crio o bjeto que contem requisições para o banco
@@ -69,6 +76,9 @@ const ConteudoHome = () => {
 
         //Sicronizo ofensiva do banco de dados
         await user.SicronizarOfensiva(setPopup)
+
+        //Valido a ofensiva
+        await VerificarOfensiva();
 
         //Conquista ao logar
         await user.conquista(9, setPopupConquista, setDados)
@@ -185,12 +195,6 @@ const ConteudoHome = () => {
         // return () => document.removeEventListener("visibilitychange", onVisible);
     }, []);
 
-    async function VerificarOfensiva() {
-        const user = new Usuario(token, refresh_token, Navegacao, set);
-        await user.ValidarOfensiva(setDados, setMaiorOfensiva);
-        usuario = JSON.parse(localStorage.getItem("dados"));
-
-    }
 
     const ultimaAula = {
         trilha: "Hardware",
