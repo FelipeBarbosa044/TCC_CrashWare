@@ -35,7 +35,7 @@ public class Configuracoes_Fragment extends Fragment {
     ImageView imgVoltarConfig, imgTemaSistema, imgtemaModoEscuro,
             imgTemaModoClaro, imgGelo,imgMeiaNoite,imgLeitura;
 
-    ConstraintLayout AlterarDadosUsuario, SairDaConta, ExcluirConta, TermosDeServiço, Sobre;
+    ConstraintLayout AlterarDadosUsuario, SairDaConta, DesativarConta, ExcluirConta, TermosDeServiço, Sobre;
 
     //Memória do app
     SharedPreferences prefs;
@@ -108,7 +108,7 @@ public class Configuracoes_Fragment extends Fragment {
         TermosDeServiço     = view.findViewById(R.id.cardPrivacidadeSegurancaTermosServico);
         AlterarDadosUsuario = view.findViewById(R.id.cardConfigUsuarioAlterarDados);
         ExcluirConta        = view.findViewById(R.id.cardConfigUsuarioExluirConta);
-
+        DesativarConta = view.findViewById(R.id.cardConfigUsuarioDesativarConta);
 
         imgGelo.setEnabled(false);
         imgLeitura.setEnabled(false);
@@ -121,7 +121,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-              //  AlterarTemaPara(TEMA_Sistema);
+                //  AlterarTemaPara(TEMA_Sistema);
 
             }
         });
@@ -130,7 +130,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-             //   AlterarTemaPara(TEMA_Claro);
+                //   AlterarTemaPara(TEMA_Claro);
 
             }
         });//
@@ -139,7 +139,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-              //  AlterarTemaPara(TEMA_Escuro);
+                //  AlterarTemaPara(TEMA_Escuro);
             }
         });//
 
@@ -147,7 +147,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-             //   AlterarTemaPara(TEMA_Gelo);
+                //   AlterarTemaPara(TEMA_Gelo);
 
             }
         });//
@@ -181,6 +181,18 @@ public class Configuracoes_Fragment extends Fragment {
                         .popBackStack();//simula o botão "voltar" do celular
             }
         });
+
+
+        DesativarConta.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+            }
+        });
+
+
 
         SairDaConta.setOnClickListener(new View.OnClickListener()
         {
@@ -342,7 +354,7 @@ public class Configuracoes_Fragment extends Fragment {
 //        }
 
 
-//    }
+    //    }
     private void salvarTema(String tema)
     {
         prefs.edit()
