@@ -418,7 +418,10 @@ async def alterar_nome(dados : NomeSchema ,usuario = Depends(validar_token),sess
         session.commit()
 
         # Mensagem da API
-        return {"mensagem": "Nome alterado com sucesso!"}
+        return {
+            "mensagem": "Nome alterado com sucesso!",
+            "nome" : usuario.nome
+         }
 
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
