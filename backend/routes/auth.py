@@ -420,7 +420,7 @@ async def alterar_nome(dados : NomeSchema ,usuario = Depends(validar_token),sess
         # Mensagem da API
         return {
             "mensagem": "Nome alterado com sucesso!",
-            "nome" : usuario.nome
+            "nome" : usuario.nome_usuario
          }
 
     except Exception as exception:
