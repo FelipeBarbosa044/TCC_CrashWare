@@ -24,7 +24,7 @@ import termosModoEscuro from "../../../fotos/escuro/termos.svg";
 
 import googleIcon from "../../../fotos/google.png";
 import githubIcon from "../../../fotos/github.png";
-import { Api, SairDaConta } from '../../../../funcoes/functions';
+import { Api, SairDaConta, sleep } from '../../../../funcoes/functions';
 import { Usuario } from '../../../../funcoes/user';
 import { Configurações } from '../../../../funcoes/configurações';
 import { CampoTexto } from '../../CampoTexto';
@@ -336,6 +336,14 @@ const ConteudoConfiguracoes = () => {
 
         //Controle de Nvegção
         localStorage.setItem("alterar_nome" , "true")
+
+        setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Nome',
+                    mensagem: "Verificando informações..."
+                });
+
+        await sleep(1000)
 
         await api.Verificar_Token();
 
