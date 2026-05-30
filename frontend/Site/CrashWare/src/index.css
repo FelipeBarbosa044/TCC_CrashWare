@@ -8,6 +8,7 @@
   --bg-terceiro: #FFFFFF80;
   --texto-quarto: ##787A81CC;
 
+  --Chamada : #3B77BE;
     --app-bg: var(--bg-principal);
 
 
@@ -85,6 +86,8 @@
   --texto-quarto: ##;
   
   --borda: #d1d5db;
+
+  --Chamada: black;
 
   --blur: #161836;
     --gradiente-inicial:linear-gradient(to bottom, var(--bg-principal), var(--blur));
