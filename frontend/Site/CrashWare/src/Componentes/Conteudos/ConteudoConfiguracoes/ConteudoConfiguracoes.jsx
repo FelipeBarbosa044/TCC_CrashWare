@@ -316,6 +316,16 @@ const ConteudoConfiguracoes = () => {
                 return ;
             }
 
+        if(nome.toLocaleLowerCase() == usuario?.nome.toLocaleLowerCase())
+        {
+             setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Erro no formulário',
+                    mensagem: "O nome deve ser diferente do anterior!"
+                });
+                return ;
+        }
+
         if (/\d/.test(nome)) {
             setPopup({
                     tipo: 'aviso',

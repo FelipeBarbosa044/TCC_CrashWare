@@ -172,7 +172,7 @@ const ConteudoVerificarTel = () => {
                 <div className={style.container}>
                     <h1>Confirmar Telefone</h1>
 
-                    <h2>Digite o código de verificação que enviamos no seu <span>SMS</span></h2>
+                    <h2>Digite o código de verificação que enviamos no seu <span>TELEFONE</span></h2>
 
                     <h3><span>{telefoneF}</span></h3>
                     <div className={style.senhaWrapper}>

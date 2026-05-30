@@ -33,7 +33,7 @@ const ConteudoPerfil = () => {
 
     //SetMaiorOfensiva
     const [maiorOfensiva, setMaiorOfensiva] = useState(
-    localStorage.getItem("maior_ofensiva") || 0
+    localStorage.getItem("maior_ofensiva") || 1
     );
 
     //Uso useState para o react renderizar as informações
@@ -124,6 +124,7 @@ const ConteudoPerfil = () => {
         };
 
         carregarConquistas();
+        setMaiorOfensiva(localStorage.getItem("maior_ofensiva"))
         
         document.addEventListener("visibilitychange", onVisible);
 
