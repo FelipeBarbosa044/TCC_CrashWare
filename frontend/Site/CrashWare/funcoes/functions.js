@@ -258,7 +258,7 @@ export class Api
     }
 
 
-    async Verificar_Codigo(email,codigo,setPopup,setPodeNavegar,Navegacao,setDados,email_novo = null)
+    async Verificar_Codigo(email,codigo,setPopup,setPodeNavegar,Navegacao,setDados,email_novo = null,nome = null)
     {
 
 
@@ -304,7 +304,40 @@ export class Api
 
                     const alterar_email = localStorage.getItem("alterar_email")
 
-                    if(email_novo == null)
+                    const alterar_nome = localStorage.getItem("alterar_nome")
+
+                    
+                        
+                    if(alterar_nome == "true")
+                    {
+                        //Chamo o método de alterar nome
+                        const usuario = new Configurações();
+                        usuario.Alterar_Nome(nome,setPopup,setDados,Navegacao)
+                        return;
+                    }
+
+                    if(alterar_email == "true")
+                    {
+                        //Altero o email
+                        const usuario = new Configurações();
+                        usuario.Alterar_Email(email_novo,setPopup,setDados,Navegacao)
+                        return;
+
+                    }
+                    
+                    if (rec_senha == "false")
+                    {
+                        setPopup({
+                            tipo: 'sucesso',
+                            titulo: 'Emal Verificado!',
+                            mensagem: 'Estamos te redirecionando...'
+                        });
+                        await sleep(3000)  /*-> Faz que espere 3 segundos*/
+                        setPodeNavegar.current = true;
+                        Navegacao("/login")
+                        // , { replace: true }
+                    }else
+                    {
                         setPopup({
                             tipo: 'sucesso',
                             titulo: 'Emal Verificado!',
@@ -312,20 +345,6 @@ export class Api
                         });
                         await sleep(3000)  /*-> Faz que espere 3 segundos*/
                         
-
-                    if(alterar_email == "true")
-                    {
-                        //Altero o email
-                        const usuario = new Configurações();
-                        usuario.Alterar_Email(email_novo,setPopup,setDados,Navegacao)
-
-                    }else if (rec_senha == "false")
-                    {
-                        setPodeNavegar.current = true;
-                        Navegacao("/login")
-                        // , { replace: true }
-                    }else
-                    {
                         //Leva para a pag de rec_senha
                         setPodeNavegar.current = true;
                         Navegacao("/alterar-senha",

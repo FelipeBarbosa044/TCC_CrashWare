@@ -24,7 +24,7 @@ import termosModoEscuro from "../../../fotos/escuro/termos.svg";
 
 import googleIcon from "../../../fotos/google.png";
 import githubIcon from "../../../fotos/github.png";
-import { SairDaConta } from '../../../../funcoes/functions';
+import { Api, SairDaConta } from '../../../../funcoes/functions';
 import { Usuario } from '../../../../funcoes/user';
 import { Configurações } from '../../../../funcoes/configurações';
 import { CampoTexto } from '../../CampoTexto';
@@ -121,6 +121,9 @@ const ConteudoConfiguracoes = () => {
 
     //Objeto da classe configurações 
     const campo = new Configurações(token, refresh_token, Navegacao, set)
+
+    //Objeto da classe API
+    const api = new Api(token,refresh_token,Navegacao,set,true);
 
     // Configurações de cada popup
     const configsPopup = {
@@ -221,6 +224,11 @@ const ConteudoConfiguracoes = () => {
     const ValidarEmail = async () => {
 
         //Requisição de validar email
+        setPopup({
+                tipo: 'aviso',
+                titulo: 'Validação',
+                mensagem: "Validando email..."
+            });
 
         await campo.Validar_Email(email, setPopup)
     }
@@ -293,6 +301,56 @@ const ConteudoConfiguracoes = () => {
         }
         
 
+    }
+
+
+    const AlterarNome = async () =>
+    {
+         if (!nome.trim()) {
+                
+                setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Erro no formulário',
+                    mensagem: "Preencha o nome"
+                });
+                return ;
+            }
+
+        if (/\d/.test(nome)) {
+            setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Erro no formulário',
+                    mensagem: "Nome não pode conter números"
+                });
+            return;
+        }
+
+        if (nome.length < 5) {
+            setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Erro no formulário',
+                    mensagem: "Nome deve ter pelo menos 5 caracteres"
+                });
+            return;
+        }
+
+        //Controle de Nvegção
+        localStorage.setItem("alterar_nome" , "true")
+
+        await api.Verificar_Token();
+
+        //Levo para a tela de verificar EMAIL
+        Navegacao("/verificacao-email",
+            {state:
+                {
+                    nome : nome,
+                    email : emailAtual,
+                    origem: "/configuracoes"
+
+                }
+        });
+
+        
     }
 
     return (
@@ -401,7 +459,7 @@ const ConteudoConfiguracoes = () => {
                                     <label htmlFor="idNovoNome">Novo Nome</label>
                                     <input
                                         type="text"
-                                        maxLength={200}
+                                        maxLength={100}
                                         placeholder="Nome*"
                                         id="idNovoNome"
                                         value={nome}
@@ -409,7 +467,7 @@ const ConteudoConfiguracoes = () => {
                                     />
                                 </div>
                             </div>
-                            <button className={Style.botoes}>
+                            <button className={Style.botoes} onClick={AlterarNome}>
                                 Alterar
                             </button>
                         </div>

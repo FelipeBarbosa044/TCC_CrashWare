@@ -107,7 +107,7 @@ const CVerificacaoEmail = () => {
 
     const handleVericarEmail = async () => {
         const usuario = new Api();
-        usuario.Verificar_Codigo(email, codigo, setPopup, setPodeNavegar, Navegacao,setDados,email_novo)
+        usuario.Verificar_Codigo(email, codigo, setPopup, setPodeNavegar, Navegacao,setDados,email_novo,nome)
     }
 
 

@@ -663,6 +663,10 @@ export class Configurações
 
     async Alterar_Telefone(telefone,setPopup,setDados,Navegacao)
     {
+
+         //Controle de Navegação
+        localStorage.setItem("alterar_telefone" , "false")
+
          setPopup({
                 tipo: 'aviso',
                 titulo: 'Telefone',
@@ -686,8 +690,6 @@ export class Configurações
 
             if(response.ok)
             {
-                //Controle de Navegação
-                localStorage.setItem("alterar_telefone" , "false")
 
                 //Atualizo no LocalStorage
                 //Pega os dados atuais
@@ -733,5 +735,86 @@ export class Configurações
             console.log("Erro ao Alterar telefone : " + error)
         }
 
-    }
+    }//Alterar Telefone
+
+    async Alterar_Nome(nome,setPopup,setDados,Navegacao)
+    {
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+        //Controle de Navegação
+        localStorage.setItem("alterar_nome" , "false")
+
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/auth/alterar_nome",
+                {
+                    method: "PATCH",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        nome : nome
+                    })
+                });
+
+            if(response.ok)
+            {
+
+                const resposta = await response.json();
+
+                //Requisição dar certa
+                //Atualizo no LocalStorage
+                //Pega os dados atuais
+                const dados = JSON.parse(localStorage.getItem("dados"));
+
+                //Atualiza apenas o email
+                dados.nome = resposta.nome;
+
+                //Salva novamente
+                localStorage.setItem("dados", JSON.stringify(dados));
+
+                //Atualiza o setDados
+                setDados(dados)
+
+                setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'Nome Alterado',
+                    mensagem: 'Estamos te redirecionando...'
+                });
+
+                await sleep(2000)
+
+
+            }else
+            {
+                const erro = await response.json();
+
+                await sleep(2000)
+
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Erro ao Alterar Nome',
+                    mensagem:  erro.detail
+                });
+
+                console.log(erro.detail)
+            }
+           
+        }catch(error){
+            //Erro na API ou de Conexão
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Erro De Conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log("Erro ao Alterar Nome : " + error)
+        }finally
+        {
+            //Me leva para a HOME
+            Navegacao('/home')
+        }
+    }//Alterar Nome
 }//Configurações
