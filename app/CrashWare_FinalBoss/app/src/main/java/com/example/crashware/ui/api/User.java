@@ -36,6 +36,7 @@ public class User {
     public static class PerfilResponse {
         public String nome;
         public String email;
+        public String telefone;
         public String foto;
         public String banner;
         public Integer moedas;
