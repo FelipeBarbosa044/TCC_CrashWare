@@ -233,6 +233,8 @@ public class RedefinirSenha extends AppCompatActivity {
                                     prefs.edit()
                                             .remove("token")
                                             .remove("refresh_token")
+                                            .remove("alterar_email")
+                                            .remove("alterar_nome")
                                             .remove("foto")
                                             .apply();
 

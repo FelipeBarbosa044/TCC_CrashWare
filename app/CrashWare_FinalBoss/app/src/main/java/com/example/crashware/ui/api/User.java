@@ -1,10 +1,14 @@
 package com.example.crashware.ui.api;
 
+import static android.app.ProgressDialog.show;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -1067,6 +1071,8 @@ public class User {
 
                 if (resposta.isSuccessful()) {
 
+                    //Retorno o objeto que contem as conquistas
+
                     List<ConquistaResponse> conquistas =
                             resposta.body().conquistas;
 
@@ -1082,32 +1088,81 @@ public class User {
                             Throwable t
                     )
             {
+                //Ignora
+            }
+        });
+    }// Exibir conquista
+
+    //Exibir Conquistas Bloqueadas
+    //Resposta da API
+    public static class ExibirConquistaBloqueadaResponse {
+        public List<ConquistaResponse> conquistas;
+
+    }
+
+    // INTERFACE da API:
+    public static interface exibir_conquista_bloqueada {
+
+        @GET("/achievement/conquista_bloqueada")
+        Call<ExibirConquistaBloqueadaResponse> exibir(
+                @Header("Authorization") String token
+        );
+    }
+
+    // Callback
+    public interface ConquistaBloqueadaCallback {
+        void sucesso(List<ConquistaResponse> conquistas);
+    }
+
+    public static void ExibirConquistaBloqueada(SharedPreferences prefs, ConquistaBloqueadaCallback callback)
+    {
+        String token = prefs.getString("token", null);
+
+        token = "Bearer " + token;
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        exibir_conquista_bloqueada api = retrofit.create(exibir_conquista_bloqueada.class);
+
+        Call<ExibirConquistaBloqueadaResponse> requisicao = api.exibir(token);
+
+        requisicao.enqueue(new Callback<ExibirConquistaBloqueadaResponse>() {
+
+            @Override
+            public void onResponse(
+                    Call<ExibirConquistaBloqueadaResponse> requisicao,
+                    retrofit2.Response<ExibirConquistaBloqueadaResponse> resposta
+            ) {
+
+                if (resposta.isSuccessful()) {
+
+                    //Retorno o objeto que contem as conquistas bloqueadas
+
+                    List<ConquistaResponse> conquistas = resposta.body().conquistas;
+
+                    callback.sucesso(conquistas);
+
+                }
+            }
+
+            @Override
+            public void onFailure
+                    (
+                            Call<ExibirConquistaBloqueadaResponse> call,
+                            Throwable t
+                    )
+            {
+                //Ignora
 
             }
         });
-    }
-}
 
-//            @Override
-//            public void onFailure(
-//                    Call<ExibirConquistaResponse> call,
-//                    Throwable t
-//            )
-//            {
-//
-//               // Caso deu erro na requisição
-//               // erro de conexão (internet, URL, servidor fora)
-//
-////             Toast.makeText(
-//    //                    context,
-//    //                    "Erro de conexão: " + t.getMessage(),
-//    //                    Toast.LENGTH_LONG
-//    //            ).show();
-//            }
-//
-//        });//enqueque
-//
-//    }// Exibir conquista
-//
-//
-//    }//User
+    }//Exibir conquista Bloqueada
+
+
+
+
+}//User

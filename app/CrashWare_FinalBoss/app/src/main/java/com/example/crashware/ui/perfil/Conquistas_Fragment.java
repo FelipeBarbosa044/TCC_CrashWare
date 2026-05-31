@@ -226,12 +226,60 @@ public class Conquistas_Fragment extends Fragment {
                         // Atualiza os RecyclerViews
                         adapter.notifyDataSetChanged();
 
+//                        adapterBloqueadas.notifyDataSetChanged();
+                    }
+                }
+        );
+        User.ExibirConquistaBloqueada(
+                prefs,
+                // Callback da API
+                new User.ConquistaBloqueadaCallback()
+                {
+
+                    @Override
+                    public void sucesso(
+                            List<User.ConquistaResponse> conquistasApi
+                    ) {
+
+
+                        listaConquistasBloqueadas.clear();
+
+                        // Percorre todas as conquistas recebidas
+                        for (User.ConquistaResponse conquista : conquistasApi)
+                        {
+
+                            // Nome da conquista
+                            String nome =
+                                    conquista.nome_conquista;
+
+                            // Descrição da conquista
+                            String descricao =
+                                    conquista.descricao;
+
+                            /*
+                             * Aqui você cria um objeto Conquista
+                             * para adicionar ao RecyclerView
+                             */
+                            Conquista novaConquista =
+                                    new Conquista(
+                                            nome,
+                                            descricao,
+                                            R.drawable.banner_icon
+                                    );
+
+                            //Add conquistas bloqueadas na array
+                            listaConquistasBloqueadas.add(novaConquista);
+
+
+                        }
+
+                        // Atualiza os RecyclerViews
+//                        adapter.notifyDataSetChanged();
+
                         adapterBloqueadas.notifyDataSetChanged();
                     }
                 }
         );
-
-
 
         // Retorna a View do Fragment
         return view;

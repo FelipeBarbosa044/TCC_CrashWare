@@ -312,6 +312,9 @@ public class Configuracoes {
                     prefs.edit()
                             .remove("token")
                             .remove("refresh_token")
+                            .remove("alterar_email")
+                            .remove("alterar_nome")
+                            .remove("logado")
                             .remove("foto")
                             .apply();
 
@@ -653,6 +656,9 @@ public class Configuracoes {
                     prefs.edit()
                             .remove("token")
                             .remove("refresh_token")
+                            .remove("alterar_email")
+                            .remove("alterar_nome")
+                            .remove("logado")
                             .remove("foto")
                             .apply();
 

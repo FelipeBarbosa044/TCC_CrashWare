@@ -182,52 +182,62 @@ public class Perfil_Fragment extends Fragment {
         /*
          * Busca as conquistas da API
          */
-        User.ExibirConquista(
-                prefs,
 
-                new User.ConquistaCallback() {
+        //Verifico o token
+        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
 
-                    @Override
-                    public void sucesso(
-                            List<User.ConquistaResponse> conquistasApi
-                    ) {
+            @Override
+            public void onSuccess() {
+                //Se token for valido executo a requisição
+                User.ExibirConquista(
+                        prefs,
 
-                        // Limpa a lista antiga
-                        conquistasRecentes.clear();
+                        new User.ConquistaCallback() {
 
-                        /*
-                         * Pega no máximo 3 conquistas
-                         */
-                        int limite =
-                                Math.min(conquistasApi.size(), 3);
+                            @Override
+                            public void sucesso(
+                                    List<User.ConquistaResponse> conquistasApi
+                            ) {
 
-                        /*
-                         * Percorre somente as 3 primeiras
-                         */
-                        for(int i = 0; i < limite; i++)
-                        {
+                                // Limpa a lista antiga
+                                conquistasRecentes.clear();
 
-                            // Pega a conquista atual
-                            User.ConquistaResponse conquista =
-                                    conquistasApi.get(i);
+                                /*
+                                 * Pega no máximo 3 conquistas
+                                 */
+                                int limite =
+                                        Math.min(conquistasApi.size(), 3);
 
-                            // Cria objeto da RecyclerView
-                            Conquista novaConquista =
-                                    new Conquista(
-                                            conquista.nome_conquista,
-                                            conquista.descricao,
-                                            R.drawable.banner_icon
-                                    );
+                                /*
+                                 * Percorre somente as 3 primeiras
+                                 */
+                                for(int i = 0; i < limite; i++)
+                                {
 
-                            // Adiciona na lista
-                            conquistasRecentes.add(novaConquista);
+                                    // Pega a conquista atual
+                                    User.ConquistaResponse conquista =
+                                            conquistasApi.get(i);
+
+                                    // Cria objeto da RecyclerView
+                                    Conquista novaConquista =
+                                            new Conquista(
+                                                    conquista.nome_conquista,
+                                                    conquista.descricao,
+                                                    R.drawable.banner_icon
+                                            );
+
+                                    // Adiciona na lista
+                                    conquistasRecentes.add(novaConquista);
+                                }
+
+                                // Atualiza RecyclerView
+                                adapter.notifyDataSetChanged();
+                            }
                         }
+                );
+            }
+        });
 
-                        // Atualiza RecyclerView
-                        adapter.notifyDataSetChanged();
-                    }
-                }
-        );
 
         //função que atualiza o progresso do xp
         atualizarXp();
