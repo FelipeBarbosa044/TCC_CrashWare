@@ -11,7 +11,6 @@
 .corpo {
     /* width: 100vw; */
     min-height: 100vh;
-    background-color: var(--bg-quarto);
 
     display: flex;
     flex-direction: column;
@@ -29,8 +28,9 @@
     align-self: center;
 
     border: 1px solid var(--texto-principal);
-    background-color: var(--bg-terceiro);
-
+    background-color: var(--bg-secundario);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding-right: 30px;
     padding-left: 30px;
     border-radius: 30px;
@@ -44,7 +44,7 @@
     color: var(--texto-principal);
     font-size: clamp(2rem, 5vw, 3rem);
     margin: 30px 0px;
-    text-shadow: 2px 2px 8px white;
+    text-shadow: 1px 1px 5px white;
 }
 
 
@@ -126,9 +126,10 @@
 
 .btnLogar {
     width: 70%;
-    height: 5vh;
+    min-height: 8vh;
+    max-height: 8vh;
 
-    background: var(--bg-principal);
+    background: var(--Login);
     border: none;
     border-radius: 28px;
     margin-top: 30px;
@@ -136,14 +137,13 @@
 
     font-size: 20px;
     font-weight: bold;
-    color: var(--texto-principal);
+    color: var(--Texto1);
 
     transition: 0.3s;
     cursor: pointer;
 }
 
 .btnLogar:hover {
-    color: var(--texto-principal);
     transform: scale(1.06);
     transition: 0.3s;
 }
@@ -154,7 +154,7 @@
 }
 
 .Cadastrar {
-    color: var(--texto-principal);
+    color: var(--Texto2);
     font-family: "Montserrat", sans-serif;
     font-size: 20px;
     font-weight: 700;
@@ -164,7 +164,7 @@
 }
 
 .Cadastrar a {
-    color: var(--texto-principal);
+    color: var(--Texto2);
     font-weight: 700;
     margin-left: 10px;
 }
