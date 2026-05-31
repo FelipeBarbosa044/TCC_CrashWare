@@ -87,16 +87,23 @@ public class Inicio_fragment extends Fragment {
         prefs = requireContext().getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
 
         //Adiciono a conquista de login e sicronizo a ofensiva
+        XP_Manager = new XP_Manager(requireContext());
         PrimeiroLogin();
 
+
+
+
+
         // Coleto as informações do usuário
-        Perfil();
+//        Perfil();
+//
+//        ValidarOfensiva();
 
-        ValidarOfensiva();
 
 
 
-        XP_Manager = new XP_Manager(requireContext());
+
+//        XP_Manager = new XP_Manager(requireContext());
 
 
 
@@ -124,6 +131,9 @@ public class Inicio_fragment extends Fragment {
         txtXpInicio         = view.findViewById(R.id.txtXPInicio             );
         imgNotificacoes     = view.findViewById(R.id.layoutSino              );
         imgRaposa           = view.findViewById(R.id.imgRaposa);
+
+
+        carregarDadosLocais();
 
         // Atualiza a interface de XP e nível
         atualizarInterfaceXp();
@@ -224,11 +234,9 @@ public class Inicio_fragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        //Atualizo a ofensiva
-        ValidarOfensiva();
+        carregarDadosLocais();
 
-        //Carrego as informaçoes do usuario novamente
-        Perfil();
+        atualizarInterfaceXp();
 
     }
 
@@ -303,7 +311,8 @@ public class Inicio_fragment extends Fragment {
         Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
 
             @Override
-            public void onSuccess() {
+            public void onSuccess()
+            {
 
 
                 //Se token for valido executo a requisição
@@ -393,7 +402,8 @@ public class Inicio_fragment extends Fragment {
     }//Primeiro login
 
 
-    private void ValidarOfensiva() {
+    private void ValidarOfensiva()
+    {
 
         //Verifico o token
         Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
@@ -442,6 +452,33 @@ public class Inicio_fragment extends Fragment {
 
         if (prefs != null && listenerFoto != null) {
             prefs.unregisterOnSharedPreferenceChangeListener(listenerFoto);
+        }
+    }
+
+    private void carregarDadosLocais() {
+
+        String nome = prefs.getString("nome", "");
+
+        String foto = prefs.getString("foto", "");
+
+        int ofensiva = prefs.getInt("ofensiva", 0);
+
+        txtNomeInicio.setText(nome);
+
+        txtOfensiva.setText(ofensiva + " dias");
+
+        if (foto != null && !foto.isEmpty()) {
+
+            String linkFoto =
+                    "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/"
+                            + foto
+                            + "?t=" + System.currentTimeMillis();
+
+            Glide.with(requireContext())
+                    .load(linkFoto)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(imgfotoInicio);
         }
     }
 }

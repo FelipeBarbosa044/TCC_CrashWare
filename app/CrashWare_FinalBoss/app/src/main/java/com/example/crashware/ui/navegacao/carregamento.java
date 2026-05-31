@@ -1,134 +1,128 @@
 package com.example.crashware.ui.navegacao;
 
-
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-//
-import com.example.crashware.ui.config.ThemeConfig;
-//
 
 import com.example.crashware.R;
 import com.example.crashware.ui.api.Auth;
-import com.example.crashware.ui.login.Login;
+import com.example.crashware.ui.api.User;
+import com.example.crashware.ui.config.ThemeConfig;
 
 public class carregamento extends AppCompatActivity {
 
-    ProgressBar Carregandotela;
+    private ProgressBar barra;
 
-    int progresso = 0 ;
-
-    //Memória do app
-    SharedPreferences prefs;
-
+    private SharedPreferences prefs;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        prefs = getSharedPreferences("CrashWare", MODE_PRIVATE);
+    protected void onCreate(Bundle savedInstanceState) {
 
 
-        //aplicarTema();//carregando tema para o app
+        ThemeConfig.aplicarTema(this);
 
         super.onCreate(savedInstanceState);
-        //Criando arquivo na memoria do app "CrashWare"
-
-
-//        String EstadoToken = prefs.getString("EstadoToken","");
-
-//        boolean EstadoToken = prefs.getBoolean("EstadoToken", false);
-
-
-
-
-
-
-
 
         EdgeToEdge.enable(this);
+
         setContentView(R.layout.carregamento);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
 
+        prefs = getSharedPreferences("CrashWare", MODE_PRIVATE);
 
+        barra = findViewById(R.id.carregandoTela);
 
-        });
-        Carregandotela = findViewById(R.id.carregandoTela);
+        barra.setProgress(10);
 
-        iniciarCarregamento( 300);
-
-//        if (EstadoToken)
-//        {
-//
-//
-//        }
-//        else
-//        {
-//            iniciarCarregamento(Login.class, 300);
-//
-//
-//        }
-
-
-
-
+        iniciarCarregamento();
     }
 
+    private void iniciarCarregamento() {
 
+        // 30%
+        barra.setProgress(30);
 
-    private void iniciarCarregamento(int velocidade) {
+        Auth.verificarToken(
+                this,
+                prefs,
+                true,
+                new Auth.AuthCallback() {
 
-        Handler handler = new Handler(Looper.getMainLooper());
+                    @Override
+                    public void onSuccess() {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
+                        barra.setProgress(60);
 
-                progresso += 5;
-                Carregandotela.setProgress(progresso);
-
-                if (progresso < 30) {
-                    handler.postDelayed(this, velocidade);
-                } else {
-
-                    //Verifico o token
-                    Auth.verificarToken(carregamento.this,prefs,false,null);
-
-
+                        carregarPerfil();
+                    }
                 }
-            }
-        };
-
-        handler.post(runnable);
+        );
     }
 
-//    private void aplicarTema()
-//    {
-//        String tema = prefs.getString(ThemeConfig.KEY_THEME, "claro");
-//
-//        switch (tema)
-//        {
-//            case "escuro":
-//                setTheme(R.style.Theme_CrashWare);
-//                break;
-//
-//            default:
-//                setTheme(R.style.Theme_CrashWare);
-//                break;
-//        }
-//    }
+    private void carregarPerfil() {
 
+        User.Perfil(
+                this,
+                prefs,
+                new User.PerfilCallback() {
+
+                    @Override
+                    public void sucesso(User.PerfilResponse usuario) {
+
+                        barra.setProgress(90);
+
+                        salvarDados(usuario);
+
+                        abrirHome();
+                    }
+                }
+        );
+    }
+
+    private void salvarDados(User.PerfilResponse usuario) {
+
+        prefs.edit()
+
+                .putString("nome", usuario.nome)
+                .putString("email", usuario.email)
+                .putString("foto", usuario.foto)
+                .putString("banner", usuario.banner)
+
+                .putInt(
+                        "moedas",
+                        usuario.moedas != null ? usuario.moedas : 0
+                )
+
+                .putFloat(
+                        "xp",
+                        usuario.xp != null ? usuario.xp : 0f
+                )
+
+                .putInt(
+                        "ofensiva",
+                        usuario.ofensiva != null ? usuario.ofensiva : 1
+                )
+
+                .putBoolean(
+                        "ativo",
+                        usuario.ativo != null && usuario.ativo
+                )
+
+                .apply();
+    }
+
+    private void abrirHome() {
+
+        barra.setProgress(100);
+
+        Intent intent =
+                new Intent(carregamento.this, Home.class);
+
+        startActivity(intent);
+
+        finish();
+    }
 }
