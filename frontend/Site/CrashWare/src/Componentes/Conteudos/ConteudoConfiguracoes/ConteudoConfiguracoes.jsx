@@ -111,7 +111,7 @@ const ConteudoConfiguracoes = () => {
 
     if(usuario?.telefone != null)
     {
-        //BOA SORTE GABRIEL
+        //BOA SORTE GABRIEL OU DAVI
 
 
     }

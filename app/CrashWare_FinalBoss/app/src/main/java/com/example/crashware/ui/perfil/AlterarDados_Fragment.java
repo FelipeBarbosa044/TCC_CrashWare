@@ -134,6 +134,11 @@ public class AlterarDados_Fragment extends Fragment {
                     NomeSemNumero.show();
                     return;
                 }//Nome não pode ter numero
+                if(novoNome.length() < 5)
+                {
+                    Toast.makeText(requireContext(), "Nome deve ter pelo menos 5 caracteres", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 if(novoNome.equals(nomeAtual))
                 {
                     DiferenteNome.show();
@@ -217,16 +222,25 @@ public class AlterarDados_Fragment extends Fragment {
                 if (telefone.isEmpty() || confirmarTelefone.isEmpty())
                 {
                     Preencha.show();
+                    return;
                 }//se os Campos forem vazio mostra a mensagem para preencher
 
+                if(telefone.length() < 11 || confirmarTelefone.length() < 11)
+                {
+                    //Exibo na tela
+                    Toast.makeText(requireContext(), "Digite um telefone válido com DDD.", Toast.LENGTH_LONG).show();
+                }
                 else if (!telefone.equals(confirmarTelefone))
                 {
                     FalhaTelefone.show();
+                    return;
                 }//se o telefone for diferente da confirmação, mostra mensagem de erro
 
                 else
                 {
                     String numerotelefone = txtConfirmarTelefone.getText().toString();
+
+
                     Telefone.show();
                     prefs.edit()
                             .putString("telefone",numerotelefone)

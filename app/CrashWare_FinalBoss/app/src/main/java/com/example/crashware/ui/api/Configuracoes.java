@@ -600,6 +600,104 @@ public class Configuracoes {
 
     }//Verificar Senha
 
+    //Desativar Conta
+    // Armazena a resposta da API:
+    public static class DesativarContaResponse {
+        String mensagem;
+    }
+
+    // INTERFACE da API:
+    public static interface DesativarConta {
+        @PATCH("/user/desativar_conta")
+        Call<DesativarContaResponse> verificar(
+                @Header("Authorization") String token
+        );
+    }//Interface
+
+    public static void Desativar_Conta(SharedPreferences prefs,Fragment fragment)
+    {
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
+
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Fazendo que a interface da API seja utilizavel:
+        DesativarConta api = retrofit.create(DesativarConta.class);
+
+        // Monto a chamada da API:
+        Call<DesativarContaResponse> requisicao = api.verificar(token);
+
+        requisicao.enqueue(new Callback<DesativarContaResponse>() {
+            @Override
+            public void onResponse(
+                    Call<DesativarContaResponse> requisicao,
+                    retrofit2.Response<DesativarContaResponse> resposta
+            ) {
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+                    //Logout
+
+                    Toast.makeText(fragment.requireContext(),
+                            "Conta Desativada",
+                            Toast.LENGTH_SHORT).show();
+
+                    //Deleto o token e o refresh_token
+                    prefs.edit()
+                            .remove("token")
+                            .remove("refresh_token")
+                            .remove("foto")
+                            .apply();
+
+                    //Vou para o login
+                    Intent i = new Intent(fragment.requireContext(), Login.class);
+                    fragment.startActivity(i);
+                    fragment.requireActivity().finish();
+                } else {
+                    //Retorna erro caso a reqsição der erro
+
+                    String erro = "Erro ao Desativar  Conta";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    Toast.makeText(fragment.requireContext(), erro, Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DesativarContaResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+                Toast.makeText(
+                        fragment.requireContext(),
+                        "Erro de conexão: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+
+    }//Desativar Conta
 
 
 }//Configurações

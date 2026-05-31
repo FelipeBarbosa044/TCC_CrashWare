@@ -105,12 +105,8 @@ const ConteudoHome = () => {
     const porcentagem = (xpAtual / 500) * 100;
     const nome = usuario?.nome ?? "Usuário";
 
-
+    //Calcula o nível
     const Nivel = Math.min(Math.floor(xp / 500) + 1, 15);
-
-
-
-
 
 
 

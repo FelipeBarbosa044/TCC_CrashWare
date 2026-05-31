@@ -314,14 +314,12 @@ public class Inicio_fragment extends Fragment {
 
                         String nome = usuario.nome;
                         String email = usuario.email;
+                        String foto = usuario.foto;
                         String banner = usuario.banner;
                         Integer moedas = usuario.moedas;
                         Float xp = usuario.xp;
                         Integer ofensiva = usuario.ofensiva;
-
-
-
-                        String foto = usuario.foto;
+                        Boolean ativo = usuario.ativo;
 
                         // Salvo os dados no SharedPreferences
                         prefs.edit()
@@ -335,6 +333,14 @@ public class Inicio_fragment extends Fragment {
                                 .putInt("nivel", XP_Manager.getNivel())
 
                                 .commit();
+
+
+                        if(ativo == false)
+                        {
+                            //Coloca aqui a mensagem de banimento junto com o botão de "entendi"
+
+                        }
+
 
                         // Link da foto
                         String link_foto =

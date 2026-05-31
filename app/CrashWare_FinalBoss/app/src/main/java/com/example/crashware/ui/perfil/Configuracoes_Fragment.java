@@ -188,7 +188,41 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
+                builder.setTitle("Desativar Conta");
+
+                builder.setMessage("Deseja realmente desativar da sua conta?");
+
+                // Botão SIM
+                builder.setPositiveButton("Sim", (dialog, which) -> {
+
+                    Toast.makeText(getContext(), "Desativando conta...", Toast.LENGTH_LONG).show();
+
+                    //Verifico o token
+                    Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+
+                        @Override
+                        public void onSuccess() {
+
+                            //Aqui chamo o metodo de desativar conta
+                            Configuracoes.Desativar_Conta(prefs,Configuracoes_Fragment.this);
+
+                        }
+
+                    });
+
+
+                });
+
+                // Botão NÃO
+                builder.setNegativeButton("Cancelar", (dialog, which) -> {
+
+                    dialog.dismiss();
+
+                });
+
+                builder.show();
             }
         });
 
@@ -256,15 +290,15 @@ public class Configuracoes_Fragment extends Fragment {
                 // Botão SIM
                 builder.setPositiveButton("Sim", (dialog, which) -> {
 
+                    Toast.makeText(getContext(), "Excluindo conta...", Toast.LENGTH_LONG).show();
+
                     //Verifico o token
                     Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
 
                         @Override
                         public void onSuccess() {
 
-                            Toast.makeText(getContext(), "Excluindo conta...", Toast.LENGTH_LONG).show();
-
-
+                            //Chamo o metodo de DELETAR CONTA
                             Configuracoes.Deletar_Conta(prefs,Configuracoes_Fragment.this);
 
                         }
