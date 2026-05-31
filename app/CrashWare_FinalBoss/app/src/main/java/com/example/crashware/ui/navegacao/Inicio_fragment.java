@@ -323,6 +323,7 @@ public class Inicio_fragment extends Fragment {
 
                         String nome = usuario.nome;
                         String email = usuario.email;
+                        String telefone = usuario.telefone;
                         String foto = usuario.foto;
                         String banner = usuario.banner;
                         Integer moedas = usuario.moedas;
@@ -333,6 +334,7 @@ public class Inicio_fragment extends Fragment {
                         // Salvo os dados no SharedPreferences
                         prefs.edit()
                                 .putString("email",email)
+                                .putString("telefone",telefone)
                                 .putString("foto", foto)
                                 .putString("nome", nome)
                                 .putString("banner",banner)

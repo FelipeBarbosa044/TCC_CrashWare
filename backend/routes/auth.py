@@ -385,13 +385,9 @@ async def alterar_telefone(dados: TelefoneSchema,session = Depends(pegar_sessao)
 ############################
 #Rota de remover telefone
 @auth.delete('remover_telefone')
-async def remover_telefone (dados : TelefoneSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+async def remover_telefone (usuario = Depends(validar_token),session = Depends(pegar_sessao)):
     if usuario is None:
         raise HTTPException(status_code=401, detail="Token expirado ou inválido")
-    telefone = session.query(Usuarios).filter(Usuarios.telefone == dados.telefone).first()
-    if telefone is None:
-        raise HTTPException(status_code=404, detail="Adicione um número de telefone para realizar esse serviço")
-
     #Removo o telefone do usuario
     try:
         usuario.telefone = None
@@ -465,8 +461,6 @@ async def alterar_email(dados : EmailSchema,usuario = Depends(validar_token),ses
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
         raise HTTPException(status_code=400, detail=str(exception))
-
-
 
 #Rota de Verificar Senha
 @auth.post('/verificar_senha')

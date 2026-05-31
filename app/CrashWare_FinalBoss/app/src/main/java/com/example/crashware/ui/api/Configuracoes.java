@@ -699,5 +699,104 @@ public class Configuracoes {
 
     }//Desativar Conta
 
+    //Remover Telefone
+    // Armazena a resposta da API:
+    public static class RemoverTelefoneResponse {
+        String mensagem;
+    }
+
+    // INTERFACE da API:
+    public static interface RemoverTelefone {
+        @DELETE("/auth/remover_telefone")
+        Call<RemoverTelefoneResponse> remover(
+                @Header("Authorization") String token
+        );
+    }//Interface
+
+    public static void Remover_Telefone(SharedPreferences prefs,Fragment fragment)
+    {
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
+
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Fazendo que a interface da API seja utilizavel:
+        RemoverTelefone api = retrofit.create(RemoverTelefone.class);
+
+        // Monto a chamada da API:
+        Call<RemoverTelefoneResponse> requisicao = api.remover(token);
+
+        requisicao.enqueue(new Callback<RemoverTelefoneResponse>() {
+            @Override
+            public void onResponse(
+                    Call<RemoverTelefoneResponse> requisicao,
+                    retrofit2.Response<RemoverTelefoneResponse> resposta
+            ) {
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+
+                    //Exibi isso
+                    Toast.makeText(fragment.requireContext(),
+                            "Telefone Removido!",
+                            Toast.LENGTH_SHORT).show();
+
+                    //Deixo como nulo o telefone do SharedPreferences
+                    prefs.edit()
+                            .putString("telefone",null)
+                            .apply();
+
+
+
+//                    //Vou para a home
+//                    Intent i = new Intent(fragment.requireContext(), Home.class);
+//                    fragment.startActivity(i);
+//                    fragment.requireActivity().finish();
+                } else {
+                    //Retorna erro caso a reqsição der erro
+
+                    String erro = "Erro ao Remover Telefone";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    Toast.makeText(fragment.requireContext(), erro, Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RemoverTelefoneResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+                Toast.makeText(
+                        fragment.requireContext(),
+                        "Erro de conexão: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+
+
+    }//Remover Telefone
 
 }//Configurações
