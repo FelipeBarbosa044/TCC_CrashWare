@@ -67,6 +67,28 @@ async def buscar_conquista(usuario = Depends(validar_token),session = Depends(pe
     return { "conquistas" : conquista_usuario}
 
 
+@achievement.get('/conquista_bloqueada')
+async def conquista_bloqueada(usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404,detail="Usuário não encontrado")
+
+    #Pego as Conquistas Bloqueadas
+    conquistas_bloqueadas = session.execute(
+        select(
+            Conquista.nome_conquista,
+            Conquista.descricao
+        )
+        .where(
+            ~Conquista.id_conquista.in_(
+                select(Usuario_Conquista.conquista_id)
+                .where(Usuario_Conquista.usuario_id == usuario.id_usuario)
+            )
+        )
+    ).mappings().all()
+
+    return {"conquistas" : conquistas_bloqueadas}
+
+
 
 
 
