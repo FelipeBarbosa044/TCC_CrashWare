@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.crashware.ui.Adapters.ConquistaAdapter;
 import com.example.crashware.ui.Models.Conquista;
+import com.example.crashware.ui.navegacao.Home;
 import com.example.crashware.ui.sistemas.XP_Manager;
 
 import com.bumptech.glide.Glide;
@@ -101,8 +102,7 @@ public class Perfil_Fragment extends Fragment {
         //Inicializando classe de XP
         XP_Manager = new XP_Manager(requireContext());
 
-        //Carrego a foto assim que a tela foi incializada
-        Foto();
+
 
 
         if (getArguments() != null) {
@@ -149,6 +149,8 @@ public class Perfil_Fragment extends Fragment {
         BarraProgressoPerfil  = view.findViewById(R.id.barraProgressoPerfil );
         rvConquistas          = view.findViewById(R.id.rvConquistas         );
 
+        //Carrego a foto assim que a tela foi incializada
+        Foto();
 
         //Pego os dados no SharedPreferences
         String Nome = prefs.getString("nome", null);
@@ -278,11 +280,7 @@ public class Perfil_Fragment extends Fragment {
             {
                 Fragment conquistasFragmento = new Conquistas_Fragment();
 
-                getParentFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, conquistasFragmento)
-                        .addToBackStack(null)
-                        .commit();
+                ((Home) requireActivity()).irParaTelaExtra(conquistasFragmento);
 
             }
         });// interação com o texto que leva para a tela com todas as conquistas
@@ -291,13 +289,9 @@ public class Perfil_Fragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                Fragment novoFragmento = new Configuracoes_Fragment();
+                Fragment ConfigFragmento = new Configuracoes_Fragment();
 
-                getParentFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, novoFragmento)
-                        .addToBackStack(null)
-                        .commit();
+                ((Home) requireActivity()).irParaTelaExtra(ConfigFragmento);
             }
         });// interação com a imagem que leva para a tela de configurações
 
@@ -354,66 +348,60 @@ public class Perfil_Fragment extends Fragment {
 
     private void Foto(){
 
-        //Verifico o token
         Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
 
             @Override
             public void onSuccess() {
-                //Se token for valido executo a requisição
-                User.Perfil(requireContext(), prefs, new User.PerfilCallback()
-                {
+
+                // Fragment já foi destruído
+                if (!isAdded()) return;
+
+                User.Perfil(requireContext(), prefs, new User.PerfilCallback() {
+
                     @Override
                     public void sucesso(User.PerfilResponse usuario) {
 
-                        String nome= usuario.nome;
+                        // Fragment já não existe mais
+                        if (!isAdded() || getView() == null) return;
+
+                        String nome = usuario.nome;
                         String patente = usuario.patente;
                         String foto = usuario.foto;
                         String banner = usuario.banner;
                         Integer moedas = usuario.moedas;
                         Float xp = usuario.xp;
 
-
-
-                        //Atualizo as informações para não rodar cache
                         txtNomePerfil.setText(nome);
                         txtPatente.setText(patente);
                         txtQuantGemas.setText(String.valueOf(moedas));
                         txtQuantXP.setText(String.format("%.0f/500 XP", xp));
 
+                        String link_foto =
+                                "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/"
+                                        + foto
+                                        + "?t=" + System.currentTimeMillis();
 
+                        String link_banner =
+                                "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/banner/"
+                                        + banner
+                                        + "?t=" + System.currentTimeMillis();
 
-
-                        //Salvo o link da foto
-                        String link_foto =  "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/"
-                                + foto
-                                + "?t=" + System.currentTimeMillis();
-
-                        //Salvo o link do banner
-                        String link_banner =  "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/banner/"
-                                + banner
-                                + "?t=" + System.currentTimeMillis();
-
-                        //Carrega a foto atual do usuario
-                        Glide.with(requireContext())
+                        Glide.with(Perfil_Fragment.this)
                                 .load(link_foto)
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                                 .into(imgFotoPerfil);
 
-                        //Carrega o banner atual do usuario
-                        Glide.with(requireContext())
+                        Glide.with(Perfil_Fragment.this)
                                 .load(link_banner)
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                                 .into(imgBanner);
                     }
-                });//Perfil
-
-            }//
-        });//Token
-
-
-    }//Foto
+                });
+            }
+        });
+    }
 
     private void setImage(Uri uri) {
         if (!isAdded()) return;

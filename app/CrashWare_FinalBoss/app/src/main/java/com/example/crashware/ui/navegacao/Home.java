@@ -37,16 +37,59 @@ public class Home extends BaseActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.home);
 
+        getSupportFragmentManager().addOnBackStackChangedListener(() -> {
+
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+
+                Fragment visible = null;
+
+                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    if (fragment.isVisible()) {
+                        visible = fragment;
+                        break;
+                    }
+                }
+
+                if (visible != null) {
+                    active = visible;
+                }
+            }
+        });
+
         BottomNavigationView menu = findViewById(R.id.NavBar);
 
-        // Inicializa os Fragmentos escondidos e mostra apenas o "inicio"
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, perfil).hide(perfil)
-                .add(R.id.fragment_container, aulas).hide(aulas)
-                .add(R.id.fragment_container, anotacoes).hide(anotacoes)
-                .add(R.id.fragment_container, loja).hide(loja)
-                .add(R.id.fragment_container, inicio)
-                .commit();
+        if (savedInstanceState == null) {
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, perfil, "perfil").hide(perfil)
+                    .add(R.id.fragment_container, aulas, "aulas").hide(aulas)
+                    .add(R.id.fragment_container, anotacoes, "anotacoes").hide(anotacoes)
+                    .add(R.id.fragment_container, loja, "loja").hide(loja)
+                    .add(R.id.fragment_container, inicio, "inicio")
+                    .commit();
+
+        }
+
+        else
+        {
+
+            inicio = getSupportFragmentManager().findFragmentByTag("inicio");
+            loja = getSupportFragmentManager().findFragmentByTag("loja");
+            anotacoes = getSupportFragmentManager().findFragmentByTag("anotacoes");
+            aulas = getSupportFragmentManager().findFragmentByTag("aulas");
+            perfil = getSupportFragmentManager().findFragmentByTag("perfil");
+
+            for (Fragment fragment : getSupportFragmentManager().getFragments())
+            {
+                if (fragment.isVisible())
+                {
+                    active = fragment;
+                    break;
+                }
+            }
+        }
+
+
 
         // Configuração do clique no menu
         menu.setOnItemSelectedListener(item -> {
@@ -66,21 +109,29 @@ public class Home extends BaseActivity {
             }
 
             if (selected != null && selected != active) {
+
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportFragmentManager().popBackStackImmediate(
+                            null,
+                            androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
+                    );
+                }
+
                 getSupportFragmentManager().beginTransaction()
                         .hide(active)
                         .show(selected)
                         .commit();
 
-                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                    getSupportFragmentManager().popBackStackImmediate(null, androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                }
                 active = selected;
             }
             return true;
         });
 
         // Define o item selecionado inicialmente
-        menu.setSelectedItemId(R.id.nav_home);
+        if (savedInstanceState == null)
+        {
+            menu.setSelectedItemId(R.id.nav_home);
+        }
 
         // AJUSTE DO PADDING -> Para arrumar o erro anterior
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainfragment), (v, insets) -> {
