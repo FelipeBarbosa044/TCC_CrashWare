@@ -3,28 +3,58 @@
 
 /* TEMA CLARO */
 .Claro {
-  --bg-principal: #3B77BE;
-  --bg-secundario: #f0f2f5fb;
-  --bg-terceiro: #FFFFFF80;
-  --texto-quarto: ##787A81CC;
+  
+  /* BackGrounds */
+  --bg-principal: #FFFFFF;
+  --bg-secundario: #FFFFFF33;
+/* ------------- */
 
-  --Chamada : #3B77BE;
-    --app-bg: var(--bg-principal);
+  /* Gradientes */
+  --gradiente-inicial:linear-gradient(to bottom,#fffefeb7, #62BDF3);
+  --gradiente-Chamada-Inicial: linear-gradient(to right, #62BDF3, #3B77BE);
+  --gradiente-app: linear-gradient(to bottom, #62BDF3, #3B77BE);
+  /* --------- */
 
+  /* Botoes */
+  --install-app: #ffffff;
+  --Entrar-Inicial: #3B77BE;
+  --Cadastrar: #62BDF3;
+  --Login: linear-gradient(to right, var(--BotaoADD-gradiente1), var(--BotaoADD-gradiente2));
+  --BotaoADD-gradiente1:#101017CC;
+  --BotaoADD-gradiente2:#06060A;
+  --btnRetomar: linear-gradient(to right, #C7CE01, #2BCA23, #009898);
+  --TrilhaHardware: #31C26D;
+  --TrilhaSoftware: #0F66B3;
+  /* ----- */
+
+  /* Componentes */
+  --Cabecalho: transparent;
+  --Rodape: #076ce79f;
+  /* ---------- */
+
+  /* Carrossel */
+  --Carrossel: #ffffff73;
+  /* -------- */
+
+  /* Titulos */
+  --Titulo1: #3797DB;
+  /* ------ */
+
+  /* Texos */
+  --Texto1: #FFFFFFFF;
+  --Texto2: black;
+  /* ---- */
 
   --blur: #66666680;
   --blur1: #62bef3a2;
 
-  --gradiente-inicial:linear-gradient(to bottom, var(--bg-principal), var(--blur1));
+  --Border-Chamada: rgb(72, 72, 158);
 
-  --gradiente-app: linear-gradient(90deg, #032A5C, #0654B8, #032A5C);
+  --gradiente-app-texto: linear-gradient(90deg, #032A5C, #0654B8, #032A5C);
 
-  --Cabecalho:##FFFFFF4D;
-  --Rodape: #6C6A6A1E;
 
   --input-bg:#F8FAFC; 
 
-  --Carrossel: #FFFFFF4d;
   --Blocos: #ffffff4d;
   --shadow-texto: #FFFFFF;
 
@@ -80,25 +110,60 @@
 
 /* TEMA ESCURO */
 .Escuro {
-  --bg-principal: #101123;
-  --bg-secundario: #040110;
-  --bg-terceiro: black;
-  --texto-quarto: ##;
-  
+  /* BackGrounds */
+  --bg-principal: #040110;
+  --bg-secundario: #5756562f;
+  /* ---------- */
+
+  /* Gradientes */
+  --gradiente-inicial:linear-gradient(to bottom, #040110, #040110);
+  --gradiente-Chamada-Inicial: linear-gradient(to right, black);
+  --gradiente-app: black;
+  --gradiente-app-texto: linear-gradient(90deg, #032A5C, #0654B8, #032A5C);
+  --TrilhaHardware: #31C26D;
+  --TrilhaSoftware: #0F66B3;
+  /* --------  */
+
+  /* Botoes */
+  --install-app: #faf6f683;
+  --Entrar-Inicial: linear-gradient(to right, #241952, #5039B8);
+  --Cadastrar: #6C6A6A4D;
+  --Login: linear-gradient(to right, var(--BotaoADD-gradiente1), var(--BotaoADD-gradiente2));
+  --btnRetomar: linear-gradient(to right, #C7CE01, #2BCA23, #009898);
+  /* ------ */
+
+  /* Componentes */
+  --Cabecalho:#6C6A6A30;  
+  --Rodape: #000000;
+  /* ---------- */
+
+  /* Carrossel */
+  --Carrossel: #FFFFFF4d;
+  /* -------- */
+
+  /* Titulos */
+  --Titulo1: #FFFFFF;
+  /* ------ */
+
+  /* Texos */
+  --Texto1: #FFFFFFFF;
+  --Texto2: white;
+  /* ---- */
+
+
   --borda: #d1d5db;
 
   --Chamada: black;
-
+  
   --blur: #161836;
-    --gradiente-inicial:linear-gradient(to bottom, var(--bg-principal), var(--blur));
+  --gradiente-inicial:linear-gradient(to bottom, var(--bg-principal), var(--blur));
 
-    --app-bg: var(--bg-terceiro);
-
-      --gradiente-app: linear-gradient(90deg, #032A5C, #0654B8, #032A5C);
-
+  --app-bg: var(--bg-terceiro);
+  
+  
   --texto-principal: #f5f5f5;
   --texto-secundario: #edf2f8;
-
+  
   --texto-quarto: ##787A81CC;
 
   --shadow-texto: #FFFFFF;
@@ -119,11 +184,8 @@
   
   --borda: #334155;
   
-  --Carrossel: #FFFFFF4d;
   --Blocos: #ffffff4d;
   
-  --Cabecalho:#6C6A6A30;
-  --Rodape: #6c6a6a1e;
 
   --input-bg: #F8FAFC;
 

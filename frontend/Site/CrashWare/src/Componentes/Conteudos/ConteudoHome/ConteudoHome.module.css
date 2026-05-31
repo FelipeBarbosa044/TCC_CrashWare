@@ -13,7 +13,7 @@
     flex-direction: column;
     gap: 14px;
     padding: 24px 20px 60px;
-    padding-top: 200px;
+    padding-top: 110px;
     max-width: 1020px;
     margin: 0 auto;
     font-family: 'Montserrat', sans-serif;
@@ -55,7 +55,7 @@
     justify-content: space-between;
     gap: 14px;
     background: var(--bg-secundario);
-    border: 1px solid var(--borda);
+    border: 2px solid var(--borda);
     border-radius: 14px;
     padding: 20px 24px;
     /* margin-top: 100px; */
@@ -138,6 +138,7 @@ div.raposa{
 .Barra {
     width: 100%;
     height: 6px;
+    border: 1px solid black;
     background: var(--texto-secundario);
     border-radius: 100px;
     overflow: hidden;
@@ -159,7 +160,7 @@ div.raposa{
     gap: 4px;
     padding: 14px 22px;
     background: var(--bg-secundario);
-    border: 1px solid var(--borda);
+    border: 2px solid var(--borda);
     border-radius: 12px;
     text-align: center;
     flex-shrink: 0;
@@ -212,7 +213,7 @@ div.raposa{
 
 .aulaAtual {
     background: var(--bg-secundario);
-    border: 1px solid var(--borda);
+    border: 2px solid var(--borda);
     border-radius: 14px;
     padding: 20px 22px;
     display: flex;
@@ -243,7 +244,7 @@ div.raposa{
 
 .btnRetomar {
     align-self: flex-start;
-    background: linear-gradient(90deg, var(--Botao-gradiente1), var(--Botao-gradiente2));
+    background: var(--btnRetomar);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -310,7 +311,7 @@ div.raposa{
 
 .anotacoes {
     background: var(--bg-secundario);
-    border: 1px solid var(--borda);
+    border: 2px solid var(--borda);
     border-radius: 14px;
     padding: 18px 20px;
     display: flex;
@@ -323,11 +324,11 @@ div.raposa{
     font-weight: 900;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--texto-principal);
-    opacity: 0.5;
+    color: var(--Texto2);
+    opacity: 0.9;
     margin: 0;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--borda);
+    border-bottom: 2px solid var(--borda);
     position: relative;
     text-align: center;
 }
@@ -357,7 +358,7 @@ div.raposa{
     padding: 8px 11px;
     background: var(--bg-secundario);
     border-radius: 8px;
-    border: 1px solid var(--borda);
+    border: 2px solid var(--borda);
     transition: border-color 0.2s, background 0.2s;
     cursor: default;
 }
@@ -370,14 +371,14 @@ div.raposa{
 .anotacaoTitulo {
     font-size: 11px;
     font-weight: 700;
-    color: var(--texto-principal);
+    color: var(--Texto2);
     margin: 0;
 }
 
 .anotacaoData {
-    font-size: 10px;
-    color: var(--texto-principal);
-    opacity: 0.45;
+    font-size: 12px;
+    color: var(--Texto2);
+    opacity: 0.8;
     white-space: nowrap;
     margin-left: 8px;
 }
@@ -387,16 +388,16 @@ div.raposa{
     width: 100%;
     padding: 8px;
     background: transparent;
-    border: 1px solid var(--borda);
+    border: 2px solid var(--borda);
     border-radius: 8px;
-    color: var(--texto-principal);
+    color: var(--Texto2);
     font-family: 'Montserrat', sans-serif;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     cursor: pointer;
-    opacity: 0.65;
+    opacity: 0.95;
     transition: opacity 0.2s, border-color 0.2s, color 0.2s;
 }
 
@@ -408,7 +409,7 @@ div.raposa{
 
 .trilhasContainer {
     background: var(--bg-secundario);
-    border: 1px solid var(--borda);
+    border: 2px solid var(--borda);
     border-radius: 14px;
     padding: 18px 22px;
     display: flex;
@@ -433,17 +434,17 @@ div.raposa{
     gap: 14px;
     padding: 16px 18px;
     border-radius: 12px;
-    border: 1px solid var(--borda);
+    border: 2px solid var(--borda);
     transition: transform 0.2s, border-color 0.2s;
     cursor: default;
 }
 
 .trilhaHardware {
-    background: rgba(78, 200, 100, 0.06);
+    background: var(--bg-secundario);
 }
 
 .trilhaSoftware {
-    background: rgba(78, 140, 200, 0.06);
+    background: var(--bg-secundario);
 }
 
 .trilhaHardware:hover {
@@ -463,6 +464,7 @@ div.raposa{
     object-fit: contain;
     flex-shrink: 0;
 }
+
 
 .trilhaHardware div,
 .trilhaSoftware div {
@@ -497,8 +499,7 @@ div.raposa{
 
 .btnExplorar {
     flex-shrink: 0;
-    background: transparent;
-    border: 1px solid var(--borda);
+    border: 2px solid var(--borda);
     border-radius: 6px;
     color: var(--texto-principal);
     font-family: 'Montserrat', sans-serif;
@@ -511,16 +512,20 @@ div.raposa{
     transition: opacity 0.2s, border-color 0.2s, color 0.2s;
 }
 
+.trilhaHardware button{
+    background: var(--TrilhaHardware);
+}
+
+.trilhaSoftware button{
+    background: var(--TrilhaSoftware);
+}
+
 .trilhaHardware:hover .btnExplorar {
     opacity: 1;
-    border-color: #4ec864;
-    color: #4ec864;
 }
 
 .trilhaSoftware:hover .btnExplorar {
     opacity: 1;
-    border-color: #4e8cc8;
-    color: #4e8cc8;
 }
 
 @media (max-width: 864px) {

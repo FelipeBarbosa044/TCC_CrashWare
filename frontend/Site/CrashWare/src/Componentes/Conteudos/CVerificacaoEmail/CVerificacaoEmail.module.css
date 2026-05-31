@@ -5,7 +5,6 @@
 .corpo {
     width: 90vw;
     min-height: 100vh;
-    background-color: var(--bg-quarto);
 
     display: flex;
     flex-direction: column;
@@ -24,7 +23,7 @@
     align-self: center;
 
     border: 1px solid var(--texto-principal);
-    background-color: var(--bg-terceiro);
+    background-color: var(--bg-secundario);
 
     padding: 30px;
     border-radius: 30px;
@@ -97,10 +96,9 @@
 
 .btnEnviar {
     width: 70%;
-    height: 5vh;
-    min-height: 44px;
-
-    background: var(--bg-principal);
+    min-height: 8vh;
+    max-height: 8vh;
+    background: var(--Login);
     border: none;
     border-radius: 28px;
     margin-top: 10px;
@@ -108,16 +106,15 @@
 
     font-size: 16px;
     font-weight: bold;
-    color: var(--texto-principal);
+    color: var(--Texto1);
 
     transition: 0.3s;
     cursor: pointer;
+
 }
 
 .btnEnviar:hover {
-    background-color: var(--bg-terceiro);
     border: 1px solid var(--texto-principal);
-    color: var(--texto-principal);
     transform: scale(1.03);
 }
 
