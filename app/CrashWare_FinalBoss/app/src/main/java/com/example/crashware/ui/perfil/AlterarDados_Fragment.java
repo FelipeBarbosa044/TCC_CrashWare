@@ -238,13 +238,31 @@ public class AlterarDados_Fragment extends Fragment {
 
                 else
                 {
+
+                    //Exibo na tela
+                    Toast.makeText(requireContext(), "Verificando Telefone...", Toast.LENGTH_LONG).show();
+
                     String numerotelefone = txtConfirmarTelefone.getText().toString();
 
+                    //Verifico o token
+                    Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
 
-                    Telefone.show();
-                    prefs.edit()
-                            .putString("telefone",numerotelefone)
-                            .commit();
+                        @Override
+                        public void onSuccess() {
+
+                            //Chamo o metodo de verificar  telefone
+                             Configuracoes.Verificar_Telefone(numerotelefone,email, prefs, AlterarDados_Fragment.this);
+
+
+                        }
+
+                    });
+
+
+//                    Telefone.show();
+//                    prefs.edit()
+//                            .putString("telefone",numerotelefone)
+//                            .commit();
                 }
 
             }
