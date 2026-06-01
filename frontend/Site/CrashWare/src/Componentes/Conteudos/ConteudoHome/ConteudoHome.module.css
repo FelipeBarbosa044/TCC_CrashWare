@@ -528,17 +528,6 @@ div.raposa{
         grid-template-columns: 1fr;
     }
 
-    /* .trilhaSoftware {
-        display: flex;
-        flex-direction: column;
-
-        align-self: center;
-    }
-
-    .trilhaSoftware img{
-        align-self: center;
-    } */
-
     .btnExplorar{
         width: 34vw;
         align-content: center;
@@ -565,8 +554,6 @@ div.raposa{
     .ofensiva {
         flex-direction: row;
         justify-content: space-around;
-        gap: 12px;
-        text-align: left;
     }
 
     .ofensivaDias {

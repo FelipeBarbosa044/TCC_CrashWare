@@ -207,30 +207,7 @@ const ConteudoPerfil = () => {
                 </div>
 
                 <div className={style.container}>
-                    {MudarBanner && (
 
-                        <div className={MudarBanner ? style.Aberto_Banner : style.Fechado}>
-                            <BotoesForm
-                                texto="Mudar Banner"
-                                onClick={() => inputBanner.current.click()}
-                            />
-                            <BotoesForm
-                                texto="Remover Banner"
-                                onClick={() => {
-                                    if (banner == 'default.png') {
-                                        setPopup({
-                                            tipo: 'erro',
-                                            titulo: 'Banner',
-                                            mensagem: 'Você precisa adicionar uma banner , para realizar essa ação'
-                                        });
-                                    } else {
-                                        const banner_usuario = new Usuario(token, refresh_token, Navegacao, set);
-                                        banner_usuario.remover_banner(setDados, setBanner, setPopup);
-                                    }
-                                }}
-                            />
-                        </div>
-                    )}
 
                     {/* Banner */}
                     <input
@@ -267,144 +244,160 @@ const ConteudoPerfil = () => {
 
 
                     {/* ── Foto ─────────────────────────────────────── */}
-                    <div className={style.apresentacao}>
-                        <img
-                            className={style.foto}
-                            src={`https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/${usuario?.foto}?v=${versaoFoto}`}
-                            alt="Foto de perfil"
-                            onClick={() => setMudarFoto(!MudarFoto)}
-                        />
-
-                        {MudarFoto && (
-                            <div className={MudarFoto ? style.Aberto : style.Fechado}>
-                                <BotoesForm
-                                    texto="Mudar Foto"
-                                    onClick={() => inputRef.current.click()}
+                    <div>
+                        <div className={style.apresentacao}>
+                            <div className={style.fotoPerfil}>
+                                <img
+                                    className={style.foto}
+                                    src={`https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/${usuario?.foto}?v=${versaoFoto}`}
+                                    alt="Foto de perfil"
+                                    onClick={() => setMudarFoto(!MudarFoto)}
                                 />
-                                <BotoesForm
-                                    texto="Remover Foto"
-                                    onClick={() => {
-                                        if (foto == 'default.png') {
-                                            setPopup({
-                                                tipo: 'erro',
-                                                titulo: 'Foto',
-                                                mensagem: 'Você precisa adicionar uma foto , para realizar essa ação'
-                                            });
-                                        } else {
-                                            const foto_usuario = new Usuario(token, refresh_token, Navegacao, set);
-                                            foto_usuario.remover_foto(setDados, setFoto, setPopup);
+                                {MudarFoto && (
+                                    <div className={MudarFoto ? style.Aberto : style.Fechado}>
+                                        <BotoesForm
+                                            texto="Mudar Foto"
+                                            onClick={() => inputRef.current.click()}
+                                        />
+                                            <BotoesForm
+                                                texto="Remover Foto"
+                                                className={style.removerFoto}
+                                                onClick={() => {
+                                                    if (foto == 'default.png') {
+                                                        setPopup({
+                                                            tipo: 'erro',
+                                                            titulo: 'Foto',
+                                                            mensagem: 'Você precisa adicionar uma foto , para realizar essa ação'
+                                                        });
+                                                    } else {
+                                                        const foto_usuario = new Usuario(token, refresh_token, Navegacao, set);
+                                                        foto_usuario.remover_foto(setDados, setFoto, setPopup);
+                                                    }
+                                                }}
+                                            />
+                                    </div>
+                                )}
+                                {/* Foto */}
+                                <input
+                                    type="file"
+                                    className={style.escondido}
+                                    ref={inputRef}
+                                    accept='image/*'
+                                    onChange={(e) => {
+                                        const arquivo = e.target.files[0];
+                                        if (arquivo) {
+                                            //Salva por enqaunto a imagem no navegador
+                                            // const novaFoto = URL.createObjectURL(arquivo);
+                                            // setFoto(novaFoto);
+                                            //Salvo como arquivo
+                                            const conteudo = new FormData();
+                                            conteudo.append("foto", arquivo);
+                                            if (foto == 'default.png') {
+                                                //Adiciono a foto
+                                                const foto_usuario = new Usuario(token, refresh_token, Navegacao, set);
+                                                foto_usuario.adicionar_foto(conteudo, setFoto, setDados, setPopup);
+                                            } else {
+                                                //Altero a foto
+                                                const foto_usuario = new Usuario(token, refresh_token, Navegacao, set);
+                                                foto_usuario.alterar_foto(conteudo, setFoto, setDados, setPopup, setVersaoFoto);
+                                            }
                                         }
-
+                                    }}
+                                />
+                                <input
+                                    type="file"
+                                    className={style.escondido}
+                                    ref={inputBanner}
+                                    accept='image/*'
+                                    onChange={(e) => {
+                                        const arquivo = e.target.files[0];
+                                        if (arquivo) {
+                                            //Salva por enqaunto a imagem no navegador
+                                            // const novaFoto = URL.createObjectURL(arquivo);
+                                            // setFoto(novaFoto);
+                                            //Salvo como arquivo
+                                            const conteudo = new FormData();
+                                            conteudo.append("banner", arquivo);
+                                            if (banner == 'default.png') {
+                                                //Adiciono o banner
+                                                const banner_usuario = new Usuario(token, refresh_token, Navegacao, set);
+                                                banner_usuario.adicionar_banner(conteudo, setBanner, setDados, setPopup);
+                                            } else {
+                                                //Altero o banner
+                                                const banner_usuario = new Usuario(token, refresh_token, Navegacao, set);
+                                                banner_usuario.alterar_banner(conteudo, setBanner, setDados, setPopup, setVersaoBanner);
+                                            }
+                                        }
                                     }}
                                 />
                             </div>
-                        )}
+                            <div className={style.agruparRaposaDados}>
+                                <div className={style.texto}>
+                                    <h3>{nome}</h3>
+                                    <div className={style.status}>
+                                        <span className={style.bolinha}></span>
+                                        <p>{formatarData(DataCadastro)}</p>
+                                    </div>
+                                    <div className={style.Nivel}>
+                                        <div className={style.NivelTopo}>
+                                            <p>Nível {Nivel}</p>
+                                            <span>{xpAtual} XP</span>
+                                        </div>
+                                        <div className={style.Barra}>
+                                            <div
+                                                className={style.Progresso}
+                                                style={{ width: `${porcentagem}%` }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={style.ofensiva}>
+                        
+                                    <div className={style.raposa}>
+                                        <img
+                                            src={Raposa}
+                                            alt="Crash"
+                                            onClick={() => setClick(click + 1)}
+                                        />
+                                    </div>
+                                    <div className={style.infoOfensiva}>
+                                        <span className={style.ofensivaDias}>
+                                            {maiorOfensiva} Dias
+                                        </span>
+                                        <p className={style.ofensivaLabel}>
+                                            Ofensiva mais alta
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {MudarBanner && (
 
-                        {/* Foto */}
-                        <input
-                            type="file"
-                            className={style.escondido}
-                            ref={inputRef}
-                            accept='image/*'
-                            onChange={(e) => {
-                                const arquivo = e.target.files[0];
-                                if (arquivo) {
-                                    //Salva por enqaunto a imagem no navegador
-                                    // const novaFoto = URL.createObjectURL(arquivo);
-                                    // setFoto(novaFoto);
-
-
-                                    //Salvo como arquivo
-                                    const conteudo = new FormData();
-                                    conteudo.append("foto", arquivo);
-
-                                    if (foto == 'default.png') {
-                                        //Adiciono a foto
-                                        const foto_usuario = new Usuario(token, refresh_token, Navegacao, set);
-                                        foto_usuario.adicionar_foto(conteudo, setFoto, setDados, setPopup);
-
-                                    } else {
-                                        //Altero a foto
-                                        const foto_usuario = new Usuario(token, refresh_token, Navegacao, set);
-                                        foto_usuario.alterar_foto(conteudo, setFoto, setDados, setPopup, setVersaoFoto);
-
-                                    }
-                                }
-                            }}
-                        />
-
-                        <input
-                            type="file"
-                            className={style.escondido}
-                            ref={inputBanner}
-                            accept='image/*'
-                            onChange={(e) => {
-                                const arquivo = e.target.files[0];
-                                if (arquivo) {
-                                    //Salva por enqaunto a imagem no navegador
-                                    // const novaFoto = URL.createObjectURL(arquivo);
-                                    // setFoto(novaFoto);
-
-                                    //Salvo como arquivo
-                                    const conteudo = new FormData();
-                                    conteudo.append("banner", arquivo);
-
+                        <span className={MudarBanner ? style.Aberto_Banner : style.Fechado}>
+                            <BotoesForm
+                                texto="Mudar Banner"
+                                onClick={() => inputBanner.current.click()}
+                            />
+                            <BotoesForm
+                                texto="Remover Banner"
+                                className={style.removerFoto}
+                                onClick={() => {
                                     if (banner == 'default.png') {
-                                        //Adiciono o banner
-                                        const banner_usuario = new Usuario(token, refresh_token, Navegacao, set);
-                                        banner_usuario.adicionar_banner(conteudo, setBanner, setDados, setPopup);
-
+                                        setPopup({
+                                            tipo: 'erro',
+                                            titulo: 'Banner',
+                                            mensagem: 'Você precisa adicionar uma banner , para realizar essa ação'
+                                        });
                                     } else {
-                                        //Altero o banner
                                         const banner_usuario = new Usuario(token, refresh_token, Navegacao, set);
-                                        banner_usuario.alterar_banner(conteudo, setBanner, setDados, setPopup, setVersaoBanner);
-
+                                        banner_usuario.remover_banner(setDados, setBanner, setPopup);
                                     }
-                                }
-                            }}
-                        />
-
-                        <div className={style.texto}>
-                            <h3>{nome}</h3>
-
-                            <div className={style.status}>
-                                <span className={style.bolinha}></span>
-                                <p>{formatarData(DataCadastro)}</p>
-                            </div>
-
-                            <div className={style.Nivel}>
-                                <div className={style.NivelTopo}>
-                                    <p>Nível {Nivel}</p>
-                                    <span>{xpAtual} XP</span>
-                                </div>
-
-                                <div className={style.Barra}>
-                                    <div
-                                        className={style.Progresso}
-                                        style={{ width: `${porcentagem}%` }}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className={style.raposa}>
-                            <div className={style.realmenteRaposa}>
-                                <img src={Raposa} alt="Crash"
-                                    onClick={() => setClick(click + 1)}
-                                />
-                            </div>
-
-                            <div className={style.maiorOfensiva}>
-                                <img src={iconOfensiva} alt="" />
-
-                                <div className={style.mostrarMaiorOfensiva}>
-                                    <p>Maior ofensiva</p>
-                                    <p>{maiorOfensiva}</p>
-                                </div>
-                            </div>
-                        </div>
+                                }}
+                            />
+                        </span>
+                    )}
                     </div>
 
-                    {/* ── Cards de Stats ─────────────────────────── */}
                     <div className={style.blocos}>
 
                         <div className={style.Conquistas}>
@@ -433,7 +426,6 @@ const ConteudoPerfil = () => {
 
                     </div>
 
-                    {/* ── Última Compra ──────────────────────────── */}
                     <div className={style.Historico_Compras}>
                         <h1>Última Compra</h1>
 
@@ -473,40 +465,6 @@ const ConteudoPerfil = () => {
                             </button>
                         </div>
                     </div>
-
-                    {/* <div className={style.trilhas}>
-
-                        <div className={style.trilhaHardware}>
-
-                            <img src={hardwareIcon} alt="simbolo do hardware" />
-
-                            <div className={style.informacoesHardware}>
-                                <h1>Hardware</h1>
-                                <p>Desvende a arquitetura das máquinas de forma acessivel</p>
-                            </div>
-
-                            <Link to="/hardware">
-                                <button>Explorar</button>
-                            </Link>
-                        
-                        </div>
-
-                        <div className={style.trilhaSoftware}>
-
-                            <img src={softwareIcon} alt="Simbolo de software" />
-
-                                <div className={style.informacoesSoftware}>
-                                    <h1>software</h1>
-                                    <p>Decifre a linguagem dos sitemas de forma intuitiva</p>
-                                </div>
-
-                            <Link to="/software">
-                                <button>Explorar</button>
-                            </Link>
-
-                        </div>
-                        
-                    </div> */}
 
                 </div>
             </div >

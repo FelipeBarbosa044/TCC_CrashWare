@@ -6,7 +6,6 @@ import style from "./ConteudoHome.module.css";
 
 import hardwareIcon from "../../../fotos/hardware.svg";
 import softwareIcon from "../../../fotos/software.svg";
-import iconOfensiva from "../../../fotos/Ofensiva.svg";
 import raposaIcon from "../../../fotos/Raposa.svg";
 
 import { PopUp } from '../../pop-up';
@@ -227,7 +226,6 @@ const ConteudoHome = () => {
                         </div>
 
                         <div className={style.infoOfensiva}>
-                            <img src={iconOfensiva} alt="Ofensiva" className={style.ofensivaIcon} />
                             <span className={style.ofensivaDias}>{ofensiva} Dias</span>
                             <p className={style.ofensivaLabel}>Consecutivos<br />de ofensiva</p>
                         </div>
@@ -243,7 +241,7 @@ const ConteudoHome = () => {
                         <p className={style.aulaTag}>{ultimaAula.trilha} | {ultimaAula.numero}</p>
                         <h3 className={style.aulaTitulo}>{ultimaAula.titulo}</h3>
 
-                        <Link to="/aula">
+                        <Link to="/comoFunciona">
                             <button className={style.btnRetomar}>Retomar</button>
                         </Link>
 

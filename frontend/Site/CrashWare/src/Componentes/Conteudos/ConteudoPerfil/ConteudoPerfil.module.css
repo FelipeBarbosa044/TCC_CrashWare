@@ -63,8 +63,16 @@
     grid-column: 1;
     display: flex;
     align-items: center;
+    justify-content: space-around;
     gap: 10px;
     padding: 20px 24px;
+}
+
+.agruparRaposaDados{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .foto {
@@ -83,6 +91,12 @@
     box-shadow: 0 0 26px rgba(119,114,214,0.5);
 }
 
+.fotoPerfil{
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
 .Aberto{
     display: flex;
     flex-direction: column;
@@ -93,25 +107,40 @@
 
     transition: 1.02s;
     cursor: pointer;
+    margin-top: 12px;
 }
 
 .Aberto_Banner{
     display: flex;
-    position: absolute;
-    flex-direction: column;
     justify-content: center;
-    z-index: 1;
-    
+    margin-top: 10px;
+    /* margin-bottom: 10px; */
+    gap: 30px;
+}
+
+.Aberto_Banner button{
+    background-color: var(--bg-principal) ;
+    color: var(--texto-principal);
+    border-radius: 10px;
+    border: 1px solid var(--texto-secundario);
+    padding: 10px !important; 
+    font-size: 12px;
 }
 
 .Aberto button{
     background-color: var(--bg-principal) ;
     color: var(--texto-principal);
     border-radius: 10px;
+    border: 1px solid var(--texto-secundario);
     padding: 6px;
     font-size: 12px;
-    
 }
+
+.removerFoto{
+    border: 1px solid var(--popup-erro-borda) !important;
+    color: var( --popup-erro-texto) !important;
+}
+
 
 .Aberto_Banner button{
     background-color: var(--bg-principal) ;
@@ -142,7 +171,7 @@
 
 .texto h3 {
     color: var(--texto-principal);
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 800;
     margin-bottom: 4px;
 }
@@ -158,55 +187,58 @@
     font-weight: 700;
 }
 
-.raposa{
-    display: flex;
-    justify-content: space-between;
-    justify-self: end;
-    align-items: end;
 
+.ofensiva {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 40%;
+    justify-content: flex-end;
+    gap: 4px;
+    padding: 14px 22px;
+    background: var(--bg-secundario);
     border: 1px solid var(--borda);
-    padding: 10px;
-    margin-left: 30px;
     border-radius: 12px;
-    background-color: var(--bg-principal);
+    text-align: center;
+    flex-shrink: 0;
+    min-width: 100px;
+    transition: border-color 0.2s, transform 0.2s;
+    /* margin-left: 40px; */
 }
 
-.raposa .maiorOfensiva{
+.ofensiva:hover {
+    border-color: rgba(119, 114, 214, 0.4);
+    transform: translateY(-2px);
+}
+
+.infoOfensiva {
     display: flex;
     flex-direction: column;
-
     align-items: center;
 }
 
-.raposa .maiorOfensiva p{
-    font-family: "Montserrat";
-    color: var(--texto-secundario);
-    margin-left: 10px;
-    margin-top: 10px;
+.ofensivaDias {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--texto-principal);
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.ofensivaLabel {
+    font-size: 9px;
     font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--texto-principal);
+    opacity: 0.55;
+    margin: 0;
+    line-height: 1.4;
 }
 
-.raposa .maiorOfensiva img{
-    width: 20%;
-}
-
-.mostrarMaiorOfensiva{
-    flex-direction: row;
-    display: flex;
-}
-
-.raposa img{
-    width: 80%;
+.raposa img {
+    width: 70px;
     cursor: pointer;
-}
-
-.realmenteRaposa{
-    width: 36%;
-    padding-left: 10px;
-}
-
-.raposa{
-    margin-right: 20px;
 }
 
 .bolinha {
@@ -219,7 +251,8 @@
 
 .Nivel {
     width: 100%;
-    max-width: 280px; 
+    /* max-width: 280px;  */
+    text-align: end;
 }
 
 .NivelTopo {
@@ -510,7 +543,15 @@
         height: 36vh !important; 
     }
 
-}@media (max-width: 710px){
+    .fotoPerfil{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 710px){
 
     .corpo{
         height: 136vh;
@@ -521,10 +562,10 @@
     }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 620px) {
     
     .corpo{
-        height: 158vh;
+        height: 128vh;
     }
     
     .container { 
@@ -552,9 +593,22 @@
         margin-top: 70px; 
     }
 
+    .agruparRaposaDados{
+        flex-wrap: wrap;
+    }
+
+    .texto{
+        min-width: 80%;
+        margin-bottom: 30px;
+    }
+
     .foto { 
         width: 80px; 
         height: 80px; 
+    }
+
+    .fotoPerfil{
+        flex-direction: row;
     }
 
     .raposa{
@@ -578,12 +632,21 @@
         font-size: 22px; 
     }
 
+    .ofensiva{
+        margin-left: 0px;
+        width: 50%;
+        justify-content: space-around;
+    }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 440px) {
 
     .corpo{
         height: 183vh;
+    }
+
+    .agruparRaposaDados{
+        flex-wrap: wrap;
     }
 
     .raposa{
@@ -591,8 +654,8 @@
         align-items: center;
     }
 
-    .realmenteRaposa{
-        margin-bottom: 10px;
+    .texto{
+        min-width: none;
     }
 
     .blocos { 
@@ -610,4 +673,23 @@
          margin-top: 0; 
     }
 
+    .ofensiva {
+    text-align: center;
+    justify-content: space-around;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-left: 0px;
+    }
+
+    .ofensiva img {
+        width: 20px;
+    }
+
+    .ofensivaDias {
+        font-size: 15px;
+    }
+
+    .ofensivaLabel {
+        font-size: 8px;
+    }
 }

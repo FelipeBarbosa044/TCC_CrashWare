@@ -33,12 +33,37 @@ const conteudoSoftware_WebDev = [
     { descricao: "Introdução ao React", to: "" },
 ];
 
-const Item_ConteudoSoftware = ({ descricao, to }) => {
+const totalAulas =
+    conteudoSoftware_Introducao.length +
+    conteudoSoftware_LogicaProgramacao.length +
+    conteudoSoftware_WebDev.length;
 
-    const [jaFez, setJaFez] = useState(false);
+const Item_ConteudoSoftware = ({
+    descricao,
+    to,
+    onMarcarFeito
+}) => {
+
+    const [jaFez, setJaFez] = useState(() => {
+        const salvo = localStorage.getItem(
+            `software-${descricao}`
+        );
+
+        return salvo === "true";
+    });
 
     function alternarStatus() {
-        setJaFez(!jaFez);
+
+        const novoStatus = !jaFez;
+
+        setJaFez(novoStatus);
+
+        localStorage.setItem(
+            `software-${descricao}`,
+            JSON.stringify(novoStatus)
+        );
+
+        onMarcarFeito(novoStatus);
     }
 
     return (
@@ -48,6 +73,7 @@ const Item_ConteudoSoftware = ({ descricao, to }) => {
                 src={jaFez ? certoIcon : playIcon}
                 alt="você já fez?"
             />
+
             <Link to={to}>
                 <p>{descricao}</p>
             </Link>
@@ -56,6 +82,38 @@ const Item_ConteudoSoftware = ({ descricao, to }) => {
 };
 
 const ConteudoSoftware = () => {
+
+    const [quantidadeFeita, setQuantidadeFeita] =
+        useState(() => {
+
+            const progressoSalvo =
+                localStorage.getItem(
+                    "progressoSoftware"
+                );
+
+            return progressoSalvo
+                ? Number(progressoSalvo)
+                : 0;
+        });
+
+    function marcarFeito(jaFez) {
+
+        let novoValor;
+
+        if (jaFez) {
+            novoValor = quantidadeFeita + 1;
+        } else {
+            novoValor = quantidadeFeita - 1;
+        }
+
+        setQuantidadeFeita(novoValor);
+
+        localStorage.setItem(
+            "progressoSoftware",
+            novoValor
+        );
+    }
+
     return (
         <>
             <main className={Style.corpo}>
@@ -63,36 +121,73 @@ const ConteudoSoftware = () => {
                 <section className={Style.apresentacao}>
 
                     <div className={Style.parte1}>
+
                         <div className={Style.titulo}>
-                            <img src={softwareIcon} alt="Icone de software" />
+                            <img
+                                src={softwareIcon}
+                                alt="Icone de software"
+                            />
+
                             <div>
                                 <h1>SOFTWARE</h1>
-                                <h2>Aprenda e domine as linguagens da era digital</h2>
+
+                                <h2>
+                                    Aprenda e domine as linguagens da era digital
+                                </h2>
                             </div>
                         </div>
 
                         <p>
                             Este percurso apresenta os
-                            <span> fundamentos do software e do desenvolvimento de sistemas.</span>
+                            <span>
+                                {" "}fundamentos do software e do desenvolvimento de sistemas.
+                            </span>
 
-                            Durante os módulos, você aprenderá sobre lógica de programação, algoritmos, estruturas de dados e desenvolvimento web.
+                            Durante os módulos, você aprenderá sobre lógica de programação,
+                            algoritmos, estruturas de dados e desenvolvimento web.
 
-                            Ao longo do curso, entenderá como os programas funcionam, como escrever código limpo e os conceitos essenciais da engenharia de software.
+                            Ao longo do curso, entenderá como os programas funcionam,
+                            como escrever código limpo e os conceitos essenciais da
+                            engenharia de software.
                         </p>
+
+                        <div className={Style.progressoCursoSoftware}>
+
+                            <p>
+                                Progresso: {quantidadeFeita}/{totalAulas}
+                            </p>
+
+                            <progress
+                                value={quantidadeFeita}
+                                max={totalAulas}
+                            />
+
+                        </div>
+
                     </div>
 
                     <div className={Style.parte2}>
-                        
+
                         <div className={Style.html_css}>
-                            <img src={htmlIcon} alt="HTML logo" />
-                            <img src={cssIcon} alt="CSS logo" />
+                            <img
+                                src={htmlIcon}
+                                alt="HTML logo"
+                            />
+
+                            <img
+                                src={cssIcon}
+                                alt="CSS logo"
+                            />
                         </div>
 
                         <hr />
 
                         <p>
-                            Novos conteúdos de HTML, CSS e JavaScript estão chegando. Neles, você aprenderá a criar interfaces web modernas e a desenvolver aplicações interativas do zero.
+                            Novos conteúdos de HTML, CSS e JavaScript estão chegando.
+                            Neles, você aprenderá a criar interfaces web modernas e a
+                            desenvolver aplicações interativas do zero.
                         </p>
+
                     </div>
 
                 </section>
@@ -100,40 +195,52 @@ const ConteudoSoftware = () => {
                 <section className={Style.conteudos}>
 
                     <div className={Style.introducao}>
+
                         <h1>1 - Introdução</h1>
                         <hr />
+
                         {conteudoSoftware_Introducao.map((item, index) => (
                             <Item_ConteudoSoftware
                                 key={index}
                                 descricao={item.descricao}
                                 to={item.to}
+                                onMarcarFeito={marcarFeito}
                             />
                         ))}
+
                     </div>
 
                     <div className={Style.fundamentos}>
+
                         <h1>2 - Lógica de Programação</h1>
                         <hr />
+
                         {conteudoSoftware_LogicaProgramacao.map((item, index) => (
                             <Item_ConteudoSoftware
                                 key={index}
                                 descricao={item.descricao}
                                 to={item.to}
+                                onMarcarFeito={marcarFeito}
                             />
                         ))}
+
                     </div>
 
-                    {/* <div className={Style.componentes}>
+                    <div className={Style.componentes}>
+
                         <h1>3 - Desenvolvimento Web</h1>
                         <hr />
+
                         {conteudoSoftware_WebDev.map((item, index) => (
                             <Item_ConteudoSoftware
                                 key={index}
                                 descricao={item.descricao}
                                 to={item.to}
+                                onMarcarFeito={marcarFeito}
                             />
                         ))}
-                    </div> */}
+
+                    </div>
 
                 </section>
 

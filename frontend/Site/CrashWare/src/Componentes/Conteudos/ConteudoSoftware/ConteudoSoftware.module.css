@@ -217,6 +217,58 @@
     font-weight: 600;
 }
 
+.progressoCursoSoftware{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.progressoCursoSoftware p{
+    width: 80%;
+    text-align: start;
+    font-weight: 900;
+    color: #2563eb;
+    margin-bottom: 10px;
+}
+
+.progressoCursoSoftware progress{
+    width: 80%;
+    height: 25px;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.progressoCursoSoftware progress::-webkit-progress-bar{
+    background-color: #1e293b;
+    border-radius: 20px;
+    border: 1px solid #334155;
+}
+
+.progressoCursoSoftware progress::-webkit-progress-value{
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #2564ebde
+    );
+    border-radius: 20px;
+}
+
+.progressoCursoSoftware progress::-moz-progress-bar{
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #2564ebde
+    );
+    border-radius: 20px;
+}
+
+
 @media (max-width: 1310px) {
     .corpo {
         flex-direction: column;

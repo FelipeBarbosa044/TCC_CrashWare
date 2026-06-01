@@ -1,28 +1,315 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-* {
+*{
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
 }
 
-.separarConteudos{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.Conteudos {
+.conteudoArtigo, .container{
     display: flex;
     flex-direction: column;
-    justify-items: center;
-    align-self: flex-start;
-    margin-top: 100px;
 
-    background-color: #6C6A6A30;
-    border: 2px solid var(--texto-principal);
-    border-radius: 16px;
+    margin-left: 20px;
+    width: 66%;
+    margin-bottom: 40px;
+}
 
-    width: 70%;
-    height: auto;
+.parteCima{
+    background-color: var(--bg-principal);
+    border: 1px solid var(--texto-principal);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+}
+
+.parteCima h1{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 36px;
+    font-family: "Montserrat";
+    color: var(--texto-secundario);
+}
+
+.inputs{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.inputs label{
+    text-align: start;
+    font-family: "Montserrat";
+    color: var(--texto-principal);
+    font-weight: 700;
+    width: 81%;
+}
+
+.inputs input, .Enunciado input{
+    width: 85%;
+    margin-left: 15px;
+    padding: 6px;
+    padding-left: 22px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 6px;
+
+    color: var(--bg-principal);
+}
+
+.inputs input:hover, .Enunciado input:hover{
+    cursor: pointer;
+}
+
+.inputs input:focus, .Enunciado input:focus{
+    outline: none;
+    cursor: auto;
+}
+
+.inputs p, .Enunciado p{
+    color: var(--texto-secundario);
+    font-weight: 700;
+    font-size: 12px;
+    text-align: end;
+    width: 87%;
+    font-family: "Montserrat";
+}
+
+.tipo{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+
+    width: 81%;
+    margin-top: 30px;
+}
+
+.tipo label{
+    text-align: start;
+    font-family: "Montserrat";
+    color: var(--texto-principal);
+    font-weight: 700;
+    width: 100%;
+    
+    margin-bottom: 12px;
+}
+
+.escolherTipo{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    
+    justify-content: space-around;
+}
+
+.opcoesTipo{
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.opcoesTipo img{
+    width: 3.8vw;
+    max-width: 50px;
+}
+
+.opcoesTipo p{
+    font-family: "Montserrat";
+    color: var(--texto-principal);
+    font-weight: 700;
+}
+
+.parteMeio{
+    margin-top: 40px;
+    background-color: var(--bg-principal);
+    border: 1px solid var(--texto-principal);
+    border-radius: 12px;
+
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+}
+
+.parteMeio h2{
+    text-align: center;
+    font-family: "Monstsserat";
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--texto-secundario);
+
+    margin-bottom: 40px;
+}
+
+.parteMeio .inputs{
+    margin-bottom: 20px;
+}
+
+.botoes{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.botoes button{
+    padding: 12px;
+    min-width: 120px;
+
+    background-color: var(--bg-principal);
+    border: 1px solid var(--texto-principal);
+    border-radius: 10px;
+    color: var(--texto-principal);
+    font-family: "Montserrat";
+    font-weight: 700;
+}
+
+.botoes button:hover{
+    transform: scale(1.03);
+    transition: ease 0.3s;
+
+    border: 1px solid var(--cor-primaria);
+    color: var(--cor-primaria);
+}
+
+/* exercicios */
+
+/* .container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+} */
+
+ .parteExercicios{
+    background-color: var(--bg-principal);
+    border: 1px solid var(--texto-principal);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 20px;
+
+    margin-bottom: 40px;
+ }
+
+ .parteExercicios h1{
+    text-align: center;
+    font-family: "Montsserat";
+    color: var(--texto-secundario);
+    font-size: 36px;
+ }
+
+ .Enunciado{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+ }
+
+ .Enunciado label, .alternativas label{
+    font-family: "Montsserat";
+    color: var(--texto-secundario);
+    font-weight: 800;
+    font-size: 26px;
+
+    margin-top: 30px;
+    margin-left: 15px;
+    margin-bottom: 2px;
+ }
+
+ .Enunciado input{
+    width: 100%;
+ }
+
+ .Enunciado p{
+    width: 100%;
+    margin-left: 12px;
+ }
+
+ .alternativas{
+    width: 88%;
+    display: flex;
+    flex-direction: column;
+
+    margin: 10px 0px;
+    margin-bottom: 30px;
+    gap: 30px;
+ }
+
+ .alternativas label{
+    font-size: 26px !important; 
+ }
+
+.opcoesAlternativa{
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
+}
+
+ .opcoesAlternativa img{
+    width: 4vw;
+    max-width: 54px;
+    min-width: 26px;
+    margin-right: 30px;
+ }
+
+ .opcoesAlternativa input{
+    padding: 10px;
+    padding-left: 30px;
+    max-height: 30px;
+    width: 94%;
+    border: none;
+    border-radius: 12px;
+ }
+
+.opcoesAlternativa input:hover{
+    cursor: pointer;
+}
+
+.opcoesAlternativa input:focus{
+    cursor: auto;
+    outline: none;
+}
+ 
+
+@media (max-width: 861px){
+
+    .conteudoArtigo, .parteExercicios, .container{
+        width: 100%;
+        align-items: center;
+        margin-left: 0px;
+    }
+
+    .parteCima, .parteMeio, .parteExercicios{
+        width: 90%;
+    }
+
+    .tipo{
+        width: 100%;
+    }
+
+    .escolherTipo{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .opcoesTipo{
+        gap: 10px;
+        width: 40%;
+
+        justify-content: center;
+    }
+
+    .botoes{
+        margin-top: 20px;
+    }
 }

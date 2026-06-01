@@ -29,23 +29,39 @@ const ConteudoHardware_Componentes = [
     { descricao: "Placa de vídeo (GPU)", to: ""},
 ]
 
-const Item_ConteudoHardware = ({descricao, to}) => {
+const totalAulasIntroducao = conteudoHardware_Introducao.length
+const totalAulasFundamentos = conteudoHardware_Fundamentos.length
+const totalAulasComponentes = ConteudoHardware_Componentes.length
+const totalAulas = totalAulasComponentes +
+                   totalAulasFundamentos +
+                   totalAulasIntroducao 
 
-    const [jaFez, setJaFez] = useState(false);
+const Item_ConteudoHardware = ({ descricao, to, onMarcarFeito }) => {
+
+    const [jaFez, setJaFez] = useState(() => {
+        const salvo = localStorage.getItem(`aula-${descricao}`);
+        return salvo === "true";
+    });
 
     function alternarStatus() {
-        setJaFez(!jaFez);
+        const novoStatus = !jaFez;
+
+        setJaFez(novoStatus);
+
+        localStorage.setItem(
+            `aula-${descricao}`,
+            JSON.stringify(novoStatus)
+        );
+
+        onMarcarFeito(novoStatus);
     }
 
     return (
-        <div 
-            className={Style.item}
-        >
-
-            <img 
+        <div className={Style.item}>
+            <img
                 onClick={alternarStatus}
-                src={jaFez ? certoIcon : playIcon} 
-                alt="você já fez?" 
+                src={jaFez ? certoIcon : playIcon}
+                alt="você já fez?"
             />
 
             <Link to={to}>
@@ -57,6 +73,36 @@ const Item_ConteudoHardware = ({descricao, to}) => {
 
 
 const ConteudoHardware = () => {
+
+    const [quantidadeFeita, setQuantidadeFeita] = useState(() => {
+
+        const progressoSalvo = localStorage.getItem(
+            "progressoHardware"
+        );
+
+        return progressoSalvo
+            ? Number(progressoSalvo)
+            : 0;
+    });
+
+    function marcarFeito(jaFez){
+
+        let novoValor;
+
+        if(jaFez){
+            novoValor = quantidadeFeita + 1;
+        }else{
+            novoValor = quantidadeFeita - 1;
+        }
+
+        setQuantidadeFeita(novoValor);
+
+        localStorage.setItem(
+            "progressoHardware",
+            novoValor
+        );
+    }
+
     return (
         <>
             <main className={Style.corpo}>
@@ -70,19 +116,38 @@ const ConteudoHardware = () => {
                             <div>
                                 <h1>HARDWARE</h1>
                                 
-                                <h2>Desvende a arquitetura das máquinas de forma acessível</h2>
+                                <h2>
+                                    Desvende a arquitetura das máquinas de forma acessível
+                                </h2>
                             </div>
                         </div>
 
                         <p>
-                            Este percurso apresenta os 
-                            <span>fundamentos do hardware e da estrutura dos computadores.</span>
+                            Este percurso apresenta os
+                            <span>
+                                fundamentos do hardware e da estrutura dos computadores.
+                            </span>
 
-                            Durante os módulos, você aprenderá sobre processador, memória RAM, armazenamento, placa-mãe e outros componentes essenciais.
+                            Durante os módulos, você aprenderá sobre processador,
+                            memória RAM, armazenamento, placa-mãe e outros componentes essenciais.
 
-                            Ao longo do curso, entenderá como as peças se comunicam, como identificar componentes e os conceitos básicos da arquitetura de computadores.
+                            Ao longo do curso, entenderá como as peças se comunicam,
+                            como identificar componentes e os conceitos básicos da arquitetura de computadores.
                         </p>
                           
+                        <div className={Style.progressoCurso}>
+
+                            <p>
+                                Progresso: {quantidadeFeita}/{totalAulas}
+                            </p>
+                              
+                            <progress
+                                value={quantidadeFeita}
+                                max={totalAulas}
+                            />
+
+                        </div>
+
                     </div>
 
                     <div className={Style.parte2}>
@@ -91,7 +156,8 @@ const ConteudoHardware = () => {
                         <hr />
                         
                         <p>
-                            Novos conteúdos de Arduino e Eletrônica estão chegando. Neles, você aprenderá a montar circuitos básicos e programar comandos simples para controlar componentes eletrônicos. 
+                            Novos conteúdos de Arduino e Eletrônica estão chegando.
+                            Neles, você aprenderá a montar circuitos básicos e programar comandos simples para controlar componentes eletrônicos.
                         </p>
                     </div>
 
@@ -104,13 +170,15 @@ const ConteudoHardware = () => {
                         <h1>1 - Introdução</h1>
                         <hr />
 
-                            {conteudoHardware_Introducao.map((item, index) => (
-                                <Item_ConteudoHardware
-                                    key={index}
-                                    descricao={item.descricao}
-                                    to={item.to}
-                                />
-                            ))}
+                        {conteudoHardware_Introducao.map((item, index) => (
+                            <Item_ConteudoHardware
+                                key={index}
+                                descricao={item.descricao}
+                                to={item.to}
+                                onMarcarFeito={marcarFeito}
+                            />
+                        ))}
+
                     </div>
 
                     <div className={Style.fundamentos}>
@@ -118,27 +186,31 @@ const ConteudoHardware = () => {
                         <h1>2 - Fundamentos</h1>
                         <hr />
 
-                            {conteudoHardware_Fundamentos.map((item, index) => (
-                                <Item_ConteudoHardware
-                                    key={index}
-                                    descricao={item.descricao}
-                                    to={item.to}
-                                />
-                            ))}
+                        {conteudoHardware_Fundamentos.map((item, index) => (
+                            <Item_ConteudoHardware
+                                key={index}
+                                descricao={item.descricao}
+                                to={item.to}
+                                onMarcarFeito={marcarFeito}
+                            />
+                        ))}
+
                     </div>
 
                     <div className={Style.componentes}>
 
-                            <h1>3 - Componentes</h1>
-                            <hr />
+                        <h1>3 - Componentes</h1>
+                        <hr />
 
-                                {ConteudoHardware_Componentes.map((item, index) => (
-                                    <Item_ConteudoHardware
-                                        key={index}
-                                        descricao={item.descricao}
-                                        to={item.to}
-                                    />
-                                ))}
+                        {ConteudoHardware_Componentes.map((item, index) => (
+                            <Item_ConteudoHardware
+                                key={index}
+                                descricao={item.descricao}
+                                to={item.to}
+                                onMarcarFeito={marcarFeito}
+                            />
+                        ))}
+
                     </div>
 
                 </section>

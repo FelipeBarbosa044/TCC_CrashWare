@@ -13,6 +13,7 @@
 
     display: flex;
     flex-direction: row;
+    justify-self: center;
     justify-content: center;
     flex-wrap: wrap;
 
@@ -181,12 +182,63 @@
     font-weight: 600;
 }
 
+.progressoCurso{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.progressoCurso p{
+    width: 80%;
+    text-align: start;
+    font-weight: 900;
+    color: #16a34a;
+    margin-bottom: 10px;
+}
+
+progress{
+    width: 80%;
+    height: 25px;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+progress::-webkit-progress-bar{
+    background-color: #1e293b;
+    border-radius: 20px;
+    border: 1px solid #334155;
+}
+
+progress::-webkit-progress-value{
+    background: linear-gradient(
+        90deg,
+        #16a34a,
+        #22c55e
+    );
+    border-radius: 20px;
+}
+
+progress::-moz-progress-bar{
+    background: linear-gradient(
+        90deg,
+        #16a34a,
+        #22c55e
+    );
+    border-radius: 20px;
+}
+
 @media (max-width: 1310px){
 
     .corpo{
         flex-direction: column;
         align-items: center;
-        padding-top: 120px; 
+        padding-top: 220px; 
         width: 95vw;
     }
 
