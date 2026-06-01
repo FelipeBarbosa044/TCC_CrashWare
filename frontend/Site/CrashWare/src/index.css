@@ -29,11 +29,13 @@
   --TrilhaSoftware: #0F66B3;
   --Remover-coisas: linear-gradient(to right, var(--BotaoADD-gradiente1), var(--BotaoADD-gradiente2));
   --btnUsuario: #ffffff;
+  --btn-Criar-Materia: linear-gradient(to right, #101017CC, #06060A);
   /* ----- */
 
   /* Componentes */
   --Cabecalho: transparent;
   --Rodape: #076ce79f;
+  --SideBar: #FFFFFFFF;
   /* ---------- */
 
   /* Carrossel */
@@ -47,6 +49,7 @@
   /* Texos */
   --Texto1: #FFFFFFFF;
   --Texto2: black;
+  --Texto3: #000000;
   /* ---- */
 
   --blur: #66666680;
@@ -138,11 +141,13 @@
   --TrilhaSoftware: #0F66B3;
   --Remover-coisas: linear-gradient(to right, #C2B0EE, #9174CA);
   --btnUsuario: #260A4D;
+  --btn-Criar-Materia: linear-gradient(to right,#241952, #5039B8);
   /* ------ */
 
   /* Componentes */
   --Cabecalho:#6C6A6A30;  
   --Rodape: #000000;
+  --SideBar: #000000;
   /* ---------- */
 
   /* Carrossel */
@@ -156,6 +161,8 @@
   /* Texos */
   --Texto1: #FFFFFFFF;
   --Texto2: white;
+  --Texto3: #ffffff;
+
   /* ---- */
 
 

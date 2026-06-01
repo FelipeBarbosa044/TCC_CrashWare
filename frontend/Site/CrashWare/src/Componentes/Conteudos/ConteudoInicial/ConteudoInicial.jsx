@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import FMenina_claro from '../../../fotos/claro/Mulher_Branca.svg';
 import FMenina_escuro from '../../../fotos/escuro/Mulher_Escura.svg';
 import Raposa_SoftWare from '../../../fotos/Raposa_SoftWare.png';
+import Raposa_HardWare from '../../../fotos/Raposa_Hd.svg';
 import apleModoClaro from '../../../fotos/claro/apple-logo-svgrepo-com.svg';
 import apleModoEscuro from '../../../fotos/escuro/apple_icon.svg';
 import googlePlayModoClaro from '../../../fotos/claro/play.svg';
@@ -108,7 +109,7 @@ const ConteudoInicial = () => {
                                 </div>
 
                                 <div className={Style.ConteudoHardware_img}>
-                                    <div>img</div>
+                                    <img src={Raposa_HardWare} alt="raposa de hardware" />
                                 </div>
 
                             </section>

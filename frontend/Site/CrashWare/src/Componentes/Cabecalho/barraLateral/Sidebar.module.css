@@ -37,7 +37,7 @@
   justify-content: center;
   align-items: center;
   gap: 4px;
-  background-color: var(--bg-secundario);
+  background-color: var(--SideBar);
   border: 1px solid var(--texto-principal);
   border-radius: 16px;
   align-self: flex-end;

@@ -187,6 +187,14 @@
     flex-shrink: 0;
 }
 
+.ConteudoHardware_img img {
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 260px;
+}
+
 .ConteudoHardware_img div {
     width: 260px;
     height: 180px;
