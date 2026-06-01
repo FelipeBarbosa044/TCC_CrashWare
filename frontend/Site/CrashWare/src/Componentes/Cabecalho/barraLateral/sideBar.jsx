@@ -31,9 +31,8 @@ const Sidebar = ({ aberto, onFechar }) => {
     const location = useLocation();
 
     const links = [
-      { label: 'Sobre o TCC', to: '/sobre' },
-      { label: 'Termos de serviço', to: '/termos' },
-      { label: 'Configurações', to: '/configuracoes' },
+      { label: 'perfil', to: '/perfil'},
+      { label: 'Configurações', to: '/configuracoes' }
     ];
 
 
