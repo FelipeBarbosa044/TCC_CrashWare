@@ -11,6 +11,10 @@ const ConteudoAnotacao = () => {
         const salvas = localStorage.getItem('anotacoes')
 
         return salvas ? JSON.parse(salvas) : []
+
+        //Chamo o método de buscar anotação
+
+
     })
 
     // PESQUISA
@@ -38,10 +42,15 @@ const ConteudoAnotacao = () => {
             JSON.stringify(anotacoes)
         )
 
+        //Chamo o método de buscar anotação
+
     }, [anotacoes])
 
     // CRIAR NOTA
     const criarNota = () => {
+
+        //Chamo a requisição de adicionar anotação
+        
 
         if (
             infoNota.tituloAnotacao.trim() === "" &&

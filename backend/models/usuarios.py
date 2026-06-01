@@ -1,6 +1,4 @@
 #Importando comandos do sql para o código.
-from typing import Self
-
 from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime,text,ForeignKey, Float
 from datetime import datetime
 

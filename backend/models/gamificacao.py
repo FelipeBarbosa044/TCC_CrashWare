@@ -1,5 +1,4 @@
 #Importando comandos do sql para o código.
-from encodings.punycode import selective_find
 
 from sqlalchemy import Column, Integer, Float, String, Text, ForeignKey, UniqueConstraint, DateTime, text, Boolean
 from sqlalchemy.orm import relationship, backref
