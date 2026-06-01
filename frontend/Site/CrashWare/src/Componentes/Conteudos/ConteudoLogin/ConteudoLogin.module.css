@@ -17,7 +17,7 @@
     justify-content: center;
     align-items: center;
     font-family: "Montserrat", sans-serif;
-    padding-top: 120px;
+    padding-top: 90px;
 }
 
 .container {
@@ -193,7 +193,7 @@
 @media (max-width: 700px) {
     
     .corpo{
-        width: 92vw;
+        width: 100vw;
         padding-bottom: 30px;
     }
 

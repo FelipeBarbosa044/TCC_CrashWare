@@ -13,6 +13,8 @@
   --gradiente-inicial:linear-gradient(to bottom,#fffefeb7, #62BDF3);
   --gradiente-Chamada-Inicial: linear-gradient(to right, #62BDF3, #3B77BE);
   --gradiente-app: linear-gradient(to bottom, #62BDF3, #3B77BE);
+  --gradiente-listar-consquistas: linear-gradient(to right, #c7bebe, gray);
+  --gradiente-usuarios: linear-gradient(to right, #c7bebe, gray);
   /* --------- */
 
   /* Botoes */
@@ -25,6 +27,8 @@
   --btnRetomar: linear-gradient(to right, #C7CE01, #2BCA23, #009898);
   --TrilhaHardware: #31C26D;
   --TrilhaSoftware: #0F66B3;
+  --Remover-coisas: linear-gradient(to right, var(--BotaoADD-gradiente1), var(--BotaoADD-gradiente2));
+  --btnUsuario: #ffffff;
   /* ----- */
 
   /* Componentes */
@@ -120,16 +124,20 @@
   --gradiente-Chamada-Inicial: linear-gradient(to right, black);
   --gradiente-app: black;
   --gradiente-app-texto: linear-gradient(90deg, #032A5C, #0654B8, #032A5C);
-  --TrilhaHardware: #31C26D;
-  --TrilhaSoftware: #0F66B3;
+  --gradiente-listar-consquistas: linear-gradient(to right, #7350CE, #4A178F);
+  --gradiente-usuarios: linear-gradient(to right, #7350CE, #4A178F);
   /* --------  */
-
+  
   /* Botoes */
   --install-app: #faf6f683;
   --Entrar-Inicial: linear-gradient(to right, #241952, #5039B8);
   --Cadastrar: #6C6A6A4D;
   --Login: linear-gradient(to right, var(--BotaoADD-gradiente1), var(--BotaoADD-gradiente2));
   --btnRetomar: linear-gradient(to right, #C7CE01, #2BCA23, #009898);
+  --TrilhaHardware: #31C26D;
+  --TrilhaSoftware: #0F66B3;
+  --Remover-coisas: linear-gradient(to right, #C2B0EE, #9174CA);
+  --btnUsuario: #260A4D;
   /* ------ */
 
   /* Componentes */
@@ -222,9 +230,6 @@
   --gradiente1-atividades: #16182F;
   --gradiente2-atividades: #2A3260;
   --gradiente3-atividades: #0F172A;
-
-  --Gradiente-Roxo: #7350CE ;
-  --Gradiente-Roxo2: #4A178F ;
 
   --gradiente2-conquistas: #1593D2;
   --gradiente1-conquistas: #FFFFFF  ;

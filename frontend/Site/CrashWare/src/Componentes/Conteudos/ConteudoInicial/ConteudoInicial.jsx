@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-import FMenina_claro from '../../../fotos/claro/NovaMenina.svg';
-import FMenina_escuro from '../../../fotos/escuro/NovaMenina.svg';
+import FMenina_claro from '../../../fotos/claro/Mulher_Branca.svg';
+import FMenina_escuro from '../../../fotos/escuro/Mulher_Escura.svg';
 import Raposa_SoftWare from '../../../fotos/Raposa_SoftWare.png';
 import apleModoClaro from '../../../fotos/claro/apple-logo-svgrepo-com.svg';
 import apleModoEscuro from '../../../fotos/escuro/apple_icon.svg';
@@ -10,7 +10,7 @@ import googlePlayModoEscuro from '../../../fotos/escuro/play.svg';
 
 
 // importando componentes para ser ultilizados no ConteudoInicial.jsx
-import FMenina from '../../../fotos/claro/NovaMenina.svg';
+// import FMenina from '../../../fotos/claro/NovaMenina.svg';
 import { BotoesApp, BotoesForm } from '../../Botoes';
 import { Cards } from '../../Cards';
 import { Link, useNavigate } from "react-router-dom";
@@ -68,7 +68,7 @@ const ConteudoInicial = () => {
                         </div>
 
                         <div className={Style.Apresentacao_img}>
-                            <img src={FMenina} alt="menina estudando" />
+                            <img src={tema ? FMenina_claro : FMenina_escuro} alt="menina estudando" />
                         </div>
 
                     </section>

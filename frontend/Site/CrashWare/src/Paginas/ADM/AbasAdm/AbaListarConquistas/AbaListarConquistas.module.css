@@ -18,11 +18,10 @@
     flex-direction: column;
     justify-items: center;
     align-self: flex-start;
-    margin: auto;
-    margin-top: 100px;
 
-    background-color: #6C6A6A30;
-    border: 2px solid var(--texto-principal);
+
+    background-color: var(--bg-secundario);
+    border: 2px solid var(--borda);
     border-radius: 16px;
 
     width: 65vw;
@@ -34,7 +33,7 @@
 
 .Conteudos h1{
     font-family: "Montserrat";
-    color: var(--texto-principal);
+    color: var(--Texto2);
     text-align: center;
     font-size: clamp(18px, 3.2vw, 36px);
 
@@ -57,8 +56,8 @@
     margin-right: 20px;
     padding: 10px;
     padding-left: 30px;
-    border-radius: 8px;
-    border: none;
+    border-radius: 15px;
+    border: 2px solid black;
 
     font-family: "Montserrat";
     font-weight: 500;
@@ -66,9 +65,9 @@
 }
 
 .botaoBuscar{
-    background: linear-gradient(90deg, var(--BotaoADD-gradiente1), var(--BotaoADD-gradiente2));
+    background: var(--Login);
     border: none;
-    color: var(--texto-principal);
+    color: var(--Texto1);
     width: 20vw;
     /* max-width: 7vw;   */
     max-height: 5vh;
@@ -83,7 +82,7 @@
 .Lista{
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--texto-principal);
+    border: 1px solid var(--borda);
     border-radius: 16px;
     width: 60vw;
     max-height: 50vh;
@@ -98,7 +97,7 @@
 }
 
 .ListaConquistas{
-    background-color: var(--input-bg);
+    background-color: var(--bg-secundario);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -127,6 +126,7 @@
 }
 
 .ItensLista h3{
+    color: var(--Texto2);
     font-size: 25px;
     width: 40vw;
     margin: 5px;
@@ -158,8 +158,8 @@
     border: 1px solid var(--borda);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    background: linear-gradient(to right, var(--Gradiente-Roxo), var(--Gradiente-Roxo2));
-    color: white;
+    background: var(--gradiente-listar-consquistas);
+    color: var(--Texto2);
     gap: 10px;
     /* justify-content: space-between; */
 }
@@ -167,7 +167,7 @@
 .sanfona h5{
     display: flex;
     flex-direction: row;
-    /* color: blueviolet; */
+    color: var(--Texto2);
     font-size: 25px;
     justify-content: space-between;
     margin: 0 0 4px 0;
@@ -182,8 +182,8 @@
     margin-top: 15px;
     padding: 7px;
     width: 50%;
-    color: var(--texto-principal);
-    background: linear-gradient(90deg, var(--BotaoADD-gradiente1), var(--BotaoADD-gradiente2));
+    color: var(--Texto1);
+    background: var(--Login);
     border: 1px solid var(--borda);
     border-radius: 10px;
 }

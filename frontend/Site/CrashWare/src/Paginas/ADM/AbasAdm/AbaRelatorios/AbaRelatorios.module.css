@@ -17,11 +17,9 @@
     flex-direction: column;
     justify-items: center;
     align-self: flex-start;
-    margin: auto;
-    margin-top: 110px;
 
-    background-color: #6C6A6A30;
-    border: 2px solid var(--texto-principal);
+    background-color: var(--bg-secundario);
+    border: 2px solid var(--borda);
     border-radius: 16px;
 
     width: 65vw;
@@ -32,7 +30,7 @@
 
 .Conteudos h1{
     font-family: "Montserrat";
-    color: var(--texto-principal);
+    color: var(--Texto2);
     text-align: center;
     font-size: clamp(18px, 3.2vw, 36px);
 
