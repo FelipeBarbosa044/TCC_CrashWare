@@ -10,9 +10,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    align-items: flex-start;  /* era align-content: center */
-    height: auto;             /* era 100vh */
-    padding-top: 110px;       /* mesma altura do header */
+    align-items: flex-start;  
+    height: auto;             
 }
 
 .Margincima{
@@ -30,7 +29,7 @@
 
     border-radius: 16px;
     width: 70%;
-    height: auto;        /* sem altura fixa */
+    height: auto;        
 
     font-family: "Montserrat";
     color: var(--texto-principal);
@@ -467,11 +466,11 @@
         align-items: center;
     }
 
-    .Conteudos {
+    /* .Conteudos {
         min-width: 50%;
         flex-direction: wrap;
         margin-bottom: 30px;
-    }
+    } */
 
     .botoes{
         width: 20%;
@@ -507,18 +506,26 @@
     }
 }
 
+@media (max-width: 860px){
+
+    /* .Conteudos{
+        width: 100%;
+        max-width: none;
+    } */
+}
+
 @media (max-width: 700px) {
-    .Conteudos {
+    /* .Conteudos {
         width: 100%;
         flex-direction: wrap;
         margin-bottom: 30px;
-    }
+    } */
 
-.campoForm{
-    display: flex;
-    height: 40vh;
-    margin-bottom: 10px;
-}
+    .campoForm{
+        display: flex;
+        height: 40vh;
+        margin-bottom: 10px;
+    }
 
     .ConquistaInputs{
         width: 100%;
@@ -526,19 +533,19 @@
         padding: 0px;
     }
 
-.ConquistaInputs p{
-    font-family: "Montserrat";
-    color: var(--texto-principal);
-    font-weight: 500;
-    font-size: 12px;
-    margin-top: 2px;
-    text-align: end;
-    width: 34vw;
-}
+    .ConquistaInputs p{
+        font-family: "Montserrat";
+        color: var(--texto-principal);
+        font-weight: 500;
+        font-size: 12px;
+        margin-top: 2px;
+        text-align: end;
+        width: 34vw;
+    }
 
-.campoFormDescricao{
-    margin-top: 10px;
-}
+    .campoFormDescricao{
+        margin-top: 10px;
+    }
 
     .Descricao{
         width: 80%;
