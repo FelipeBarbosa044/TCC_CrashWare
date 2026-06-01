@@ -197,7 +197,12 @@ public class Cadastro extends AppCompatActivity {
             Toast.makeText(this, "Nome inválido", Toast.LENGTH_LONG).show();
             return;
         }
-        //
+
+        if(nome.length() < 5)
+        {
+            Toast.makeText(this, "Nome deve ter pelo menos 5 caracteres", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         //Email não pode ter espaço EX: "jo ao@gmail.com", o trim() só tira o espaço dos lados.
 

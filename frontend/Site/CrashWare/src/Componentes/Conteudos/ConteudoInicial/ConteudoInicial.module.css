@@ -8,7 +8,7 @@
 .corpo{
     height: 100%;
     background-color: var(--bg-principal);
-    /* background: linear-gradient(to bottom, var(--bg-secundario), var(--blur)); */
+    /* background: var(--gradiente-inicial); */
     width: 100%;
     padding-top: 100px;
 }
@@ -23,6 +23,10 @@
     font-family: "Montserrat", sans-serif;
     border-radius: 20px;
 }
+
+/* .LimitarConteudo{
+    max-width: 1324px;
+} */
 
 /* ===== CORES DE DESTAQUE ===== */
 .hardware {
@@ -41,8 +45,8 @@
     justify-content: space-between;
     gap: 32px;
     width: 100%;
-    padding-bottom: 30px;
-    background: var(--gradiente-inicial);
+    /* padding-bottom: 30px; */
+    background: var(--bg-principal);
 
 }
 
@@ -70,12 +74,12 @@
 }
 
 .Apresentacao_btns button {
-    background-color: #ffff;
+    background: var(--Entrar-Inicial);
     border: none;
     width: 260px;
     height: 52px;
     border-radius: 40px;
-    color: #000;
+    color: white;
     font-size: 16px;
     font-weight: 700;
     font-family: "Montserrat", sans-serif;
@@ -89,7 +93,7 @@
 }
 
 .btnSecundario {
-    background: #ffffff30 !important;
+    background: var(--Cadastrar) !important;
     border: 1.5px solid var(--borda) !important;
     color: var(--texto-principal) !important;
 }
@@ -105,9 +109,9 @@
 }
 
 .Apresentacao_img img {
+    margin-top: 100px;
     width: 100%;
     max-width: 460px;
-    filter: drop-shadow(0 6px 20px var(--cor-primaria));
 }
 
 /* ===== CHAMADA ===== */
@@ -120,31 +124,33 @@
     width: 100%;
     padding: 28px 40px;
     box-shadow: none;
-    background-color: var(--Chamada);
+    border: 2px solid var(--Border-Chamada);
+    background: var(--gradiente-Chamada-Inicial);
 }
 
 .Chamada h3 {
     font-size: clamp(20px, 2.5vw, 36px);
     font-weight: 800;
-    color: var(--texto-principal);
+    color: white;
     flex: 1;
     margin: 0;
 }
 
 .Chamada hr {
-    width: 2px;
-    height: 70px;
+    width: 5px;
+    border-radius: 50px;
+    height: 90px;
     border: none;
-    background: rgba(255, 255, 255, 0.2);
+    background: white;
     flex-shrink: 0;
 }
 
 .Chamada h5 {
     flex: 1.2;
-    font-size: clamp(11px, 1.2vw, 13px);
-    font-weight: 400;
+    font-size: 20px;
+    font-weight: 700;
     line-height: 1.6;
-    color: var(--texto-principal);
+    color: white;
     opacity: 0.75;
     width: auto;
     margin: 0;
@@ -259,8 +265,7 @@
     align-items: center;
     flex-shrink: 0;
     width: 260px;
-    background-color: var(--bg-secundario);
-}
+    }
 
 .ConteudoSoftware_img div {
     width: 10px;
@@ -327,7 +332,7 @@
     text-align: center;
     padding: 40px 20px;
     width: 100%;
-    background: var(--app-bg);
+    background: var(--gradiente-app);
 }
 
 .Caixa {
@@ -337,7 +342,7 @@
 }
 
 .aplicativo h2 {
-    background: var(--gradiente-app);
+    background: var(--gradiente-app-texto);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -363,6 +368,7 @@
     margin-bottom: 32px;
 }
 
+
 .aplicativo img {
     margin-top: 30px;
     width: clamp(120px, 20vw, 180px);
@@ -370,9 +376,10 @@
 
 .botoesInstalar{
     display: flex;
-    width: 100%;
+    width: 100%;    
 
     justify-content: center;
+
     gap: 60px;
 }
 
@@ -557,7 +564,7 @@
     }
 
     .Chamada{
-        width: 70%;
+        width: 100%;
     }
 
     .Chamada h3{

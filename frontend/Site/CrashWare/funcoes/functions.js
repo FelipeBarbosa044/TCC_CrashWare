@@ -20,6 +20,10 @@ export async function SairDaConta(setToken,setRefresh,setDados){
     //Faço com que o site entenda que precisara buscar as informações denovo
     localStorage.setItem("info",false)
     localStorage.setItem("logout",false)
+    localStorage.setItem("alterar_email","false")
+    localStorage.setItem("alterar_nome" , "false")
+    localStorage.setItem("rec_senha", "false")
+
 
     //Deleto o ID do LocalStorage
     // await localStorage.removeItem("id");

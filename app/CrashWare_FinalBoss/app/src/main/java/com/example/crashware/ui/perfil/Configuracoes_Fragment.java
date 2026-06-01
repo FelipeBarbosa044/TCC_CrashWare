@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -20,6 +21,7 @@ import com.example.crashware.ui.login.Login;
 
 //
 import com.example.crashware.ui.config.ThemeConfig;
+import com.example.crashware.ui.navegacao.Home;
 //
 
 import android.content.SharedPreferences;
@@ -121,7 +123,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                //  AlterarTemaPara(TEMA_Sistema);
+                salvarTema(ThemeConfig.SYSTEM);
 
             }
         });
@@ -130,7 +132,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                //   AlterarTemaPara(TEMA_Claro);
+                salvarTema(ThemeConfig.LIGHT);
 
             }
         });//
@@ -139,7 +141,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                //  AlterarTemaPara(TEMA_Escuro);
+                salvarTema(ThemeConfig.DARK);
             }
         });//
 
@@ -147,7 +149,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                //   AlterarTemaPara(TEMA_Gelo);
+//                salvarTema(ThemeConfig.GELO);
 
             }
         });//
@@ -188,7 +190,41 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
+                builder.setTitle("Desativar Conta");
+
+                builder.setMessage("Deseja realmente desativar da sua conta?");
+
+                // Botão SIM
+                builder.setPositiveButton("Sim", (dialog, which) -> {
+
+                    Toast.makeText(getContext(), "Desativando conta...", Toast.LENGTH_LONG).show();
+
+                    //Verifico o token
+                    Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+
+                        @Override
+                        public void onSuccess() {
+
+                            //Aqui chamo o metodo de desativar conta
+                            Configuracoes.Desativar_Conta(prefs,Configuracoes_Fragment.this);
+
+                        }
+
+                    });
+
+
+                });
+
+                // Botão NÃO
+                builder.setNegativeButton("Cancelar", (dialog, which) -> {
+
+                    dialog.dismiss();
+
+                });
+
+                builder.show();
             }
         });
 
@@ -218,7 +254,11 @@ public class Configuracoes_Fragment extends Fragment {
                     prefs.edit()
                             .remove("token")
                             .remove("refresh_token")
+                            .remove("alterar_email")
+                            .remove("alterar_nome")
+                            .remove("logado")
                             .remove("foto")
+                            .remove("banner")
                             .apply();
 
                     //Vou para o login
@@ -256,15 +296,15 @@ public class Configuracoes_Fragment extends Fragment {
                 // Botão SIM
                 builder.setPositiveButton("Sim", (dialog, which) -> {
 
+                    Toast.makeText(getContext(), "Excluindo conta...", Toast.LENGTH_LONG).show();
+
                     //Verifico o token
                     Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
 
                         @Override
                         public void onSuccess() {
 
-                            Toast.makeText(getContext(), "Excluindo conta...", Toast.LENGTH_LONG).show();
-
-
+                            //Chamo o metodo de DELETAR CONTA
                             Configuracoes.Deletar_Conta(prefs,Configuracoes_Fragment.this);
 
                         }
@@ -290,14 +330,9 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                Fragment AlterarDadosFragment = new AlterarDados_Fragment();
+                Fragment AlterarDadosFragmento = new AlterarDados_Fragment();
 
-                getParentFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, AlterarDadosFragment)
-                        .addToBackStack(null)
-                        .commit();
-
+                ((Home) requireActivity()).irParaTelaExtra(AlterarDadosFragmento);
             }
         });// Interação com Botão de alterar dados
 
@@ -308,11 +343,7 @@ public class Configuracoes_Fragment extends Fragment {
             {
                 Fragment TermosFragmento = new Termos_Fragment();
 
-                getParentFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, TermosFragmento)
-                        .addToBackStack(null)
-                        .commit();
+                ((Home) requireActivity()).irParaTelaExtra(TermosFragmento);
             }
         });//interação com o botão que leva para a tela de termos e serviço
 
@@ -322,11 +353,7 @@ public class Configuracoes_Fragment extends Fragment {
             {
                 Fragment SobreFragmento = new Sobre_Fragment();
 
-                getParentFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, SobreFragmento)
-                        .addToBackStack(null)
-                        .commit();
+                ((Home) requireActivity()).irParaTelaExtra(SobreFragmento);
             }
         });//interação com o botão que leva para a tela de 'Sobre'
 
@@ -336,35 +363,15 @@ public class Configuracoes_Fragment extends Fragment {
 
     }
 
-//    private void AlterarTemaPara(int NovaOpcao)
-//    {
-//        if (prefs != null && getActivity() != null)
-//        {
-//            int TemaAtual =prefs.getInt("temaOpcao",TEMA_Sistema);
-//
-//            if (TemaAtual != NovaOpcao)
-//            {
-//                SharedPreferences.Editor editor = prefs.edit();
-//                editor.putInt("temaOpcao",NovaOpcao );
-//                editor.apply();
-//
-//             //   getActivity().recreate();
-//            }
-//
-//        }
-
-
-    //    }
     private void salvarTema(String tema)
     {
         prefs.edit()
                 .putString(ThemeConfig.KEY_THEME, tema)
                 .apply();
 
-        Intent intent = requireActivity().getIntent();
-        requireActivity().finish();
-        startActivity(intent);
-//        requireActivity().recreate(); // aplica tema imediatamente
-    }
+        ThemeConfig.aplicarTema(requireContext());
+
+        requireActivity().recreate();
+    }//Método que salva a escolha do usuário para alterar o tema
 
 }

@@ -24,6 +24,7 @@ import android.text.method.PasswordTransformationMethod;
 import com.example.crashware.ui.api.Auth;
 import com.example.crashware.ui.navegacao.Home;
 import com.example.crashware.R;
+import com.example.crashware.ui.navegacao.carregamento;
 import com.example.crashware.ui.senha.RecuperarSenha;
 
 import retrofit2.Call;
@@ -202,7 +203,6 @@ public class Login extends AppCompatActivity {
             return;
         }
 
-
         //Email não pode ter espaço EX: "jo ao@gmail.com"
         if (email.contains(" ") || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(this, "Email inválido", Toast.LENGTH_LONG).show();
@@ -214,10 +214,6 @@ public class Login extends AppCompatActivity {
             Toast.makeText(this, "Senha não pode conter espaços", Toast.LENGTH_LONG).show();
             return;
         }
-
-
-        // senha tbm n pode ter espaço.
-
 
         //Mensagem caso passa da validaçao:
         Toast.makeText(this, "Verificando dados...", Toast.LENGTH_LONG).show();
@@ -295,7 +291,9 @@ public class Login extends AppCompatActivity {
                     //Aqui retorna o ERRO
                     Toast.makeText(Login.this, erro, Toast.LENGTH_LONG).show();
 
-                }else{
+                }
+                else
+                {
                     //Pego o token da API
                     LoginResponse dados = resposta.body();
                     String token = dados.getToken();
@@ -310,7 +308,13 @@ public class Login extends AppCompatActivity {
 
 
                     //Vai para a HOME:
-                    Intent i = new Intent(Login.this, Home.class);
+                    Intent i = new Intent(Login.this, carregamento.class);
+
+                    i.setFlags(
+                            Intent.FLAG_ACTIVITY_NEW_TASK |
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    );
+
                     startActivity(i);
                     finish();
 
@@ -318,7 +322,8 @@ public class Login extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<LoginResponse> requisicao, Throwable t) {
+            public void onFailure(Call<LoginResponse> requisicao, Throwable t)
+            {
                 // Caso deu erro na requisição
                 // erro de conexão (internet, URL, servidor fora)
                 Toast.makeText(

@@ -29,12 +29,14 @@ public class ConfirmarTelefone extends AppCompatActivity {
 
     SharedPreferences prefs;
 
+    String telefone, emailUsuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_confirmar_telefone);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main2), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -43,7 +45,10 @@ public class ConfirmarTelefone extends AppCompatActivity {
         prefs = this.getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
 
 
-        String numerotelefone = prefs.getString("numerotelefone", null);
+        //Pego os valores de outra tela
+        telefone = getIntent().getStringExtra("telefoneUsuario");
+        emailUsuario = getIntent().getStringExtra("emailUsuario");
+
 
         txtTel = findViewById(R.id.txtConfirmarNumero);
         txtCodigoTel = findViewById(R.id.txtCodigoVerificacao);
@@ -54,7 +59,7 @@ public class ConfirmarTelefone extends AppCompatActivity {
         Toast Preencha = Toast.makeText(this,"Preencha o código",LENGTH_LONG);
 
 
-        txtTel.setText(numerotelefone);
+        txtTel.setText(telefone);
 
         String CodigoTel = txtCodigoTel.getText().toString().trim();
 

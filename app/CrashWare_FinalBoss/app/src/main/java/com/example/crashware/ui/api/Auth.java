@@ -148,6 +148,9 @@ public class Auth {
                         prefs.edit()
                                 .remove("token")
                                 .remove("refresh_token")
+                                .remove("alterar_email")
+                                .remove("alterar_nome")
+                                .remove("logado")
                                 .apply();
 
                         //Vou para o login
@@ -233,6 +236,10 @@ public class Auth {
                     prefs.edit()
                             .remove("token")
                             .remove("refresh_token")
+                            .remove("alterar_email")
+                            .remove("alterar_nome")
+                            .remove("logado")
+
                             .apply();
 
                     //Vou para o login

@@ -10,7 +10,6 @@
   width: 98vw;
   max-width: 90vw;
   min-height: 100vh; 
-  background-color: var(--bg-quarto);
 
   display: flex;
   flex-direction: column;
@@ -30,7 +29,9 @@
 
   border: 1px solid var(--texto-principal);
 
-  background-color: var(--bg-terceiro);
+  background-color: var(--bg-secundario);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding-right: 30px;
   padding-left: 30px;
   border-radius: 30px;
@@ -39,10 +40,10 @@
 }
 
 .container h1 {
-  color: var(--texto-principal);
-  font-size: clamp(2rem, 5vw, 3rem);
-  margin: 30px 0px;
-  text-shadow: 2px 2px 8px white;
+    color: var(--texto-principal);
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin: 30px 0px;
+    text-shadow: 1px 1px 5px white;
 }
 
 .container p{
@@ -92,20 +93,22 @@
 }
 
 .btnCriarConta {
-  width: 70%;
-  height: 5vh;
+    width: 70%;
+    min-height: 8vh;
+    max-height: 8vh;
 
-  background: var(--bg-principal);
-  border: none;
-  border-radius: 28px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+    background: var(--Login);
+    border: none;
+    border-radius: 28px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--texto-principal);
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--Texto1);
 
-  transition: 0.3s;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
 .btnCriarConta:hover {

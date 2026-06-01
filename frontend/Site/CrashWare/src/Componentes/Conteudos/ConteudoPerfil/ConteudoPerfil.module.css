@@ -180,7 +180,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    color: var(--texto-principal);
+    color: var(--Texto2);
     font-size: 12px;
     opacity: 0.65;
     margin-bottom: 12px;
@@ -269,7 +269,7 @@
 }
 
 .NivelTopo span{ 
-    color: var(--texto-secundario); 
+    color: var(--Texto2); 
     opacity: 0.55; 
 }
 
@@ -305,7 +305,7 @@
     justify-content: center;
     gap: 7px;
     padding: 20px 10px;
-    color: var(--texto-principal);
+    color: var(--Texto2);
     font-size: 26px;
     font-weight: 800;
     cursor: default;
@@ -343,8 +343,8 @@
     font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--texto-principal);
-    opacity: 0.6;
+    color: var(--Texto2);
+    opacity: 0.5;
 }
 
 .Patente h1{
@@ -354,7 +354,7 @@
 .Historico_Compras {
     grid-column: 1;
     padding: 18px 22px;
-    color: var(--texto-principal);
+    color: var(--Texto2);
 }
 
 .Historico_Compras h1 {
@@ -363,11 +363,11 @@
     text-indent: 20px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--texto-principal);
-    opacity: 0.55;
+    color: var(--Texto2);
+    opacity: 1;
     margin-bottom: 12px;
     padding-bottom: 10px;
-    border-bottom: 1.5px solid var(--borda);
+    border-bottom: 2px solid var(--borda);
 }
 
 .CompraRecente {
@@ -375,7 +375,7 @@
     align-items: center;
     gap: 12px;
     padding: 11px 13px;
-    background: rgba(255,255,255,0.04);
+    background: var(--bg-secundario);
     border-radius: 10px;
     border: 1px solid var(--borda);
     transition: border-color 0.2s;
@@ -391,13 +391,13 @@
     font-size: 13px; 
     font-weight: 700; 
     text-transform: uppercase; 
-    color: var(--texto-principal); 
+    color: var(--Texto2); 
 }
 
 .DescricaoCompra p  { 
     font-size: 11px; 
-    color: var(--texto-principal); 
-    opacity: 0.55; 
+    color: var(--Texto2); 
+    opacity: 0.95; 
     margin-top: 2px; 
 }
 

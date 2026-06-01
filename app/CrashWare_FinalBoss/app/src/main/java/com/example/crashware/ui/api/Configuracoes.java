@@ -3,7 +3,6 @@ package com.example.crashware.ui.api;
 import static androidx.core.content.ContextCompat.startActivity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
@@ -12,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.crashware.ui.login.Cadastro;
 import com.example.crashware.ui.login.ConfirmarIdentidade;
+import com.example.crashware.ui.login.ConfirmarTelefone;
 import com.example.crashware.ui.login.Login;
 import com.example.crashware.ui.navegacao.Home;
 import com.example.crashware.ui.senha.RedefinirSenha;
@@ -312,6 +312,9 @@ public class Configuracoes {
                     prefs.edit()
                             .remove("token")
                             .remove("refresh_token")
+                            .remove("alterar_email")
+                            .remove("alterar_nome")
+                            .remove("logado")
                             .remove("foto")
                             .apply();
 
@@ -600,6 +603,314 @@ public class Configuracoes {
 
     }//Verificar Senha
 
+    //Desativar Conta
+    // Armazena a resposta da API:
+    public static class DesativarContaResponse {
+        String mensagem;
+    }
 
+    // INTERFACE da API:
+    public static interface DesativarConta {
+        @PATCH("/user/desativar_conta")
+        Call<DesativarContaResponse> verificar(
+                @Header("Authorization") String token
+        );
+    }//Interface
+
+    public static void Desativar_Conta(SharedPreferences prefs,Fragment fragment)
+    {
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
+
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Fazendo que a interface da API seja utilizavel:
+        DesativarConta api = retrofit.create(DesativarConta.class);
+
+        // Monto a chamada da API:
+        Call<DesativarContaResponse> requisicao = api.verificar(token);
+
+        requisicao.enqueue(new Callback<DesativarContaResponse>() {
+            @Override
+            public void onResponse(
+                    Call<DesativarContaResponse> requisicao,
+                    retrofit2.Response<DesativarContaResponse> resposta
+            ) {
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+                    //Logout
+
+                    Toast.makeText(fragment.requireContext(),
+                            "Conta Desativada",
+                            Toast.LENGTH_SHORT).show();
+
+                    //Deleto o token e o refresh_token
+                    prefs.edit()
+                            .remove("token")
+                            .remove("refresh_token")
+                            .remove("alterar_email")
+                            .remove("alterar_nome")
+                            .remove("logado")
+                            .remove("foto")
+                            .apply();
+
+                    //Vou para o login
+                    Intent i = new Intent(fragment.requireContext(), Login.class);
+                    fragment.startActivity(i);
+                    fragment.requireActivity().finish();
+                } else {
+                    //Retorna erro caso a reqsição der erro
+
+                    String erro = "Erro ao Desativar  Conta";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    Toast.makeText(fragment.requireContext(), erro, Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DesativarContaResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+                Toast.makeText(
+                        fragment.requireContext(),
+                        "Erro de conexão: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+
+    }//Desativar Conta
+
+    //Remover Telefone
+    // Armazena a resposta da API:
+    public static class RemoverTelefoneResponse {
+        String mensagem;
+    }
+
+    // INTERFACE da API:
+    public static interface RemoverTelefone {
+        @DELETE("/auth/remover_telefone")
+        Call<RemoverTelefoneResponse> remover(
+                @Header("Authorization") String token
+        );
+    }//Interface
+
+    public static void Remover_Telefone(SharedPreferences prefs,Fragment fragment)
+    {
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
+
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Fazendo que a interface da API seja utilizavel:
+        RemoverTelefone api = retrofit.create(RemoverTelefone.class);
+
+        // Monto a chamada da API:
+        Call<RemoverTelefoneResponse> requisicao = api.remover(token);
+
+        requisicao.enqueue(new Callback<RemoverTelefoneResponse>() {
+            @Override
+            public void onResponse(
+                    Call<RemoverTelefoneResponse> requisicao,
+                    retrofit2.Response<RemoverTelefoneResponse> resposta
+            ) {
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+
+                    //Exibi isso
+                    Toast.makeText(fragment.requireContext(),
+                            "Telefone Removido!",
+                            Toast.LENGTH_SHORT).show();
+
+                    //Deixo como nulo o telefone do SharedPreferences
+                    prefs.edit()
+                            .putString("telefone",null)
+                            .apply();
+
+
+
+//                    //Vou para a home
+//                    Intent i = new Intent(fragment.requireContext(), Home.class);
+//                    fragment.startActivity(i);
+//                    fragment.requireActivity().finish();
+                } else {
+                    //Retorna erro caso a reqsição der erro
+
+                    String erro = "Erro ao Remover Telefone";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    Toast.makeText(fragment.requireContext(), erro, Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RemoverTelefoneResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+                Toast.makeText(
+                        fragment.requireContext(),
+                        "Erro de conexão: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+
+
+    }//Remover Telefone
+
+    // Adicionar Telefone
+
+    //Envia para a API
+    static class VerificarTelefoneRequest {
+        String telefone;
+        String email;
+        public VerificarTelefoneRequest(String telefone, String email) {
+
+            this.telefone = telefone;
+            this.email = email;
+        }
+    }
+
+    // Armazena a resposta da API:
+    public static class VerificarTelefoneResponse {
+        String mensagem;
+    }
+
+    // INTERFACE da API:
+    public static interface VerificarTelefone {
+        @POST("/auth/verificar_telefone")
+        Call<VerificarTelefoneResponse> verificar(
+                @Header("Authorization") String token,
+                @Body VerificarTelefoneRequest request
+        );
+    }//Interface
+
+    public static void Verificar_Telefone(String telefone,String email,SharedPreferences prefs,Fragment fragment)
+    {
+
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
+
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Fazendo que a interface da API seja utilizavel:
+        VerificarTelefone api = retrofit.create(VerificarTelefone.class);
+
+        VerificarTelefoneRequest dados = new VerificarTelefoneRequest(telefone,email);
+
+        // Monto a chamada da API:
+        Call<VerificarTelefoneResponse> requisicao = api.verificar(token,dados);
+
+        requisicao.enqueue(new Callback<VerificarTelefoneResponse>() {
+            @Override
+            public void onResponse(
+                    Call<VerificarTelefoneResponse> requisicao,
+                    retrofit2.Response<VerificarTelefoneResponse> resposta
+            ) {
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+                    // ir para Verifição de Telefone
+                    Intent i = new Intent(fragment.requireContext(), ConfirmarTelefone.class);
+                    // passando os dados
+                    i.putExtra("telefoneUsuario", telefone);
+                    i.putExtra("emailUsuario", email);
+
+                    fragment.startActivity(i);
+                    fragment.requireActivity().finish();
+
+
+                } else {
+                    //Retorna erro caso a requisição der erro
+
+                    String erro = "Erro ao Verificar Telefone";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    Toast.makeText(fragment.requireContext(), erro, Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VerificarTelefoneResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+                Toast.makeText(
+                        fragment.requireContext(),
+                        "Erro de conexão: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+
+    }//Adicionar Telefone
 
 }//Configurações

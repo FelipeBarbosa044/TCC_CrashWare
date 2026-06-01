@@ -114,6 +114,7 @@ const ConteudoPerfil = () => {
         
         const onVisible = () => {
             
+
             //Atualiza os dados do usuario, sempre que a pagina for acessada
             if (!document.hidden) {
                 //Pego os dados
@@ -125,6 +126,7 @@ const ConteudoPerfil = () => {
         };
 
         carregarConquistas();
+        
         setMaiorOfensiva(localStorage.getItem("maior_ofensiva"))
         
         document.addEventListener("visibilitychange", onVisible);
