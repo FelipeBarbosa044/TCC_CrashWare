@@ -12,7 +12,7 @@
     gap: 20px;
 
     min-height: 100vh;
-    padding-top: 100px;
+    padding-top: 240px;
 }
 
 .barraLateral {
@@ -140,6 +140,20 @@
         background: none;
     }
     
+@media (max-width: 1322px){
+
+    .separarConteudos{
+        width: 100%;
+        justify-content: center;
+    }
+
+    .barraLateral{
+        width: 65%;
+        margin-left: 0px;
+        margin-bottom: 40px;
+    }
+}
+
 @media (max-width: 600px) {
     
 
@@ -180,11 +194,12 @@
     }
 
     .barraLateral {
-        width: 40vw;
+        width: 80vw;
         min-width: unset;
         margin: 20px;
         flex-direction: column;
         margin-top: 50px !important;
+
     }
 
     .barraLateral h1{
