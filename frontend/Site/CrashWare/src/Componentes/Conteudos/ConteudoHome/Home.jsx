@@ -7,6 +7,7 @@ import style from "./ConteudoHome.module.css";
 import hardwareIcon from "../../../fotos/hardware.svg";
 import softwareIcon from "../../../fotos/software.svg";
 import raposaIcon from "../../../fotos/Raposa.svg";
+import raposaSad from "../../../fotos/Raposa-Sad.svg";
 
 import { PopUp } from '../../pop-up';
 import { PopUpConquista } from "../../popUpConquistas";
@@ -219,7 +220,7 @@ const ConteudoHome = () => {
                     <div className={style.ofensiva}>
 
                         <div className={style.raposa}>
-                            <img src={raposaIcon} alt="" />
+                            <img src={ofensiva == 1 ? raposaSad : raposaIcon} alt="" />
                         </div>
 
                         <div className={style.infoOfensiva}>

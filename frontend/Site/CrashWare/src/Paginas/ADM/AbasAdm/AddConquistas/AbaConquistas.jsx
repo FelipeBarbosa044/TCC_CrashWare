@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { CampoTexto } from '../../../../Componentes';
 import { BotoesForm } from '../../../../Componentes';
-import ImgSoftware from "../../../../fotos/imgSoftware.png"
-import ImgHardware from "../../../../fotos/imgHardware.png"
+import softwareIcon from "../../../../fotos/software.svg";
+import hardwareIcon from "../../../../fotos/hardware.svg";
 import Style from "./AbaConquistas.module.css"
 import { Adm } from "../../../../../funcoes/adm";
 import { PopUp } from "../../../../Componentes/pop-up";
@@ -90,7 +90,7 @@ const AbaConquistas = () => {
                                 checked={opcao === "Software"}
                                 onChange={(e) => setOpcao(e.target.value)}
                             />
-                            <img src={ImgSoftware} alt="Software" /> Software
+                            <img src={softwareIcon} alt="Software" /> Software
                         </label>
 
                         <label className={Style.RadioTipo}>
@@ -98,7 +98,7 @@ const AbaConquistas = () => {
                                 checked={opcao === "Hardware"}
                                 onChange={(e) => setOpcao(e.target.value)}
                             />
-                            <img src={ImgHardware} alt="Hardware" /> Hardware
+                            <img src={hardwareIcon} alt="Hardware" /> Hardware
                         </label>
                         <label className={Style.RadioTipo}>
                             <CampoTexto name="opcao" value="Outro" type="radio"
@@ -118,6 +118,7 @@ const AbaConquistas = () => {
                         <div className={Style.inputs}>
                             <label htmlFor="qtdMoedas">Quantidade de moedas</label>
                             <CampoTexto
+                                placeholder="00"
                                 className={Style.condicoesInput}
                                 type="number"
                                 onChange={(e) => setMoedas(e.target.value)}
@@ -128,6 +129,7 @@ const AbaConquistas = () => {
                         <div className={Style.inputs}>
                             <label htmlFor="qtdXp">Quantidade de xp</label>
                             <CampoTexto
+                                placeholder="00"
                                 className={Style.condicoesInput}
                                 type="number"
                                 onChange={(e) => setXP(e.target.value)}
@@ -146,6 +148,7 @@ const AbaConquistas = () => {
                             <label htmlFor="condicoes">Condições</label>
                             <CampoTexto
                                 type="text"
+                                placeholder="Diga a condição para ganhar a conquista"
                                 className={Style.condicoesInput}
                                 maxLength="300"
                                 onChange={(e) => setCondicao(e.target.value)}
@@ -158,6 +161,7 @@ const AbaConquistas = () => {
                             <label htmlFor="descricao">Descrição</label>
                             <CampoTexto
                                 type="text"
+                                placeholder="Diga a descrição da conquista"
                                 className={Style.condicoesInput}
                                 maxLength="300"
                                 onChange={(e) => setDescricaoConquista(e.target.value)}
