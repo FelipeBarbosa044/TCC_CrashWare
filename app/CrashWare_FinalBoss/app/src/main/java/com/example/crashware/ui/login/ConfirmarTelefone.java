@@ -1,7 +1,6 @@
 package com.example.crashware.ui.login;
 
 import static android.widget.Toast.LENGTH_LONG;
-import static androidx.core.content.ContentProviderCompat.requireContext;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,6 +18,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.crashware.R;
+import com.example.crashware.ui.api.Configuracoes;
 
 public class ConfirmarTelefone extends AppCompatActivity {
 
@@ -67,12 +67,7 @@ public class ConfirmarTelefone extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                if (!CodigoTel.equals("certo"))
-                {
-                    CodIncorreto.show();
-                }
-
-                else if (CodigoTel.isEmpty())
+                if (CodigoTel.isEmpty())
                 {
                     Preencha.show();
 
@@ -80,7 +75,8 @@ public class ConfirmarTelefone extends AppCompatActivity {
 
                 else
                 {
-                    //api do filipi
+                    //Chamo o metodo de verificar sms
+
 
                 }
 
@@ -91,8 +87,11 @@ public class ConfirmarTelefone extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                //api de enviar o codigo du filipito
 
+                Toast.makeText(ConfirmarTelefone.this, "Enviando SMS...", Toast.LENGTH_LONG).show();
+
+                //Chamo o metodo de Enviar SMS
+                Configuracoes.Enviar_SMS(telefone,emailUsuario,prefs,ConfirmarTelefone.this);
             }
         });//
 

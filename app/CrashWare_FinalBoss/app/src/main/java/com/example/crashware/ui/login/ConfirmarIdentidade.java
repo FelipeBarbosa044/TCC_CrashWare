@@ -197,7 +197,6 @@ public class ConfirmarIdentidade extends AppCompatActivity {
         String alterar_nome = prefs.getString("alterar_nome", "false");
 
 
-
         String codigo = txtCodigoVerificacao.getText().toString().trim();
         String email = emailUsuario;
         String email_novo = emailNovo;

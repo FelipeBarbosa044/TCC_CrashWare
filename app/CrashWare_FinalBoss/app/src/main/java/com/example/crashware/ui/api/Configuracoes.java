@@ -1,15 +1,13 @@
 package com.example.crashware.ui.api;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.crashware.ui.login.Cadastro;
 import com.example.crashware.ui.login.ConfirmarIdentidade;
 import com.example.crashware.ui.login.ConfirmarTelefone;
 import com.example.crashware.ui.login.Login;
@@ -805,16 +803,19 @@ public class Configuracoes {
 
     }//Remover Telefone
 
-    // Adicionar Telefone
+    // Verificar Telefone
 
     //Envia para a API
-    static class VerificarTelefoneRequest {
+    static class TelefoneRequest {
         String telefone;
         String email;
-        public VerificarTelefoneRequest(String telefone, String email) {
+
+        String codigo;
+        public TelefoneRequest(String telefone, String email,String codigo) {
 
             this.telefone = telefone;
             this.email = email;
+            this.codigo = codigo;
         }
     }
 
@@ -828,7 +829,7 @@ public class Configuracoes {
         @POST("/auth/verificar_telefone")
         Call<VerificarTelefoneResponse> verificar(
                 @Header("Authorization") String token,
-                @Body VerificarTelefoneRequest request
+                @Body TelefoneRequest request
         );
     }//Interface
 
@@ -850,7 +851,7 @@ public class Configuracoes {
         // Fazendo que a interface da API seja utilizavel:
         VerificarTelefone api = retrofit.create(VerificarTelefone.class);
 
-        VerificarTelefoneRequest dados = new VerificarTelefoneRequest(telefone,email);
+        TelefoneRequest dados = new TelefoneRequest(telefone,email,null);
 
         // Monto a chamada da API:
         Call<VerificarTelefoneResponse> requisicao = api.verificar(token,dados);
@@ -912,5 +913,294 @@ public class Configuracoes {
         });
 
     }//Adicionar Telefone
+
+
+
+    //Enviar SMS
+    // Armazena a resposta da API:
+    public static class EnviarSMSResponse {
+        String mensagem;
+    }
+
+    // INTERFACE da API:
+    public static interface EnviarSMS {
+        @POST("/auth/enivar_sms")
+        Call<EnviarSMSResponse> enviar(
+                @Body TelefoneRequest request
+        );
+    }//Interface
+
+
+    public static void Enviar_SMS(String telefone, String email, SharedPreferences prefs, Context context)
+    {
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Fazendo que a interface da API seja utilizavel:
+        EnviarSMS api = retrofit.create(EnviarSMS.class);
+
+        TelefoneRequest dados = new TelefoneRequest(telefone,email,null);
+
+        // Monto a chamada da API:
+        Call<EnviarSMSResponse> requisicao = api.enviar(dados);
+
+
+        requisicao.enqueue(new Callback<EnviarSMSResponse>() {
+            @Override
+            public void onResponse(
+                    Call<EnviarSMSResponse> requisicao,
+                    retrofit2.Response<EnviarSMSResponse> resposta
+            ) {
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+                    EnviarSMSResponse dados = resposta.body();
+
+                    //Exibo a mensagem
+                    Toast.makeText(context, dados.mensagem , Toast.LENGTH_LONG).show();
+
+
+                } else {
+                    //Retorna erro caso a requisição der erro
+
+                    String erro = "Erro ao Enviar SMS";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    Toast.makeText(context, erro, Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EnviarSMSResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+                Toast.makeText(
+                        context,
+                        "Erro de conexão: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+
+
+    }//Enviar SMS
+
+    //Verificar
+    // Armazena a resposta da API:
+    public static class VerificarSMSResponse {
+        String mensagem;
+    }
+
+    // INTERFACE da API:
+    public static interface VerificarSMS {
+        @POST("/auth/verificar_sms")
+        Call<VerificarSMSResponse> verificar(
+                @Body TelefoneRequest request
+        );
+    }//Interface
+
+    public static void Verificar_SMS(String telefone, String email,String codigo, SharedPreferences prefs, Context context) {
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Fazendo que a interface da API seja utilizavel:
+        VerificarSMS api = retrofit.create(VerificarSMS.class);
+
+        TelefoneRequest dados = new TelefoneRequest(telefone, email,codigo);
+
+        // Monto a chamada da API:
+        Call<VerificarSMSResponse> requisicao = api.verificar(dados);
+
+
+        requisicao.enqueue(new Callback<VerificarSMSResponse>() {
+            @Override
+            public void onResponse(
+                    Call<VerificarSMSResponse> requisicao,
+                    retrofit2.Response<VerificarSMSResponse> resposta
+            ) {
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+                    VerificarSMSResponse dados = resposta.body();
+
+                    //Verifico a navegação do usuario
+                    String add_telefone = prefs.getString("add_telefone", "false");
+
+                    if(add_telefone.equals("true"))
+                    {
+                        //Exibo a mensagem
+                        Toast.makeText(context, "Adicionando Telefone..." , Toast.LENGTH_LONG).show();
+                        //Chamo o metodo de adicionar telefone
+
+
+                    }else
+                    {
+                        //Rec senha
+                    }
+
+
+                } else {
+                    //Retorna erro caso a requisição der erro
+
+                    String erro = "Erro ao Verificar SMS";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    Toast.makeText(context, erro, Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VerificarSMSResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+                Toast.makeText(
+                        context,
+                        "Erro de conexão: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+
+
+    }//Verificar SMS
+
+
+    //Adicionar Telefone
+
+    // Armazena a resposta da API:
+    public static class AdicionarTelefoneResponse {
+        String mensagem;
+    }
+
+    // INTERFACE da API:
+    public static interface AdicionarTelefone {
+        @POST("/auth/adicionar_telefone")
+        Call<AdicionarTelefoneResponse> adicionar(
+                @Body TelefoneRequest request
+        );
+    }//Interface
+
+
+    public static void Adicionar_Telefone(String telefone, String email,String codigo, SharedPreferences prefs, Activity activity) {
+
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Fazendo que a interface da API seja utilizavel:
+        AdicionarTelefone api = retrofit.create(AdicionarTelefone.class);
+
+        TelefoneRequest dados = new TelefoneRequest(telefone, email, null);
+
+        // Monto a chamada da API:
+        Call<AdicionarTelefoneResponse> requisicao = api.adicionar(dados);
+
+        requisicao.enqueue(new Callback<AdicionarTelefoneResponse>() {
+            @Override
+            public void onResponse(
+                    Call<AdicionarTelefoneResponse> requisicao,
+                    retrofit2.Response<AdicionarTelefoneResponse> resposta
+            ) {
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+                    AdicionarTelefoneResponse dados = resposta.body();
+
+                    //Salvo o telefone no SharedPreferences
+                    prefs.edit()
+                        .putString("add_telefone", "false")
+                        .putString("telefone",telefone)
+                        .apply();
+
+
+
+                    //Resposta da API
+                    Toast.makeText(activity, dados.mensagem, Toast.LENGTH_LONG).show();
+
+                    //Envio para a tela Home
+                    Intent i = new Intent(activity, Home.class);
+                    activity.startActivity(i);
+                    activity.finish();
+
+                } else {
+                    //Retorna erro caso a requisição der erro
+
+                    String erro = "Erro ao Adicionar Telefone";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    Toast.makeText(activity, erro, Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AdicionarTelefoneResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+                Toast.makeText(
+                        activity,
+                        "Erro de conexão: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+
+    }//Adicionar Telefone
+
 
 }//Configurações

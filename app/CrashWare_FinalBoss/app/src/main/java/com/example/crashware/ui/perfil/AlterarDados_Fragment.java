@@ -250,6 +250,11 @@ public class AlterarDados_Fragment extends Fragment {
                         @Override
                         public void onSuccess() {
 
+                            //Controle de Navegacao
+                            prefs.edit()
+                                    .putString("add_telefone", "true")
+                                    .apply();
+
                             //Chamo o metodo de verificar  telefone
                              Configuracoes.Verificar_Telefone(numerotelefone,email, prefs, AlterarDados_Fragment.this);
 
