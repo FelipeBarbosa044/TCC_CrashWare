@@ -33,52 +33,7 @@ public class BaseActivity extends AppCompatActivity {
         //SharedPreferences prefs = getSharedPreferences("TemaPrefs",MODE_PRIVATE);
         //temaAtual = prefs.getInt("temaOpcao",TEMA_Sistema);
 
-
-
-
-
-
-
         Auth.verificarToken(this, prefs, true, null);
     }
 
-//    @Override
-//    protected void onResume()
-//    {
-//        super.onResume();
-//
-//        SharedPreferences prefs = getSharedPreferences("TemaPrefs", MODE_PRIVATE);
-//        int TemaNovo= prefs.getInt("temaOpcao", TEMA_Sistema);
-//
-////        if (temaAtual != TemaNovo)
-////        {
-////            recreate();
-////        }
-//    }
-
-//    private void aplicarTema(int temaEscolhido)
-//    {
-//        switch (temaEscolhido)
-//        {
-//            case TEMA_Claro: AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//
-//            setTheme(R.style.Theme_CrashWare);
-//            break;
-//
-//            case TEMA_Escuro:  AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//
-//                setTheme(R.style.Theme_CrashWare);
-//                break;
-//
-//            case TEMA_Gelo: AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//
-//                setTheme(R.style.Theme_CrashWare);
-//                break;
-//
-//            case TEMA_Sistema: default: AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-//
-//            setTheme(R.style.Theme_CrashWare);
-//            break;
-//        }
-  //  }
 }

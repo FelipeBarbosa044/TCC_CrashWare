@@ -138,7 +138,7 @@ public class Inicio_fragment extends Fragment {
         // Atualiza a interface de XP e nível
         atualizarInterfaceXp();
 
-        Toast conquista = Toast.makeText(getContext(),"ConquistaAdquirida",LENGTH_LONG);
+        Toast conquista = Toast.makeText(getContext(),"Conquista Adquirida",LENGTH_LONG);
 
 
         //Chamar função Ofensiva
@@ -248,48 +248,46 @@ public class Inicio_fragment extends Fragment {
     {
         int nivel = XP_Manager.getNivel();
 
-        int xp = (int) XP_Manager.getXp();
+        int xpAtual = XP_Manager.getXpAtualNivel();
+
+        int xpMaximo = XP_Manager.getXpPorNivel();
 
         txtNivelInicio.setText("Nível " + nivel);
 
-        // Animação da Barra de XP
-        ObjectAnimator animacaoBarra = ObjectAnimator.ofInt
-                (
-                        BarraProgressoNivel,
-                        "progress",
-                        BarraProgressoNivel.getProgress(),
-                        xp
-                );
+        BarraProgressoNivel.setMax(xpMaximo);
+
+        ObjectAnimator animacaoBarra = ObjectAnimator.ofInt(
+                BarraProgressoNivel,
+                "progress",
+                BarraProgressoNivel.getProgress(),
+                xpAtual
+        );
 
         animacaoBarra.setDuration(700);
-
         animacaoBarra.setInterpolator(new DecelerateInterpolator());
-
         animacaoBarra.start();
 
+        int xpAnterior = BarraProgressoNivel.getProgress();
 
-        // Animação para o texto de XP
         ValueAnimator animacaoTexto = ValueAnimator.ofInt(
-                Integer.parseInt(
-                        txtXpInicio.getText()
-                                .toString()
-                                .split("/")[0]
-                                .replace(" XP", "")
-                ),
-                xp
+                xpAnterior,
+                xpAtual
         );
 
         animacaoTexto.setDuration(700);
 
         animacaoTexto.addUpdateListener(animation -> {
 
-            int valorAtual = (int) animation.getAnimatedValue();
+            int valorAtual =
+                    (int) animation.getAnimatedValue();
 
-            txtXpInicio.setText(valorAtual + "/" + BarraProgressoNivel.getMax() + " XP");
+            txtXpInicio.setText(valorAtual + "/" + xpMaximo + " XP");
         });
 
         animacaoTexto.start();
-    }//
+    }
+
+
 
 
     // =========================
@@ -339,9 +337,8 @@ public class Inicio_fragment extends Fragment {
                                 .putString("nome", nome)
                                 .putString("banner",banner)
                                 .putInt("moedas",moedas)
-                                .putFloat("xp",xp)
+                                .putFloat("xp_total", xp)
                                 .putInt("ofensiva",ofensiva)
-                                .putInt("nivel", XP_Manager.getNivel())
 
                                 .commit();
 

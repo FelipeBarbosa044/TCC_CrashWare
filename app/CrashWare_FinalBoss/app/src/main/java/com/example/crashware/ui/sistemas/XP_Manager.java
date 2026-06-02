@@ -7,15 +7,10 @@ public class XP_Manager
 {
     private SharedPreferences prefs;
 
-    // Nome do SharedPreferences
     private static final String PREFS_NAME = "CrashWare";
+    private static final String KEY_XP_TOTAL = "xp_total";
 
-    // Chaves
-    private static final String KEY_XP = "xp";
-    private static final String KEY_NIVEL = "nivel";
-
-    // XP máximo por nível
-    private static final int XP_MAXIMO = 500;
+    private static final int XP_POR_NIVEL = 500;
 
     public XP_Manager(Context context)
     {
@@ -25,61 +20,39 @@ public class XP_Manager
         );
     }
 
-    // =========================
-    // GETTERS
-    // =========================
-
-    public float getXp()
+    public float getXpTotal()
     {
-        return prefs.getFloat(KEY_XP, 0);
+        return prefs.getFloat(KEY_XP_TOTAL, 0);
+    }
+
+    public int getXpAtualNivel()
+    {
+        return (int)(getXpTotal() % XP_POR_NIVEL);
+    }
+
+    public int getXpPorNivel()
+    {
+        return XP_POR_NIVEL;
+    }
+
+    public void adicionarXp(float quantidade)
+    {
+        float xpTotal = getXpTotal() + quantidade;
+
+        prefs.edit()
+                .putFloat(KEY_XP_TOTAL, xpTotal)
+                .apply();
     }
 
     public int getNivel()
     {
-        return prefs.getInt(KEY_NIVEL, 1);
+        return ((int) getXpTotal() / XP_POR_NIVEL) + 1;
     }
-
-    public int getXpMaximo()
-    {
-        return XP_MAXIMO;
-    }
-
-    // =========================
-    // ADICIONAR XP
-    // =========================
-
-    public void adicionarXp(float quantidade)
-    {
-        float xpAtual = getXp();
-
-        int nivelAtual = getNivel();
-
-        xpAtual += quantidade;
-
-        // Verifica passagem de nível
-        while (xpAtual >= XP_MAXIMO)
-        {
-            xpAtual -= XP_MAXIMO;
-
-            nivelAtual++;
-        }
-
-        // Salva
-        prefs.edit()
-                .putFloat(KEY_XP, xpAtual)
-                .putInt(KEY_NIVEL, nivelAtual)
-                .apply();
-    }
-
-    // =========================
-    // RESETAR XP
-    // =========================
 
     public void resetar()
     {
         prefs.edit()
-                .putFloat(KEY_XP, 0)
-                .putInt(KEY_NIVEL, 1)
+                .putFloat(KEY_XP_TOTAL, 0)
                 .apply();
     }
 }

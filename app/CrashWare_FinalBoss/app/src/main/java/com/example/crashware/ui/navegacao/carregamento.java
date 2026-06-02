@@ -62,7 +62,8 @@ public class carregamento extends AppCompatActivity {
         );
     }
 
-    private void carregarPerfil() {
+    private void carregarPerfil()
+    {
 
         User.Perfil(
                 this,
@@ -97,7 +98,7 @@ public class carregamento extends AppCompatActivity {
                 )
 
                 .putFloat(
-                        "xp",
+                        "xp_total",
                         usuario.xp != null ? usuario.xp : 0f
                 )
 
