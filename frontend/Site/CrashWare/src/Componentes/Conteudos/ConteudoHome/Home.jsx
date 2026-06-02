@@ -145,6 +145,7 @@ const ConteudoHome = () => {
                 <p>
                     Estamos preparando tudo para você. Aguarde um momento.
                 </p>
+                <div className={style.giradorLegal} />
             </div>
         );
     }
