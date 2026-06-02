@@ -65,7 +65,7 @@
     border: none;
     color: var(--Texto1);
     width: 30%;
-    max-width: 10%;
+    min-width: 120px;
     max-height: 5vh;
     border-radius: 12px;
     padding: 10px;
@@ -89,6 +89,8 @@
     padding: 10px;
     margin: 20px;
     overflow-y: auto;
+
+    padding-top: 10px;
 }
 
 
@@ -249,6 +251,12 @@ button.Banir{
     border: 2px solid var(--popup-erro-borda);
 }
 
+@media (max-width: 1150px){
+    
+    .Botoes button{
+        width: 70%;
+    }
+}
 
 @media (max-width: 700px){
     /* .separarConteudos {
@@ -315,8 +323,22 @@ button.Banir{
 
 @media (max-width: 440px){
 
+    .Buscar{
+        flex-direction: column;
+    }
+
+    .Buscar input{
+        margin-right: 0px;
+    }
+
+    .botaoBuscar{
+        margin-right: 0px;
+        width: 60vw;
+    }
+
     .Lista{
         height: auto;
+        padding-top: 640px;
     }
 
     .ItensLista{

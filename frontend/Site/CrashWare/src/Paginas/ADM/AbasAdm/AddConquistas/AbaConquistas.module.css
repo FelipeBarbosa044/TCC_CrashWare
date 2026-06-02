@@ -1,567 +1,310 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
 
-* {
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-.separarConteudos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: flex-start;  
-    height: auto;             
+.Conteudos{
+    /* width:min(1400px,95%); */
+    margin:40px auto;
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+
+    font-family:"Montserrat",sans-serif;
+    color:var(--texto-principal);
+}
+
+.NomeTipo,
+.recompensas,
+.condicoes{
+    background:var(--bg-secundario);
+    border:1px solid var(--texto-principal);
+    border-radius:20px;
+}
+
+.NomeTipo{
+    flex:2;
+    min-width:500px;
+
+    padding:24px;
+
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
 .Margincima{
-    font-size: 30px;
-}
-
-
-.Conteudos {
-    display: flex;
-    flex-direction: row;
-    justify-items: center;
-    align-self: flex-start;
-    flex-wrap: wrap;
-    margin: 0 auto;      /* só centraliza horizontal */
-
-    border-radius: 16px;
-    width: 70%;
-    height: auto;        
-
-    font-family: "Montserrat";
-    color: var(--texto-principal);
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.Conteudos h1{
-    font-family: "Montserrat";
-    color: var(--texto-principal);
-    text-align: center;
-    font-size: clamp(18px, 3.2vw, 36px);
-    
-    margin: 20px 0px;
-}
-
-.NomeTipo {
-    background-color: var(--bg-secundario);
-    border: 1px solid var(--texto-principal);
-    padding: 12px;
-    border-radius: 16px;
-    
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    width: 60%;
-    max-height: 260px;
-}
-
-.NomeTipo label {
-    margin-top: 20px;
-    margin-left: 24px;
+    font-size:clamp(26px,2vw,38px);
 }
 
 .NomeTipo input{
-    width: 94%;
-    margin-left: 16px;
-    border-radius: 20px;
-    padding: 10px;
-    text-indent: 20px;
+    width:100%;
+    height:48px;
+
+    border:none;
+    border-radius:12px;
+
+    padding:0 16px;
 }
 
 .NomeTipo p{
-    text-align: end;
-    margin-right: 14px;
-    font-size: 12px;
+    text-align:right;
+    font-size:12px;
 }
 
 .NomeTipo h3{
-    font-size: 30px;
-    margin-top: 20px;
-}
-
-.RadioTipo{
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin-top: 5px;
-    text-align: center;
-    align-items: center;
-    font: 500;
-    font-size: 16px;
-    margin: 10px;
-    width: 60%;
-    cursor: pointer;
-    margin-left: 0px !important;
+    margin-top:16px;
+    font-size:32px;
 }
 
 .CaixaRadio{
-    margin-top: 10px;
-    height: 5vh;
-    width: 50%;
-    display: flex;
-    flex-direction: row;
-    margin-left: 20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    margin-top:12px;
+}
+
+.RadioTipo{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
 }
 
 .RadioTipo img{
-    width: 25px;
-}
-
-.RadioTipo label{
-    width: 20px;
-}
-
-.ConquistaInputs{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    justify-self: flex-start;
-    align-items: start;
-    margin: 40px 30px 40px 40px;
-    width: 50vw;
-    max-width: 30vw;
-    height: 79vh;
-    gap: 6px;
-}
-
-
-.ConquistaInputs label{
-    font-family: "Montserrat";
-    color: var(--texto-principal);
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.ConquistaInputs p{
-    font-family: "Montserrat";
-    color: var(--texto-principal);
-    font-weight: 500;
-    font-size: 12px;
-    margin-top: 2px;
-    text-align: end;
-    width: 24vw;
-}
-
-.ConquistaInputs input{
-    margin-right: 60px;
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 8px;
-    border: none;
-
-    font-family: "Montserrat";
-    font-weight: 500;
-    width: 24vw;
-}
-
-.ConquistaAtributos{
-    width: 35%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.Descricao{
-    resize: none;
-    height: 19vh;
-    padding: 10px;
-    font-size: 16px;
-    width: 24vw;
-    border-radius: 8px;
-    
-    margin-right: 60px;
-    padding: 10px;
-    text-indent: 20px;
-    border-radius: 8px;
-    border: none;
-    
-    font-family: "Montserrat";
-    font-weight: 500;   
-    width: 24vw;
-}
-
-
-.botoes{
-    background: linear-gradient(90deg, #101017, #06060A);
-    border: none;
-    color: white;
-    width: 100%;
-    height: 40px;
-    border-radius: 12px;
-    padding: 10px;
-
-    font-family: "Montserrat";
-    font-weight: 700;
-    margin-top: 26px;
-}
-
-.botoes:hover{
-    transform: scale(1.03) translateY(-4px);
-    transition: 0.4s;
-}
-
-.botoes:disabled{
-    background: gray;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.parteTelefone label{
-    font-family: "Montserrat";
-    color: var(--texto-principal);
-    font-weight: 700;
-}
-
-.parteTelefone input{
-    margin-right: 60px;
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 8px;
-    border: none;
-    width: 16vw;
-
-    font-family: "Montserrat";
-    font-weight: 500;
-}
-
-
-.campoFormDescricao{
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    height: 30vh;
-    width: 100%;
-}
-
-.campoFormAtribustos{
-    width: 50vw;
-    max-width: 30vw;
-    height: 90vh;
-    max-height: 50vh;
-    justify-items: center;
-    align-items: center;
-    font-family: "Montserrat";
-    font-size: 25px;
-    font-weight: 500;
-    color: var(--texto-principal);
-    margin-top: 30px;
-}
-
-.campoFormAtribustos label{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    cursor: pointer;
-}
-
-.Recompensas{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-    margin-top: 20px;
-    text-align: center;
-    font: 500;
-    font-size: 22px;
-    gap: 10px;
-    margin: 10px;
-    width: 20vw;
-    margin-top: 40px;
-}
-
-.Recompensas h3{
-    margin-bottom: 30px;
-    text-align: center !important;
-}
-
-.Recompensas label{
-    margin-bottom: 8px;
-    
-}
-
-.Recompensas input[type="number"]{
-    margin-right: 60px;
-    margin-bottom: 30px;
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 8px;
-    border: none;
-
-    font-family: "Montserrat";
-    font-weight: 500;
-    width: 10vw;
-
-    
-    appearance: none;
-    -webkit-appearance: none;
-}
-
-.fundoEscurecido {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(3px);  
-    z-index: 9998;
-}
-
-.popUp {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: auto;
-    width: 22vw;
-    min-width: 280px;
-    background-color: #1c1b2e; 
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);  
-    z-index: 9999;
-    border-radius: 16px;       
-    padding: 36px 24px;
-
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 28px;
-}
-
-.popUpVisivel {
-    display: flex !important;
-}
-
-.popUp p{
-    font-family: "Montserrat";
-    color: #ffffff;
-    text-align: center;
-    font-weight: 700;
-    font-size: 17px;
-    line-height: 1.5;
-}
-
-.popUp .botoes{
-    background: none;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 0;
-    height: auto;
-    padding: 0;
-}
-
-.popUp .botoes:hover{
-    transform: none;
-}
-
-
-.botaoAdicionar{
-    /* padding: 10px; */
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 8px;
-    padding-top: 9px;
-    padding-bottom: 9px;
-    color: var(--texto-principal);
-    cursor: pointer;
-    background: linear-gradient(90deg, var(--BotaoADD-gradiente1), var(--BotaoADD-gradiente2));
-    justify-content: flex-end;
-    margin-top: 10px;
-    display: flex;
-}
-
-.botaoAdicionar:disabled{
-    background: gray;
-    cursor: not-allowed;
+    width:24px;
 }
 
 .recompensas{
-    width: 36%;
-    height: 262px !important;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--bg-secundario);
-    border: 1px solid var(--texto-principal);
-    border-radius: 16px;
-    margin-left: 16px;
-    padding: 0px 30px;
+    flex:1;
+    min-width:320px;
+
+    padding:24px;
+}
+
+.recompensas h1{
+    text-align:center;
+    margin-bottom:24px;
+
+    font-size:clamp(28px,2vw,40px);
+}
+
+.todosInputs{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
 }
 
 .recompensas .inputs{
-    display: flex;
-    flex-direction: column;
-    font-size: 16px;
-    margin-bottom: 20px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
 }
 
 .recompensas .inputs input{
-    padding: 10px;
-    border-radius: 16px;
-    margin-top: 8px;
-    text-indent: 20px;
+    width:100%;
+    height:48px;
 
+    border:none;
+    border-radius:12px;
+
+    padding:0 16px;
 }
 
 .condicoes{
-    width: 97%;
-    /* max-height: 360px; */
-    display: flex;
-    flex-direction: column;
-    margin-top: 40px;
-
-    background-color: var(--bg-secundario);
-    border: 1px solid var(--texto-principal);
-    border-radius: 16px;
-    padding: 30px;
+    width:100%;
+    padding:24px;
 }
 
-.condicoes .divInputs{
-    display: flex;
-    gap: 90px;
+.divInputs{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:24px;
 }
 
-.condicoes .inputs{
-    display: flex;
-    flex-direction: column;
-    width: 45%;
-    /* margin-right: 70px; */
-    
+.inputs{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.inputs label{
+    font-weight:700;
+    font-size:18px;
 }
 
 .condicoesInput{
-    width: 100%;
+    width:100%;
+    height:48px;
+
+    border:none;
+    border-radius:12px;
+
+    padding:0 16px;
 }
 
-.condicoes .inputs input{
-    height: 50px;
-    border-radius: 16px;
-    text-indent: 20px;
-    margin: 10px 0px;
-}
-
-.condicoes .inputs p{
-    text-align: end;
+.inputs p{
+    text-align:right;
+    font-size:12px;
 }
 
 .divDosBotoes{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 60px;
+    margin-top:32px;
+
+    display:flex;
+    justify-content:center;
+    gap:20px;
+
+    flex-wrap:wrap;
 }
 
-.divDosBotoes .botoes{
-    align-content: center;
-    max-width: 300px;
+.botoes{
+    width:100%;
+    max-width:280px;
+
+    height:50px;
+
+    border:none;
+    border-radius:12px;
+
+    cursor:pointer;
+
+    background:linear-gradient(
+        90deg,
+        #101017,
+        #06060A
+    );
+
+    color:white;
+    font-family:"Montserrat";
+    font-weight:700;
+
+    transition:.3s;
 }
 
-@media (max-width: 970px) {
-    .separarConteudos {
+.botoes:hover{
+    transform:translateY(-3px);
+}
+
+.botoes:disabled{
+    background:gray;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.fundoEscurecido{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.65);
+    backdrop-filter:blur(4px);
+
+    z-index:9998;
+}
+
+.popUp{
+    position:fixed;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:min(420px,90%);
+
+    background:#1c1b2e;
+
+    border-radius:20px;
+
+    padding:24px;
+
+    z-index:9999;
+
+    display:none;
+    flex-direction:column;
+    gap:20px;
+}
+
+.popUpVisivel{
+    display:flex;
+}
+
+.popUp p{
+    text-align:center;
+    color:white;
+}
+
+@media(max-width:1100px){
+
+    .Conteudos{
         flex-direction: column;
-        align-items: center;
+        width: 66%;
     }
 
-    /* .Conteudos {
-        min-width: 50%;
-        flex-direction: wrap;
-        margin-bottom: 30px;
-    } */
+    .NomeTipo{
+        width: 100%;
+    }
+
+    .recompensas{
+        width: 100%;
+    }
+}
+
+@media(max-width:768px){
+
+    .Conteudos{
+        width:95%;
+        margin:20px auto;
+    }
+
+    .NomeTipo,
+    .recompensas,
+    .condicoes{
+        padding:18px;
+    }
+
+    .divInputs{
+        grid-template-columns:1fr;
+    }
+
+    .todosInputs{
+        grid-template-columns:1fr;
+    }
+
+    .CaixaRadio{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:12px;
+    }
+
+    .divDosBotoes{
+        flex-direction:column;
+        align-items:center;
+    }
 
     .botoes{
-        width: 20%;
-        margin: 0;
-    }
-
-    .itemBarraLateral {
-        width: 90%;
-        margin: 0px auto 12px auto;
-    }
-
-    .ConquistaInputs, .parteTelefone{
-        width: 100%;
-        flex-direction: column;
-        padding: 0px;
-        margin-bottom: 10px;
-    }
-
-    .Descricao{
-        width: 80%;
-    }
-
-    .parteTelefone input, .ConquistaInputs input{
-        width: 80%;
-    }
-
-    .alterarSenha{
-        margin-top: 30px;
-    }
-    
-    .conectarContas h2{
-        font-size: 3.4vw !important;
+        max-width:none;
     }
 }
 
-@media (max-width: 860px){
+@media(max-width:480px){
 
-    /* .Conteudos{
-        width: 100%;
-        max-width: none;
-    } */
-}
-
-@media (max-width: 700px) {
-    /* .Conteudos {
-        width: 100%;
-        flex-direction: wrap;
-        margin-bottom: 30px;
-    } */
-
-    .campoForm{
-        display: flex;
-        height: 40vh;
-        margin-bottom: 10px;
+    .Margincima{
+        font-size:24px;
     }
 
-    .ConquistaInputs{
-        width: 100%;
-        flex-direction: column;
-        padding: 0px;
+    .NomeTipo h3{
+        font-size:24px;
     }
 
-    .ConquistaInputs p{
-        font-family: "Montserrat";
-        color: var(--texto-principal);
-        font-weight: 500;
-        font-size: 12px;
-        margin-top: 2px;
-        text-align: end;
-        width: 34vw;
+    .recompensas h1{
+        font-size:32px;
     }
 
-    .campoFormDescricao{
-        margin-top: 10px;
-    }
-
-    .Descricao{
-        width: 80%;
-        height: 15vh;
-        margin-top: 15px;
-    }
-
-    .parteTelefone input, .ConquistaInputs input{
-        width: 80%;
-    }
-
-    .alterarSenha{
-        margin-top: 30px;
-    }
-    
-    .conectarContas h2{
-        font-size: 3.4vw !important;
+    .divInputs{
+        gap:16px;
     }
 }

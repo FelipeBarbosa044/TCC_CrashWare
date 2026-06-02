@@ -1,47 +1,62 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Style from './Sidebar.module.css';
 import { Tema } from '../../Tema';
-import { Usuario } from '../../../../funcoes/user';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import admIconEscuro from "../../../fotos/maletaClaro.svg";
+import admIconClaro from "../../../fotos/maleta.svg";
+
+import perfilIconEscuro from "../../../fotos/escuro/login_icon.svg";
+import perfilIconClaro from "../../../fotos/claro/login_icon_claro.svg";
+
+import configuracoesIconEscuro from "../../../fotos/escuro/configuracoes_icon.svg";
+import configuracoesIconClaro from "../../../fotos/claro/configuracoes_icon_claro.svg";
 
 const Sidebar = ({ aberto, onFechar }) => {
-    //Navegação --> Permite eu levar o usuario para outras telas
-    const Navegacao = useNavigate();
+  const location = useLocation();
 
-    const token = localStorage.getItem("token");
-    const refresh_token = localStorage.getItem("refresh_token");
+  const [dados] = useState(() =>
+    JSON.parse(localStorage.getItem("dados")) || null
+  );
 
-    //Uso useState para o react renderizar as informações
-    const [token_state, setToken] = useState(() => localStorage.getItem("token"));
-    const [refresh_token_state, setRefresh] = useState(() => localStorage.getItem("refresh_token"));
-    const [dados, setDados] = useState(() =>
-        JSON.parse(localStorage.getItem("dados")) || null
-    );
+  const [temaEscuro, setTemaEscuro] = useState(
+    () => (localStorage.getItem('TemaSelecionado') || 'Claro') === 'Escuro'
+  );
 
-    //Lista que contém todos os usestate
-    const set = [setToken,setRefresh,setDados];
+  useEffect(() => {
+    const handleTema = (e) => {
+      setTemaEscuro(e.detail === 'Escuro');
+    };
 
+    window.addEventListener('temaAtualizado', handleTema);
+    return () => window.removeEventListener('temaAtualizado', handleTema);
+  }, []);
 
-    //Pego as informações do usuario
-    let usuario = JSON.parse(localStorage.getItem("dados"));
+  const admin = dados?.adm;
 
-    //Pego o valor do adm
-    const admin = usuario?.adm;
-
-    const location = useLocation();
-
-    const links = [
-      { label: 'perfil', to: '/perfil'},
-      { label: 'Configurações', to: '/configuracoes' }
-    ];
-
-
-
-    if(admin == true)
+  const links = [
     {
-      links.push({ label: 'ADM', to: '/relatorio' })
-    }
-  
+      srcEscuro: perfilIconEscuro,
+      srcClaro: perfilIconClaro,
+      to: '/perfil',
+      alt: 'Perfil'
+    },
+    {
+      srcEscuro: configuracoesIconEscuro,
+      srcClaro: configuracoesIconClaro,
+      to: '/configuracoes',
+      alt: 'Configurações'
+    },
+  ];
+
+  if (admin === true) {
+    links.push({
+      srcEscuro: admIconEscuro,
+      srcClaro: admIconClaro,
+      to: '/relatorio',
+      alt: 'ADM'
+    });
+  }
 
   return (
     <>
@@ -51,22 +66,20 @@ const Sidebar = ({ aberto, onFechar }) => {
       />
 
       <aside className={`${Style.sidebar} ${aberto ? Style.sidebarOpen : ''}`}>
-
         <nav>
-          {links.map(({ label, to }) => (
+          {links.map(({ srcEscuro, srcClaro, to, alt }) => (
             <Link
               key={to}
               to={to}
               className={`${Style.link} ${location.pathname === to ? Style.active : ''}`}
               onClick={onFechar}
             >
-              {label}
+              <img src={temaEscuro ? srcEscuro : srcClaro} alt={alt} />
             </Link>
           ))}
 
           <Tema />
         </nav>
-
       </aside>
     </>
   );
