@@ -264,8 +264,40 @@ public class Conquistas_Fragment extends Fragment {
                                     new Conquista(
                                             nome,
                                             descricao,
-                                            R.drawable.banner_icon
+                                            R.drawable.hardware_icon
                                     );
+
+
+//                            if (tipoConquista.equals("Hardware")) {
+//                                Conquista novaConquista =
+//                                        new Conquista(
+//                                                nome,
+//                                                descricao,
+//                                                R.drawable.hardware_icon
+//                                        );
+//
+//                            }
+//
+//                            if (tipoConquista.equals("Software"))
+//                            {
+//                                Conquista novaConquista =
+//                                        new Conquista(
+//                                                nome,
+//                                                descricao,
+//                                                R.drawable.softwarehome_icon
+//                                        );
+//
+//                            }
+//                            if (tipoConquista.equals("Outro"))
+//                            {
+//                                Conquista novaConquista =
+//                                        new Conquista(
+//                                                nome,
+//                                                descricao,
+//                                                R.drawable.raposa_icon
+//                                        );
+//                            }
+                            //Para quando der para puxar o tipo da conquista da criação no site, Filipin ajuda nois
 
                             //Add conquistas bloqueadas na array
                             listaConquistasBloqueadas.add(novaConquista);

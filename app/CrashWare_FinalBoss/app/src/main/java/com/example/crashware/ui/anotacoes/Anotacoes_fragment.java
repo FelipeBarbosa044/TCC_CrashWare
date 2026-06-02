@@ -38,6 +38,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
 import com.example.crashware.ui.Models.Anotacao;
+import com.example.crashware.ui.navegacao.Home;
+import com.example.crashware.ui.perfil.AlterarDados_Fragment;
 import com.google.android.material.snackbar.Snackbar;
 
 
@@ -171,13 +173,10 @@ public class Anotacoes_fragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                Fragment novoFragmento = new NovaAnotacao_Fragment();
+                Fragment NovaAnotacaoFragment = new NovaAnotacao_Fragment();
 
-                getParentFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, novoFragmento)
-                        .addToBackStack(null)
-                        .commit();
+
+                ((Home) requireActivity()).irParaTelaExtra(NovaAnotacaoFragment);
             }
         });//Interação com a imagem, levando a tela de adicionar nova anotação
 
@@ -242,8 +241,6 @@ public class Anotacoes_fragment extends Fragment {
 
     private void carregarAnotacoes()
     {
-
-
         try
         {
             SharedPreferences prefs =

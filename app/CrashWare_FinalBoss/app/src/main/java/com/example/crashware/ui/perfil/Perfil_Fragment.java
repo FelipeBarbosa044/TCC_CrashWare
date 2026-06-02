@@ -1,5 +1,7 @@
 package com.example.crashware.ui.perfil;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -156,9 +159,7 @@ public class Perfil_Fragment extends Fragment {
         String Nome = prefs.getString("nome", null);
         String Patente = prefs.getString("patente", "Iniciante");
         Integer Moedas = prefs.getInt("moedas", 0);
-        Float xp = prefs.getFloat("xp",0);
-        int Nivel = XP_Manager.getNivel();
-        float Xp = XP_Manager.getXp();
+        //int Nivel = XP_Manager.getNivel();
 
         // Lista que vai armazenar as conquistas recentes
         List<Conquista> conquistasRecentes = new ArrayList<>();
@@ -275,9 +276,9 @@ public class Perfil_Fragment extends Fragment {
         //Atualizando as informações do Usuário
         txtNomePerfil.setText(Nome);
         txtPatente.setText(Patente);
-        txtNivelPerfil.setText("Nível " + String.valueOf(Nivel));
+        //txtNivelPerfil.setText("Nível " + String.valueOf(Nivel));
         txtQuantGemas.setText(String.valueOf(Moedas));
-        txtQuantXP.setText(String.valueOf(xp));
+        //txtQuantXP.setText(String.valueOf(xp));
 
 //        txtQuantDiasSeguidos.setText(Ofensiva);
 
@@ -347,13 +348,43 @@ public class Perfil_Fragment extends Fragment {
     {
         int nivel = XP_Manager.getNivel();
 
-        int xp = (int) XP_Manager.getXp();
+        int xpAtual = XP_Manager.getXpAtualNivel();
+
+        int xpMaximo = XP_Manager.getXpPorNivel();
 
         txtNivelPerfil.setText("Nível " + nivel);
 
-        txtQuantXP.setText(xp + "/" + BarraProgressoPerfil.getMax() + " XP");
+        BarraProgressoPerfil.setMax(xpMaximo);
 
-        BarraProgressoPerfil.setProgress(xp);
+        ObjectAnimator animacaoBarra = ObjectAnimator.ofInt(
+                BarraProgressoPerfil,
+                "progress",
+                BarraProgressoPerfil.getProgress(),
+                xpAtual
+        );
+
+        animacaoBarra.setDuration(700);
+        animacaoBarra.setInterpolator(new DecelerateInterpolator());
+        animacaoBarra.start();
+
+        ValueAnimator animacaoTexto = ValueAnimator.ofInt(
+                0,
+                xpAtual
+        );
+
+        animacaoTexto.setDuration(700);
+
+        animacaoTexto.addUpdateListener(animation -> {
+
+            int valorAtual =
+                    (int) animation.getAnimatedValue();
+
+            txtQuantXP.setText(
+                    valorAtual + "/" + xpMaximo + " XP"
+            );
+        });
+
+        animacaoTexto.start();
     }
 
     private void Foto(){
@@ -381,10 +412,16 @@ public class Perfil_Fragment extends Fragment {
                         Integer moedas = usuario.moedas;
                         Float xp = usuario.xp;
 
+                        prefs.edit()
+                                .putFloat("xp_total", xp)
+                                .apply();
+
+                        atualizarXp();
+
                         txtNomePerfil.setText(nome);
                         txtPatente.setText(patente);
                         txtQuantGemas.setText(String.valueOf(moedas));
-                        txtQuantXP.setText(String.format("%.0f/500 XP", xp));
+                        //txtQuantXP.setText(String.format("%.0f/500 XP", xp));
 
                         String link_foto =
                                 "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/"

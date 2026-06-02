@@ -144,11 +144,14 @@ public class Home extends BaseActivity {
             return insets;
         });
     }
-    public void irParaTelaExtra(Fragment novoFragmento) {
+
+    public void irParaTelaExtra(Fragment novoFragmento)
+    {
         getSupportFragmentManager().beginTransaction()
                 .hide(active) // Esconde a tela principal (ex: Aulas)
-                .add(R.id.fragment_container, novoFragmento) // Adiciona a nova (ex: Hardware)
-                .addToBackStack(null) // Permite que o botão voltar do Android funcione
+                .add(R.id.fragment_container, novoFragmento,
+                        novoFragmento.getClass().getSimpleName()) // Adiciona a nova (ex: Hardware)
+                .addToBackStack(null)// Permite que o botão voltar do Android funcione
                 .commit();
 
         active = novoFragmento; // Atualiza quem é a tela ativa agora

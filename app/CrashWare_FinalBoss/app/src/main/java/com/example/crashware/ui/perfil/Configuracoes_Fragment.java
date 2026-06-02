@@ -371,7 +371,6 @@ public class Configuracoes_Fragment extends Fragment {
 
         ThemeConfig.aplicarTema(requireContext());
 
-        requireActivity().recreate();
     }//Método que salva a escolha do usuário para alterar o tema
 
 }

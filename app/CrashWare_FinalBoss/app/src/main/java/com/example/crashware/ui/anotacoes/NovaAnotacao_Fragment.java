@@ -2,14 +2,17 @@ package com.example.crashware.ui.anotacoes;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,6 +45,8 @@ public class NovaAnotacao_Fragment extends Fragment {
 
     TextView txtDataCriacao;
     Button btnSalvarNovaAnotacao;
+
+    ConstraintLayout cardAnotacao;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -80,11 +85,12 @@ public class NovaAnotacao_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_nova_anotacao, container, false);
 
         //Iniciando o Layout no Código
-        imgVoltarNovaAnotacao = view.findViewById(R.id.imgVoltarCampos);
+        imgVoltarNovaAnotacao = view.findViewById(R.id.imgVoltarCampos      );
         btnSalvarNovaAnotacao = view.findViewById(R.id.btnSalvarNovaAnotacao);
         txtNovaAnotacao       = view.findViewById(R.id.txtNovaAnotacao      );
         txtTituloNovaAnotacao = view.findViewById(R.id.txtTituloNovaAnotacao);
         txtDataCriacao        = view.findViewById(R.id.txtDataCriacao       );
+        cardAnotacao          = view.findViewById(R.id.cardAnotacao         );
 
 
         prefs = requireActivity().getSharedPreferences("dados", MODE_PRIVATE);
@@ -93,7 +99,18 @@ public class NovaAnotacao_Fragment extends Fragment {
         txtDataCriacao.setText(String.valueOf(dataAtual));
 
 
+        cardAnotacao.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                txtNovaAnotacao.requestFocus();
+                InputMethodManager imm = (InputMethodManager)
+                        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
+                imm.showSoftInput(txtNovaAnotacao, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
 
         btnSalvarNovaAnotacao.setOnClickListener(new View.OnClickListener() {
             @Override
