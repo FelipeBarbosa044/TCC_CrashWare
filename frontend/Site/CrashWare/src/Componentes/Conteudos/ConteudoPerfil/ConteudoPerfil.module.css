@@ -514,6 +514,28 @@
     color: var(--cor-primaria) !important; 
 }
 
+.CarregandoConquistas{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    color: var(--Texto2);
+    font-size: 15px;
+}
+
+.carregamento {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--borda);
+    border-top-color: var(--Texto2);
+    border-radius: 50%;
+    animation: girador 0.8s linear infinite;
+}
+
+@keyframes girador {
+    to { transform: rotate(360deg); }
+}
+
 /* RESPONSIVO */
 @media (max-width: 860px) {
 

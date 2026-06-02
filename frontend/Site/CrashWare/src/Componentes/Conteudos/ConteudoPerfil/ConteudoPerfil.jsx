@@ -33,7 +33,7 @@ const ConteudoPerfil = () => {
 
     //SetMaiorOfensiva
     const [maiorOfensiva, setMaiorOfensiva] = useState(
-    localStorage.getItem("maior_ofensiva") || 1
+        localStorage.getItem("maior_ofensiva") || 1
     );
 
     //Uso useState para o react renderizar as informações
@@ -53,7 +53,7 @@ const ConteudoPerfil = () => {
     //Patente
     const Patente = usuario?.patente || "Beta";
 
-    
+
     //Trata a data do mês
     const DataCadastro = usuario?.criado_em;
 
@@ -65,21 +65,21 @@ const ConteudoPerfil = () => {
 
         return `Membro desde ${mesNome} de ${ano}`;
     };
-    
+
     // muda a foto
     const [foto, setFoto] = useState(usuario?.foto);
     const [banner, setBanner] = useState(usuario?.banner);
     const [MudarFoto, setMudarFoto] = useState(false);
     const [MudarBanner, setMudarBanner] = useState(false);
     const [aberto, setAberto] = useState(false);
-    
+
     //Cache da foto
     const [versaoFoto, setVersaoFoto] = useState(Date.now());
     const [versaoBanner, setVersaoBanner] = useState(Date.now());
-    
+
     const inputRef = useRef();
     const inputBanner = useRef();
-    
+
     const [ofensiva, setOfensiva] = useState(0);
     const [conquistas, setConquistas] = useState(CONQUISTAS_MOCK);
     const [totalCompras, setTotalCompras] = useState(0);
@@ -88,32 +88,32 @@ const ConteudoPerfil = () => {
 
     // const XpMax = 500;
     let xp = usuario?.xp ?? 0;
-    
+
     const xpAtual = xp % 500;
     const Nivel = Math.min(Math.floor(xp / 500) + 1, 15);
-    
+
     const porcentagem = (xpAtual / 500) * 100;
     const nome = usuario?.nome || "Usuário";
 
     //Click
     const [click, setClick] = useState(0);
-    
+
     //PopupConquista
     const [popupConquista, setPopupConquista] = useState(null);
-    
+
     if (click >= 10) {
         //Crio o bjeto que contem requisições para o banco
         const user = new Usuario(token, refresh_token, Navegacao, set);
         user.conquista(17, setPopupConquista, setDados)
     }
-    
-    
-    
+
+
+
     useEffect(() => {
-        
-        
+
+
         const onVisible = () => {
-            
+
 
             //Atualiza os dados do usuario, sempre que a pagina for acessada
             if (!document.hidden) {
@@ -121,14 +121,14 @@ const ConteudoPerfil = () => {
                 const user = new Usuario(token, refresh_token, Navegacao, set);
                 user.perfil(setDados);
                 usuario = JSON.parse(localStorage.getItem("dados"));
-                
+
             }
         };
 
         carregarConquistas();
-        
+
         setMaiorOfensiva(localStorage.getItem("maior_ofensiva"))
-        
+
         document.addEventListener("visibilitychange", onVisible);
 
         return () => {
@@ -261,22 +261,22 @@ const ConteudoPerfil = () => {
                                             texto="Mudar Foto"
                                             onClick={() => inputRef.current.click()}
                                         />
-                                            <BotoesForm
-                                                texto="Remover Foto"
-                                                className={style.removerFoto}
-                                                onClick={() => {
-                                                    if (foto == 'default.png') {
-                                                        setPopup({
-                                                            tipo: 'erro',
-                                                            titulo: 'Foto',
-                                                            mensagem: 'Você precisa adicionar uma foto , para realizar essa ação'
-                                                        });
-                                                    } else {
-                                                        const foto_usuario = new Usuario(token, refresh_token, Navegacao, set);
-                                                        foto_usuario.remover_foto(setDados, setFoto, setPopup);
-                                                    }
-                                                }}
-                                            />
+                                        <BotoesForm
+                                            texto="Remover Foto"
+                                            className={style.removerFoto}
+                                            onClick={() => {
+                                                if (foto == 'default.png') {
+                                                    setPopup({
+                                                        tipo: 'erro',
+                                                        titulo: 'Foto',
+                                                        mensagem: 'Você precisa adicionar uma foto , para realizar essa ação'
+                                                    });
+                                                } else {
+                                                    const foto_usuario = new Usuario(token, refresh_token, Navegacao, set);
+                                                    foto_usuario.remover_foto(setDados, setFoto, setPopup);
+                                                }
+                                            }}
+                                        />
                                     </div>
                                 )}
                                 {/* Foto */}
@@ -354,7 +354,7 @@ const ConteudoPerfil = () => {
                                     </div>
                                 </div>
                                 <div className={style.ofensiva}>
-                        
+
                                     <div className={style.raposa}>
                                         <img
                                             src={Raposa}
@@ -373,31 +373,31 @@ const ConteudoPerfil = () => {
                                 </div>
                             </div>
                         </div>
-                    {MudarBanner && (
+                        {MudarBanner && (
 
-                        <span className={MudarBanner ? style.Aberto_Banner : style.Fechado}>
-                            <BotoesForm
-                                texto="Mudar Banner"
-                                onClick={() => inputBanner.current.click()}
-                            />
-                            <BotoesForm
-                                texto="Remover Banner"
-                                className={style.removerFoto}
-                                onClick={() => {
-                                    if (banner == 'default.png') {
-                                        setPopup({
-                                            tipo: 'erro',
-                                            titulo: 'Banner',
-                                            mensagem: 'Você precisa adicionar uma banner , para realizar essa ação'
-                                        });
-                                    } else {
-                                        const banner_usuario = new Usuario(token, refresh_token, Navegacao, set);
-                                        banner_usuario.remover_banner(setDados, setBanner, setPopup);
-                                    }
-                                }}
-                            />
-                        </span>
-                    )}
+                            <span className={MudarBanner ? style.Aberto_Banner : style.Fechado}>
+                                <BotoesForm
+                                    texto="Mudar Banner"
+                                    onClick={() => inputBanner.current.click()}
+                                />
+                                <BotoesForm
+                                    texto="Remover Banner"
+                                    className={style.removerFoto}
+                                    onClick={() => {
+                                        if (banner == 'default.png') {
+                                            setPopup({
+                                                tipo: 'erro',
+                                                titulo: 'Banner',
+                                                mensagem: 'Você precisa adicionar uma banner , para realizar essa ação'
+                                            });
+                                        } else {
+                                            const banner_usuario = new Usuario(token, refresh_token, Navegacao, set);
+                                            banner_usuario.remover_banner(setDados, setBanner, setPopup);
+                                        }
+                                    }}
+                                />
+                            </span>
+                        )}
                     </div>
 
                     <div className={style.blocos}>
@@ -447,7 +447,13 @@ const ConteudoPerfil = () => {
                             <h4>Conquistas</h4>
 
                             <div className={style.listaConquistas}>
-                                {conquistas.map((c) => (
+                                {conquistas.length === 0 && (
+                                    <div className={style.CarregandoConquistas}>
+                                        <p>Listando suas conquistas...</p>
+                                        <div className={style.carregamento} />
+                                    </div>
+                                )}
+                                {conquistas && conquistas.map((c) => (
                                     <div
                                         key={c.id}
                                         className={`${style.ItemConquista} ${style[c.tipo]}`}
