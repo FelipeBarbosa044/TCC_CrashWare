@@ -114,26 +114,27 @@ const AbaConquistas = () => {
 
                     <h1>Recompensas</h1>
 
-                    <div className={Style.inputs}>
-                        <label htmlFor="qtdMoedas">Quantidade de moedas</label>
-                        <CampoTexto
-                            className={Style.condicoesInput}
-                            type="number"
-                            onChange={(e) => setMoedas(e.target.value)}
-                            // id="qtdMoedas"
-                            value={moedas}
-                        />
-                    </div>
-
-                    <div className={Style.inputs}>
-                        <label htmlFor="qtdXp">Quantidade de xp</label>
-                        <CampoTexto
-                            className={Style.condicoesInput}
-                            type="number"
-                            onChange={(e) => setXP(e.target.value)}
-                            // id="qtdXp"
-                            value={xp}
-                        />
+                    <div className={Style.todosInputs}>
+                        <div className={Style.inputs}>
+                            <label htmlFor="qtdMoedas">Quantidade de moedas</label>
+                            <CampoTexto
+                                className={Style.condicoesInput}
+                                type="number"
+                                onChange={(e) => setMoedas(e.target.value)}
+                                // id="qtdMoedas"
+                                value={moedas}
+                            />
+                        </div>
+                        <div className={Style.inputs}>
+                            <label htmlFor="qtdXp">Quantidade de xp</label>
+                            <CampoTexto
+                                className={Style.condicoesInput}
+                                type="number"
+                                onChange={(e) => setXP(e.target.value)}
+                                // id="qtdXp"
+                                value={xp}
+                            />
+                        </div>
                     </div>
 
                 </div>
