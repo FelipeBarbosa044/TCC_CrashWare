@@ -1018,7 +1018,7 @@ public class Configuracoes {
         );
     }//Interface
 
-    public static void Verificar_SMS(String telefone, String email,String codigo, SharedPreferences prefs, Context context) {
+    public static void Verificar_SMS(String telefone, String email,String codigo, SharedPreferences prefs, Activity activity) {
 
         // Criando a API
         Retrofit retrofit = new Retrofit.Builder()
@@ -1052,8 +1052,9 @@ public class Configuracoes {
                     if(add_telefone.equals("true"))
                     {
                         //Exibo a mensagem
-                        Toast.makeText(context, "Adicionando Telefone..." , Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, "Adicionando Telefone..." , Toast.LENGTH_LONG).show();
                         //Chamo o metodo de adicionar telefone
+                        Adicionar_Telefone(telefone,email,prefs,activity);
 
 
                     }else
@@ -1082,7 +1083,7 @@ public class Configuracoes {
                     }
 
                     //Aqui retorna o ERRO
-                    Toast.makeText(context, erro, Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity, erro, Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -1092,7 +1093,7 @@ public class Configuracoes {
                 // Caso deu erro na requisição
                 // erro de conexão (internet, URL, servidor fora)
                 Toast.makeText(
-                        context,
+                        activity,
                         "Erro de conexão: " + t.getMessage(),
                         Toast.LENGTH_LONG
                 ).show();
@@ -1119,7 +1120,7 @@ public class Configuracoes {
     }//Interface
 
 
-    public static void Adicionar_Telefone(String telefone, String email,String codigo, SharedPreferences prefs, Activity activity) {
+    public static void Adicionar_Telefone(String telefone, String email, SharedPreferences prefs, Activity activity) {
 
 
         // Criando a API
