@@ -220,7 +220,7 @@ const ConteudoHome = () => {
                     <div className={style.ofensiva}>
 
                         <div className={style.raposa}>
-                            <img src={ofensiva == 1 ? raposaSad : raposaIcon} alt="" />
+                            <img src={maiorOfensiva > ofensiva && ofensiva == 1 ? raposaSad : raposaIcon} alt="" />
                         </div>
 
                         <div className={style.infoOfensiva}>

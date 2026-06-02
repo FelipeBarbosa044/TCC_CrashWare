@@ -35,24 +35,12 @@ const Sidebar = ({ aberto, onFechar }) => {
   const admin = dados?.adm;
 
   const links = [
-    {
-      srcEscuro: perfilIconEscuro,
-      srcClaro: perfilIconClaro,
-      to: '/perfil',
-      alt: 'Perfil'
-    },
-    {
-      srcEscuro: configuracoesIconEscuro,
-      srcClaro: configuracoesIconClaro,
-      to: '/configuracoes',
-      alt: 'Configurações'
-    },
+    {to: '/perfil', alt: 'Perfil'},
+    {to: '/configuracoes', alt: 'Configurações'}
   ];
 
   if (admin === true) {
     links.push({
-      srcEscuro: admIconEscuro,
-      srcClaro: admIconClaro,
       to: '/relatorio',
       alt: 'ADM'
     });
@@ -74,7 +62,7 @@ const Sidebar = ({ aberto, onFechar }) => {
               className={`${Style.link} ${location.pathname === to ? Style.active : ''}`}
               onClick={onFechar}
             >
-              <img src={temaEscuro ? srcEscuro : srcClaro} alt={alt} />
+              <p>{alt}</p>
             </Link>
           ))}
 

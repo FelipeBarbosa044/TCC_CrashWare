@@ -45,6 +45,7 @@ const ConteudoConfiguracoes = () => {
     const [telefone, setTelefone] = useState("");
     const [telefoneConfirmacao, setTelefoneConfirmacao] = useState("");
     const [nome, setNome] = useState("");
+    const [jaColocouTelefone, setJaColocouTelefone] = useState(false);
 
     //Formatar Telefone
     function formatarTelefone(valor) {
@@ -107,14 +108,6 @@ const ConteudoConfiguracoes = () => {
 
     //Pego as informações do usuario
     const usuario = JSON.parse(localStorage.getItem("dados"));
-
-
-    if(usuario?.telefone != null)
-    {
-        //BOA SORTE GABRIEL OU DAVI
-        
-
-    }
 
     const emailAtual = usuario?.email;
 
@@ -300,9 +293,11 @@ const ConteudoConfiguracoes = () => {
             await campo.Verificar_Telefone(telefoneLimpo,emailAtual,setPopup,Navegacao)
         }
         
+       
 
     }
 
+     const temPhone = usuario?.telefone;
 
     const AlterarNome = async () =>
     {
@@ -467,7 +462,10 @@ const ConteudoConfiguracoes = () => {
                                 Alterar
                             </button>
                         </div>
-                        <div className={Style.secaoDados}>
+
+                            {!temPhone ? (
+                                <>
+                                                            <div className={Style.secaoDados}>
                             <div className={Style.preencherDados}>
                                 <div className={Style.campoForm}>
                                     <label>Nome Atual</label>
@@ -525,6 +523,12 @@ const ConteudoConfiguracoes = () => {
                                 Adicionar
                             </button>
                         </div>
+                                </>
+                            ): (
+                                <>
+                                <p>tem: {usuario.telefone}</p>
+                                </>
+                            )}
                         <div className={Style.secaoDados}>
                             <div className={Style.preencherDados}>
                                 <div className={Style.inputContainer}>
