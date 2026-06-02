@@ -395,6 +395,41 @@
     font-size: 12px;
 }
 
+@media (min-width: 1900px) {
+    .MainEstilo{
+        width: 90vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .Apresentacao{
+        width: 98vw;
+        justify-self: center;
+        padding: 0px 150px;
+    }
+    
+    .Chamada{
+        width: 98.8vw;
+        justify-self: center;
+        padding: 28px 150px;
+    }
+
+    .Materiais{
+        width: 98.8vw;
+
+        padding: 30px 150px;
+    }
+
+    .aplicativo{
+        width: 98vw;
+        padding: 40px 0px;
+        margin: 0;
+        justify-self: center;
+    }
+
+}
+
 /* ===== RESPONSIVIDADE (max 900px) ===== */
 @media (max-width: 900px) {
     .MainEstilo {
