@@ -1,4 +1,6 @@
 #Ferramentas do FastApi
+from datetime import timedelta
+
 from fastapi import APIRouter, Depends,HTTPException
 
 #Ferramentas do sqlAlchemy
@@ -25,6 +27,7 @@ async def buscar_anotacao(usuario = Depends(validar_token),session = Depends(peg
     #Busco as anotações
     anotacoes = session.execute(
         select(
+            Anotacao.id_anotacao,
             Anotacao.titulo,
             Anotacao.texto,
             Anotacao.criado_em,
@@ -45,12 +48,22 @@ async def adicionar_anotacao(dados : AnnotationSchema,usuario = Depends(validar_
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
 
     try:
-        nova_anotacao = Anotacao(usuario.id_usuario,dados.titulo,dados.texto)
+        nova_anotacao = Anotacao(usuario_id= usuario.id_usuario,titulo = dados.titulo, texto= dados.texto)
         session.add(nova_anotacao)
         session.commit()
+        session.refresh(nova_anotacao)
+
+        #Formato as datas
+        criado_em = nova_anotacao.criado_em - timedelta(hours=3)
+        atualizado_em = nova_anotacao.atualizado_em - timedelta(hours=3)
 
         #Mensagem da API
-        return {"mensagem":"Anotação Criada"}
+        return {
+                    "mensagem":"Anotação Criada",
+                    "id" : nova_anotacao.id_anotacao,
+                    "criado_em" : criado_em.strftime("%d/%m/%Y"),
+                    "atualizado_em" : atualizado_em.strftime("%d/%m/%Y")
+               }
 
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
