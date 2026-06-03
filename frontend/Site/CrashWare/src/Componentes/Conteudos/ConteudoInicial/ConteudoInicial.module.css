@@ -406,13 +406,13 @@
     .Apresentacao{
         width: 99.5vw;
         justify-self: center;
-        padding: 0px 140px;
+        padding: 0px 130px;
     }
     
     .Chamada{
         width: 99.5vw;
         justify-self: center;
-        padding: 28px 290px;
+        padding: 28px 280px;
     }
 
     .Materiais{
@@ -426,7 +426,7 @@
     }
 
     .aplicativo{
-        width: 100%;
+        width: 99%;
         padding: 40px 0px;
         margin: 0;
         justify-self: center;
