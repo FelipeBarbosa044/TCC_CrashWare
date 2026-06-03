@@ -2,9 +2,9 @@
 
 
 .Carrosel{
-    width: 50%;
+    width: 400px;
     margin-top: 25px;
-    height: 40vh;
+    height: 280px;
     
     background-color: var(--bg-terceiro);
     border-radius: 14px;
@@ -12,11 +12,27 @@
     box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
 }
 
-@media (max-width: 1900px) {
-    .Carrosel {
-        width: 50px;
-        height: 50px;
+@media (min-width: 1900px) {
+    .Carrosel{
+        width: 500px;
+        height: 300px;
     }
+
+    .Conteudo{
+        margin-bottom: 30px;
+    }
+
+    .Conteudo h2{
+        height: 20px;
+    }
+
+    .Conteudo p{
+        align-items: center;
+        justify-content: center;
+        height: 70px;
+        margin-top: 50px;
+    }
+    
 }
 
 .Conteudo{
@@ -26,7 +42,7 @@
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    height: 30vh;
+    height: 210px;
     color: var(--Texto2);
 }
 
@@ -44,7 +60,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-top: 12px;
+    /* margin-top: 12px; */
 }
 
 .Controles button{
