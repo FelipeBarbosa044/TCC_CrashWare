@@ -19,8 +19,8 @@ class Anotacao(Base):
 
     id_anotacao = Column(Integer,primary_key=True,autoincrement=True)
     usuario_id = Column(Integer,ForeignKey("usuario.id_usuario",ondelete="CASCADE"),nullable=False)
-    texto = Column(String(150),nullable=False)
-    descricao = Column(Text,nullable=True)
+    titulo = Column(String(150),nullable=False)
+    texto = Column(Text,nullable=True)
     criado_em = Column(DateTime,server_default=func.now())
     atualizado_em = Column(DateTime,server_default=func.now(),onupdate=func.now())
 

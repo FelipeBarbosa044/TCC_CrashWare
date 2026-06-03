@@ -8,7 +8,7 @@ from models.gamificacao import Conquista
 from schemas.admSchema import ConquistaSchema, DeletarConquistaSchema
 
 #Instânciando roteador
-adm = APIRouter(prefix="/adm",tags=["admnistração"])
+adm = APIRouter(prefix="/adm",tags=["adiministração"])
 
 #Importando dependencias
 from dependences import pegar_sessao , validar_token

@@ -24,10 +24,6 @@ from dependences import pegar_sessao ,  validar_token
 from schemas.GamificacaoSchema import RecursoSchema
 
 
-#Funcionalidas para enviar codigo para o email
-import smtplib
-import email.message
-
 #dotenv
 import os
 from dotenv import load_dotenv
