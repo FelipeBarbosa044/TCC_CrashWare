@@ -13,9 +13,9 @@
 }
 
 @media (min-width: 1900px) {
-    .Carrosel {
-        /* width: 200px;
-        height: 200px; */
+    .Carrosel{
+        width: 500px;
+        height: 350px;
     }
 }
 
