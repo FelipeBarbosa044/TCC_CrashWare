@@ -2,9 +2,9 @@
 
 
 .Carrosel{
-    width: 50%;
+    width: 400px;
     margin-top: 25px;
-    height: 40vh;
+    height: 280px;
     
     background-color: var(--bg-terceiro);
     border-radius: 14px;
@@ -14,8 +14,8 @@
 
 @media (min-width: 1900px) {
     .Carrosel {
-        width: 200px;
-        height: 200px;
+        /* width: 200px;
+        height: 200px; */
     }
 }
 
