@@ -4,8 +4,9 @@ from typing import Optional #Adiciona tipos primitivos para o Schema
 #Schema de annotation
 
 class AnnotationSchema(BaseModel):
-    titulo : str
+    titulo : Optional[str] = None
     texto : Optional[str] = None
+    id : Optional[int] = None
 
     class Config:
         from_attributes = True
