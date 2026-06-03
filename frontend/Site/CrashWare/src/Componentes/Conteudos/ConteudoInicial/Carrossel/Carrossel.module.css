@@ -19,8 +19,7 @@
     }
 
     .Conteudo{
-        height: 800px;
-        background-color: red;
+        margin-bottom: 90px;
     }
 }
 
@@ -32,7 +31,6 @@
     align-items: center;
     gap: 8px;
     height: 210px;
-    max-height: 800px;
     color: var(--Texto2);
 }
 
