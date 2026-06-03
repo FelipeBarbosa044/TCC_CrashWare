@@ -32,6 +32,7 @@
     align-items: center;
     gap: 8px;
     height: 210px;
+    max-height: 500px;
     color: var(--Texto2);
 }
 
