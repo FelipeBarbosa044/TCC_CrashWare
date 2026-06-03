@@ -12,13 +12,9 @@ import raposaSad from "../../../fotos/Raposa-Sad.svg";
 import { PopUp } from '../../pop-up';
 import { PopUpConquista } from "../../popUpConquistas";
 import { PopUpBanido } from "../../popUpBanido/PopUpBanido";
+import { Annotation } from "../../../../funcoes/annotation";
 
-// felipe depois tenque substituir pelos dados da API
-const anotacaoItens = [
-    { id: 1, titulo: "Metas para os estudos", data: "01/04/2026" },
-    { id: 2, titulo: "Introdução ao Hardware", data: "10/04/2026" },
-    { id: 3, titulo: "Introdução ao Software", data: "20/04/2026" },
-];
+
 
 const ConteudoHome = () => {
 
@@ -70,6 +66,28 @@ const ConteudoHome = () => {
 
     }
 
+    //Objeto da classe annotation
+    const annotation = new Annotation(token, refresh_token, Navegacao, set);
+
+    //Array que contém as ultimas anotações
+    let anotacaoItens = [];
+
+    //Exibie na tela as anotações(em andamento)
+    // function atualizarAnotacoes(anotacao)
+    // {
+    //     const lista = Array.isArray(anotacao) ? anotacao : [];
+
+    //     anotacaoItens = [];
+
+    //     //Exibe apenas as ultimas 3 anotações
+    //     for(let n = 0;n < 1 ||n < lista.length; n++)
+    //     {
+    //         anotacaoItens.push({ titulo:anotacao[n]?.titulo || "Sem título" , data: anotacao[n]?.atualizado_em} || "")
+    //     }
+
+        
+    // }
+
     async function CarregarInformacoes() {
 
         //Crio o bjeto que contem requisições para o banco
@@ -84,10 +102,15 @@ const ConteudoHome = () => {
         //Conquista ao logar
         await user.conquista(9, setPopupConquista, setDados)
 
+        // //Busco as ultimas anotações
+        // const anotacoes = await annotation.buscar_anotacao(setPopup)
+
+        // //Atualizo a lista
+        // await atualizarAnotacoes(anotacoes)
+
         //Pego as informações do usuario
         await user.perfil(setDados);
     }
-
 
     //Pega os dados do usuario
     let usuario = JSON.parse(localStorage.getItem("dados"));

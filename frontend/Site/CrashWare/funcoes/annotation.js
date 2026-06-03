@@ -16,7 +16,7 @@ export class Annotation
     }
 
 
-    async buscar_anotacao(setPopup,setAnotacoes)
+    async buscar_anotacao(setPopup,setAnotacoes = null)
     {
         // setPopup({
         //         tipo: 'aviso',
@@ -48,8 +48,12 @@ export class Annotation
 
                 const anotacoes = dados.anotacoes
 
-                setAnotacoes(anotacoes)
+                if(setAnotacoes != null)
+                {
+                    setAnotacoes(anotacoes)
+                }
 
+            
 
             }else
             {
