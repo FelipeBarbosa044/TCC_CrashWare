@@ -397,7 +397,7 @@
 
 @media (min-width: 1900px) {
     .MainEstilo{
-        width: 100vw;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -429,7 +429,7 @@
     }
 
     .aplicativo{
-        width: 99%;
+        width: 98.7vw;
         padding: 40px 0px;
         align-items: center;
         justify-content: center;
