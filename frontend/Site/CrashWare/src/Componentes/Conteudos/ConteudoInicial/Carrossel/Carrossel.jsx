@@ -1,4 +1,5 @@
-import style from './Carrossel.module.css'
+import Style from './Carrossel.module.css'
+import { BotoesForm } from '../../../Botoes';
 import { useState } from 'react';
 
 const Carrossel = () => {
@@ -9,51 +10,33 @@ const Carrossel = () => {
         { id: 3, Titulo: "Aulas e Exercícios", Texto: "Conteúdos concisos e exercícios práticos para fixar o aprendizado." },
     ];
 
-    const [index, setIndex] = useState(0);
+    const [current, setCurrent] = useState(0);
 
-    const proximo = () => {
-        setIndex((prev) =>
-            prev === CadsCarrossel.length - 1 ? 0 : prev + 1
-        );
-    };
-
-    const anterior = () => {
-        setIndex((prev) =>
-            prev === 0 ? CadsCarrossel.length - 1 : prev - 1
-        );
-    };
+    const prev = () => setCurrent((current - 1 + CadsCarrossel.length) % CadsCarrossel.length);
+    const next = () => setCurrent((current + 1) % CadsCarrossel.length);
 
     return (
-        <div className={style.container}>
-            <div className={style.viewport}>
-                <div
-                    className={style.lista}
-                    style={{ transform: `translateX(-${index * 100}%)` }}
-                >
-                    {CadsCarrossel.map((card) => (
-                        <div key={card.id} className={style.card}>
-                            <img src={card.imagem} alt="" />
-                            <h3>{card.Titulo}</h3>
-                            <p>{card.Texto}</p>
-                        </div>
-                    ))}
+        <div className={Style.Carrosel}>
+            <div className={Style.Conteudo}>
+                <div className={Style.Slides}>
+                    <h2>{CadsCarrossel[current].Titulo}</h2>
+                    <p>{CadsCarrossel[current].Texto}</p>
                 </div>
             </div>
 
-            <div className={style.rodape}>
-                <button className={style.btn} onClick={anterior}>◀</button>
 
-                <div className={style.dots}>
-                    {CadsCarrossel.map((_, i) => (
-                        <span
-                            key={i}
-                            className={`${style.dot} ${i === index ? style.dotAtivo : ''}`}
-                            onClick={() => setIndex(i)}
-                        />
-                    ))}
-                </div>
+            <div className={Style.Controles}>
+                <BotoesForm texto="Voltar" onClick={prev} />
 
-                <button className={style.btn} onClick={proximo}>▶</button>
+                {CadsCarrossel.map((_, index) => (
+                    <span
+                        key={index}
+                        onClick={() => setCurrent(index)}
+                        className={index === current ? Style.Ativo : Style.Inativo}
+                    />
+                ))}
+
+                <BotoesForm className={Style.Avancar} texto="Avançar" onClick={next} />
             </div>
         </div>
     );

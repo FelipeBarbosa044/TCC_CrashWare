@@ -1,103 +1,87 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+
+.Carrosel{
+    width: 50%;
+    margin-top: 25px;
+    height: 40vh;
+    
+    background-color: var(--bg-terceiro);
+    border-radius: 14px;
+
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
 }
 
-.viewport {
-    width: 260px;
-    overflow: hidden;
-    border-radius: 18px;
-}
-
-.lista {
-    display: flex;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.card {
-    min-width: 260px;
-    background: var(--Carrossel);
-    border: 2px solid rgb(103, 103, 148);
-    border-radius: 18px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.Conteudo{
+    padding: 20px;
     text-align: center;
-
-    padding: 32px 24px 28px;
-    color: var(--texto-principal);
-    gap: 10px;
-}
-
-.icone {
-    font-size: 28px;
-    opacity: 0.85;
-}
-
-.card h3 {
-    font-size: 17px;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--Titulo1);
-    font-family: "Montserrat";
-    margin: 0;
-}
-
-.card p {
-    font-size: 12.5px;
-    line-height: 1.65;
-    color: var(--texto-principal);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin: 0;
-    font-family: "Montserrat";
-    font-weight: 700;
-}
-
-.rodape {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-}
-
-.btn {
-    background: none;
-    border: none;
-    color: var(--texto-principal);
-    font-size: 13px;
-    cursor: pointer;
-    padding: 4px;
-    transition: color 0.2s;
-}
-
-.btn:hover {
-    color: var(--texto-secundario);
-}
-
-.dots {
-    display: flex;
     gap: 8px;
+    height: 30vh;
+    color: var(--Texto2);
+}
+
+.Conteudo h2{
+    font-size: 40px;    
+    margin-bottom: 10px;
+}
+
+.Conteudo p{
+    font-size: 20px;
+}
+
+.Controles {
+    display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
 }
 
-.dot {
-    width: 28px;
-    height: 5px;
-    border-radius: 3px;
-    background: var(--texto-principal);
+.Controles button{
+    background: var(--Voltar-Card);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: none;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: var(--Texto2);
+    font-size: 25px;
     cursor: pointer;
-    transition: background 0.3s, width 0.3s;
-    display: block;
 }
 
-.dotAtivo {
-    background: var(--texto-secundario);
-    width: 36px;
+.Avancar{
+    background: var(--Entrar-Inicial) !important;
+    color: white !important;
 }
+
+.Ativo{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    display: inline-block;
+
+    transition: scale 0.3s;
+    transform: scale(1.03);
+}
+
+
+.Inativo {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #333;
+    cursor: pointer;
+    display: inline-block;
+
+    transition: scale 0.3s;
+    transform: scale(0.9);
+}
+
