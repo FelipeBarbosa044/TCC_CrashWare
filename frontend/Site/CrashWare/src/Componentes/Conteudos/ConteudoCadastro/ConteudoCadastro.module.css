@@ -94,8 +94,7 @@
 
 .btnCriarConta {
     width: 70%;
-    min-height: 8vh;
-    max-height: 8vh;
+    height: 55px;
 
     background: var(--Login);
     border: none;
