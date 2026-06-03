@@ -7,6 +7,7 @@
   /* BackGrounds */
   --bg-principal: #FFFFFF;
   --bg-secundario: #FFFFFF33;
+  --bg-terceiro: #868686a9;
 /* ------------- */
 
   /* Gradientes */
@@ -30,6 +31,7 @@
   --Remover-coisas: linear-gradient(to right, var(--BotaoADD-gradiente1), var(--BotaoADD-gradiente2));
   --btnUsuario: #ffffff;
   --btn-Criar-Materia: linear-gradient(to right, #101017CC, #06060A);
+  --Voltar-Card:#32a6e99a;
   /* ----- */
 
   /* Componentes */
@@ -120,6 +122,7 @@
   /* BackGrounds */
   --bg-principal: #040110;
   --bg-secundario: #5756562f;
+  --bg-terceiro: #868686a9;
   /* ---------- */
 
   /* Gradientes */
@@ -129,6 +132,7 @@
   --gradiente-app-texto: linear-gradient(90deg, #032A5C, #0654B8, #032A5C);
   --gradiente-listar-consquistas: linear-gradient(to right, #7350CE, #4A178F);
   --gradiente-usuarios: linear-gradient(to right, #7350CE, #4A178F);
+  --Voltar-Card:#0000009a;
   /* --------  */
   
   /* Botoes */
