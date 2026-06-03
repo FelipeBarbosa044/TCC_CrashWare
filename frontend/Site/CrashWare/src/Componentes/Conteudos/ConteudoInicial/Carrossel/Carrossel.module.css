@@ -22,6 +22,10 @@
         margin-bottom: 30px;
     }
 
+    .Conteudo h2{
+        height: 20px;
+    }
+
     .Conteudo p{
         background-color: white;
         align-items: center;
