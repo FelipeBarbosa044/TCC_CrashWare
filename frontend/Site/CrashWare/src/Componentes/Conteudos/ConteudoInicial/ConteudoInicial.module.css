@@ -413,7 +413,7 @@
     }
     
     .Chamada{
-        width: 100vw;
+        width: 99vw;
         justify-self: center;
         padding: 28px 100px;
     }
@@ -429,7 +429,7 @@
     }
 
     .aplicativo{
-        width: 99vw;
+        width: 105vw;
         padding: 40px 0px;
     }
 
