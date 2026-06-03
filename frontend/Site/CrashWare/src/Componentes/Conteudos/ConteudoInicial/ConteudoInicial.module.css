@@ -397,7 +397,7 @@
 
 @media (min-width: 1900px) {
     .MainEstilo{
-        width: 90vw;
+        width: 100vw;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -410,7 +410,7 @@
     }
     
     .Chamada{
-        width: 99vw;
+        width: 99.5vw;
         justify-self: center;
         padding: 28px 290px;
     }
@@ -426,7 +426,7 @@
     }
 
     .aplicativo{
-        width: 99vw;
+        width: 100vw;
         padding: 40px 0px;
         margin: 0;
         justify-self: center;
