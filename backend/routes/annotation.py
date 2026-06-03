@@ -80,6 +80,9 @@ async  def editar_anotacao(dados : AnnotationSchema,usuario = Depends(validar_to
     try:
         anotacao = session.query(Anotacao).filter(Anotacao.id_anotacao == dados.id).first()
 
+        if anotacao is None:
+            raise HTTPException(status_code=404,detail="Anotação não encontrada")
+
         anotacao.titulo = dados.titulo
         anotacao.texto = dados.texto
 
@@ -93,6 +96,30 @@ async  def editar_anotacao(dados : AnnotationSchema,usuario = Depends(validar_to
             "mensagem": "Anotação Editada",
             "atualizado_em": atualizado_em.strftime("%d/%m/%Y")
         }
+
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
+
+@annotation.delete('/deletar_anotacao')
+async def deletar_anotacao(dados : AnnotationSchema , usuario = Depends(validar_token), session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+    #Pego a anotação
+    anotacao = session.query(Anotacao).filter(Anotacao.id_anotacao == dados.id).first()
+
+    if anotacao is None:
+        raise HTTPException(status_code=404, detail="Anotação não encontrada")
+
+    try:
+        # Deleto a conquista
+        session.delete(anotacao)
+        session.commit()
+
+        return {"mensagem" : "Anotação Excluida"}
 
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
