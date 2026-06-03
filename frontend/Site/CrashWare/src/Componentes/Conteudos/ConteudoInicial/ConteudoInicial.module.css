@@ -429,11 +429,8 @@
     }
 
     .aplicativo{
-        width: 98.7vw;
+        width: 99vw;
         padding: 40px 0px;
-        align-items: center;
-        justify-content: center;
-        justify-self: center;
     }
 
 }
