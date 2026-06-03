@@ -64,6 +64,7 @@ const ConteudoHome = () => {
 
     async function VerificarOfensiva() {
         const user = new Usuario(token, refresh_token, Navegacao, set);
+        
         await user.ValidarOfensiva(setMaiorOfensiva, setDados);
         usuario = JSON.parse(localStorage.getItem("dados"));
 

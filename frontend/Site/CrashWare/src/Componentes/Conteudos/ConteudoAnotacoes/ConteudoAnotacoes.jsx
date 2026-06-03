@@ -1,21 +1,65 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom";
 import { BotoesForm } from "../../Botoes"
 import { CampoTexto } from "../../CampoTexto"
 import style from './ConteudoAnotacoes.module.css'
+import { PopUp } from '../../pop-up';
+import { Annotation } from "../../../../funcoes/annotation";
+
+
 
 const ConteudoAnotacao = () => {
 
-    // LOCAL STORAGE
-    const [anotacoes, setAnotacoes] = useState(() => {
+    //SetMaiorOfensiva
+    const [maiorOfensiva, setMaiorOfensiva] = useState(
+        localStorage.getItem("maior_ofensiva") || 0
+    );
 
-        const salvas = localStorage.getItem('anotacoes')
+    //Pego os tokens
+    const token = localStorage.getItem("token");
+    const refresh_token = localStorage.getItem("refresh_token");
 
-        return salvas ? JSON.parse(salvas) : []
+    //Navegação --> Permite eu levar o usuario para outras telas
+    const Navegacao = useNavigate();
 
-        //Chamo o método de buscar anotação
+    //Pego os states
+    const [token_state, setToken] = useState(() => localStorage.getItem("token"));
+    const [refresh_token_state, setRefresh] = useState(() => localStorage.getItem("refresh_token"));
+    const [dados, setDados] = useState(() =>
+        JSON.parse(localStorage.getItem("dados")) || null
+    );
+
+    //Lista que contém todos os usestate
+    const set = [setToken, setRefresh, setDados];
+
+    
+    const annotation = new Annotation(token,refresh_token,Navegacao,set)
+
+    //Popup
+    const [popup, setPopup] = useState(null);
+
+    // Anotacoes
+    const [anotacoes, setAnotacoes] = useState([])
 
 
-    })
+    async function BuscarAnotacoes() 
+    {
+        // setPopup({
+        //         tipo: 'aviso',
+        //         titulo: 'Anotações',
+        //         mensagem: 'Buscando suas Anotações...'
+        //     });
+
+        //Busco as anotações
+        const anotacoesSalvas = await annotation.buscar_anotacao(setPopup,setAnotacoes);
+    }
+
+    //Trata a Data
+    const formatarData = (data) => {
+        if (!data) return "";
+
+        return new Date(data).toLocaleDateString("pt-BR");
+    };
 
     // PESQUISA
     const [pesquisar, setPesquisar] = useState("")
@@ -34,44 +78,52 @@ const ConteudoAnotacao = () => {
         textoAnotacao: ""
     })
 
-    // SALVAR LOCAL STORAGE
-    useEffect(() => {
+    // //Busco a anotação sempre que a pag for carregada
+     useEffect(() => {
 
-        localStorage.setItem(
-            'anotacoes',
-            JSON.stringify(anotacoes)
-        )
+        BuscarAnotacoes();
 
-        //Chamo o método de buscar anotação
-
-    }, [anotacoes])
+    },[])
 
     // CRIAR NOTA
-    const criarNota = () => {
-
-        //Chamo a requisição de adicionar anotação
+    const criarNota =  async () => {    
         
+        if( infoNota.tituloAnotacao.trim() === "" )
+        {
+            setPopup({
+                tipo: 'aviso',
+                titulo: 'Título',
+                mensagem: 'O Título Deve Ser Preenchido'
+            });
 
-        if (
-            infoNota.tituloAnotacao.trim() === "" &&
-            infoNota.textoAnotacao.trim() === ""
-        ) {
-            return
+            return;
         }
+
+
+         setPopup({
+                tipo: 'aviso',
+                titulo: 'Anotação',
+                mensagem: 'Criando Anotação...'
+            });
+
+        //Chamo o método de criar anotação
+        //Crio a anotação no banco de dados
+        const anotacao = await annotation.adicionar_anotacao(infoNota.tituloAnotacao,infoNota.textoAnotacao,setPopup)
 
         const nova = {
 
-            id: Date.now(),
+            id_anotacao: anotacao?.id, 
 
             titulo: infoNota.tituloAnotacao,
 
-            conteudo: infoNota.textoAnotacao,
+            texto: infoNota.textoAnotacao,
 
-            criadoEm: new Date().toLocaleDateString('pt-BR'),
+            criado_em: formatarData(anotacao?.criado_em),
 
-            editadoEm: new Date().toLocaleDateString('pt-BR')
+            atualizado_em: formatarData(anotacao?.atualizado_em)
         }
 
+        //Espalha as anotações antiga
         setAnotacoes(prev => [nova, ...prev])
 
         // Seleciona nota criada
@@ -108,7 +160,7 @@ const ConteudoAnotacao = () => {
 
             tituloAnotacao: nota.titulo,
 
-            textoAnotacao: nota.conteudo
+            textoAnotacao: nota.texto
         })
 
         // Bloqueia edição
@@ -116,7 +168,7 @@ const ConteudoAnotacao = () => {
     }
 
     // EDITAR / SALVAR
-    const editarNota = () => {
+    const editarNota = async () => {
 
         if (!notaSelecionada) return
 
@@ -125,13 +177,34 @@ const ConteudoAnotacao = () => {
 
             setModoEdicao(true)
 
-            return
+            return;
         }
 
-        // Salvar alterações
+        if (infoNota.tituloAnotacao.trim() === "") {
+                setPopup({
+                    tipo: "aviso",
+                    titulo: "Título",
+                    mensagem: "O título Deve Ser Preenchido"
+                });
+
+                return;
+            }
+
+        //Chamo a o método de editar anotação
+        //Salvo no Banco de Dados
+        const anotacao_atualizada = await annotation.editar_anotacao(infoNota.tituloAnotacao,infoNota.textoAnotacao,notaSelecionada.id_anotacao,setPopup)
+
+        //Caso a anotação atualizada retorne vazia
+        if(!anotacao_atualizada)
+        {
+            return;
+        }
+
+
+        // Salva as alterações no react
         const notasAtualizadas = anotacoes.map((nota) => {
 
-            if (nota.id === notaSelecionada.id) {
+            if (nota.id_anotacao === notaSelecionada.id_anotacao) {
 
                 return {
 
@@ -139,9 +212,9 @@ const ConteudoAnotacao = () => {
 
                     titulo: infoNota.tituloAnotacao,
 
-                    conteudo: infoNota.textoAnotacao,
+                    texto: infoNota.textoAnotacao,
 
-                    editadoEm: new Date().toLocaleDateString('pt-BR')
+                    atualizado_em: formatarData(anotacao_atualizada?.atualizado_em)
                 }
             }
 
@@ -152,7 +225,7 @@ const ConteudoAnotacao = () => {
 
         // Atualiza nota selecionada
         const notaAtualizada = notasAtualizadas.find(
-            nota => nota.id === notaSelecionada.id
+            nota => nota.id_anotacao === notaSelecionada.id_anotacao
         )
 
         setNotaSelecionada(notaAtualizada)
@@ -162,12 +235,24 @@ const ConteudoAnotacao = () => {
     }
 
     // EXCLUIR NOTA
-    const excluirNota = () => {
+    const excluirNota = async () => {
 
-        if (!notaSelecionada) return
+        if (!notaSelecionada) {
+            return;
+        }
 
+        //Apago no banco de dados
+        const deletado = await annotation.deletar_anotacao(notaSelecionada.id_anotacao,setPopup)
+
+        //Caso o deletar retornar False
+        if(deletado == false)
+        {
+            return;
+        }
+
+        //Atualiza no React
         const notasFiltradas = anotacoes.filter(
-            nota => nota.id !== notaSelecionada.id
+            nota => nota.id_anotacao !== notaSelecionada.id_anotacao
         )
 
         setAnotacoes(notasFiltradas)
@@ -190,13 +275,8 @@ const ConteudoAnotacao = () => {
     // FILTRAGEM
     const anotacoesFiltradas = anotacoes.filter(n =>
 
-        n.titulo.toLowerCase().includes(
-            pesquisar.toLowerCase()
-        ) ||
-
-        n.conteudo.toLowerCase().includes(
-            pesquisar.toLowerCase()
-        )
+        (n.titulo || "").toLowerCase().includes(pesquisar.toLowerCase()) ||
+        (n.texto || "").toLowerCase().includes(pesquisar.toLowerCase())
     )
 
     // ITEM LATERAL
@@ -204,7 +284,7 @@ const ConteudoAnotacao = () => {
         nota,
         onClick
     }) => {
-
+        
         return (
 
             <div
@@ -215,15 +295,27 @@ const ConteudoAnotacao = () => {
                 <p>{nota.titulo}</p>
 
                 <div>
-                    {nota.criadoEm}
+                    {formatarData(nota.criado_em)}
                 </div>
 
             </div>
         )
+         
     }
+    
 
     return (
 
+        <>
+       
+        {popup && (
+                <PopUp
+                    tipo={popup.tipo}
+                    titulo={popup.titulo}
+                    mensagem={popup.mensagem}
+                    onFechar={() => setPopup(null)}
+                />
+            )}
         <div className={style.corpo}>
 
             <div className={style.container}>
@@ -242,10 +334,10 @@ const ConteudoAnotacao = () => {
                             />
                         </div>
                         {/* LISTA */}
-                        <div className={style.barraLateral_listaNotas}>
+                       <div className={style.barraLateral_listaNotas}>
                             {anotacoesFiltradas.map((nota) => (
                                 <ItensBarraLateral
-                                    key={nota.id}
+                                    key={nota.id_anotacao}
                                     nota={nota}
                                     onClick={() =>
                                         selecionarNota(nota)
@@ -258,11 +350,12 @@ const ConteudoAnotacao = () => {
                 {/* DIREITA */}
                 <div className={style.coluna_direita}>
                     <div className={style.nota_cabecalho}>
-                        <h1>Titulo da Aula</h1>
+                        <h1>Titulo da Anotação</h1>
                         {/* INPUT TITULO */}
                         <input
                             type="text"
-                            placeholder="Adicione o titulo da aula"
+                            maxLength={150}
+                            placeholder="Adicione o Título da Anotação"
                             className={style.nota_inputTitulo}
                             value={infoNota.tituloAnotacao}
                             disabled={
@@ -304,14 +397,14 @@ const ConteudoAnotacao = () => {
                             <h5>
                                 Criado em: {
                                     notaSelecionada
-                                        ? notaSelecionada.criadoEm
+                                        ? formatarData(notaSelecionada.criado_em)
                                         : ""
                                 }
                             </h5>
                             <h5>
                                 Editado em: {
                                     notaSelecionada
-                                        ? notaSelecionada.editadoEm
+                                        ? formatarData(notaSelecionada.atualizado_em)
                                         : ""
                                 }
                             </h5>
@@ -356,6 +449,7 @@ const ConteudoAnotacao = () => {
             </div>
 
         </div>
+    </> 
     )
 }
 
