@@ -48,7 +48,7 @@ public class carregamento extends AppCompatActivity {
         Auth.verificarToken(
                 this,
                 prefs,
-                true,
+                false,
                 new Auth.AuthCallback() {
 
                     @Override

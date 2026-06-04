@@ -1,6 +1,7 @@
 package com.example.crashware.ui.anotacoes;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.widget.Toast.LENGTH_LONG;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,6 +29,8 @@ import java.util.Locale;
 
 import com.example.crashware.R;
 import com.example.crashware.ui.Models.Anotacao;
+import com.example.crashware.ui.api.Anotacoes;
+import com.example.crashware.ui.api.Auth;
 
 import java.util.ArrayList;
 
@@ -84,6 +88,8 @@ public class NovaAnotacao_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_nova_anotacao, container, false);
 
+
+
         //Iniciando o Layout no Código
         imgVoltarNovaAnotacao = view.findViewById(R.id.imgVoltarCampos      );
         btnSalvarNovaAnotacao = view.findViewById(R.id.btnSalvarNovaAnotacao);
@@ -93,7 +99,7 @@ public class NovaAnotacao_Fragment extends Fragment {
         cardAnotacao          = view.findViewById(R.id.cardAnotacao         );
 
 
-        prefs = requireActivity().getSharedPreferences("dados", MODE_PRIVATE);
+        prefs = requireContext().getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
 
         String dataAtual = pegarDataAtual();
         txtDataCriacao.setText(String.valueOf(dataAtual));
@@ -116,38 +122,39 @@ public class NovaAnotacao_Fragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                try
-                {
+
                     String titulo = txtTituloNovaAnotacao.getText().toString();
-                    String conteudo = txtNovaAnotacao.getText().toString();
+                    String texto = txtNovaAnotacao.getText().toString();
 
-                    String json =
-                            prefs.getString("lista_anotacoes", "[]");
+                    if(titulo.isEmpty())
+                    {
+                        Toast.makeText(getContext(),"O Título Deve ser Preenchido",LENGTH_LONG).show();
+                        return;
+                    }
 
-                    JSONArray array = new JSONArray(json);
+                    //Verifico o token
+                    Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback()
+                    {
 
-                    JSONObject objeto = new JSONObject();
+                        @Override
+                        public void onSuccess()
+                        {
+                            try {
+                                Toast.makeText(getContext(),"Adicionando Anotação...",LENGTH_LONG).show();
+                                //Salva no Banco
+                                Anotacoes.Adicionar_Anotacao(titulo, texto, prefs, NovaAnotacao_Fragment.this);
 
-                    objeto.put("titulo", titulo);
-                    objeto.put("conteudo", conteudo);
-                    objeto.put("dataCriacao", pegarDataAtual());
-                    objeto.put("dataEdicao", "Nunca editado");
+                            } catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
 
-                    array.put(objeto);
 
-                    prefs.edit()
-                            .putString("lista_anotacoes", array.toString())
-                            .apply();
-
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-
-                requireActivity()
-                        .getSupportFragmentManager()
-                        .popBackStack();
+//                requireActivity()
+//                        .getSupportFragmentManager()
+//                        .popBackStack();
             }
         });//Interação com botão de salvar nova anotação, levando para a tela geral de anotações e transcrevendo os textos dos EditText para strings a serem salvas no banco
 

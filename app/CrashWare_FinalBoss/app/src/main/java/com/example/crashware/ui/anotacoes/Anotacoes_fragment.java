@@ -2,12 +2,14 @@ package com.example.crashware.ui.anotacoes;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.text.Annotation;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -27,17 +29,25 @@ import com.example.crashware.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
 import com.example.crashware.ui.Models.Anotacao;
+import com.example.crashware.ui.api.Anotacoes;
+import com.example.crashware.ui.api.Auth;
 import com.example.crashware.ui.navegacao.Home;
 import com.example.crashware.ui.perfil.AlterarDados_Fragment;
 import com.google.android.material.snackbar.Snackbar;
@@ -104,6 +114,19 @@ public class Anotacoes_fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_anotacoes, container, false);
+
+        prefs = requireContext().getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
+
+        getParentFragmentManager().setFragmentResultListener(
+                "atualizar_anotacoes",
+                this,
+                (requestKey, bundle) -> {
+                    carregarAnotacoes();
+                }
+        );
+
+        carregarAnotacoes();
+
 
         imgAddAnotacoes  = view.findViewById(R.id.imgAddAnotacoes   );
         txtbarraPesquisa = view.findViewById(R.id.txtBarraPesquisa  );
@@ -239,45 +262,99 @@ public class Anotacoes_fragment extends Fragment {
         }
     }
 
-    private void carregarAnotacoes()
+    //Formata a data correta
+    private String formatarData(String dataApi)
     {
         try
         {
-            SharedPreferences prefs =
-                    requireActivity().getSharedPreferences("dados", MODE_PRIVATE);
-
-            String json = prefs.getString("lista_anotacoes", "[]");
-
-            JSONArray array = new JSONArray(json);
-
-            listaAnotacoes.clear();
-            listaOriginal.clear();
-
-            for (int i = 0; i < array.length(); i++)
+            if (dataApi == null || dataApi.isEmpty())
             {
-                JSONObject obj = array.getJSONObject(i);
-
-                String titulo = obj.getString("titulo");
-                String conteudo = obj.getString("conteudo");
-                String dataCriacao =
-                        obj.optString("dataCriacao", "Sem data");
-
-                String dataEdicao =
-                        obj.optString("dataEdicao", "Nunca editado");
-
-                Anotacao anotacao =
-                        new Anotacao(titulo, conteudo, dataCriacao, dataEdicao);
-
-                listaAnotacoes.add(anotacao);
-                listaOriginal.add(anotacao);
+                return "Sem data";
             }
+
+            // Pega só essa parte: 2026-06-04T14:32:10
+            if (dataApi.length() >= 19)
+            {
+                dataApi = dataApi.substring(0, 19);
+            }
+
+            SimpleDateFormat formatoEntrada =
+                    new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+
+            SimpleDateFormat formatoSaida =
+                    new SimpleDateFormat("dd/MM/yyyy HH:mm  ", Locale.getDefault());
+
+            Date data = formatoEntrada.parse(dataApi);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(data);
+
+            // Subtrai 3 horas
+            calendar.add(Calendar.HOUR_OF_DAY, -3);
+
+            return formatoSaida.format(calendar.getTime());
         }
         catch (Exception e)
         {
             e.printStackTrace();
+            return "Data inválida";
         }
-    }//
+    }
 
+    private void carregarAnotacoes()
+    {
+        //Verifico o token
+        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback()
+        {
+            @Override
+            public void onSuccess()
+            {
+
+                //Carrego as anotações do usuario
+                Anotacoes.Carregar_Anotacoes(prefs, Anotacoes_fragment.this, new Anotacoes.AnotacaoCallback()
+                {
+                    @Override
+                    public void sucesso(List<Anotacoes.AnotacaoResponse> anotacoes) {
+
+                        try
+                        {
+                            listaAnotacoes.clear();
+                            listaOriginal.clear();
+
+                            for (Anotacoes.AnotacaoResponse item : anotacoes)
+                            {
+
+                                //Pego os valores da array
+                                String titulo = item.titulo;
+                                String texto = item.texto;
+                                String criado_em = formatarData(item.criado_em);
+                                String atualizado_em = formatarData(item.atualizado_em);
+
+
+
+                                Anotacao anotacao =
+                                        new Anotacao(titulo, texto, criado_em, atualizado_em);
+
+                                listaAnotacoes.add(anotacao);
+                                listaOriginal.add(anotacao);
+                            }
+
+                            //Atualiza o adapter
+                            adapter.notifyDataSetChanged();
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+
+            }//Anotacoes API
+
+        });//Verificar Token
+
+    }//Carregar Anotacoes
     private void salvarAnotacoes()
     {
         try

@@ -3,10 +3,14 @@ package com.example.crashware.ui.api;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+
+import com.example.crashware.R;
+import com.example.crashware.ui.anotacoes.Anotacoes_fragment;
 
 import org.json.JSONObject;
 
@@ -210,8 +214,26 @@ public class Anotacoes {
             ) {
                 if(resposta.isSuccessful())
                 {
-                    //Requisição der certo
+                    //Evita crashar
+                    if (!fragment.isAdded()) {
+                        return;
+                    }
 
+                    //Requisição der certo
+                    Toast.makeText(fragment.requireContext(), "Anotação Criada", Toast.LENGTH_LONG).show();
+
+
+                    //Avisa o Anotacoes_fragment para recarregar
+                    fragment.getParentFragmentManager().setFragmentResult(
+                            "atualizar_anotacoes",
+                            new Bundle()
+                    );
+
+
+                    //Volta para a tela de Anotacoes_Fragment
+                    fragment.requireActivity()
+                            .getSupportFragmentManager()
+                            .popBackStack();
 
 
                 }
