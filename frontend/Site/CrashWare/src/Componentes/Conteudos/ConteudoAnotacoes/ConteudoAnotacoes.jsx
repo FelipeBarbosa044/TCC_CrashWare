@@ -52,6 +52,8 @@ const ConteudoAnotacao = () => {
 
         //Busco as anotações
         const anotacoesSalvas = await annotation.buscar_anotacao(setPopup,setAnotacoes);
+
+        
     }
 
     //Trata a Data

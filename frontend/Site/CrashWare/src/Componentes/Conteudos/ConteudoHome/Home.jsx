@@ -70,23 +70,35 @@ const ConteudoHome = () => {
     const annotation = new Annotation(token, refresh_token, Navegacao, set);
 
     //Array que contém as ultimas anotações
-    let anotacaoItens = [];
+    const [anotacaoItens, setAnotacaoItens] = useState([]);
 
-    //Exibie na tela as anotações(em andamento)
-    // function atualizarAnotacoes(anotacao)
-    // {
-    //     const lista = Array.isArray(anotacao) ? anotacao : [];
+    //Trata a Data
+    const formatarData = (data) => {
+        if (!data) return "";
 
-    //     anotacaoItens = [];
+        return new Date(data).toLocaleDateString("pt-BR");
+    };
 
-    //     //Exibe apenas as ultimas 3 anotações
-    //     for(let n = 0;n < 1 ||n < lista.length; n++)
-    //     {
-    //         anotacaoItens.push({ titulo:anotacao[n]?.titulo || "Sem título" , data: anotacao[n]?.atualizado_em} || "")
-    //     }
 
+    //Exibie na tela as anotações
+    async function atualizarAnotacoes()
+    {
+
+        //Busco as ultimas anotações
+        const anotacao =  await annotation.buscar_anotacao(setPopup)
+
+        const tamanho_anotacoes = anotacao.length
+
+        console.log(tamanho_anotacoes)
+
+
+        for(let n = 0; n < 3 && n < tamanho_anotacoes; n++)
+        {
+            anotacaoItens.push({ titulo: anotacao[n]?.titulo , data: formatarData(anotacao[n]?.atualizado_em)})
+        }
+    
         
-    // }
+    }
 
     async function CarregarInformacoes() {
 
@@ -102,11 +114,6 @@ const ConteudoHome = () => {
         //Conquista ao logar
         await user.conquista(9, setPopupConquista, setDados)
 
-        // //Busco as ultimas anotações
-        // const anotacoes = await annotation.buscar_anotacao(setPopup)
-
-        // //Atualizo a lista
-        // await atualizarAnotacoes(anotacoes)
 
         //Pego as informações do usuario
         await user.perfil(setDados);
@@ -149,6 +156,10 @@ const ConteudoHome = () => {
 
         //Valido a ofensiva
         VerificarOfensiva();
+
+        //Atualizo a lista
+        atualizarAnotacoes()
+
 
     }, []);
 
@@ -280,8 +291,8 @@ const ConteudoHome = () => {
                         <h4 className={style.secaoTitulo}>ÚLTIMAS ANOTAÇÕES</h4>
 
                         <div className={style.listaAnotacoes}>
-                            {anotacaoItens.map((a) => (
-                                <div key={a.id} className={style.itemAnotacao}>
+                            {anotacaoItens.map((a,index) => (
+                                <div key={index} className={style.itemAnotacao}>
                                     <p className={style.anotacaoTitulo}>{a.titulo}</p>
                                     <span className={style.anotacaoData}>{a.data}</span>
                                 </div>

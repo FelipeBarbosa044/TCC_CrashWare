@@ -48,12 +48,14 @@ export class Annotation
 
                 const anotacoes = dados.anotacoes
 
+
                 if(setAnotacoes != null)
                 {
                     setAnotacoes(anotacoes)
+                }else
+                {
+                    return anotacoes
                 }
-
-            
 
             }else
             {
