@@ -81,12 +81,15 @@ async  def editar_anotacao(dados : AnnotationSchema,usuario = Depends(validar_to
     if usuario is None:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
 
-    try:
+    #Pego a anotacao
+    if(dados.id == None):
+        anotacao = session.quey(Anotacao.filter(Anotacao.titulo == dados.titulo_antigo , Anotacao.texto == Anotacao.texto_antigo))
+    else:
         anotacao = session.query(Anotacao).filter(Anotacao.id_anotacao == dados.id).first()
 
-        if anotacao is None:
-            raise HTTPException(status_code=404,detail="Anotação não encontrada")
-
+    if anotacao is None:
+        raise HTTPException(status_code=404, detail="Anotação não encontrada")
+    try:
         anotacao.titulo = dados.titulo
         anotacao.texto = dados.texto
 
@@ -112,8 +115,12 @@ async def deletar_anotacao(dados : AnnotationSchema , usuario = Depends(validar_
     if usuario is None:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
 
-    #Pego a anotação
-    anotacao = session.query(Anotacao).filter(Anotacao.id_anotacao == dados.id).first()
+    # Pego a anotação
+    if (dados.id == None):
+        anotacao = session.quey(
+            Anotacao.filter(Anotacao.titulo == dados.titulo_antigo, Anotacao.texto == Anotacao.texto_antigo))
+    else:
+        anotacao = session.query(Anotacao).filter(Anotacao.id_anotacao == dados.id).first()
 
     if anotacao is None:
         raise HTTPException(status_code=404, detail="Anotação não encontrada")
