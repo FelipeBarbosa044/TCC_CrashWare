@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends,HTTPException
 from datetime import timedelta
 
 #Ferramentas do sqlAlchemy
-from sqlalchemy import select
+from sqlalchemy import select,desc
 
 #Importando Tabela Anotação
 from models.annotation import Anotacao
@@ -32,8 +32,12 @@ async def buscar_anotacao(usuario = Depends(validar_token),session = Depends(peg
             Anotacao.texto,
             Anotacao.criado_em,
             Anotacao.atualizado_em
-        ).where(
+        )
+        .where(
             Anotacao.usuario_id == usuario.id_usuario
+        )
+        .order_by(
+            desc(Anotacao.atualizado_em)
         )
     ).mappings().all()
 
