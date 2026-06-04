@@ -104,7 +104,7 @@ const ConteudoPerfil = () => {
     if (click >= 10) {
         //Crio o bjeto que contem requisições para o banco
         const user = new Usuario(token, refresh_token, Navegacao, set);
-        user.conquista(17, setPopupConquista, setDados)
+        user.conquista(17, setPopupConquista, setDados);
     }
 
 
@@ -156,7 +156,7 @@ const ConteudoPerfil = () => {
         //Adiciono as conquistas na interface
 
         for (let n = 0; n < quantidade_conquistas; n++) {
-            CONQUISTAS_MOCK.push({ titulo: usuario_conquistas[n].nome_conquista, descricao: usuario_conquistas[n].descricao })
+            CONQUISTAS_MOCK.push({ tipo: usuario_conquistas[n].tipo_conquista, titulo: usuario_conquistas[n].nome_conquista, descricao: usuario_conquistas[n].descricao })
         }
 
         //Exibo na hora as conquistas
@@ -461,6 +461,7 @@ const ConteudoPerfil = () => {
                                         <img src={FotoPadrao} alt={c.titulo} />
 
                                         <div>
+                                            <h5>{c.tipo}</h5>
                                             <h6>{c.titulo}</h6>
                                             <p>{c.descricao}</p>
                                         </div>

@@ -199,7 +199,7 @@ const ConteudoVerificarTel = () => {
                         texto="Verificar"
                         className={style.btnEnviar}
                          onClick={VerificarSMS}
-                        // disabled={!enviarcodigo || loading}
+                        disabled={!enviarcodigo || loading}
                     />
                 </div>
             </div>

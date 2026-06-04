@@ -60,7 +60,7 @@ const ConteudoHome = () => {
 
     async function VerificarOfensiva() {
         const user = new Usuario(token, refresh_token, Navegacao, set);
-        
+
         await user.ValidarOfensiva(setMaiorOfensiva, setDados);
         usuario = JSON.parse(localStorage.getItem("dados"));
 
@@ -80,31 +80,26 @@ const ConteudoHome = () => {
     };
 
 
+
     //Exibie na tela as anotações
-    async function atualizarAnotacoes()
-    {
+    async function atualizarAnotacoes() {
 
         //Busco as ultimas anotações
-        const anotacao =  await annotation.buscar_anotacao(setPopup)
+        const anotacao = await annotation.buscar_anotacao(setPopup)
 
         //Quantidade de anotações
         const tamanho_anotacoes = anotacao.length
 
+        if (tamanho_anotacoes == 0) {
 
-        if(tamanho_anotacoes == 0)
-        {
-            //Retornar o texto
-
-        }else
-        {
+        } else {
             //Exibe na home as ultimas anotações
-            for(let n = 0; n < 3 && n < tamanho_anotacoes; n++)
-            {
-                anotacaoItens.push({ titulo: anotacao[n]?.titulo , data: formatarData(anotacao[n]?.atualizado_em)})
+            for (let n = 0; n < 3 && n < tamanho_anotacoes; n++) {
+                anotacaoItens.push({ titulo: anotacao[n]?.titulo, data: formatarData(anotacao[n]?.atualizado_em) })
             }
         }
-    
-        
+
+
     }
 
     async function CarregarInformacoes() {
@@ -193,12 +188,6 @@ const ConteudoHome = () => {
         );
     }
 
-
-    // useEffect(() => {
-    //     if (xp > XpMax) {
-    //         Nivel += 1;
-    //     }
-    // }, [Nivel])
     return (
 
         <>
@@ -298,7 +287,7 @@ const ConteudoHome = () => {
                         <h4 className={style.secaoTitulo}>ÚLTIMAS ANOTAÇÕES</h4>
 
                         <div className={style.listaAnotacoes}>
-                            {anotacaoItens.map((a,index) => (
+                            {anotacaoItens.map((a, index) => (
                                 <div key={index} className={style.itemAnotacao}>
                                     <p className={style.anotacaoTitulo}>{a.titulo}</p>
                                     <span className={style.anotacaoData}>{a.data}</span>
