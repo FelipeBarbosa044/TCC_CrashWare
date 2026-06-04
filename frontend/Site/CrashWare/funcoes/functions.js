@@ -56,7 +56,7 @@ export function handleRedirect(Navegacao)
     }else
     {
         //Levo para home
-        Navegacao("/home")
+        window.location.href = '/home'
     }
 }
 

@@ -89,8 +89,6 @@ const ConteudoHome = () => {
 
         const tamanho_anotacoes = anotacao.length
 
-        console.log(tamanho_anotacoes)
-
 
         for(let n = 0; n < 3 && n < tamanho_anotacoes; n++)
         {
