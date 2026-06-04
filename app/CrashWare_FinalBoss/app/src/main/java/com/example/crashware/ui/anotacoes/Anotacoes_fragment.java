@@ -147,6 +147,7 @@ public class Anotacoes_fragment extends Fragment {
 
                 //ao ir para o fragment, puxa as informações necessárias para alterar o correto
                 Bundle bundle = new Bundle();
+                bundle.putInt("idAnotacao", anotacao.getIdAnotacao());
                 bundle.putString("titulo", anotacao.getTitulo());
                 bundle.putString("conteudo", anotacao.getConteudo());
                 bundle.putString("dataCriacao", anotacao.getDataCriacao());
@@ -325,15 +326,15 @@ public class Anotacoes_fragment extends Fragment {
                             {
 
                                 //Pego os valores da array
+                                Integer id = item.id_anotacao;
                                 String titulo = item.titulo;
                                 String texto = item.texto;
                                 String criado_em = formatarData(item.criado_em);
                                 String atualizado_em = formatarData(item.atualizado_em);
 
 
-
                                 Anotacao anotacao =
-                                        new Anotacao(titulo, texto, criado_em, atualizado_em);
+                                        new Anotacao(id,titulo, texto, criado_em, atualizado_em);
 
                                 listaAnotacoes.add(anotacao);
                                 listaOriginal.add(anotacao);
@@ -365,6 +366,7 @@ public class Anotacoes_fragment extends Fragment {
             {
                 JSONObject obj = new JSONObject();
 
+                obj.put("idAnotacao", anotacao.getIdAnotacao());
                 obj.put("titulo", anotacao.getTitulo());
                 obj.put("conteudo", anotacao.getConteudo());
                 obj.put("dataCriacao", anotacao.getDataCriacao());
@@ -373,13 +375,6 @@ public class Anotacoes_fragment extends Fragment {
                 array.put(obj);
             }
 
-            SharedPreferences prefs =
-                    requireActivity()
-                            .getSharedPreferences("dados", MODE_PRIVATE);
-
-            prefs.edit()
-                    .putString("lista_anotacoes", array.toString())
-                    .apply();
         }
         catch (Exception e)
         {

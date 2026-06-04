@@ -3,18 +3,25 @@ package com.example.crashware.ui.Models;
 public class Anotacao
 {
     // Variáveis presentes na anotação
+
+    private Integer idAnotacao;
     private String titulo;
     private String conteudo;
 
     private String dataCriacao;
     private String dataEdicao;
 
+
+
     // CONSTRUTOR
-    public Anotacao(String titulo,
+    public Anotacao(
+                    Integer idAnotacao,
+                    String titulo,
                     String conteudo,
                     String dataCriacao,
                     String dataEdicao)
     {
+        this.idAnotacao = idAnotacao;
         this.titulo = titulo;
         this.conteudo = conteudo;
 
@@ -23,6 +30,9 @@ public class Anotacao
     }
 
     // GETTERS
+
+    public  Integer getIdAnotacao() {  return  idAnotacao; }
+
     public String getTitulo()
     {
         return titulo;
@@ -44,6 +54,12 @@ public class Anotacao
     }
 
     // SETTERS
+
+    public void setTitulo(Integer idAnotacao)
+    {
+        this.idAnotacao = idAnotacao;
+    }
+
     public void setTitulo(String titulo)
     {
         this.titulo = titulo;

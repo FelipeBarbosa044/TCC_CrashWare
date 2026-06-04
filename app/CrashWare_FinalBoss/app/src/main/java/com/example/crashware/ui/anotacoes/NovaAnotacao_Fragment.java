@@ -132,6 +132,8 @@ public class NovaAnotacao_Fragment extends Fragment {
                         return;
                     }
 
+                    Toast.makeText(getContext(),"Criando Anotação...",LENGTH_LONG).show();
+
                     //Verifico o token
                     Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback()
                     {
@@ -140,7 +142,6 @@ public class NovaAnotacao_Fragment extends Fragment {
                         public void onSuccess()
                         {
                             try {
-                                Toast.makeText(getContext(),"Adicionando Anotação...",LENGTH_LONG).show();
                                 //Salva no Banco
                                 Anotacoes.Adicionar_Anotacao(titulo, texto, prefs, NovaAnotacao_Fragment.this);
 

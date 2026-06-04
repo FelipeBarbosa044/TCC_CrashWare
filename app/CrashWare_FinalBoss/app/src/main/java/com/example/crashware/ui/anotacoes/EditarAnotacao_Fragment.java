@@ -1,7 +1,9 @@
 package com.example.crashware.ui.anotacoes;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.widget.Toast.LENGTH_LONG;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -21,6 +23,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import com.example.crashware.R;
+import com.example.crashware.ui.api.Anotacoes;
+import com.example.crashware.ui.api.Auth;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,7 +43,11 @@ public class EditarAnotacao_Fragment extends Fragment {
     //Váriaveis utilizadas
     boolean EstadoAnotacao = false;
 
+    String tituloAntigo = "";
+    String textoAntigo = "";
+
     int position = -1;
+    int idAnotacao = -1;
 
     public EditarAnotacao_Fragment() {
         // Required empty public constructor
@@ -61,21 +69,22 @@ public class EditarAnotacao_Fragment extends Fragment {
         txtDataEdicao      = view.findViewById(R.id.txtDataEdicao        );
 
         //Inicia o Shared Preferences
-        prefs = requireActivity().getSharedPreferences("dados", MODE_PRIVATE);
+        prefs = requireContext().getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
 
         // pega posição do item clicado
         if (getArguments() != null) {
             position = getArguments().getInt("position", -1);
+            idAnotacao = getArguments().getInt("idAnotacao", -1);
 
-            String titulo = getArguments().getString("titulo");
-            String conteudo = getArguments().getString("conteudo");
+            tituloAntigo = getArguments().getString("titulo");
+            textoAntigo = getArguments().getString("conteudo");
 
             String dataCriacao = getArguments().getString("dataCriacao");
             String dataEdicao = getArguments().getString("dataEdicao");
 
 
-            txtTituloAnotacao.setText(titulo);
-            txtAnotacao.setText(conteudo);
+            txtTituloAnotacao.setText(tituloAntigo);
+            txtAnotacao.setText(textoAntigo);
 
             txtDataCriacao.setText(dataCriacao);
             txtDataEdicao.setText(dataEdicao);
@@ -111,36 +120,53 @@ public class EditarAnotacao_Fragment extends Fragment {
             } else {
 
                 try {
+                    //Pega os Valores
                     String novoTitulo = txtTituloAnotacao.getText().toString();
                     String novoConteudo = txtAnotacao.getText().toString();
                     String novaDataEdicao = pegarDataAtual();
 
-                    String json = prefs.getString("lista_anotacoes", "[]");
-                    JSONArray array = new JSONArray(json);
+                    if(novoTitulo.isEmpty())
+                    {
+                        Toast.makeText(getContext(),"O Título Deve ser Preenchido",LENGTH_LONG).show();
+                        return;
+                    }
+
+                    Toast.makeText(getContext(),"Editando Anotação...",LENGTH_LONG).show();
+                    //Pega a lista no SharedPreferences
+//                    String json = prefs.getString("lista_anotacoes", "[]");
+//                    JSONArray array = new JSONArray(json);
 
                     if (position != -1) {
 
-                        JSONObject obj = array.getJSONObject(position);
 
-                        obj.put("titulo", novoTitulo);
-                        obj.put("conteudo", novoConteudo);
-                        obj.put("dataEdicao", novaDataEdicao);
+                        //Verifico o token
+                        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback()
+                        {
 
-                        txtDataEdicao.setText(novaDataEdicao);
+                            @Override
+                            public void onSuccess()
+                            {
 
-                        prefs.edit()
-                                .putString("lista_anotacoes", array.toString())
-                                .apply();
+                                //Salva no Banco
+                                Anotacoes.Editar_Anotacao(novoTitulo,novoConteudo,idAnotacao,prefs,EditarAnotacao_Fragment.this);
+
+                                //Exibo na tela a nova data de edição
+                                txtDataEdicao.setText(novaDataEdicao);
+
+
+                            }
+                        });
+
+
                     }
 
+                    //Sai do modo Edição
                     txtAnotacao.setEnabled(false);
                     txtTituloAnotacao.setEnabled(false);
                     btnEditarAnotacao.setText("Editar");
                     EstadoAnotacao = false;
 
-                    Toast.makeText(getContext(),
-                            "Edição salva!",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), "Edição salva!", Toast.LENGTH_SHORT).show();
 
                 } catch (Exception e) {
                     e.printStackTrace();

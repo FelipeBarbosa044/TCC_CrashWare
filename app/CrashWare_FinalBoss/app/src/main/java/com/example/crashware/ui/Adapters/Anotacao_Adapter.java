@@ -60,7 +60,7 @@ public class Anotacao_Adapter extends RecyclerView.Adapter<Anotacao_Adapter.View
         holder.txtConteudo.setText(anotacao.getConteudo());
 
         // Data exibida
-        holder.txtData.setText(anotacao.getDataCriacao());
+        holder.txtData.setText(anotacao.getDataEdicao());
 
         //quando clica, seleciona a anotação correta baseada na ordem da lista
         holder.itemView.setOnClickListener(v -> {

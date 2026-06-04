@@ -35,7 +35,7 @@ public class Anotacoes {
     public static class AnotacaoResponse{
 
 
-        public int id_anotacao;
+        public Integer id_anotacao;
         public String titulo;
         public String texto;
         public String criado_em;
@@ -148,10 +148,11 @@ public class Anotacoes {
 
         public String titulo;
         public String texto;
+
         public Integer id;
 
 
-        public AnotacaoRequest(String titulo, String texto , Integer id) {
+        public AnotacaoRequest(String titulo, String texto, Integer id) {
             this.titulo = titulo;
             this.texto = texto;
             this.id = id;
@@ -163,7 +164,7 @@ public class Anotacoes {
 
 
         public String mensagem;
-        public int id_anotacao;
+
         public String id;
         public String criado_em;
         public String atualizado_em;
@@ -289,7 +290,7 @@ public class Anotacoes {
 
     }
 
-    public static void Editar_Anotacao(String titulo,String texto,Integer id, SharedPreferences prefs, Fragment fragment) {
+    public static void Editar_Anotacao(String titulo,String texto,Integer idAnotacao, SharedPreferences prefs, Fragment fragment) {
 
         //Pego o valor do token
         String token = prefs.getString("token", null);
@@ -298,7 +299,7 @@ public class Anotacoes {
         token = "Bearer " + token;
 
         //Objeto de Adicionar Anotação
-        AnotacaoRequest dados = new AnotacaoRequest(titulo, texto, id);
+        AnotacaoRequest dados = new AnotacaoRequest(titulo, texto, idAnotacao);
 
 
         // Criando a API
@@ -323,6 +324,14 @@ public class Anotacoes {
                 if(resposta.isSuccessful())
                 {
                     //Requisição der certo
+
+//                   AdicionarAnotacaoResponse dados = resposta.body();
+
+                    //Avisa o Anotacoes_fragment para recarregar
+                    fragment.getParentFragmentManager().setFragmentResult(
+                            "atualizar_anotacoes",
+                            new Bundle()
+                    );
 
 
 
@@ -381,7 +390,7 @@ public class Anotacoes {
         );
 
     }
-    public static void Deletar_Anotacao(Integer id, SharedPreferences prefs, Fragment fragment) {
+    public static void Deletar_Anotacao(Integer idAnotacao, SharedPreferences prefs, Fragment fragment) {
 
         //Pego o valor do token
         String token = prefs.getString("token", null);
@@ -390,7 +399,7 @@ public class Anotacoes {
         token = "Bearer " + token;
 
         //Objeto de Adicionar Anotação
-        AnotacaoRequest dados = new AnotacaoRequest(null, null, id);
+        AnotacaoRequest dados = new AnotacaoRequest(null, null,idAnotacao);
 
 
         // Criando a API
