@@ -1,8 +1,11 @@
 from fastapi import APIRouter, Depends,HTTPException
 from sqlalchemy import select
+from sqlalchemy.orm import defer
+
 
 #Importando tabelas:
 from models.gamificacao import Conquista
+from models.usuarios import Usuarios
 
 #Importando SHCEMAS:
 from schemas.admSchema import ConquistaSchema, DeletarConquistaSchema
@@ -60,6 +63,14 @@ async def deletar_conquista(dados : DeletarConquistaSchema ,session = Depends(pe
 
     ##Retorno a resposta
     return {"mensagem" : "Conquista deletada"}
+
+
+
+@adm.get('/buscar_usuarios')
+async def buscar_usuarios(session = Depends(pegar_sessao)):
+    quantidade_usuarios = session.query(Usuarios).count()
+
+    return {"quantidade" : quantidade_usuarios}
 
 
 
