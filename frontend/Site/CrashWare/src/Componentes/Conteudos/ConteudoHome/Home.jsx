@@ -87,12 +87,21 @@ const ConteudoHome = () => {
         //Busco as ultimas anotações
         const anotacao =  await annotation.buscar_anotacao(setPopup)
 
+        //Quantidade de anotações
         const tamanho_anotacoes = anotacao.length
 
 
-        for(let n = 0; n < 3 && n < tamanho_anotacoes; n++)
+        if(tamanho_anotacoes == 0)
         {
-            anotacaoItens.push({ titulo: anotacao[n]?.titulo , data: formatarData(anotacao[n]?.atualizado_em)})
+            //Retornar o texto
+
+        }else
+        {
+            //Exibe na home as ultimas anotações
+            for(let n = 0; n < 3 && n < tamanho_anotacoes; n++)
+            {
+                anotacaoItens.push({ titulo: anotacao[n]?.titulo , data: formatarData(anotacao[n]?.atualizado_em)})
+            }
         }
     
         
