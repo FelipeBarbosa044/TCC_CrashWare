@@ -57,7 +57,7 @@ async def buscar_conquista(usuario = Depends(validar_token),session = Depends(pe
 
     ##Pego as conquistas do usuario
     conquista_usuario = (session.execute(
-            select(Conquista.nome_conquista,Conquista.descricao)
+            select(Conquista.nome_conquista,Conquista.descricao,Conquista.tipo_conquista)
             .join(Usuario_Conquista,Usuario_Conquista.conquista_id == Conquista.id_conquista)
             .where(Usuario_Conquista.usuario_id == id))
         .mappings()

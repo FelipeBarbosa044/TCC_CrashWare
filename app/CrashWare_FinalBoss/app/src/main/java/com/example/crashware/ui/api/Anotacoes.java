@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.crashware.ui.login.ConfirmarIdentidade;
 
 import org.json.JSONObject;
 
@@ -18,8 +17,10 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 
 public class Anotacoes {
@@ -143,7 +144,6 @@ public class Anotacoes {
 
         public String titulo;
         public String texto;
-
         public Integer id;
 
 
@@ -211,7 +211,7 @@ public class Anotacoes {
                 if(resposta.isSuccessful())
                 {
                     //Requisição der certo
-                    
+
 
 
                 }
@@ -254,10 +254,192 @@ public class Anotacoes {
     }//Buscar Anotacoes
 
 
+    //Editar Anotação
+
+    // INTERFACE da API:
+    public static interface EditarAnotacao {
+
+        @PATCH("/annotation/editar_anotacao")
+        Call<AdicionarAnotacaoResponse> editar(
+                @Header("Authorization") String token,
+                @Body AnotacaoRequest request
+        );
+
+    }
+
+    public static void Editar_Anotacao(String titulo,String texto,Integer id, SharedPreferences prefs, Fragment fragment) {
+
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
+
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
+
+        //Objeto de Adicionar Anotação
+        AnotacaoRequest dados = new AnotacaoRequest(titulo, texto, id);
 
 
-}//Adicionar Anotação
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Fazendo que a interface da API seja utilizavel:
+        EditarAnotacao api = retrofit.create(EditarAnotacao.class);
+
+
+        // Monto a chamada da API
+        Call<AdicionarAnotacaoResponse> requisicao = api.editar(token, dados);
+
+        requisicao.enqueue(new Callback<AdicionarAnotacaoResponse>() {
+            @Override
+            public void onResponse(
+                    Call<AdicionarAnotacaoResponse> requisicao,
+                    retrofit2.Response<AdicionarAnotacaoResponse> resposta
+            ) {
+                if(resposta.isSuccessful())
+                {
+                    //Requisição der certo
 
 
 
-}
+                }
+                else {
+                    //Retorna erro caso a reqsição estiver errada
+
+                    String erro = "Erro ao Editar Anotação";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    Toast.makeText(fragment.requireContext(), erro, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AdicionarAnotacaoResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+                Toast.makeText(
+                        fragment.requireContext(),
+                        "Erro de conexão: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+
+
+
+    }//Editar Anotação
+
+
+
+    //Excluir Anotação
+
+    // INTERFACE da API:
+    public static interface DeletarAnotacao {
+
+        @DELETE("/annotation/deletar_anotacao")
+        Call<AdicionarAnotacaoResponse> deletar(
+                @Header("Authorization") String token,
+                @Body AnotacaoRequest request
+        );
+
+    }
+    public static void Deletar_Anotacao(Integer id, SharedPreferences prefs, Fragment fragment) {
+
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
+
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
+
+        //Objeto de Adicionar Anotação
+        AnotacaoRequest dados = new AnotacaoRequest(null, null, id);
+
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Fazendo que a interface da API seja utilizavel:
+        DeletarAnotacao api = retrofit.create(DeletarAnotacao.class);
+
+        // Monto a chamada da API
+        Call<AdicionarAnotacaoResponse> requisicao = api.deletar(token, dados);
+
+        requisicao.enqueue(new Callback<AdicionarAnotacaoResponse>() {
+            @Override
+            public void onResponse(
+                    Call<AdicionarAnotacaoResponse> requisicao,
+                    retrofit2.Response<AdicionarAnotacaoResponse> resposta
+            ) {
+                if(resposta.isSuccessful())
+                {
+                    //Requisição der certo
+
+
+
+                }
+                else {
+                    //Retorna erro caso a reqsição estiver errada
+
+                    String erro = "Erro ao Deletar Anotação";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    Toast.makeText(fragment.requireContext(), erro, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AdicionarAnotacaoResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+                Toast.makeText(
+                        fragment.requireContext(),
+                        "Erro de conexão: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+
+
+
+    }//Deletar Anotação
+
+
+
+}//Anotações
+
+
+
+
