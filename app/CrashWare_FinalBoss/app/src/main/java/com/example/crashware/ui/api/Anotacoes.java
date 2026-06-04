@@ -23,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -383,13 +384,13 @@ public class Anotacoes {
     // INTERFACE da API:
     public static interface DeletarAnotacao {
 
-        @DELETE("/annotation/deletar_anotacao")
+        @HTTP(method = "DELETE", path = "/annotation/deletar_anotacao", hasBody = true)
         Call<AdicionarAnotacaoResponse> deletar(
                 @Header("Authorization") String token,
                 @Body AnotacaoRequest request
         );
 
-    }
+    }//Interface
     public static void Deletar_Anotacao(Integer idAnotacao, SharedPreferences prefs, Fragment fragment) {
 
         //Pego o valor do token
@@ -423,8 +424,7 @@ public class Anotacoes {
                 if(resposta.isSuccessful())
                 {
                     //Requisição der certo
-
-
+                    //Igonora
 
                 }
                 else {

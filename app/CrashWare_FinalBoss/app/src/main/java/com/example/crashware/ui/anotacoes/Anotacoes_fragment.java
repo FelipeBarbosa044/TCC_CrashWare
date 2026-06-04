@@ -407,8 +407,14 @@ public class Anotacoes_fragment extends Fragment {
                             return;
                         }
 
+
+
+
                         // salva anotação removida
                         Anotacao removida = listaAnotacoes.get(position);
+
+                        // pega o id da anotação
+                        int idAnotacao = removida.getIdAnotacao();
 
                         // remove da lista
                         listaAnotacoes.remove(position);
@@ -440,6 +446,19 @@ public class Anotacoes_fragment extends Fragment {
                                     rvListaAnotacoes.scrollToPosition(position);
 
                                     salvarAnotacoes();
+                                })
+                                .addCallback(new Snackbar.Callback() {
+                                    @Override
+                                    public void onDismissed(Snackbar snackbar, int event) {
+                                        super.onDismissed(snackbar, event);
+
+                                        // Se o usuário NÃO clicou em "DESFAZER"
+                                        if (event != Snackbar.Callback.DISMISS_EVENT_ACTION) {
+
+                                            // Aqui remove do banco
+                                            Anotacoes.Deletar_Anotacao(idAnotacao,prefs,Anotacoes_fragment.this);
+                                        }
+                                    }
                                 })
 
                                 .show();
