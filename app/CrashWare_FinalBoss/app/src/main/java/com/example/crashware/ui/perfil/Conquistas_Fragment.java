@@ -183,6 +183,10 @@ public class Conquistas_Fragment extends Fragment {
                             String descricao =
                                     conquista.descricao;
 
+                            //Tipo da conquista
+                            String tipo =
+                                    conquista.tipo_conquista;
+
                             /*
                              * Aqui você cria um objeto Conquista
                              * para adicionar ao RecyclerView
@@ -256,6 +260,10 @@ public class Conquistas_Fragment extends Fragment {
                             String descricao =
                                     conquista.descricao;
 
+
+                            //Tipo da conquista
+                            String tipo =
+                                    conquista.tipo_conquista;
                             /*
                              * Aqui você cria um objeto Conquista
                              * para adicionar ao RecyclerView
