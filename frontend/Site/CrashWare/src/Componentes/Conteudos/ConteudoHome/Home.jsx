@@ -80,26 +80,38 @@ const ConteudoHome = () => {
     };
 
 
-
+    const [carregandoAnotacoes, setCarregandoAnotacoes] = useState(true);
     //Exibie na tela as anotações
     async function atualizarAnotacoes() {
 
+        setCarregandoAnotacoes(true); //add hj 04/05/26
         //Busco as ultimas anotações
         const anotacao = await annotation.buscar_anotacao(setPopup)
 
         //Quantidade de anotações
-        const tamanho_anotacoes = anotacao.length
+        const tamanho_anotacoes = anotacao.length;
 
-        if (tamanho_anotacoes == 0) {
-
-        } else {
-            //Exibe na home as ultimas anotações
+        if (tamanho_anotacoes > 0) {
+            const novasAnotacoes = [];
             for (let n = 0; n < 3 && n < tamanho_anotacoes; n++) {
-                anotacaoItens.push({ titulo: anotacao[n]?.titulo, data: formatarData(anotacao[n]?.atualizado_em) })
+                novasAnotacoes.push({
+                    titulo: anotacao[n]?.titulo,
+                    data: formatarData(anotacao[n]?.atualizado_em)
+                });
             }
+            setAnotacaoItens(novasAnotacoes);
         }
 
+        setCarregandoAnotacoes(false)
 
+        // if (tamanho_anotacoes == 0) {
+
+        // } else {
+        //     //Exibe na home as ultimas anotações
+        //     for (let n = 0; n < 3 && n < tamanho_anotacoes; n++) {
+        //         anotacaoItens.push({ titulo: anotacao[n]?.titulo, data: formatarData(anotacao[n]?.atualizado_em) })
+        //     }
+        // }
     }
 
     async function CarregarInformacoes() {
@@ -287,12 +299,20 @@ const ConteudoHome = () => {
                         <h4 className={style.secaoTitulo}>ÚLTIMAS ANOTAÇÕES</h4>
 
                         <div className={style.listaAnotacoes}>
-                            {anotacaoItens.map((a, index) => (
-                                <div key={index} className={style.itemAnotacao}>
-                                    <p className={style.anotacaoTitulo}>{a.titulo}</p>
-                                    <span className={style.anotacaoData}>{a.data}</span>
-                                </div>
-                            ))}
+                            {carregandoAnotacoes ? (
+                                <div className={style.giradorLegal_Anotacao} />
+                            ) : 
+                                anotacaoItens.length === 0 ? (
+                                    <p className={style.TextoMotivador}>Que tal iniciar o hábito da escrita? Você não vai se arrepender</p>
+                                ): (
+                                        anotacaoItens.map((a, index) => (
+                                            <div key={index} className={style.itemAnotacao}>
+                                                <p className={style.anotacaoTitulo}>{a.titulo}</p>
+                                                <span className={style.anotacaoData}>{a.data}</span>
+                                            </div>
+                                        ))
+                            )}
+
                         </div>
 
                         <Link to="/anotacoes">

@@ -32,8 +32,12 @@ const ConteudoAnotacao = () => {
     //Lista que contém todos os usestate
     const set = [setToken, setRefresh, setDados];
 
-    
-    const annotation = new Annotation(token,refresh_token,Navegacao,set)
+
+    const annotation = new Annotation(token, refresh_token, Navegacao, set);
+
+    //Carregador
+    const [carregandoNotas, setCarregandoNotas] = useState(true);
+
 
     //Popup
     const [popup, setPopup] = useState(null);
@@ -42,8 +46,7 @@ const ConteudoAnotacao = () => {
     const [anotacoes, setAnotacoes] = useState([])
 
 
-    async function BuscarAnotacoes() 
-    {
+    async function BuscarAnotacoes() {
         // setPopup({
         //         tipo: 'aviso',
         //         titulo: 'Anotações',
@@ -51,9 +54,11 @@ const ConteudoAnotacao = () => {
         //     });
 
         //Busco as anotações
-        const anotacoesSalvas = await annotation.buscar_anotacao(setPopup,setAnotacoes);
+        const anotacoesSalvas = await annotation.buscar_anotacao(setPopup, setAnotacoes);
 
-        
+        setCarregandoNotas(false)
+
+
     }
 
     //Trata a Data
@@ -81,17 +86,16 @@ const ConteudoAnotacao = () => {
     })
 
     // //Busco a anotação sempre que a pag for carregada
-     useEffect(() => {
+    useEffect(() => {
 
         BuscarAnotacoes();
 
-    },[])
+    }, [])
 
     // CRIAR NOTA
-    const criarNota =  async () => {    
-        
-        if( infoNota.tituloAnotacao.trim() === "" )
-        {
+    const criarNota = async () => {
+
+        if (infoNota.tituloAnotacao.trim() === "") {
             setPopup({
                 tipo: 'aviso',
                 titulo: 'Título',
@@ -102,19 +106,19 @@ const ConteudoAnotacao = () => {
         }
 
 
-         setPopup({
-                tipo: 'aviso',
-                titulo: 'Anotação',
-                mensagem: 'Criando Anotação...'
-            });
+        setPopup({
+            tipo: 'aviso',
+            titulo: 'Anotação',
+            mensagem: 'Criando Anotação...'
+        });
 
         //Chamo o método de criar anotação
         //Crio a anotação no banco de dados
-        const anotacao = await annotation.adicionar_anotacao(infoNota.tituloAnotacao,infoNota.textoAnotacao,setPopup)
+        const anotacao = await annotation.adicionar_anotacao(infoNota.tituloAnotacao, infoNota.textoAnotacao, setPopup)
 
         const nova = {
 
-            id_anotacao: anotacao?.id, 
+            id_anotacao: anotacao?.id,
 
             titulo: infoNota.tituloAnotacao,
 
@@ -183,22 +187,21 @@ const ConteudoAnotacao = () => {
         }
 
         if (infoNota.tituloAnotacao.trim() === "") {
-                setPopup({
-                    tipo: "aviso",
-                    titulo: "Título",
-                    mensagem: "O título Deve Ser Preenchido"
-                });
+            setPopup({
+                tipo: "aviso",
+                titulo: "Título",
+                mensagem: "O título Deve Ser Preenchido"
+            });
 
-                return;
-            }
+            return;
+        }
 
         //Chamo a o método de editar anotação
         //Salvo no Banco de Dados
-        const anotacao_atualizada = await annotation.editar_anotacao(infoNota.tituloAnotacao,infoNota.textoAnotacao,notaSelecionada.id_anotacao,setPopup)
+        const anotacao_atualizada = await annotation.editar_anotacao(infoNota.tituloAnotacao, infoNota.textoAnotacao, notaSelecionada.id_anotacao, setPopup)
 
         //Caso a anotação atualizada retorne vazia
-        if(!anotacao_atualizada)
-        {
+        if (!anotacao_atualizada) {
             return;
         }
 
@@ -244,11 +247,10 @@ const ConteudoAnotacao = () => {
         }
 
         //Apago no banco de dados
-        const deletado = await annotation.deletar_anotacao(notaSelecionada.id_anotacao,setPopup)
+        const deletado = await annotation.deletar_anotacao(notaSelecionada.id_anotacao, setPopup)
 
         //Caso o deletar retornar False
-        if(deletado == false)
-        {
+        if (deletado == false) {
             return;
         }
 
@@ -274,19 +276,20 @@ const ConteudoAnotacao = () => {
         setModoEdicao(false)
     }
 
-    // FILTRAGEM
+    //Filtragem
     const anotacoesFiltradas = anotacoes.filter(n =>
 
         (n.titulo || "").toLowerCase().includes(pesquisar.toLowerCase()) ||
         (n.texto || "").toLowerCase().includes(pesquisar.toLowerCase())
     )
 
+
     // ITEM LATERAL
     const ItensBarraLateral = ({
         nota,
         onClick
     }) => {
-        
+
         return (
 
             <div
@@ -302,15 +305,15 @@ const ConteudoAnotacao = () => {
 
             </div>
         )
-         
+
     }
-    
+
 
     return (
 
         <>
-       
-        {popup && (
+
+            {popup && (
                 <PopUp
                     tipo={popup.tipo}
                     titulo={popup.titulo}
@@ -318,140 +321,148 @@ const ConteudoAnotacao = () => {
                     onFechar={() => setPopup(null)}
                 />
             )}
-        <div className={style.corpo}>
+            <div className={style.corpo}>
 
-            <div className={style.container}>
-                {/* ESQUERDA */}
-                <div className={style.coluna_esquerda}>
-                    <div className={style.barraLateral}>
-                        {/* HEADER */}
-                        <div className={style.barraLateral_header}>
-                            <CampoTexto
-                                placeholder="Pesquisar"
-                                className={style.barraLateral_campoPesquisa}
-                                value={pesquisar}
+                <div className={style.container}>
+                    {/* ESQUERDA */}
+                    <div className={style.coluna_esquerda}>
+                        <div className={style.barraLateral}>
+                            {/* HEADER */}
+                            <div className={style.barraLateral_header}>
+                                <CampoTexto
+                                    placeholder="Pesquisar"
+                                    className={style.barraLateral_campoPesquisa}
+                                    value={pesquisar}
+                                    onChange={(e) =>
+                                        setPesquisar(e.target.value)
+                                    }
+                                />
+                            </div>
+                            {/* LISTA */}
+                            <div className={style.barraLateral_listaNotas}>
+
+                                {carregandoNotas ? (
+                                    <div className={style.giradorLegal_Notas} />
+                                ) :
+                                    anotacoesFiltradas.length === 0 ? (
+                                        <p className={style.TextoMotivador}>Anotar oque se aprende é essencial para manter gravado no seu SDD</p>
+                                    ) :
+                                        (
+                                            anotacoesFiltradas.map((nota) => (
+                                                <ItensBarraLateral
+                                                    key={nota.id_anotacao}
+                                                    nota={nota}
+                                                    onClick={() =>
+                                                        selecionarNota(nota)
+                                                    }
+                                                />
+                                            )))}
+                            </div>
+                        </div>
+                    </div>
+                    {/* DIREITA */}
+                    <div className={style.coluna_direita}>
+                        <div className={style.nota_cabecalho}>
+                            <h1>Titulo da Anotação</h1>
+                            {/* INPUT TITULO */}
+                            <input
+                                type="text"
+                                maxLength={150}
+                                placeholder="Adicione o Título da Anotação"
+                                className={style.nota_inputTitulo}
+                                value={infoNota.tituloAnotacao}
+                                disabled={
+                                    notaSelecionada && !modoEdicao
+                                }
                                 onChange={(e) =>
-                                    setPesquisar(e.target.value)
+                                    setInfoNota({
+                                        ...infoNota,
+                                        tituloAnotacao: e.target.value
+                                    })
+                                }
+                            />
+                            {/* BOTÃO EDITAR / SALVAR */}
+                            {
+                                notaSelecionada && (
+                                    <BotoesForm
+                                        texto={
+                                            modoEdicao
+                                                ? "Salvar"
+                                                : "Editar"
+                                        }
+                                        className={style.nota_botaoEditar}
+                                        onClick={editarNota}
+                                    />
+                                )
+                            }
+                            {/* BOTÃO EXCLUIR */}
+                            {
+                                notaSelecionada && (
+                                    <BotoesForm
+                                        texto="Excluir nota"
+                                        className={style.nota_botaoExcluir}
+                                        onClick={excluirNota}
+                                    />
+                                )
+                            }
+                            {/* DATAS */}
+                            <div className={style.nota_infoDatas}>
+                                <h5>
+                                    Criado em: {
+                                        notaSelecionada
+                                            ? formatarData(notaSelecionada.criado_em)
+                                            : ""
+                                    }
+                                </h5>
+                                <h5>
+                                    Editado em: {
+                                        notaSelecionada
+                                            ? formatarData(notaSelecionada.atualizado_em)
+                                            : ""
+                                    }
+                                </h5>
+                            </div>
+                        </div>
+                        {/* CONTEÚDO */}
+                        <div className={style.nota_blocoTexto}>
+                            <textarea
+                                className={style.nota_textarea}
+                                placeholder="Digite sua anotação"
+                                value={infoNota.textoAnotacao}
+                                disabled={
+                                    notaSelecionada && !modoEdicao
+                                }
+                                onChange={(e) =>
+                                    setInfoNota({
+                                        ...infoNota,
+                                        textoAnotacao: e.target.value
+                                    })
                                 }
                             />
                         </div>
-                        {/* LISTA */}
-                       <div className={style.barraLateral_listaNotas}>
-                            {anotacoesFiltradas.map((nota) => (
-                                <ItensBarraLateral
-                                    key={nota.id_anotacao}
-                                    nota={nota}
-                                    onClick={() =>
-                                        selecionarNota(nota)
-                                    }
-                                />
-                            ))}
-                        </div>
-                    </div>
-                </div>
-                {/* DIREITA */}
-                <div className={style.coluna_direita}>
-                    <div className={style.nota_cabecalho}>
-                        <h1>Titulo da Anotação</h1>
-                        {/* INPUT TITULO */}
-                        <input
-                            type="text"
-                            maxLength={150}
-                            placeholder="Adicione o Título da Anotação"
-                            className={style.nota_inputTitulo}
-                            value={infoNota.tituloAnotacao}
-                            disabled={
-                                notaSelecionada && !modoEdicao
-                            }
-                            onChange={(e) =>
-                                setInfoNota({
-                                    ...infoNota,
-                                    tituloAnotacao: e.target.value
-                                })
-                            }
-                        />
-                        {/* BOTÃO EDITAR / SALVAR */}
+                        {/* BOTÃO */}
                         {
-                            notaSelecionada && (
-                                <BotoesForm
-                                    texto={
-                                        modoEdicao
-                                            ? "Salvar"
-                                            : "Editar"
-                                    }
-                                    className={style.nota_botaoEditar}
-                                    onClick={editarNota}
-                                />
+                            notaSelecionada ? (
+                                <button
+                                    className={style.nota_botaoCriar}
+                                    onClick={novaNota}
+                                >
+                                    <p>Nova nota</p>
+                                </button>
+                            ) : (
+                                <button
+                                    className={style.nota_botaoCriar}
+                                    onClick={criarNota}
+                                >
+                                    <p>Criar nota</p>
+                                </button>
                             )
                         }
-                        {/* BOTÃO EXCLUIR */}
-                        {
-                            notaSelecionada && (
-                                <BotoesForm
-                                    texto="Excluir nota"
-                                    className={style.nota_botaoExcluir}
-                                    onClick={excluirNota}
-                                />
-                            )
-                        }
-                        {/* DATAS */}
-                        <div className={style.nota_infoDatas}>
-                            <h5>
-                                Criado em: {
-                                    notaSelecionada
-                                        ? formatarData(notaSelecionada.criado_em)
-                                        : ""
-                                }
-                            </h5>
-                            <h5>
-                                Editado em: {
-                                    notaSelecionada
-                                        ? formatarData(notaSelecionada.atualizado_em)
-                                        : ""
-                                }
-                            </h5>
-                        </div>
                     </div>
-                    {/* CONTEÚDO */}
-                    <div className={style.nota_blocoTexto}>
-                        <textarea
-                            className={style.nota_textarea}
-                            placeholder="Digite sua anotação"
-                            value={infoNota.textoAnotacao}
-                            disabled={
-                                notaSelecionada && !modoEdicao
-                            }
-                            onChange={(e) =>
-                                setInfoNota({
-                                    ...infoNota,
-                                    textoAnotacao: e.target.value
-                                })
-                            }
-                        />
-                    </div>
-                    {/* BOTÃO */}
-                    {
-                        notaSelecionada ? (
-                            <button
-                                className={style.nota_botaoCriar}
-                                onClick={novaNota}
-                            >
-                                <p>Nova nota</p>
-                            </button>
-                        ) : (
-                            <button
-                                className={style.nota_botaoCriar}
-                                onClick={criarNota}
-                            >
-                                <p>Criar nota</p>
-                            </button>
-                        )
-                    }
                 </div>
-            </div>
 
-        </div>
-    </> 
+            </div>
+        </>
     )
 }
 

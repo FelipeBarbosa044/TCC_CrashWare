@@ -116,7 +116,7 @@ const ConteudoConfiguracoes = () => {
     const campo = new Configurações(token, refresh_token, Navegacao, set)
 
     //Objeto da classe API
-    const api = new Api(token,refresh_token,Navegacao,set,true);
+    const api = new Api(token, refresh_token, Navegacao, set, true);
 
     // Configurações de cada popup
     const configsPopup = {
@@ -218,10 +218,10 @@ const ConteudoConfiguracoes = () => {
 
         //Requisição de validar email
         setPopup({
-                tipo: 'aviso',
-                titulo: 'Validação',
-                mensagem: "Validando email..."
-            });
+            tipo: 'aviso',
+            titulo: 'Validação',
+            mensagem: "Validando email..."
+        });
 
         await campo.Validar_Email(email, setPopup)
     }
@@ -255,7 +255,7 @@ const ConteudoConfiguracoes = () => {
     //Verificar Telefone
     const VerificarTelefone = async () => {
 
-        
+
 
         if (telefoneLimpo != telefoneConfirmacaoLimpo) {
             setPopup({
@@ -275,78 +275,74 @@ const ConteudoConfiguracoes = () => {
             return;
         }
 
-        
-        if(usuario?.telefone != null)
-        {
-            localStorage.setItem("alterar_telefone" , "true")
+
+        if (usuario?.telefone != null) {
+            localStorage.setItem("alterar_telefone", "true")
 
             //Rota de alterar Telefone
-            await campo.Verificar_Telefone(telefoneLimpo,emailAtual,setPopup,Navegacao)
+            await campo.Verificar_Telefone(telefoneLimpo, emailAtual, setPopup, Navegacao)
 
-        }else
-        {
+        } else {
 
-            localStorage.setItem("adicionar_telefone" , "true")
+            localStorage.setItem("adicionar_telefone", "true")
 
             //Rota de add o telefone
             //Rota de verificar o telefone
-            await campo.Verificar_Telefone(telefoneLimpo,emailAtual,setPopup,Navegacao)
+            await campo.Verificar_Telefone(telefoneLimpo, emailAtual, setPopup, Navegacao)
         }
-        
-       
+
+
 
     }
 
-     const temPhone = usuario?.telefone;
+    const temPhone = usuario?.telefone;
 
-    const AlterarNome = async () =>
-    {
-         if (!nome.trim()) {
-                
-                setPopup({
-                    tipo: 'aviso',
-                    titulo: 'Erro no formulário',
-                    mensagem: "Preencha o nome"
-                });
-                return ;
-            }
+    const AlterarNome = async () => {
+        if (!nome.trim()) {
 
-        if(nome.toLocaleLowerCase() == usuario?.nome.toLocaleLowerCase())
-        {
-             setPopup({
-                    tipo: 'aviso',
-                    titulo: 'Erro no formulário',
-                    mensagem: "O nome deve ser diferente do anterior!"
-                });
-                return ;
+            setPopup({
+                tipo: 'aviso',
+                titulo: 'Erro no formulário',
+                mensagem: "Preencha o nome"
+            });
+            return;
+        }
+
+        if (nome.toLocaleLowerCase() == usuario?.nome.toLocaleLowerCase()) {
+            setPopup({
+                tipo: 'aviso',
+                titulo: 'Erro no formulário',
+                mensagem: "O nome deve ser diferente do anterior!"
+            });
+            return;
         }
 
         if (/\d/.test(nome)) {
             setPopup({
-                    tipo: 'aviso',
-                    titulo: 'Erro no formulário',
-                    mensagem: "Nome não pode conter números"
-                });
+                tipo: 'aviso',
+                titulo: 'Erro no formulário',
+                mensagem: "Nome não pode conter números"
+            });
             return;
         }
 
         if (nome.length < 5) {
             setPopup({
-                    tipo: 'aviso',
-                    titulo: 'Erro no formulário',
-                    mensagem: "Nome deve ter pelo menos 5 caracteres"
-                });
+                tipo: 'aviso',
+                titulo: 'Erro no formulário',
+                mensagem: "Nome deve ter pelo menos 5 caracteres"
+            });
             return;
         }
 
         //Controle de Nvegção
-        localStorage.setItem("alterar_nome" , "true")
+        localStorage.setItem("alterar_nome", "true")
 
         setPopup({
-                    tipo: 'aviso',
-                    titulo: 'Nome',
-                    mensagem: "Verificando informações..."
-                });
+            tipo: 'aviso',
+            titulo: 'Nome',
+            mensagem: "Verificando informações..."
+        });
 
         await sleep(1000)
 
@@ -354,16 +350,17 @@ const ConteudoConfiguracoes = () => {
 
         //Levo para a tela de verificar EMAIL
         Navegacao("/verificacao-email",
-            {state:
+            {
+                state:
                 {
-                    nome : nome,
-                    email : emailAtual,
+                    nome: nome,
+                    email: emailAtual,
                     origem: "/configuracoes"
 
                 }
-        });
+            });
 
-        
+
     }
 
     return (
@@ -420,7 +417,7 @@ const ConteudoConfiguracoes = () => {
                         <h1>Privacidade e Segurança</h1>
                         <hr />
 
-                        <Link to={"/sobre"}>    
+                        <Link to={"/sobre"}>
                             <ItemBarraLateral
                                 descricao={"Sobre"}
                                 img={sobreModoClaro}
@@ -463,72 +460,72 @@ const ConteudoConfiguracoes = () => {
                             </button>
                         </div>
 
-                            {!temPhone ? (
-                                <>
-                                                            <div className={Style.secaoDados}>
-                            <div className={Style.preencherDados}>
-                                <div className={Style.campoForm}>
-                                    <label>Nome Atual</label>
-                                    <p>{usuario.nome}</p>
+                        {!temPhone ? (
+                            <>
+                                <div className={Style.secaoDados}>
+                                    <div className={Style.preencherDados}>
+                                        <div className={Style.campoForm}>
+                                            <label>Nome Atual</label>
+                                            <p>{usuario.nome}</p>
+                                        </div>
+                                        <div className={Style.inputContainer}>
+                                            <label htmlFor="idNovoNome">Novo Nome</label>
+                                            <input
+                                                type="text"
+                                                maxLength={100}
+                                                placeholder="Nome*"
+                                                id="idNovoNome"
+                                                value={nome}
+                                                onChange={(e) => setNome(e.target.value)}
+                                            />
+                                        </div>
+                                    </div>
+                                    <button className={Style.botoes} onClick={AlterarNome}>
+                                        Alterar
+                                    </button>
                                 </div>
-                                <div className={Style.inputContainer}>
-                                    <label htmlFor="idNovoNome">Novo Nome</label>
-                                    <input
-                                        type="text"
-                                        maxLength={100}
-                                        placeholder="Nome*"
-                                        id="idNovoNome"
-                                        value={nome}
-                                        onChange={(e) => setNome(e.target.value)}
-                                    />
+                                <div className={Style.secaoDados}>
+                                    <div className={Style.preencherDados}>
+                                        <div className={Style.inputContainer}>
+                                            <label>Número de Telefone</label>
+                                            <CampoTexto
+                                                type="text"
+                                                placeholder="xx-xxxxx-xxxx"
+                                                value={telefone}
+                                                onChange={(e) =>
+                                                    setTelefone(
+                                                        formatarTelefone(e.target.value)
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                        <div className={Style.inputContainer}>
+                                            <label>Confirme o número</label>
+                                            <CampoTexto
+                                                type="text"
+                                                placeholder="xx-xxxxx-xxxx"
+                                                value={telefoneConfirmacao}
+                                                onChange={(e) =>
+                                                    setTelefoneConfirmacao(
+                                                        formatarTelefone(e.target.value)
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+                                    <button
+                                        className={Style.botoes}
+                                        onClick={VerificarTelefone}
+                                    >
+                                        Adicionar
+                                    </button>
                                 </div>
-                            </div>
-                            <button className={Style.botoes} onClick={AlterarNome}>
-                                Alterar
-                            </button>
-                        </div>
-                        <div className={Style.secaoDados}>
-                            <div className={Style.preencherDados}>
-                                <div className={Style.inputContainer}>
-                                    <label>Número de Telefone</label>
-                                    <CampoTexto
-                                        type="text"
-                                        placeholder="xx-xxxxx-xxxx"
-                                        value={telefone}
-                                        onChange={(e) =>
-                                            setTelefone(
-                                                formatarTelefone(e.target.value)
-                                            )
-                                        }
-                                    />
-                                </div>
-                                <div className={Style.inputContainer}>
-                                    <label>Confirme o número</label>
-                                    <CampoTexto
-                                        type="text"
-                                        placeholder="xx-xxxxx-xxxx"
-                                        value={telefoneConfirmacao}
-                                        onChange={(e) =>
-                                            setTelefoneConfirmacao(
-                                                formatarTelefone(e.target.value)
-                                            )
-                                        }
-                                    />
-                                </div>
-                            </div>
-                            <button
-                                className={Style.botoes}
-                                onClick={VerificarTelefone}
-                            >
-                                Adicionar
-                            </button>
-                        </div>
-                                </>
-                            ): (
-                                <>
+                            </>
+                        ) : (
+                            <>
                                 <p>tem: {usuario.telefone}</p>
-                                </>
-                            )}
+                            </>
+                        )}
                         <div className={Style.secaoDados}>
                             <div className={Style.preencherDados}>
                                 <div className={Style.inputContainer}>
@@ -549,18 +546,18 @@ const ConteudoConfiguracoes = () => {
                                 onClick={VerificarSenha}
                             />
                         </div>
-                    
 
-                            <div className={Style.conectarContas}>
-                                <h2>Conecte suas contas para login</h2>
-                                <div className={Style.imagens}>
-                                    <img src={googleIcon} alt="google" />
-                                    <img src={githubIcon} alt="github" />
-                                </div>
+
+                        <div className={Style.conectarContas}>
+                            <h2>Conecte suas contas para login</h2>
+                            <div className={Style.imagens}>
+                                <img src={googleIcon} alt="google" />
+                                <img src={githubIcon} alt="github" />
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
             {configAtual && (
                 <PopUpConfirmacao

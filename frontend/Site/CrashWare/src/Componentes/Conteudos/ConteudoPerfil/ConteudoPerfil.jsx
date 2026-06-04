@@ -461,7 +461,6 @@ const ConteudoPerfil = () => {
                                         <img src={FotoPadrao} alt={c.titulo} />
 
                                         <div>
-                                            <h5>{c.tipo}</h5>
                                             <h6>{c.titulo}</h6>
                                             <p>{c.descricao}</p>
                                         </div>
