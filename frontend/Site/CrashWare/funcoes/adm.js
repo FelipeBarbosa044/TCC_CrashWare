@@ -193,4 +193,61 @@ export class Adm
         
         }//catch
     }//Deletar conquista
+
+
+
+    //Total de usuários
+
+    async contar_usuarios(setPopup,setTotal)
+    {
+         try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/adm/buscar_usuarios",
+                {
+                    method: "GET"
+                });
+
+
+            if(response.ok)
+            {
+                //Exibo resposta da API
+                const resposta = await response.json();
+                
+                const total = resposta.quantidade
+
+                setTotal(total)
+
+
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo o erro
+                
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Erro Inesperado',
+                    mensagem: "Tente Novamente Mais Tarde..."
+                });
+
+               console.log("Erro ao contar Usuários" + erro)
+            }
+
+        }catch(error) 
+        {
+            //Erro de Internet OU na Requisição
+            setPopup({
+                tipo: 'erro',
+                titulo: '',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log("Erro Ao Tentar Contar Usuários" + error)
+
+            //Erro de conexão
+            console.log("Erro:", error);
+        
+        }//catch
+    }//Contar Usuários
+    
 }//classe
