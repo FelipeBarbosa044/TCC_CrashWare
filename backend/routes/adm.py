@@ -69,8 +69,19 @@ async def deletar_conquista(dados : DeletarConquistaSchema ,session = Depends(pe
 @adm.get('/buscar_usuarios')
 async def buscar_usuarios(session = Depends(pegar_sessao)):
     quantidade_usuarios = session.query(Usuarios).count()
+    usuarios = session.execute(
+        select(
+            Usuarios.nome_usuario,
+            Usuarios.created_at,
+            Usuarios.id_usuario,
+            Usuarios.updated_at
+        )
+    ).mappings().all()
 
-    return {"quantidade" : quantidade_usuarios}
+    return {
+        "quantidade" : quantidade_usuarios,
+        "usuarios" : usuarios
+        }
 
 
 

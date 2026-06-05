@@ -27,14 +27,13 @@ session = Session()
 
 
 try:
-    # session.query(Usuarios).filter(Usuarios.email == "resferagamer@gmail.com").update({"ativo" : True})
+    # session.query(Usuarios).filter(Usuarios.email == "felipewasxz@gmail.com").update({"ativo" : True})
     # session.query(Usuarios).filter(Usuarios.email == "eusolindo.com.br@gmail.com").update({"admin" : True})
     # session.commit()
     pass
 except Exception as exception:
     session.rollback()
     raise  exception
-
 
 
 #Fecho a sessão
