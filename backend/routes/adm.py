@@ -110,7 +110,7 @@ async def desbanir_usuario(dados : BanirSchema ,session = Depends(pegar_sessao))
     usuario = session.query(Usuarios).filter(Usuarios.id_usuario == dados.id_usuario).first()
     if usuario is None:
        raise HTTPException(status_code=404,detail="Usuario não encontrado")
-    if (usuario.ativo == False):
+    if (usuario.ativo == True):
         raise HTTPException(status_code=409, detail="Usuario já está Ativo")
     try:
         # Desativo o Usuario
