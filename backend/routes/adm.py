@@ -8,7 +8,7 @@ from models.gamificacao import Conquista
 from models.usuarios import Usuarios
 
 #Importando SHCEMAS:
-from schemas.admSchema import ConquistaSchema, DeletarConquistaSchema, BanirSchema
+from schemas.admSchema import ConquistaSchema, DeletarConquistaSchema, UsuarioSchema
 
 #Instânciando roteador
 adm = APIRouter(prefix="/adm",tags=["adiministração"])
@@ -86,7 +86,7 @@ async def buscar_usuarios(session = Depends(pegar_sessao)):
         }
 
 @adm.patch('/banir_usuario')
-async def banir_usuario(dados : BanirSchema ,session = Depends(pegar_sessao)):
+async def banir_usuario(dados : UsuarioSchema ,session = Depends(pegar_sessao)):
     usuario = session.query(Usuarios).filter(Usuarios.id_usuario == dados.id_usuario).first()
     if usuario is None:
        raise HTTPException(status_code=404,detail="Usuario não encontrado")
@@ -106,7 +106,7 @@ async def banir_usuario(dados : BanirSchema ,session = Depends(pegar_sessao)):
 
 
 @adm.patch('/desbanir_usuario')
-async def desbanir_usuario(dados : BanirSchema ,session = Depends(pegar_sessao)):
+async def desbanir_usuario(dados : UsuarioSchema ,session = Depends(pegar_sessao)):
     usuario = session.query(Usuarios).filter(Usuarios.id_usuario == dados.id_usuario).first()
     if usuario is None:
        raise HTTPException(status_code=404,detail="Usuario não encontrado")
@@ -123,6 +123,41 @@ async def desbanir_usuario(dados : BanirSchema ,session = Depends(pegar_sessao))
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
         raise HTTPException(status_code=400, detail=str(exception))
+
+
+@adm.patch('/removerFoto_usuario')
+async def removerFoto_usuario(dados : UsuarioSchema ,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.id_usuario == dados.id_usuario).first()
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuario não encontrado")
+
+    try:
+        usuario.foto = 'default.png'
+        session.commit()
+
+        return {"mensagem" : 'Foto Removida'}
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
+
+@adm.patch('/removerBanner_usuario')
+async def removerBanner_usuario(dados : UsuarioSchema ,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.id_usuario == dados.id_usuario).first()
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuario não encontrado")
+
+    try:
+        usuario.banner = 'default.png'
+        session.commit()
+
+        return {"mensagem" : 'Banner Removido'}
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
 
 
 

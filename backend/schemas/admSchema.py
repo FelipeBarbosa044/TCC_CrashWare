@@ -21,7 +21,7 @@ class DeletarConquistaSchema(BaseModel):
          from_attributes = True
 
 #Schema de Banir Usuario
-class BanirSchema(BaseModel):
+class UsuarioSchema(BaseModel):
     id_usuario : int
 
     class Config:
