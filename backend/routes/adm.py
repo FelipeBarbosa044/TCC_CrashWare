@@ -80,9 +80,21 @@ async def buscar_usuarios(session = Depends(pegar_sessao)):
         .order_by(Usuarios.id_usuario)
     ).mappings().all()
 
+    #Pego a quantidade de
+
+    #Usuários que não verificaram o email
+    usuariosnaoAutenticados = session.query(Usuarios).filter(Usuarios.email_verificado == False).count()
+
+    #Usuários que estão Desativados/Banidos
+    usuariosDesativados = session.query(Usuarios).filter(Usuarios.ativo == False).count()
+
+
+
     return {
         "quantidade" : quantidade_usuarios,
-        "usuarios" : usuarios
+        "usuarios" : usuarios,
+        "naoAutenicados" : usuariosnaoAutenticados,
+        "desativados" : usuariosDesativados
         }
 
 @adm.patch('/banir_usuario')
@@ -92,6 +104,13 @@ async def banir_usuario(dados : UsuarioSchema ,session = Depends(pegar_sessao)):
        raise HTTPException(status_code=404,detail="Usuario não encontrado")
     if (usuario.ativo == False):
         raise HTTPException(status_code=409, detail="Usuario já está Desativado")
+
+    if(usuario.email == "felipebarbosaribeiro197@gmail.com" or usuario.email == "resferagamer@gmail.com"):
+        raise HTTPException(status_code=409, detail="O Felipe Não pode ser Desativado")
+
+    # if usuario.admin == True:
+    #     raise HTTPException(status_code=409, detail="Administradores Não pode ser Desativados")
+
     try:
         # Desativo o Usuario
         usuario.ativo = False
@@ -134,6 +153,9 @@ async def removerFoto_usuario(dados : UsuarioSchema ,session = Depends(pegar_ses
     if (usuario.foto == 'default.png'):
         raise HTTPException(status_code=404, detail="Usuário não tem foto!")
 
+    if (usuario.email == "felipebarbosaribeiro197@gmail.com" or usuario.email == "resferagamer@gmail.com"):
+        raise HTTPException(status_code=409, detail="O Felipe Não Pode ter a foto Removida")
+
     try:
         usuario.foto = 'default.png'
         session.commit()
@@ -153,6 +175,9 @@ async def removerBanner_usuario(dados : UsuarioSchema ,session = Depends(pegar_s
 
     if(usuario.banner == 'default.png'):
         raise HTTPException(status_code=404,detail="Usuário não tem banner!")
+
+    if (usuario.email == "felipebarbosaribeiro197@gmail.com" or usuario.email == "resferagamer@gmail.com"):
+        raise HTTPException(status_code=409, detail="O Felipe Não Pode ter o Banner Removido")
 
     try:
         usuario.banner = 'default.png'
