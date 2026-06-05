@@ -141,26 +141,25 @@ const ConteudoPerfil = () => {
 
     async function carregarConquistas() {
 
-        //Reseto as conquistas
-        CONQUISTAS_MOCK = [];
-
         const user = new Usuario(token, refresh_token, Navegacao, set);
         await user.mostrar_conquista();
 
         //Pega as conquistas
         const usuario_conquistas = JSON.parse(localStorage.getItem("usuario_conquistas") || "[]");
 
-        //Pego a quantidade de consquistas
-        let quantidade_conquistas = usuario_conquistas.length
-
         //Adiciono as conquistas na interface
+        // for (let n = 0; n < quantidade_conquistas; n++) {
+        //     CONQUISTAS_MOCK.push({ tipo: usuario_conquistas[n].tipo_conquista, titulo: usuario_conquistas[n].nome_conquista, descricao: usuario_conquistas[n].descricao })
+        // }
 
-        for (let n = 0; n < quantidade_conquistas; n++) {
-            CONQUISTAS_MOCK.push({ tipo: usuario_conquistas[n].tipo_conquista, titulo: usuario_conquistas[n].nome_conquista, descricao: usuario_conquistas[n].descricao })
-        }
+        const novasConquistas = usuario_conquistas.map((c) => ({
+            tipo: c.tipo_conquista,
+            titulo: c.nome_conquista,
+            descricao: c.descricao,
+        }))
 
         //Exibo na hora as conquistas
-        setConquistas(CONQUISTAS_MOCK)
+        setConquistas(novasConquistas)
 
         //
     }
