@@ -8,7 +8,7 @@ from models.gamificacao import Conquista
 from models.usuarios import Usuarios
 
 #Importando SHCEMAS:
-from schemas.admSchema import ConquistaSchema, DeletarConquistaSchema
+from schemas.admSchema import ConquistaSchema, DeletarConquistaSchema, BanirSchema
 
 #Instânciando roteador
 adm = APIRouter(prefix="/adm",tags=["adiministração"])
@@ -83,6 +83,23 @@ async def buscar_usuarios(session = Depends(pegar_sessao)):
         "quantidade" : quantidade_usuarios,
         "usuarios" : usuarios
         }
+
+@adm.patch('/banir_usuario')
+async def banir_usuario(dados : BanirSchema ,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.id_usuario == dados.id_usuario).first()
+    if usuario is None:
+       raise HTTPException(status_code=404,detail="Usuario não encontrado")
+    try:
+        # Desativo o Usuario
+        usuario.ativo = False
+        session.commit()
+
+        return {"mensagem": "Usuario Desativado"}
+
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400,detail=str(exception))
 
 
 
