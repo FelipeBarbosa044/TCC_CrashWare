@@ -144,26 +144,18 @@ public class Auth {
                     if ("Acesso Negado".equals(erro)) {
                         //Sair da conta
 
-                        //Deleto o token e o refresh_token
-                        prefs.edit()
-                                .remove("token")
-                                .remove("refresh_token")
-                                .remove("alterar_email")
-                                .remove("alterar_nome")
-                                .remove("logado")
-                                .apply();
+                        //Sair da conta
+                        Logout(prefs,context);
 
-                        //Vou para o login
-
-                        Intent i = new Intent(context, Login.class);
-
-                        //Faz com que o usuario nao consiga voltar para a home , caso ele estiver deslogado
-                        i.setFlags(
-                                Intent.FLAG_ACTIVITY_NEW_TASK |
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        );
-                        context.startActivity(i);
-                        context.finish();
+//                        Intent i = new Intent(context, Login.class);
+//
+//                        //Faz com que o usuario nao consiga voltar para a home , caso ele estiver deslogado
+//                        i.setFlags(
+//                                Intent.FLAG_ACTIVITY_NEW_TASK |
+//                                Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                        );
+//                        context.startActivity(i);
+//                        context.finish();
 
                         return;
                     }
@@ -231,27 +223,16 @@ public class Auth {
                 }else
                 {
                     //Sair da conta
+                    Logout(prefs,context);
 
-                    //Deleto o token e o refresh_token
-                    prefs.edit()
-                            .remove("token")
-                            .remove("refresh_token")
-                            .remove("alterar_email")
-                            .remove("alterar_nome")
-                            .remove("logado")
 
-                            .apply();
 
-                    //Vou para o login
-
-                    Intent i = new Intent(context, Login.class);
-
-                    i.setFlags(
-                            Intent.FLAG_ACTIVITY_NEW_TASK |
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    );
-                    context.startActivity(i);
-                    context.finish();
+//                    i.setFlags(
+//                            Intent.FLAG_ACTIVITY_NEW_TASK |
+//                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                    );
+//                    context.startActivity(i);
+//                    context.finish();
                 }
             }
 
@@ -352,6 +333,29 @@ public class Auth {
         });//Requisição
 
     }//Refresh Token
+
+    public static void Logout(SharedPreferences prefs,Context context) {
+        //Deleto o token e o refresh_token
+        prefs.edit()
+                .remove("token")
+                .remove("refresh_token")
+                .remove("alterar_email")
+                .remove("alterar_nome")
+                .remove("logado")
+                .remove("add_telefone")
+
+                .apply();
+
+
+        //Vou para a tela de Login
+        Intent i = new Intent(context, Login.class);
+        context.startActivity(i);
+
+        if (context instanceof Activity) {
+            ((Activity) context).finish();
+        }
+
+    }//Logout
 
 
 }//Auth

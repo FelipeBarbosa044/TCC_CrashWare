@@ -283,8 +283,6 @@ public class Perfil_Fragment extends Fragment {
 //        txtQuantDiasSeguidos.setText(Ofensiva);
 
 
-
-
         txtVerTodasConquistas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)

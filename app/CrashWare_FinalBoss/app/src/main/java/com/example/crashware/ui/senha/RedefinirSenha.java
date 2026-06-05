@@ -22,6 +22,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.crashware.R;
+import com.example.crashware.ui.api.Auth;
 import com.example.crashware.ui.login.Login;
 
 
@@ -225,27 +226,13 @@ public class RedefinirSenha extends AppCompatActivity {
                             if (resposta.isSuccessful())
                             {
 
-
+                                Toast.makeText(RedefinirSenha.this, "Senha Alterada com sucesso!", Toast.LENGTH_LONG).show();
 
                                 if(logado.equals("true"))
                                 {
-                                    //Deleto o token e o refresh_token
-                                    prefs.edit()
-                                            .remove("token")
-                                            .remove("refresh_token")
-                                            .remove("alterar_email")
-                                            .remove("alterar_nome")
-                                            .remove("foto")
-                                            .apply();
-
-                                    //Altero o valor do "logado" no sharedePreferences
-                                    prefs.edit()
-                                            .putString("logado","false")
-                                            .apply();
-
+                                    //Saio da Conta
+                                    Auth.Logout(prefs,RedefinirSenha.this);
                                 }
-
-                                Toast.makeText(RedefinirSenha.this, "Senha Alterada com sucesso!", Toast.LENGTH_LONG).show();
 
                                 //Vai para a tela de LOGIN
                                 Intent i = new Intent(RedefinirSenha.this, Login.class);

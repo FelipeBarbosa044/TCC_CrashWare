@@ -306,21 +306,8 @@ public class Configuracoes {
                             "Conta desconectada",
                             Toast.LENGTH_SHORT).show();
 
-                    //Deleto o token e o refresh_token
-                    prefs.edit()
-                            .remove("token")
-                            .remove("refresh_token")
-                            .remove("alterar_email")
-                            .remove("alterar_nome")
-                            .remove("logado")
-                            .remove("foto")
-                            .apply();
-
-                    //Vou para o login
-                    Intent i = new Intent(fragment.requireContext(), Login.class);
-                    fragment.startActivity(i);
-                    fragment.requireActivity().finish();
-
+                    //Sair da Conta
+                   Auth.Logout(prefs, fragment.requireContext());
 
                 } else {
                     //Retorna erro caso a reqsição estiver errada
@@ -650,20 +637,9 @@ public class Configuracoes {
                             "Conta Desativada",
                             Toast.LENGTH_SHORT).show();
 
-                    //Deleto o token e o refresh_token
-                    prefs.edit()
-                            .remove("token")
-                            .remove("refresh_token")
-                            .remove("alterar_email")
-                            .remove("alterar_nome")
-                            .remove("logado")
-                            .remove("foto")
-                            .apply();
+                    //Sair da Conta
+                    Auth.Logout(prefs, fragment.requireContext());
 
-                    //Vou para o login
-                    Intent i = new Intent(fragment.requireContext(), Login.class);
-                    fragment.startActivity(i);
-                    fragment.requireActivity().finish();
                 } else {
                     //Retorna erro caso a reqsição der erro
 

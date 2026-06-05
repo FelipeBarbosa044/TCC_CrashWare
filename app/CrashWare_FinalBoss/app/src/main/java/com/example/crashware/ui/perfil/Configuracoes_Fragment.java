@@ -250,22 +250,7 @@ public class Configuracoes_Fragment extends Fragment {
                             "Conta desconectada",
                             Toast.LENGTH_SHORT).show();
 
-                    //Deleto o token e o refresh_token
-                    prefs.edit()
-                            .remove("token")
-                            .remove("refresh_token")
-                            .remove("alterar_email")
-                            .remove("alterar_nome")
-                            .remove("logado")
-                            .remove("foto")
-                            .remove("banner")
-                            .apply();
-
-                    //Vou para o login
-                    Intent i = new Intent(requireContext(), Login.class);
-                    startActivity(i);
-
-                    requireActivity().finish();
+                    Auth.Logout(prefs, requireContext());
 
                 });
 
