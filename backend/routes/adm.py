@@ -91,7 +91,7 @@ async def banir_usuario(dados : BanirSchema ,session = Depends(pegar_sessao)):
     if usuario is None:
        raise HTTPException(status_code=404,detail="Usuario não encontrado")
     if (usuario.ativo == False):
-        raise HTTPException(status_code=409, detail="Usuario já está desativado")
+        raise HTTPException(status_code=409, detail="Usuario já está Desativado")
     try:
         # Desativo o Usuario
         usuario.ativo = False
@@ -104,6 +104,25 @@ async def banir_usuario(dados : BanirSchema ,session = Depends(pegar_sessao)):
         session.rollback()
         raise HTTPException(status_code=400,detail=str(exception))
 
+
+@adm.patch('desbanir_usuario')
+async def desbanir_usuario(dados : BanirSchema ,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.id_usuario == dados.id_usuario).first()
+    if usuario is None:
+       raise HTTPException(status_code=404,detail="Usuario não encontrado")
+    if (usuario.ativo == False):
+        raise HTTPException(status_code=409, detail="Usuario já está Ativo")
+    try:
+        # Desativo o Usuario
+        usuario.ativo = True
+        session.commit()
+
+        return {"mensagem": "Usuario Ativado"}
+
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
 
 
 
