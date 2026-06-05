@@ -131,6 +131,9 @@ async def removerFoto_usuario(dados : UsuarioSchema ,session = Depends(pegar_ses
     if usuario is None:
         raise HTTPException(status_code=404, detail="Usuario não encontrado")
 
+    if (usuario.foto == 'default.png'):
+        raise HTTPException(status_code=404, detail="Usuário não tem foto!")
+
     try:
         usuario.foto = 'default.png'
         session.commit()
@@ -147,6 +150,9 @@ async def removerBanner_usuario(dados : UsuarioSchema ,session = Depends(pegar_s
     usuario = session.query(Usuarios).filter(Usuarios.id_usuario == dados.id_usuario).first()
     if usuario is None:
         raise HTTPException(status_code=404, detail="Usuario não encontrado")
+
+    if(usuario.banner == 'default.png'):
+        raise HTTPException(status_code=404,detail="Usuário não tem banner!")
 
     try:
         usuario.banner = 'default.png'
