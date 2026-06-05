@@ -71,7 +71,6 @@ const ConteudoHome = () => {
     async function VerificarADM() {
         const usuario = new Usuario(token, refresh_token, Navegacao, set);
 
-        console.log(admin)
         if (admin === true) {
             await usuario.conquista(21, setPopupConquista, setDados);
             await usuario.perfil(setDados);
