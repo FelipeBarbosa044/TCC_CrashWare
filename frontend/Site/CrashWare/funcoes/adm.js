@@ -217,6 +217,10 @@ export class Adm
                 
                 const total = resposta.quantidade;
 
+                const usuariosNaoAutenticados = resposta.naoAutenticados;
+
+                const desativados = resposta.desativados;
+
                 if (setTotal  != null)
                 {
                     setTotal(total)
