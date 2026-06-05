@@ -112,9 +112,13 @@ const AbaUsuarios = () => {
                     if(status == "Ativo")
                     {
                     //Desativo o usuario no banco de dados
-                    await adm.desativar_usuario(id_usuario,setPopup)
+                    const resultado = await adm.desativar_usuario(id_usuario,setPopup)
 
 
+                    if (resultado == 403){
+                        return;
+                    }
+                    
                     //Atualizo o status do usuário
                     
                     // Atualizo o status na lista principal

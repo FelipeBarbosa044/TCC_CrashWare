@@ -319,6 +319,8 @@ export class Adm
                 });
 
                console.log("Erro ao Desativar  Usuários" + erro.detail)
+
+               return 403
             }
                 
         }catch(error) 
