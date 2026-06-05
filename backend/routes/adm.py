@@ -105,7 +105,7 @@ async def banir_usuario(dados : BanirSchema ,session = Depends(pegar_sessao)):
         raise HTTPException(status_code=400,detail=str(exception))
 
 
-@adm.patch('desbanir_usuario')
+@adm.patch('/desbanir_usuario')
 async def desbanir_usuario(dados : BanirSchema ,session = Depends(pegar_sessao)):
     usuario = session.query(Usuarios).filter(Usuarios.id_usuario == dados.id_usuario).first()
     if usuario is None:
