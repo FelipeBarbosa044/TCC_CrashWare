@@ -74,7 +74,8 @@ async def buscar_usuarios(session = Depends(pegar_sessao)):
             Usuarios.nome_usuario,
             Usuarios.created_at,
             Usuarios.id_usuario,
-            Usuarios.updated_at
+            Usuarios.updated_at,
+            Usuarios.ativo
         )
         .order_by(Usuarios.id_usuario)
     ).mappings().all()
@@ -100,6 +101,7 @@ async def banir_usuario(dados : BanirSchema ,session = Depends(pegar_sessao)):
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
         raise HTTPException(status_code=400,detail=str(exception))
+
 
 
 
