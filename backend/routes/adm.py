@@ -106,10 +106,10 @@ async def banir_usuario(dados : UsuarioSchema ,session = Depends(pegar_sessao)):
         raise HTTPException(status_code=409, detail="Usuario já está Desativado")
 
     if(usuario.email == "felipebarbosaribeiro197@gmail.com" or usuario.email == "resferagamer@gmail.com"):
-        raise HTTPException(status_code=409, detail="O Felipe Não pode ser Desativado")
+        raise HTTPException(status_code=403, detail="O Felipe Não pode ser Desativado")
 
     # if usuario.admin == True:
-    #     raise HTTPException(status_code=409, detail="Administradores Não pode ser Desativados")
+    #     raise HTTPException(status_code=403, detail="Administradores Não pode ser Desativados")
 
     try:
         # Desativo o Usuario
@@ -154,7 +154,10 @@ async def removerFoto_usuario(dados : UsuarioSchema ,session = Depends(pegar_ses
         raise HTTPException(status_code=404, detail="Usuário não tem foto!")
 
     if (usuario.email == "felipebarbosaribeiro197@gmail.com" or usuario.email == "resferagamer@gmail.com"):
-        raise HTTPException(status_code=409, detail="O Felipe Não Pode ter a foto Removida")
+        raise HTTPException(status_code=403, detail="O Felipe Não Pode ter a foto Removida")
+
+    # if usuario.admin == True:
+    #     raise HTTPException(status_code=403, detail="Administradores Não pode ter a Foto Removida")
 
     try:
         usuario.foto = 'default.png'
@@ -177,7 +180,10 @@ async def removerBanner_usuario(dados : UsuarioSchema ,session = Depends(pegar_s
         raise HTTPException(status_code=404,detail="Usuário não tem banner!")
 
     if (usuario.email == "felipebarbosaribeiro197@gmail.com" or usuario.email == "resferagamer@gmail.com"):
-        raise HTTPException(status_code=409, detail="O Felipe Não Pode ter o Banner Removido")
+        raise HTTPException(status_code=403, detail="O Felipe Não Pode ter o Banner Removido")
+
+    # if usuario.admin == True:
+    #     raise HTTPException(status_code=403, detail="Administradores Não pode ter from Banner Removido")
 
     try:
         usuario.banner = 'default.png'
