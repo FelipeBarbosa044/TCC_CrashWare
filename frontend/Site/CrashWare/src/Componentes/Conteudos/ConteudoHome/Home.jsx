@@ -45,6 +45,8 @@ const ConteudoHome = () => {
     const [dados, setDados] = useState(() =>
         JSON.parse(localStorage.getItem("dados")) || null
     );
+    const admin = dados?.adm;
+
 
     //Lista que contém todos os usestate
     const set = [setToken, setRefresh, setDados];
@@ -64,6 +66,16 @@ const ConteudoHome = () => {
         await user.ValidarOfensiva(setMaiorOfensiva, setDados);
         usuario = JSON.parse(localStorage.getItem("dados"));
 
+    }
+
+    async function VerificarADM() {
+        const usuario = new Usuario(token, refresh_token, Navegacao, set);
+
+        console.log(admin)
+        if (admin === true) {
+            await usuario.conquista(21, setPopupConquista, setDados);
+            await usuario.perfil(setDados);
+        }
     }
 
     //Objeto da classe annotation
@@ -103,16 +115,8 @@ const ConteudoHome = () => {
         }
 
         setCarregandoAnotacoes(false)
-
-        // if (tamanho_anotacoes == 0) {
-
-        // } else {
-        //     //Exibe na home as ultimas anotações
-        //     for (let n = 0; n < 3 && n < tamanho_anotacoes; n++) {
-        //         anotacaoItens.push({ titulo: anotacao[n]?.titulo, data: formatarData(anotacao[n]?.atualizado_em) })
-        //     }
-        // }
     }
+
 
     async function CarregarInformacoes() {
 
@@ -131,7 +135,11 @@ const ConteudoHome = () => {
 
         //Pego as informações do usuario
         await user.perfil(setDados);
+
+
     }
+
+
 
     //Pega os dados do usuario
     let usuario = JSON.parse(localStorage.getItem("dados"));
@@ -158,21 +166,16 @@ const ConteudoHome = () => {
     const ofensiva = usuario?.ofensiva ?? 0;
 
     useEffect(() => {
-        // //Atualiza os dados do usuario, sempre que a pagina for acessada
-        // const onVisible = () => {
-        //     if (!document.hidden) {
-        //         const cliente = new Usuario();
-        //         cliente.perfil(setDados);
-        //     }
-        // };
-        // document.addEventListener("visibilitychange", onVisible);
 
 
         //Valido a ofensiva
         VerificarOfensiva();
 
         //Atualizo a lista
-        atualizarAnotacoes()
+        atualizarAnotacoes();
+
+        //Verificar Adm
+        VerificarADM();
 
 
     }, []);
@@ -301,17 +304,17 @@ const ConteudoHome = () => {
                         <div className={style.listaAnotacoes}>
                             {carregandoAnotacoes ? (
                                 <div className={style.giradorLegal_Anotacao} />
-                            ) : 
+                            ) :
                                 anotacaoItens.length === 0 ? (
                                     <p className={style.TextoMotivador}>Que tal iniciar o hábito da escrita? Você não vai se arrepender</p>
-                                ): (
-                                        anotacaoItens.map((a, index) => (
-                                            <div key={index} className={style.itemAnotacao}>
-                                                <p className={style.anotacaoTitulo}>{a.titulo}</p>
-                                                <span className={style.anotacaoData}>{a.data}</span>
-                                            </div>
-                                        ))
-                            )}
+                                ) : (
+                                    anotacaoItens.map((a, index) => (
+                                        <div key={index} className={style.itemAnotacao}>
+                                            <p className={style.anotacaoTitulo}>{a.titulo}</p>
+                                            <span className={style.anotacaoData}>{a.data}</span>
+                                        </div>
+                                    ))
+                                )}
 
                         </div>
 
