@@ -102,6 +102,8 @@ export class Adm
                     mensagem: erro.detail
                 });
 
+                 return;
+
             }else
             {
                 //Se requisição der certo
@@ -198,9 +200,9 @@ export class Adm
 
     //Total de usuários
 
-    async contar_usuarios(setPopup,setTotal)
+    async carregar_usuarios(setPopup,setTotal = null)
     {
-         try
+        try
         {
             const response = await fetch("https://api-crashware.onrender.com/adm/buscar_usuarios",
                 {
@@ -213,9 +215,20 @@ export class Adm
                 //Exibo resposta da API
                 const resposta = await response.json();
                 
-                const total = resposta.quantidade
+                const total = resposta.quantidade;
 
-                setTotal(total)
+                if (setTotal  != null)
+                {
+                    setTotal(total)
+                }else
+                {
+                    //Pego as informações do usuarios
+                    const usuarios = resposta.usuarios;
+
+                    //Guardo os usuarios no LocalStorage
+                    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+                }
+                
 
 
             }else
@@ -230,7 +243,7 @@ export class Adm
                     mensagem: "Tente Novamente Mais Tarde..."
                 });
 
-               console.log("Erro ao contar Usuários" + erro)
+               console.log("Erro ao carregar  Usuários")
             }
 
         }catch(error) 
@@ -238,16 +251,294 @@ export class Adm
             //Erro de Internet OU na Requisição
             setPopup({
                 tipo: 'erro',
-                titulo: '',
+                titulo: 'Usuarios',
                 mensagem: 'Não foi possível conectar ao servidor.'
             });
 
-            console.log("Erro Ao Tentar Contar Usuários" + error)
+            console.log("Erro Ao Tentar Carregar Usuários" + error)
 
-            //Erro de conexão
-            console.log("Erro:", error);
         
         }//catch
-    }//Contar Usuários
+    }//Carregar Usuários
+
+    async desativar_usuario(id_usuario,setPopup)
+    {
+        setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Usuário',
+                    mensagem: 'Desativando Usuário....'
+                });
+
+        await sleep(1000)
+        try
+        {
+             const response = await fetch("https://api-crashware.onrender.com/adm/banir_usuario",
+                {
+                    method: "PATCH",
+                    headers:{  "Content-Type": "application/json" },
+                     body: JSON.stringify({
+                        id_usuario : id_usuario
+                    })
+
+                });
+
+
+            if(response.status == 409)
+            {
+
+                setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Usuário',
+                    mensagem: 'Usuário já está Desativado'
+                });
+
+                return;
+
+            }
+            if(response.ok)
+            {
+                //Exibo resposta da API
+                const resposta = await response.json();
+                
+                setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'Usuário',
+                    mensagem: resposta.mensagem
+                });
+                
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo o erro
+                
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Usuário',
+                    mensagem: erro.detail
+                });
+
+               console.log("Erro ao Desativar  Usuários" + erro.detail)
+            }
+                
+        }catch(error) 
+        {
+            //Erro de Internet OU na Requisição
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Erro ao Tentar Desativar Usuário',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log("Erro Ao Tentar Banir Usuário" + error)
+
     
-}//classe
+        }
+        
+    }//Desativar Usuario
+
+    async ativar_usuario(id_usuario,setPopup)
+    {
+         setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Usuário',
+                    mensagem: 'Ativando Usuário....'
+                });
+
+        await sleep(1000)
+        try
+        {
+             const response = await fetch("https://api-crashware.onrender.com/adm/desbanir_usuario",
+                {
+                    method: "PATCH",
+                    headers:{  "Content-Type": "application/json" },
+                     body: JSON.stringify({
+                        id_usuario : id_usuario
+                    })
+
+                });
+
+
+            if(response.status == 409)
+            {
+
+                setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Usuário',
+                    mensagem: 'Usuário já está Ativado'
+                });
+
+                return;
+
+            }
+            if(response.ok)
+            {
+                //Exibo resposta da API
+                const resposta = await response.json();
+                
+                setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'Usuário',
+                    mensagem: resposta.mensagem
+                });
+                
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo o erro
+                
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Usuário',
+                    mensagem: erro.detail
+                });
+
+               console.log("Erro ao Ativar  Usuário" + erro.detail)
+            }
+                
+        }catch(error) 
+        {
+            //Erro de Internet OU na Requisição
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Erro ao Tentar Ativar Usuário',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log("Erro Ao Tentar Desbanir Usuário" + error)
+
+    
+        }
+
+    }//Ativar Usuário
+    
+
+    async removerFoto_usuario(id_usuario,setPopup)
+    {
+         setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Foto',
+                    mensagem: 'Removendo Foto...'
+                });
+
+        await sleep(1000)
+
+        try
+        {
+             const response = await fetch("https://api-crashware.onrender.com/adm/removerFoto_usuario",
+                {
+                    method: "PATCH",
+                    headers:{  "Content-Type": "application/json" },
+                     body: JSON.stringify({
+                        id_usuario : id_usuario
+                    })
+
+                });
+
+            if(response.ok)
+            {
+                //Exibo resposta da API
+                const resposta = await response.json();
+                
+                setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'Foto',
+                    mensagem: resposta.mensagem
+                });
+                
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo o erro
+                
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Foto',
+                    mensagem: erro.detail
+                });
+
+               console.log("Erro ao Remover foto do Usuário" + erro.detail)
+            }
+                
+        }catch(error) 
+        {
+            //Erro de Internet OU na Requisição
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Erro De Conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log("Erro Ao Tentar Remover Foto do Usuario" + error)
+
+    
+        }
+
+    }//Remover Foto do Usuario
+
+    async removerBanner_usuario(id_usuario,setPopup)
+    {
+         setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Banner',
+                    mensagem: 'Removendo Banner...'
+                });
+
+        await sleep(1000)
+
+        try
+        {
+             const response = await fetch("https://api-crashware.onrender.com/adm/removerBanner_usuario",
+                {
+                    method: "PATCH",
+                    headers:{  "Content-Type": "application/json" },
+                     body: JSON.stringify({
+                        id_usuario : id_usuario
+                    })
+
+                });
+
+            if(response.ok)
+            {
+                //Exibo resposta da API
+                const resposta = await response.json();
+                
+                setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'Banner',
+                    mensagem: resposta.mensagem
+                });
+                
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo o erro
+                
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Banner',
+                    mensagem: erro.detail
+                });
+
+               console.log("Erro ao Remover banner do Usuário" + erro.detail)
+            }
+                
+        }catch(error) 
+        {
+            //Erro de Internet OU na Requisição
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Erro De Conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log("Erro Ao Tentar Remover Banner do Usuario" + error)
+
+    
+        }
+
+    }//Remover Banner do Usuario
+}//ADM

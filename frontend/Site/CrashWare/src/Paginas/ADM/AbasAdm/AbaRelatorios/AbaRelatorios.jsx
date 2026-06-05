@@ -29,7 +29,7 @@ const AbaRelatorios = () =>{
 
     async function carregarInformacoes() {    
 
-        await adm.contar_usuarios(setPopup,setTotal)
+        await adm.carregar_usuarios(setPopup,setTotal)
 
     }
 

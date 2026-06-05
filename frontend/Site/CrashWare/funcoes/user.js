@@ -942,7 +942,7 @@ export class Usuario
             {
                 //Ignora
 
-                return
+                return;
             }
             if(response.ok)
             {

@@ -30,6 +30,8 @@ const AbaListarConquistas = () => {
 
     }, []);
 
+    
+
     async function carregarConquistas() {
         //Listo conquistas no banco de dados
         const adm = new Adm;
