@@ -308,7 +308,7 @@ public class Login extends AppCompatActivity {
 
 
                     //Vai para a HOME:
-                    Intent i = new Intent(Login.this, carregamento.class);
+                    Intent i = new Intent(Login.this, Home.class);
 
                     i.setFlags(
                             Intent.FLAG_ACTIVITY_NEW_TASK |

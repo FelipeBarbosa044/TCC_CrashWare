@@ -88,24 +88,8 @@ public class Inicio_fragment extends Fragment {
 
         //Adiciono a conquista de login e sicronizo a ofensiva
         XP_Manager = new XP_Manager(requireContext());
-        PrimeiroLogin();
-
-
-
-
-
-        // Coleto as informações do usuário
-//        Perfil();
-//
-//        ValidarOfensiva();
-
-
-
-
 
 //        XP_Manager = new XP_Manager(requireContext());
-
-
 
     }
 
@@ -133,7 +117,17 @@ public class Inicio_fragment extends Fragment {
         imgRaposa           = view.findViewById(R.id.imgRaposa);
 
 
-        carregarDadosLocais();
+        //(Não mexam aqui)
+
+        //Coleto as informações do usuário
+        Perfil();
+
+        //Primeiro Login
+        PrimeiroLogin();
+
+        //Valido a Ofensiva
+        ValidarOfensiva();
+
 
         // Atualiza a interface de XP e nível
         atualizarInterfaceXp();
@@ -141,13 +135,13 @@ public class Inicio_fragment extends Fragment {
         Toast conquista = Toast.makeText(getContext(),"Conquista Adquirida",LENGTH_LONG);
 
 
-        //Chamar função Ofensiva
-        Ofensiva_Manager ofensivaManager =
-                new Ofensiva_Manager(requireContext());
-
-        int ofensiva = ofensivaManager.verificarOfensiva();
-
-        txtOfensiva.setText(ofensiva + " dias");
+//        //Chamar função Ofensiva
+//        Ofensiva_Manager ofensivaManager =
+//                new Ofensiva_Manager(requireContext());
+//
+//        int ofensiva = ofensivaManager.verificarOfensiva();
+//
+//
 
 
 
@@ -234,11 +228,18 @@ public class Inicio_fragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        carregarDadosLocais();
+        //Informações do usuário
+        Perfil();
+
+        //Valido a Ofensiva
+        ValidarOfensiva();
 
         atualizarInterfaceXp();
 
+
+        //        carregarDadosLocais();
     }
+
 
     // =========================
     // XP / NÍVEL
@@ -286,17 +287,6 @@ public class Inicio_fragment extends Fragment {
 
         animacaoTexto.start();
     }
-
-
-
-
-    // =========================
-    // TOKEN
-    // =========================
-
-
-
-
 
 
     // =========================
@@ -452,30 +442,35 @@ public class Inicio_fragment extends Fragment {
         }
     }
 
-    private void carregarDadosLocais() {
 
-        String nome = prefs.getString("nome", "");
 
-        String foto = prefs.getString("foto", "");
-
-        int ofensiva = prefs.getInt("ofensiva", 0);
-
-        txtNomeInicio.setText(nome);
-
-        txtOfensiva.setText(ofensiva + " dias");
-
-        if (foto != null && !foto.isEmpty()) {
-
-            String linkFoto =
-                    "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/"
-                            + foto
-                            + "?t=" + System.currentTimeMillis();
-
-            Glide.with(requireContext())
-                    .load(linkFoto)
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(imgfotoInicio);
-        }
-    }
-}
+//    private void carregarDadosLocais() {
+//
+//        String nome = prefs.getString("nome", "");
+//
+//        String foto = prefs.getString("foto", "");
+//
+//        int ofensiva = prefs.getInt("ofensiva", 1);
+//
+//        txtNomeInicio.setText(nome);
+//
+//        txtOfensiva.setText(ofensiva + " dias");
+//
+//        if (foto != null && !foto.isEmpty()) {
+//
+//            String linkFoto =
+//                    "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/"
+//                            + foto
+//                            + "?t=" + System.currentTimeMillis();
+//
+//            Glide.with(requireContext())
+//                    .load(linkFoto)
+//                    .skipMemoryCache(true)
+//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                    .into(imgfotoInicio);
+//
+//        }
+//
+//
+//    }
+}//

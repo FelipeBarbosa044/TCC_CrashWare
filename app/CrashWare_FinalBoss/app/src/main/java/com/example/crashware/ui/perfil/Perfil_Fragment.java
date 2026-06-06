@@ -159,7 +159,11 @@ public class Perfil_Fragment extends Fragment {
         String Nome = prefs.getString("nome", null);
         String Patente = prefs.getString("patente", "Iniciante");
         Integer Moedas = prefs.getInt("moedas", 0);
-        //int Nivel = XP_Manager.getNivel();
+
+        //Atualizando as informações do Usuário
+        txtNomePerfil.setText(Nome);
+        txtPatente.setText(Patente);
+        txtQuantGemas.setText(String.valueOf(Moedas));
 
         // Lista que vai armazenar as conquistas recentes
         List<Conquista> conquistasRecentes = new ArrayList<>();
@@ -244,8 +248,6 @@ public class Perfil_Fragment extends Fragment {
         atualizarXp();
 
 
-
-
         // Listener da foto
         listenerFoto = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
@@ -273,14 +275,10 @@ public class Perfil_Fragment extends Fragment {
 
         prefs.registerOnSharedPreferenceChangeListener(listenerFoto);
 
-        //Atualizando as informações do Usuário
-        txtNomePerfil.setText(Nome);
-        txtPatente.setText(Patente);
-        //txtNivelPerfil.setText("Nível " + String.valueOf(Nivel));
-        txtQuantGemas.setText(String.valueOf(Moedas));
-        //txtQuantXP.setText(String.valueOf(xp));
 
-//        txtQuantDiasSeguidos.setText(Ofensiva);
+
+
+
 
 
         txtVerTodasConquistas.setOnClickListener(new View.OnClickListener() {
@@ -416,6 +414,7 @@ public class Perfil_Fragment extends Fragment {
 
                         atualizarXp();
 
+                        //Atualizo as Informações do usuário
                         txtNomePerfil.setText(nome);
                         txtPatente.setText(patente);
                         txtQuantGemas.setText(String.valueOf(moedas));
