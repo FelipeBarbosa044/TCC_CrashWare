@@ -33,7 +33,7 @@ class UsuariosOauth(Base):
         UniqueConstraint('provider', 'provider_user_id'),
     )
 
-    #Criando atributos PARA O PYTHON (Naõ altera nada no banco de dados)
+    #Criando atributos PARA O PYTHON (Não altera nada no banco de dados)
     def __init__(self,provider,provider_user_id,usuario_id):
         self.provider = provider
         self.provider_user_id = provider_user_id

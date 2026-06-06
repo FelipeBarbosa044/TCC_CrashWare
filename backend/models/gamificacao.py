@@ -26,7 +26,7 @@ class Patente(Base):
     xp_minimo = Column(Integer,nullable=False,default=0,server_default=text("0"))
 
 
-    # Criando atributos PARA O PYTHON (Naõ altera nada no banco de dados)
+    # Criando atributos PARA O PYTHON (Não altera nada no banco de dados)
     def __init__(self,nome_patente,xp_minimo = 0):
         self.nome_patente = nome_patente
         self.nivel_minimo = xp_minimo
@@ -45,7 +45,7 @@ class Conquista(Base):
     xp_bonus = Column(Float,nullable=False)
     condicao_conquista = Column(Text, nullable=False)
 
-    # Criando atributos PARA O PYTHON (Naõ altera nada no banco de dados)
+    # Criando atributos PARA O PYTHON (Não altera nada no banco de dados)
     def __init__(self,nome_conquista,tipo_conquista,descricao,moeda_bonus,xp_bonus,condicao_conquista):
         self.nome_conquista = nome_conquista
         self.tipo_conquista = tipo_conquista
@@ -90,6 +90,7 @@ class Usuario_Conquista(Base):
 
 #Tabela usuario_ofensiva
 class Usuario_Ofensiva(Base):
+    #Nome da Tabela
     __tablename__ = "usuario_ofensiva"
 
     #Campos da tabela

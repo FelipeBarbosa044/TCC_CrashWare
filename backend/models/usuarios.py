@@ -51,8 +51,7 @@ class Usuarios(Base):
     oauths = relationship("UsuariosOauth",backref="usuarios")
     patentes = relationship("Patente", backref="usuarios")
 
-    # Criando atributos PARA O PYTHON (Naõ altera nada no banco de dados)
-    #nivel_id
+    # Criando atributos PARA O PYTHON (Não altera nada no banco de dados)
     def __init__(self,nome_usuario,email,senha_hash,telefone = None,patente_id = 1,foto = 'default.png',banner="default.png",email_verificado=False,ativo=True,admin=False,moedas=0,xp = 0,ofensiva = 0,codigo = codigo, codigo_expirado_em = codigo_expirado_em,sms = None , sms_expirado_em = None):
         self.nome_usuario = nome_usuario
         self.email = email
