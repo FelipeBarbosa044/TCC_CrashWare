@@ -92,7 +92,7 @@ class Usuario_Aula(Base):
         self.iniciou = iniciou
         self.terminou = terminou
 
-
+#Tabela Exercicio
 class Exercicio(Base):
     # Nome da Tabela
     __tablename__ = "exercicio"
@@ -111,6 +111,7 @@ class Exercicio(Base):
     def __init__(self,aula_id):
         self.aula_id = aula_id
 
+#Tabela Questao
 class Questao(Base):
     # Nome da Tabela
     __tablename__ = "questao"
@@ -137,6 +138,69 @@ class Questao(Base):
         self.exercicio_id = exercicio_id
         self.pergunta = pergunta
         self.ordem = ordem
+
+#Tabela Alternativa
+class Alternativa(Base):
+    # Nome da Tabela
+    __tablename__ = "alternativa"
+
+    # Campos da tabela
+    id_alternativa = Column(Integer,primary_key=True,autoincrement=True)
+    questao_id = Column(Integer,ForeignKey("questao.id_questao",ondelete="CASCADE"),nullable=False)
+    texto = Column(Text,nullable=False)
+    correta = Column(Boolean,nullable=False,default=False, server_default=text("false"))
+
+ # Criando relação com objetos (relationship)
+    questao = relationship("Questao", backref=backref(
+        "alternativas",
+        cascade="all, delete-orphan",
+        passive_deletes=True))
+
+    # Criando atributos PARA O PYTHON (Não altera nada no banco de dados)
+    def __init__(self,questao_id,texto,correta = False):
+        self.questao_id = questao_id
+        self.texto = texto
+        self.correta = correta
+
+
+#Tabela Usuario_Exercicio
+class Usuario_Exercicio(Base):
+    # Nome da Tabela
+    __tablename__ = "usuario_exercicio"
+
+    # Campos da tabela
+    id_usuario_exercicio = Column(Integer,primary_key=True,autoincrement=True)
+    usuario_id = Column(Integer,ForeignKey("usuario.id_usuario",ondelete="CASCADE"),nullable=False)
+    exercicio_id = Column(Integer,ForeignKey("exercicio.id_exercicio",ondelete="CASCADE"),nullable=False)
+    iniciou = Column(Boolean,nullable=False,default=False, server_default=text("false"))
+    terminou = Column(Boolean,nullable=False,default=False, server_default=text("false"))
+    questao_atual = Column(Integer,nullable=False,default=1, server_default=text("1"))
+    acertos = Column(Integer,nullable=False,default=0, server_default=text("0"))
+
+    #Evita Duplicar exercicios repetidos para o usuário
+    __table_args__ = (
+        UniqueConstraint("usuario_id", "exercicio_id", name="uq_usuario_exercicio"),
+    )
+
+    # Criando relação com objetos (relationship)
+    usuario = relationship("Usuarios", backref=backref(
+        "exercicios",
+        cascade="all, delete-orphan",
+        passive_deletes=True))
+
+    exercicio = relationship("Exercicio", backref=backref(
+        "usuarios_exercicios",
+        cascade="all, delete-orphan",
+        passive_deletes=True))
+
+    # Criando atributos PARA O PYTHON (Não altera nada no banco de dados)
+    def __init__(self,usuario_id,exercicio_id,questao_atual = 1,iniciou = False,terminou= False,acertos = 0):
+        self.usuario_id = usuario_id
+        self.exercicio_id = exercicio_id
+        self.iniciou = iniciou
+        self.terminou = terminou
+        self.questao_atual = questao_atual
+        self.acertos = acertos
 
 
 #Fecho a Sessão
