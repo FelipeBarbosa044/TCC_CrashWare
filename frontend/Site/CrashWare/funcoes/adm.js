@@ -595,6 +595,8 @@ export class Adm
                 });
 
                console.log("Erro ao Redefinir Nome" + erro.detail)
+
+               return 403
             }
                 
         }catch(error) 

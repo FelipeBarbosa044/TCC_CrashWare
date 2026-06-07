@@ -182,7 +182,13 @@ const AbaUsuarios = () => {
 
     async function RedefinirNome(id_usuario) {
 
-        await adm.redefinir_nome(id_usuario,setPopup)
+        const resultado = await adm.redefinir_nome(id_usuario,setPopup)
+
+
+         if (resultado == 403)
+            {
+                return;
+            }
 
         // Atualizo o status na lista principal
         setUsuarios((antigas) =>
