@@ -38,7 +38,6 @@
     display: flex;
     width: 100%;
     flex-direction: column;
-
     align-items: center;
 }
 
@@ -81,38 +80,41 @@
     font-family: "Montserrat";
 }
 
+/* linha que agrupa Tipo e Módulo lado a lado */
+.tipoModuloLinha{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 81%;
+    align-self: center;
+    margin-top: 30px;
+    gap: 20px;
+}
+
 .tipo{
     display: flex;
     flex-direction: column;
-    align-self: center;
-    justify-content: center;
-
-    width: 81%;
-    margin-top: 30px;
+    flex: 1;
 }
 
 .tipo label{
-    text-align: start;
     font-family: "Montserrat";
     color: var(--Texto2);
     font-weight: 700;
-    width: 100%;
-    
     margin-bottom: 12px;
 }
 
 .escolherTipo{
     display: flex;
     flex-direction: row;
-    width: 100%;
-    
-    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .opcoesTipo{
     display: flex;
     align-items: center;
-
     gap: 10px;
 }
 
@@ -125,6 +127,45 @@
     font-family: "Montserrat";
     color: var(--Texto2);
     font-weight: 700;
+}
+
+/* módulo */
+.modulo{
+    display: flex;
+    flex-direction: column;
+    min-width: 140px;
+}
+
+.modulo label{
+    font-family: "Montserrat";
+    color: var(--Texto2);
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.modulo select{
+    padding: 6px 10px;
+    border-radius: 10px;
+    border: 2px solid black;
+    background-color: var(--bg-secundario);
+    color: var(--Texto2);
+    font-family: "Montserrat";
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.modulo select:focus{
+    outline: none;
+}
+
+.modulo option{
+    background-color: var(--Cadastrar); 
+    color: var(--Texto3);
+    border: 1px solid var(--bg-principal);
+}
+
+.modulo option:hover{
+    background-color: var(--bg-principal) !important;
 }
 
 .parteMeio{
@@ -166,10 +207,10 @@
     padding: 12px;
     min-width: 120px;
 
-    background: var(--btn-Criar-Materia);
-    border: 2px solid var(--borda);
+    background: var(--bg-secundario);
+    border: 1px solid var(--Texto2);
     border-radius: 10px;
-    color: var(--btnUsuario);
+    color: var(--Texto2);
     font-family: "Montserrat";
     font-weight: 700;
 }
@@ -181,13 +222,7 @@
 
 /* exercicios */
 
-/* .container{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-} */
-
- .parteExercicios{
+.parteExercicios{
     background-color: var(--bg-secundario);
     border: 2px solid var(--borda);
     border-radius: 12px;
@@ -198,22 +233,58 @@
     padding: 20px;
 
     margin-bottom: 40px;
- }
+}
 
- .parteExercicios h1{
+.parteExercicios h1{
     text-align: center;
     font-family: "Montserrat";
     color: var(--Texto2);
     font-size: 36px;
- }
+}
 
- .Enunciado{
+/* abas de questões */
+
+.abasQuestoes{
     display: flex;
-    flex-direction: column;;
-    width: 90%;
- }
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
 
- .Enunciado label, .alternativas label{
+.abaQuestao{
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 2px solid var(--borda);
+    background-color: transparent;
+    color: var(--Texto2);
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.abaQuestao:hover{
+    opacity: 0.8;
+}
+
+.abaAtiva{
+    background-color: #7c3aed;
+    color: #ffffff;
+    border-color: #7c3aed;
+}
+
+.Enunciado{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.Enunciado label, .alternativas label{
     font-family: "Montserrat";
     color: var(--Texto2);
     font-weight: 800;
@@ -222,22 +293,22 @@
     margin-top: 30px;
     margin-left: 15px;
     margin-bottom: 2px;
- }
+}
 
- .Enunciado input{
+.Enunciado input{
     width: 100%;
     background-color: var(--bg-secundario);
     border: 2px solid black;
     border-radius: 12px;
     color: var(--Texto2);
- }
+}
 
- .Enunciado p{
+.Enunciado p{
     width: 100%;
     margin-left: 12px;
- }
+}
 
- .alternativas{
+.alternativas{
     width: 88%;
     display: flex;
     flex-direction: column;
@@ -245,11 +316,11 @@
     margin: 10px 0px;
     margin-bottom: 30px;
     gap: 30px;
- }
+}
 
- .alternativas label{
+.alternativas label{
     font-size: 26px !important; 
- }
+}
 
 .opcoesAlternativa{
     margin-left: 16px;
@@ -257,14 +328,14 @@
     align-items: center;
 }
 
- .opcoesAlternativa img{
+.opcoesAlternativa img{
     width: 4vw;
     max-width: 54px;
     min-width: 26px;
     margin-right: 30px;
- }
+}
 
- .opcoesAlternativa input{
+.opcoesAlternativa input{
     padding: 10px;
     padding-left: 30px;
     max-height: 30px;
@@ -272,7 +343,7 @@
     background-color: none;
     border: 2px solid black;
     border-radius: 12px;
- }
+}
 
 .opcoesAlternativa input:hover{
     cursor: pointer;
@@ -282,7 +353,13 @@
     cursor: auto;
     outline: none;
 }
- 
+
+@media (max-width: 1090px){
+
+    .tipoModuloLinha{
+        flex-direction: column;
+    }
+}
 
 @media (max-width: 861px){
 
@@ -296,23 +373,51 @@
         width: 90%;
     }
 
-    .tipo{
+    .tipoModuloLinha{
+        flex-direction: column;
+        width: 100%;
+        gap: 20px;
+    }
+
+    .modulo{
+        width: 100%;
+    }
+
+    .modulo select{
         width: 100%;
     }
 
     .escolherTipo{
-        flex-direction: row;
         flex-wrap: wrap;
+        /* width: 100%; */
+
+        justify-content: center;
     }
 
     .opcoesTipo{
         gap: 10px;
         width: 40%;
-
         justify-content: center;
     }
 
     .botoes{
         margin-top: 20px;
+    }
+
+    .abasQuestoes{
+        gap: 6px;
+    }
+
+    .abaQuestao{
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+}
+
+@media (max-width: 400px){
+
+    .escolherTipo{
+        flex-direction: column;
+        align-items: center;
     }
 }

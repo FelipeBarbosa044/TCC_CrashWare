@@ -15,6 +15,7 @@ export const aulasArray = [];
 const estadoInicialArtigo = {
     tituloAula: '',
     tipo: '',
+    modulo: '',
     subtitulos: [
         { subtitulo: '', paragrafo: '' },
         { subtitulo: '', paragrafo: '' },
@@ -23,13 +24,15 @@ const estadoInicialArtigo = {
     ],
 };
 
-const estadoInicialQuestao = {
+const criarQuestaoVazia = () => ({
     enunciado: '',
     respostaCorreta: '',
     opcao1: '',
     opcao2: '',
     opcao3: '',
-};
+});
+
+const estadoInicialQuestoes = Array(5).fill(null).map(criarQuestaoVazia);
 
 const AbaCriarMateria = () => {
 
@@ -37,7 +40,8 @@ const AbaCriarMateria = () => {
     const [etapa, setEtapa] = useState(1);
     const [tema] = useState(localStorage.getItem('TemaSelecionado') || 'Claro');
     const [artigo, setArtigo] = useState(estadoInicialArtigo);
-    const [questao, setQuestao] = useState(estadoInicialQuestao);
+    const [questoes, setQuestoes] = useState(estadoInicialQuestoes);
+    const [questaoAtiva, setQuestaoAtiva] = useState(0);
 
     const ArtigoChange = (campo, valor) => {
         setArtigo(prev => ({ ...prev, [campo]: valor }));
@@ -57,12 +61,20 @@ const AbaCriarMateria = () => {
     };
 
     const QuestaoChange = (campo, valor) => {
-        setQuestao(prev => ({ ...prev, [campo]: valor }));
+        setQuestoes(prev => {
+            const novas = [...prev];
+            novas[questaoAtiva] = { ...novas[questaoAtiva], [campo]: valor };
+            return novas;
+        });
     };
 
     const LimparQuestao = (e) => {
         e.preventDefault();
-        setQuestao(estadoInicialQuestao);
+        setQuestoes(prev => {
+            const novas = [...prev];
+            novas[questaoAtiva] = criarQuestaoVazia();
+            return novas;
+        });
     };
 
     const Proximo = (e) => {
@@ -70,6 +82,10 @@ const AbaCriarMateria = () => {
         if (etapa === 1) {
             if (!artigo.tituloAula.trim() || !artigo.tipo) {
                 setPopup({ mensagem: 'Preencha o título e o tipo antes de continuar.' });
+                return;
+            }
+            if (!artigo.modulo) {
+                setPopup({ mensagem: 'Selecione o módulo antes de continuar.' });
                 return;
             }
             setEtapa(2);
@@ -81,37 +97,75 @@ const AbaCriarMateria = () => {
     const CriarAula = (e) => {
         e.preventDefault();
 
-        if (!questao.enunciado.trim() || !questao.respostaCorreta.trim()) {
-            setPopup({ mensagem: 'Preencha o enunciado e a resposta correta.' });
-            return;
+        for (let i = 0; i < questoes.length; i++) {
+            const q = questoes[i];
+            if (!q.enunciado.trim() || !q.respostaCorreta.trim() || !q.opcao1.trim() || !q.opcao2.trim() || !q.opcao3.trim()) {
+                setQuestaoAtiva(i);
+                setPopup({ mensagem: `Preencha todos os campos da questão ${i + 1}.` });
+                return;
+            }
         }
 
-    const novaAula = {
-        tituloAula: artigo.tituloAula,
-        tipo: artigo.tipo,
+        const novaAula = {
+            tituloAula: artigo.tituloAula,
+            tipo: artigo.tipo,
+            modulo: artigo.modulo,
 
-        subtitulo1: artigo.subtitulos[0].subtitulo,
-        paragrafo1: artigo.subtitulos[0].paragrafo,
-        subtitulo2: artigo.subtitulos[1].subtitulo,
-        paragrafo2: artigo.subtitulos[1].paragrafo,
-        subtitulo3: artigo.subtitulos[2].subtitulo,
-        paragrafo3: artigo.subtitulos[2].paragrafo,
-        subtitulo4: artigo.subtitulos[3].subtitulo,
-        paragrafo4: artigo.subtitulos[3].paragrafo,
+            subtitulo1: artigo.subtitulos[0].subtitulo,
+            paragrafo1: artigo.subtitulos[0].paragrafo,
+            subtitulo2: artigo.subtitulos[1].subtitulo,
+            paragrafo2: artigo.subtitulos[1].paragrafo,
+            subtitulo3: artigo.subtitulos[2].subtitulo,
+            paragrafo3: artigo.subtitulos[2].paragrafo,
+            subtitulo4: artigo.subtitulos[3].subtitulo,
+            paragrafo4: artigo.subtitulos[3].paragrafo,
 
-        questao: {
-            enunciado: questao.enunciado,
-            respostaCorreta: questao.respostaCorreta,
-            opcao1: questao.respostaCorreta,
-            opcao2: questao.opcao1,
-            opcao3: questao.opcao2,
-            opcao4: questao.opcao3,
-        },
-    };
+            questao1: {
+                enunciado: questoes[0].enunciado,
+                respostaCorreta: questoes[0].respostaCorreta,
+                opcao1: questoes[0].respostaCorreta,
+                opcao2: questoes[0].opcao1,
+                opcao3: questoes[0].opcao2,
+                opcao4: questoes[0].opcao3,
+            },
+            questao2: {
+                enunciado: questoes[1].enunciado,
+                respostaCorreta: questoes[1].respostaCorreta,
+                opcao1: questoes[1].respostaCorreta,
+                opcao2: questoes[1].opcao1,
+                opcao3: questoes[1].opcao2,
+                opcao4: questoes[1].opcao3,
+            },
+            questao3: {
+                enunciado: questoes[2].enunciado,
+                respostaCorreta: questoes[2].respostaCorreta,
+                opcao1: questoes[2].respostaCorreta,
+                opcao2: questoes[2].opcao1,
+                opcao3: questoes[2].opcao2,
+                opcao4: questoes[2].opcao3,
+            },
+            questao4: {
+                enunciado: questoes[3].enunciado,
+                respostaCorreta: questoes[3].respostaCorreta,
+                opcao1: questoes[3].respostaCorreta,
+                opcao2: questoes[3].opcao1,
+                opcao3: questoes[3].opcao2,
+                opcao4: questoes[3].opcao3,
+            },
+            questao5: {
+                enunciado: questoes[4].enunciado,
+                respostaCorreta: questoes[4].respostaCorreta,
+                opcao1: questoes[4].respostaCorreta,
+                opcao2: questoes[4].opcao1,
+                opcao3: questoes[4].opcao2,
+                opcao4: questoes[4].opcao3,
+            },
+        };
 
         aulasArray.push(novaAula);
         setArtigo(estadoInicialArtigo);
-        setQuestao(estadoInicialQuestao);
+        setQuestoes(estadoInicialQuestoes);
+        setQuestaoAtiva(0);
         setEtapa(1);
         setPopup({ mensagem: 'Aula criada com sucesso!' });
     };
@@ -120,13 +174,16 @@ const AbaCriarMateria = () => {
     const corretaIcon = isClaro ? corretaPretaIcon : corretaBrancaIcon;
     const erradaIcon  = isClaro ? erradaPretaIcon  : erradaBrancaIcon;
 
+    const questaoAtual = questoes[questaoAtiva];
+
     return (
         <>
-                {popup && (
-                    <PopUp
-                        mensagem={popup.mensagem}
-                        onFechar={() => setPopup(null)}
-                />)}
+            {popup && (
+                <PopUp
+                    mensagem={popup.mensagem}
+                    onFechar={() => setPopup(null)}
+                />
+            )}
 
             {etapa === 1 && (
                 <div className={Style.conteudoArtigo}>
@@ -146,44 +203,61 @@ const AbaCriarMateria = () => {
                             <p>max. 40 caracteres</p>
                         </div>
 
-                        <div className={Style.tipo}>
-                            <label>Tipo</label>
-                            <div className={Style.escolherTipo}>
+                        <div className={Style.tipoModuloLinha}>
+                            <div className={Style.tipo}>
+                                <label>Tipo</label>
+                                <div className={Style.escolherTipo}>
 
-                                <div className={Style.opcoesTipo}>
-                                    <img src={softwareIcon} alt="software" />
-                                    <input
-                                        type="radio"
-                                        name="tipo"
-                                        value="software"
-                                        checked={artigo.tipo === 'software'}
-                                        onChange={e => ArtigoChange('tipo', e.target.value)}
-                                    />
-                                    <p>Software</p>
-                                </div>
+                                    <div className={Style.opcoesTipo}>
+                                        <img src={softwareIcon} alt="software" />
+                                        <input
+                                            type="radio"
+                                            name="tipo"
+                                            value="software"
+                                            checked={artigo.tipo === 'software'}
+                                            onChange={e => ArtigoChange('tipo', e.target.value)}
+                                        />
+                                        <p>Software</p>
+                                    </div>
 
-                                <div className={Style.opcoesTipo}>
-                                    <img src={hardwareIcon} alt="hardware" />
-                                    <input
-                                        type="radio"
-                                        name="tipo"
-                                        value="hardware"
-                                        checked={artigo.tipo === 'hardware'}
-                                        onChange={e => ArtigoChange('tipo', e.target.value)}
-                                    />
-                                    <p>Hardware</p>
-                                </div>
+                                    <div className={Style.opcoesTipo}>
+                                        <img src={hardwareIcon} alt="hardware" />
+                                        <input
+                                            type="radio"
+                                            name="tipo"
+                                            value="hardware"
+                                            checked={artigo.tipo === 'hardware'}
+                                            onChange={e => ArtigoChange('tipo', e.target.value)}
+                                        />
+                                        <p>Hardware</p>
+                                    </div>
 
-                                <div className={Style.opcoesTipo}>
-                                    <input
-                                        type="radio"
-                                        name='tipo'
-                                        value="outros"
-                                        checked={artigo.tipo === 'outros'}
-                                        onChange={e => ArtigoChange('tipo', e.target.value)}
-                                    />
-                                    <p>Outros</p>
+                                    <div className={Style.opcoesTipo}>
+                                        <input
+                                            type="radio"
+                                            name='tipo'
+                                            value="outros"
+                                            checked={artigo.tipo === 'outros'}
+                                            onChange={e => ArtigoChange('tipo', e.target.value)}
+                                        />
+                                        <p>Outros</p>
+                                    </div>
                                 </div>
+                            </div>
+
+                            <div className={Style.modulo}>
+                                <label>Módulo</label>
+                                <select
+                                    value={artigo.modulo}
+                                    onChange={e => ArtigoChange('modulo', e.target.value)}
+                                >
+                                    <option value="">Escolha o modulo</option>
+                                    <option value="modulo1">Módulo 1</option>
+                                    <option value="modulo2">Módulo 2</option>
+                                    <option value="modulo3">Módulo 3</option>
+                                    <option value="modulo4">Módulo 4</option>
+                                    <option value="modulo5">Módulo 5</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -232,13 +306,25 @@ const AbaCriarMateria = () => {
                     <div className={Style.parteExercicios}>
                         <h1>Questões</h1>
 
+                        <div className={Style.abasQuestoes}>
+                            {questoes.map((_, i) => (
+                                <button
+                                    key={i}
+                                    className={`${Style.abaQuestao} ${questaoAtiva === i ? Style.abaAtiva : ''}`}
+                                    onClick={() => setQuestaoAtiva(i)}
+                                >
+                                    {`QUESTÃO 0${i + 1}`}
+                                </button>
+                            ))}
+                        </div>
+
                         <div className={Style.Enunciado}>
                             <label>Enunciado</label>
                             <input
                                 maxLength={100}
                                 type="text"
                                 placeholder='Insira o enunciado da questão'
-                                value={questao.enunciado}
+                                value={questaoAtual.enunciado}
                                 onChange={e => QuestaoChange('enunciado', e.target.value)}
                             />
                             <p>max. 100 caracteres</p>
@@ -252,7 +338,7 @@ const AbaCriarMateria = () => {
                                 <input
                                     type="text"
                                     placeholder='Alternativa correta'
-                                    value={questao.respostaCorreta}
+                                    value={questaoAtual.respostaCorreta}
                                     onChange={e => QuestaoChange('respostaCorreta', e.target.value)}
                                 />
                             </div>
@@ -262,7 +348,7 @@ const AbaCriarMateria = () => {
                                 <input
                                     type="text"
                                     placeholder='Alternativa errada'
-                                    value={questao.opcao1}
+                                    value={questaoAtual.opcao1}
                                     onChange={e => QuestaoChange('opcao1', e.target.value)}
                                 />
                             </div>
@@ -272,7 +358,7 @@ const AbaCriarMateria = () => {
                                 <input
                                     type="text"
                                     placeholder='Alternativa errada'
-                                    value={questao.opcao2}
+                                    value={questaoAtual.opcao2}
                                     onChange={e => QuestaoChange('opcao2', e.target.value)}
                                 />
                             </div>
@@ -282,7 +368,7 @@ const AbaCriarMateria = () => {
                                 <input
                                     type="text"
                                     placeholder='Alternativa errada'
-                                    value={questao.opcao3}
+                                    value={questaoAtual.opcao3}
                                     onChange={e => QuestaoChange('opcao3', e.target.value)}
                                 />
                             </div>
