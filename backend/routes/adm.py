@@ -195,9 +195,27 @@ async def removerBanner_usuario(dados : UsuarioSchema ,session = Depends(pegar_s
         session.rollback()
         raise HTTPException(status_code=400, detail=str(exception))
 
+@adm.patch('/redefinir_nome')
+async def redefinir_nome(dados : UsuarioSchema,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.id_usuario == dados.id_usuario).first()
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuario não encontrado")
 
+    if(usuario.nome_usuario == "Usuário"):
+        raise HTTPException(status_code=403, detail="Esse Nome não pode ser Redefinido")
 
+    if (usuario.email == "felipebarbosaribeiro197@gmail.com" or usuario.email == "resferagamer@gmail.com"):
+        raise HTTPException(status_code=403, detail="O Felipe Não Pode ter o Nome Redefinido")
 
+    try:
+        usuario.nome_usuario = "Usuário"
+        session.commit()
+
+        return {"mensagem" : "Nome Redefinido"}
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
 
 
 
