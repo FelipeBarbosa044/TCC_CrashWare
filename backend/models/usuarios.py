@@ -31,6 +31,7 @@ class Usuarios(Base):
     banner = Column(String(255),default="default.png",server_default=text("'default.png'"))
     email_verificado = Column(Boolean,default=False,server_default=text("false"))
     ativo = Column(Boolean,default=True,server_default=text("true"))
+    motivo_banimento = Column(Text,nullable=True)
     admin = Column(Boolean,default=False,server_default=text("false"))
     moedas = Column(Integer,default=0,server_default=text("0"))
     xp = Column(Float,default=0,server_default=text("0.0"))
@@ -40,7 +41,6 @@ class Usuarios(Base):
     codigo_expirado_em = Column(DateTime(timezone=True),nullable=True)
     sms = Column(String(6), nullable=True)
     sms_expirado_em = Column(DateTime(timezone=True), nullable=True)
-
 
     #Data de criação e Data de Alteração
 

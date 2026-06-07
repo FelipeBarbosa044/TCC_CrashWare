@@ -100,6 +100,7 @@ class Usuario_Ofensiva(Base):
     congelamentos = Column(Integer,default=0,server_default=text("0"))
     congelada_ativa = Column(Boolean,default=False,server_default=text("false"))
     ultima_data_valida = Column(DateTime,server_default=func.now())
+    equipado_em = Column(DateTime, nullable=True)
 
     # Criando relação com objetos (relationship)
     usuario = relationship("Usuarios", backref=backref(
