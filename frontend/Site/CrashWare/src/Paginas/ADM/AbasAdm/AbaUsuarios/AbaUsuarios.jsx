@@ -180,7 +180,29 @@ const AbaUsuarios = () => {
                 
             }
 
+    async function RedefinirNome(id_usuario) {
 
+        await adm.redefinir_nome(id_usuario,setPopup)
+
+        // Atualizo o status na lista principal
+        setUsuarios((antigas) =>
+            antigas.map((c) =>
+                c.id === id_usuario
+                    ? { ...c, nome: "Usuário"}
+                    : c
+            )
+        )
+
+        // Atualizo o status na lista exibida
+        setUsuariosExibidos((antigas) =>
+            antigas.map((c) =>
+                c.id === id_usuario
+                    ? { ...c, nome: "Usuário"}
+                    : c
+            )
+        )
+
+    }
 
     return (
         <>
@@ -255,6 +277,7 @@ const AbaUsuarios = () => {
                                             className={Style.btnSanfona}
 
                                             texto="Redefinir Nome"
+                                            onClick={()  =>  RedefinirNome(c.id) }
                                         />
                                         <BotoesForm
                                             className={Style.Banir}

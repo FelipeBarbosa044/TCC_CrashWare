@@ -547,4 +547,70 @@ export class Adm
         }
 
     }//Remover Banner do Usuario
+
+    async redefinir_nome(id_usuario,setPopup,setDados)
+    {
+         setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Nome',
+                    mensagem: 'Redefinindo Nome...'
+                });
+
+        await sleep(1000)
+
+        try
+        {
+             const response = await fetch("https://api-crashware.onrender.com/adm/redefinir_nome",
+                {
+                    method: "PATCH",
+                    headers:{  "Content-Type": "application/json" },
+                     body: JSON.stringify({
+                        id_usuario : id_usuario
+                    })
+
+                });
+
+            if(response.ok)
+            {
+                //Exibo resposta da API
+                const resposta = await response.json();
+
+                setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'Nome',
+                    mensagem: resposta.mensagem
+                });
+
+                
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo o erro
+                
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Nome',
+                    mensagem: erro.detail
+                });
+
+               console.log("Erro ao Redefinir Nome" + erro.detail)
+            }
+                
+        }catch(error) 
+        {
+            //Erro de Internet OU na Requisição
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Erro De Conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+
+            console.log("Erro Ao Tentar Rdefinir Nome" + error)
+
+    
+        }
+
+    }//Redefinir Nome
+    
 }//ADM

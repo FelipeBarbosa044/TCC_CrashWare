@@ -769,7 +769,7 @@ export class Configurações
                 //Pega os dados atuais
                 const dados = JSON.parse(localStorage.getItem("dados"));
 
-                //Atualiza apenas o email
+                //Atualiza apenas o nome
                 dados.nome = resposta.nome;
 
                 //Salva novamente
