@@ -158,9 +158,9 @@ const Router = () => {
                 <Route
                     path="sobre"
                     element={
-                        <RotaPrivada>
+                        // <RotaPrivada>
                             <PgSobre />
-                        </RotaPrivada>
+                        /* </RotaPrivada> */
                     }
                 />
 
@@ -206,7 +206,7 @@ const Router = () => {
                 />
 
                 <Route
-                    path="/criar-materia"
+                    path="criar-materia"
                     element={
                         <RotaPrivada>
                             <AbaCriarMateria />

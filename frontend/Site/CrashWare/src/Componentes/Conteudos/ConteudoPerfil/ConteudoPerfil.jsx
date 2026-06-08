@@ -101,7 +101,7 @@ const ConteudoPerfil = () => {
     //PopupConquista
     const [popupConquista, setPopupConquista] = useState(null);
 
-    if (click >= 10) {
+    if (click == 10) {
         //Crio o bjeto que contem requisições para o banco
         const user = new Usuario(token, refresh_token, Navegacao, set);
         user.conquista(17, setPopupConquista, setDados);
@@ -146,11 +146,6 @@ const ConteudoPerfil = () => {
 
         //Pega as conquistas
         const usuario_conquistas = JSON.parse(localStorage.getItem("usuario_conquistas") || "[]");
-
-        //Adiciono as conquistas na interface
-        // for (let n = 0; n < quantidade_conquistas; n++) {
-        //     CONQUISTAS_MOCK.push({ tipo: usuario_conquistas[n].tipo_conquista, titulo: usuario_conquistas[n].nome_conquista, descricao: usuario_conquistas[n].descricao })
-        // }
 
         const novasConquistas = usuario_conquistas.map((c) => ({
             tipo: c.tipo_conquista,
@@ -466,10 +461,6 @@ const ConteudoPerfil = () => {
                                     </div>
                                 ))}
                             </div>
-
-                            <button className={style.verTodas}>
-                                <p>Ver todas as conquistas</p>
-                            </button>
                         </div>
                     </div>
 

@@ -10,8 +10,7 @@ import googlePlayModoClaro from '../../../fotos/claro/play.svg';
 import googlePlayModoEscuro from '../../../fotos/escuro/play.svg';
 
 
-// importando componentes para ser ultilizados no ConteudoInicial.jsx
-// import FMenina from '../../../fotos/claro/NovaMenina.svg';
+
 import { BotoesApp, BotoesForm } from '../../Botoes';
 import { Cards } from '../../Cards';
 import { Link, useNavigate } from "react-router-dom";
@@ -27,7 +26,6 @@ const ConteudoInicial = () => {
 
 
     useEffect(() => {
-
 
         //Tema claro e escuro (não faço ideia oq faz pq ninguem comenta) isso muda o tema, ué
         const checarTema = (e) => setTema(e.detail);

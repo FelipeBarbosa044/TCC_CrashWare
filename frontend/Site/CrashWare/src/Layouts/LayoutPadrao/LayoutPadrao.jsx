@@ -49,7 +49,7 @@ const LayoutPadrao = () => {
                                 <div className={Style.informacoes}>
 
                                     <h5>Informações</h5>
-                                    <Link to='sobre-nos'>
+                                    <Link to='sobre'>
                                         <p>Sobre Nós</p>
                                     </Link>
 
