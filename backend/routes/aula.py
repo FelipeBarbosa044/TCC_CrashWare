@@ -1,0 +1,92 @@
+#Ferramentas do FastApi
+from fastapi import APIRouter, Depends,HTTPException
+
+#Ferramentas do sqlAlchemy
+
+#Importando Tabelas referente as AULAS
+from models.aula import Aula,Exercicio,Questao,Alternativa
+
+#Instânciando roteador
+materia = APIRouter(prefix="/materia",tags=["matéria"])
+
+#Importando dependencias
+from dependences import pegar_sessao ,  validar_token
+
+#Importando Schemas
+from schemas.MateriaSchema import AulaSchema, ExercicioSchema,QuestaoSchema,AlternativaSchema
+
+
+#ROTAS:
+#Rota de criar aula
+@materia.post('/')
+async def criar_aula(dados : AulaSchema,session = Depends(pegar_sessao)):
+    try:
+        #Crio a Aula
+        aula = Aula(titulo= dados.titulo,tipo=dados.tipo,modulo=dados.modulo,subtitulo_1=dados.subtitulo1,paragrafo_1=dados.paragrafo1,subtitulo_2=dados.subtitulo2,paragrafo_2=dados.paragrafo2,subtitulo_3=dados.subtitulo3,paragrafo_3=dados.paragrafo3,subtitulo_4=dados.subtitulo4,paragrafo_4=dados.paragrafo4,moeda_bonus= dados.moeda_bonus,xp_bonus=dados.xp_bonus)
+        session.add(aula)
+        session.commit()
+
+        return {"id_aula" : aula.id_aula}
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
+# Rota de criar Exercicio
+@materia.post('/criar_exercicio')
+async def criar_exercicio(dados : ExercicioSchema , session = Depends(pegar_sessao)):
+    aula = session.query(Aula).filter(Aula.id_aula == dados.aula_id).first()
+    if aula is None:
+        raise HTTPException(status_code=404, detail="Aula não encontrada")
+    try:
+        #Crio o exercicio
+        exercicio = Exercicio(aula_id= dados.aula_id)
+        session.add(exercicio)
+        session.commit()
+
+        return {"id_exercicio" : exercicio.id_exercicio}
+
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
+# Rota de criar Questão
+@materia.post('/criar_questao')
+async def criar_questao(dados : QuestaoSchema , session = Depends(pegar_sessao)):
+    exercicio = session.query(Exercicio).filter(Exercicio.id_exercicio == dados.exercicio_id).first()
+    if exercicio is None:
+        raise HTTPException(status_code=404, detail="Exercicio não encontrado")
+    try:
+        # Crio a Questão
+        questao = Questao(exercicio_id=dados.exercicio_id,pergunta=dados.pergunta,ordem=dados.ordem)
+        session.add(questao)
+        session.commit()
+
+        return {"id_questao": questao.id_questao}
+
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
+#Rota de Criar Alternativa
+@materia.post('/criar_alternativa')
+async def criar_alternativa(dados : AlternativaSchema,session = Depends(pegar_sessao)):
+    questao = session.query(Questao).filter(Questao.id_questao == dados.questao_id).first()
+    if questao is None:
+        raise HTTPException(status_code=404, detail="Questão não encontrada")
+    try:
+        # Crio a Alternativa
+        alternativa = Alternativa(questao_id=dados.questao_id,texto=dados.texto,correta=dados.correta)
+        session.add(alternativa)
+        session.commit()
+
+        return {"mensagem" : "Alternativa Criada"}
+    
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
+
