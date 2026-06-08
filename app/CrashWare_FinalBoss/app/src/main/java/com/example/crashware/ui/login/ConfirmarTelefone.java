@@ -61,22 +61,23 @@ public class ConfirmarTelefone extends AppCompatActivity {
 
         txtTel.setText(telefone);
 
-        String CodigoTel = txtCodigoTel.getText().toString().trim();
+
 
         btnVerificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                if (CodigoTel.isEmpty())
+                String CodigoTel = txtCodigoTel.getText().toString().trim();
+
+                if (CodigoTel.isEmpty() || CodigoTel.length() < 6)
                 {
                     Preencha.show();
 
                 }
-
                 else
                 {
                     //Chamo o metodo de verificar sms
-
+                    Configuracoes.Verificar_SMS(telefone,emailUsuario,CodigoTel,prefs,ConfirmarTelefone.this);
 
                 }
 

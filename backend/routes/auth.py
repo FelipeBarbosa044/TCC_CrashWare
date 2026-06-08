@@ -79,7 +79,7 @@ def EnviarSms(codigo,destinario):
         mensagem = cliente.messages.create(
             from_=TWILIO_PHONE_NUMBER,
             to=f"+55{destinario}",
-            body=f"Equipe CrashWare: o codigo de verificacao  expira em 10 minutos. CODIGO: {codigo}"
+            body=f"Equipe CRASHWARE: o codigo  expira em 10 minutos. CODIGO: {codigo}"
         )
 
         #Retorno  para a rota que chamou

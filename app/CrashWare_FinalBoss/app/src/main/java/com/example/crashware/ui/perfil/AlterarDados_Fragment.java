@@ -35,7 +35,7 @@ public class AlterarDados_Fragment extends Fragment {
 
     SharedPreferences prefs;
 
-    String nome, email;
+    String nome, email,telefone;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -103,6 +103,16 @@ public class AlterarDados_Fragment extends Fragment {
 
         nome  = prefs.getString("nome", null );
         email = prefs.getString("email", null);
+        telefone = prefs.getString("telefone",null);
+
+//        if(telefone != null)
+//        {
+//            //Aparece o telefone vinculado , e o botao remover
+//        }else
+//        {
+//            //fica como esta
+//
+//        }
 
         Toast Preencha = Toast.makeText(getContext(), "Preencha o campo Requisitado!", Toast.LENGTH_LONG);
         Toast DiferenteEmail = Toast.makeText(getContext(), "O Novo Email deve ser diferente do anterior!", Toast.LENGTH_LONG);

@@ -12,6 +12,7 @@ import com.example.crashware.ui.login.ConfirmarIdentidade;
 import com.example.crashware.ui.login.ConfirmarTelefone;
 import com.example.crashware.ui.login.Login;
 import com.example.crashware.ui.navegacao.Home;
+import com.example.crashware.ui.perfil.AlterarDados_Fragment;
 import com.example.crashware.ui.senha.RedefinirSenha;
 
 import org.json.JSONObject;
@@ -900,14 +901,14 @@ public class Configuracoes {
 
     // INTERFACE da API:
     public static interface EnviarSMS {
-        @POST("/auth/enivar_sms")
+        @POST("/auth/enviar_sms")
         Call<EnviarSMSResponse> enviar(
                 @Body TelefoneRequest request
         );
     }//Interface
 
 
-    public static void Enviar_SMS(String telefone, String email, SharedPreferences prefs, Context context)
+    public static void Enviar_SMS(String telefone, String email,SharedPreferences prefs, Context context)
     {
 
         // Criando a API
@@ -935,6 +936,7 @@ public class Configuracoes {
                     //Requisição der certo
 
                     EnviarSMSResponse dados = resposta.body();
+
 
                     //Exibo a mensagem
                     Toast.makeText(context, dados.mensagem , Toast.LENGTH_LONG).show();
@@ -1135,8 +1137,8 @@ public class Configuracoes {
                     //Resposta da API
                     Toast.makeText(activity, dados.mensagem, Toast.LENGTH_LONG).show();
 
-                    //Envio para a tela Home
-                    Intent i = new Intent(activity, Home.class);
+                    //Envio para a tela De  Alterar Dados Fragment
+                    Intent i = new Intent(activity, AlterarDados_Fragment.class);
                     activity.startActivity(i);
                     activity.finish();
 
