@@ -30,6 +30,7 @@ const criarQuestaoVazia = () => ({
     opcao1: '',
     opcao2: '',
     opcao3: '',
+    opcao4: '',
 });
 
 const estadoInicialQuestoes = Array(5).fill(null).map(criarQuestaoVazia);
@@ -81,11 +82,11 @@ const AbaCriarMateria = () => {
         e.preventDefault();
         if (etapa === 1) {
             if (!artigo.tituloAula.trim() || !artigo.tipo) {
-                setPopup({ mensagem: 'Preencha o título e o tipo antes de continuar.' });
+                setPopup({titulo : "Formulário", mensagem: 'Preencha o Título e o Tipo' });
                 return;
             }
             if (!artigo.modulo) {
-                setPopup({ mensagem: 'Selecione o módulo antes de continuar.' });
+                setPopup({titulo : "Formulário" ,mensagem: 'Selecione o Módulo.' });
                 return;
             }
             setEtapa(2);
@@ -99,9 +100,9 @@ const AbaCriarMateria = () => {
 
         for (let i = 0; i < questoes.length; i++) {
             const q = questoes[i];
-            if (!q.enunciado.trim() || !q.respostaCorreta.trim() || !q.opcao1.trim() || !q.opcao2.trim() || !q.opcao3.trim()) {
+            if (!q.enunciado.trim() || !q.respostaCorreta.trim() || !q.opcao1.trim() || !q.opcao2.trim() || !q.opcao3.trim() || !q.opcao4.trim()) {
                 setQuestaoAtiva(i);
-                setPopup({ mensagem: `Preencha todos os campos da questão ${i + 1}.` });
+                setPopup({ mensagem: `Preencha os Campos da Questão ${i + 1}.` });
                 return;
             }
         }
@@ -127,6 +128,7 @@ const AbaCriarMateria = () => {
                 opcao2: questoes[0].opcao1,
                 opcao3: questoes[0].opcao2,
                 opcao4: questoes[0].opcao3,
+                opcao5: questoes[0].opcao4
             },
             questao2: {
                 enunciado: questoes[1].enunciado,
@@ -135,6 +137,7 @@ const AbaCriarMateria = () => {
                 opcao2: questoes[1].opcao1,
                 opcao3: questoes[1].opcao2,
                 opcao4: questoes[1].opcao3,
+                opcao5: questoes[0].opcao4
             },
             questao3: {
                 enunciado: questoes[2].enunciado,
@@ -143,6 +146,7 @@ const AbaCriarMateria = () => {
                 opcao2: questoes[2].opcao1,
                 opcao3: questoes[2].opcao2,
                 opcao4: questoes[2].opcao3,
+                opcao5: questoes[0].opcao4
             },
             questao4: {
                 enunciado: questoes[3].enunciado,
@@ -151,6 +155,7 @@ const AbaCriarMateria = () => {
                 opcao2: questoes[3].opcao1,
                 opcao3: questoes[3].opcao2,
                 opcao4: questoes[3].opcao3,
+                opcao5: questoes[0].opcao4
             },
             questao5: {
                 enunciado: questoes[4].enunciado,
@@ -159,6 +164,7 @@ const AbaCriarMateria = () => {
                 opcao2: questoes[4].opcao1,
                 opcao3: questoes[4].opcao2,
                 opcao4: questoes[4].opcao3,
+                opcao5: questoes[0].opcao4
             },
         };
 
@@ -180,6 +186,8 @@ const AbaCriarMateria = () => {
         <>
             {popup && (
                 <PopUp
+                    tipo={popup.tipo}
+                    titulo={popup.titulo}
                     mensagem={popup.mensagem}
                     onFechar={() => setPopup(null)}
                 />
@@ -192,15 +200,15 @@ const AbaCriarMateria = () => {
                         <h1>Artigo</h1>
 
                         <div className={Style.inputs}>
-                            <label>Titulo da aula</label>
+                            <label>Título da aula</label>
                             <input
-                                maxLength={40}
+                                maxLength={50}
                                 type="text"
-                                placeholder='Insira o titulo da aula aqui !!!'
+                                placeholder='Título Da Aula'
                                 value={artigo.tituloAula}
                                 onChange={e => ArtigoChange('tituloAula', e.target.value)}
                             />
-                            <p>max. 40 caracteres</p>
+                            <p>max. 50 caracteres</p>
                         </div>
 
                         <div className={Style.tipoModuloLinha}>
@@ -231,17 +239,6 @@ const AbaCriarMateria = () => {
                                         />
                                         <p>Hardware</p>
                                     </div>
-
-                                    <div className={Style.opcoesTipo}>
-                                        <input
-                                            type="radio"
-                                            name='tipo'
-                                            value="outros"
-                                            checked={artigo.tipo === 'outros'}
-                                            onChange={e => ArtigoChange('tipo', e.target.value)}
-                                        />
-                                        <p>Outros</p>
-                                    </div>
                                 </div>
                             </div>
 
@@ -252,11 +249,9 @@ const AbaCriarMateria = () => {
                                     onChange={e => ArtigoChange('modulo', e.target.value)}
                                 >
                                     <option value="">Escolha o modulo</option>
-                                    <option value="modulo1">Módulo 1</option>
-                                    <option value="modulo2">Módulo 2</option>
-                                    <option value="modulo3">Módulo 3</option>
-                                    <option value="modulo4">Módulo 4</option>
-                                    <option value="modulo5">Módulo 5</option>
+                                    <option value="1">Módulo 1</option>
+                                    <option value="2">Módulo 2</option>
+                                    <option value="3">Módulo 3</option>
                                 </select>
                             </div>
                         </div>
@@ -270,25 +265,23 @@ const AbaCriarMateria = () => {
                                 <div className={Style.inputs}>
                                     <label>{`0${i + 1} - Subtitulo`}</label>
                                     <input
-                                        maxLength={50}
+                                        maxLength={70}
                                         type="text"
                                         placeholder={`Insira o ${['primeiro','segundo','terceiro','quarto'][i]} subtitulo`}
                                         value={secao.subtitulo}
                                         onChange={e => SubtituloChange(i, 'subtitulo', e.target.value)}
                                     />
-                                    <p>max. 50 caracteres</p>
+                                    <p>max. 70 caracteres</p>
                                 </div>
 
                                 <div className={Style.inputs}>
                                     <label>{`0${i + 1} - Parágrafo`}</label>
                                     <input
-                                        maxLength={150}
                                         type="text"
                                         placeholder={`Insira o ${['primeiro','segundo','terceiro','quarto'][i]} Parágrafo`}
                                         value={secao.paragrafo}
                                         onChange={e => SubtituloChange(i, 'paragrafo', e.target.value)}
                                     />
-                                    <p>max. 150 caracteres</p>
                                 </div>
                             </div>
                         ))}
@@ -321,13 +314,11 @@ const AbaCriarMateria = () => {
                         <div className={Style.Enunciado}>
                             <label>Enunciado</label>
                             <input
-                                maxLength={100}
                                 type="text"
-                                placeholder='Insira o enunciado da questão'
+                                placeholder='Insira o Enunciado da Questão'
                                 value={questaoAtual.enunciado}
                                 onChange={e => QuestaoChange('enunciado', e.target.value)}
                             />
-                            <p>max. 100 caracteres</p>
                         </div>
 
                         <div className={Style.alternativas}>
@@ -370,6 +361,16 @@ const AbaCriarMateria = () => {
                                     placeholder='Alternativa errada'
                                     value={questaoAtual.opcao3}
                                     onChange={e => QuestaoChange('opcao3', e.target.value)}
+                                />
+                            </div>
+
+                            <div className={Style.opcoesAlternativa}>
+                                <img src={erradaIcon} alt="errada" />
+                                <input
+                                    type="text"
+                                    placeholder='Alternativa errada'
+                                    value={questaoAtual.opcao4}
+                                    onChange={e => QuestaoChange('opcao4', e.target.value)}
                                 />
                             </div>
                         </div>

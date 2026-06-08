@@ -62,9 +62,6 @@
     color: var(--Texto3);
 }
 
-.inputs input:hover, .Enunciado input:hover{
-    cursor: pointer;
-}
 
 .inputs input:focus, .Enunciado input:focus{
     outline: none;
@@ -96,7 +93,9 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    cursor: default;
 }
+
 
 .tipo label{
     font-family: "Montserrat";
@@ -112,11 +111,13 @@
     gap: 10px;
 }
 
+
 .opcoesTipo{
     display: flex;
     align-items: center;
     gap: 10px;
 }
+
 
 .opcoesTipo img{
     width: 3vw;
@@ -127,6 +128,12 @@
     font-family: "Montserrat";
     color: var(--Texto2);
     font-weight: 700;
+}
+
+/*Cursor Ativado ao clicar no tipo*/
+.opcoesTipo:hover input{
+    
+    cursor: pointer;
 }
 
 /* módulo */
@@ -323,6 +330,7 @@
 }
 
 .opcoesAlternativa{
+
     margin-left: 16px;
     display: flex;
     align-items: center;
@@ -343,10 +351,6 @@
     background-color: none;
     border: 2px solid black;
     border-radius: 12px;
-}
-
-.opcoesAlternativa input:hover{
-    cursor: pointer;
 }
 
 .opcoesAlternativa input:focus{
