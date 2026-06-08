@@ -23,9 +23,10 @@ const RotaAdm = ({ children }) => {
         {
             //Pego o valor de adm do usuário
             const adm = usuario.adm;
+            const ativo = usuario.ativo;
 
             //Verifico se usuário é adm
-            if(adm == false)
+            if(adm == false || ativo == false )
             {
                 //Levo para a HOME
                 Navegacao('/home')
