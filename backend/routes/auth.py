@@ -367,7 +367,7 @@ async def verificar_telefone(dados : TelefoneSchema,usuario = Depends(validar_to
 ############################
 
 #Rota de remover telefone
-@auth.patch('remover_telefone')
+@auth.patch('/remover_telefone')
 async def remover_telefone (usuario = Depends(validar_token),session = Depends(pegar_sessao)):
     if usuario is None:
         raise HTTPException(status_code=401, detail="Token expirado ou inválido")
@@ -376,7 +376,7 @@ async def remover_telefone (usuario = Depends(validar_token),session = Depends(p
         usuario.telefone = None
         session.commit()
 
-        return {"mensagem" : "Telefone removido com sucesso"}
+        return {"mensagem" : "Telefone Removido"}
 
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
