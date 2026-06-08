@@ -22,6 +22,27 @@ const RotaPrivada = ({ children }) => {
     const set = [setToken,setRefresh,setDados];
 
 
+    const VerificarAtivo = async () => 
+    {
+        //Verifico se o usuário esta desativado/banido
+
+         //Pego as informações do usuário
+        const usuario =  await JSON.parse(localStorage.getItem("dados") || null);
+
+        if(usuario == null)
+        {
+            return;
+        }else
+        {
+            if(usuario.ativo == false)
+            {
+                //Se usuario tiver Banido/Desativado
+                //Levo para a HOME
+                Navegacao('/home')
+            }
+        }
+
+    }
     //Verifico se o usuario tem token
     const VerificarToken = async () => 
     {
@@ -31,9 +52,10 @@ const RotaPrivada = ({ children }) => {
 
 
         //Verifico o token
-        const usuario = new Api();
-        await usuario.Verificar_Token(token,refresh_token,Navegacao,set,true)
+        const api = new Api();
+        await api.Verificar_Token(token,refresh_token,Navegacao,set,true)
 
+        
 
     }
 
@@ -42,6 +64,7 @@ const RotaPrivada = ({ children }) => {
     //Sempre que a rota for chamada, eu verifico o token
     useEffect(() => {
             VerificarToken();
+            VerificarAtivo();
         }, []);
           
     
