@@ -225,9 +225,7 @@ async def enviar_sms(dados : TelefoneSchema,session = Depends(pegar_sessao)):
     # Envio  o SMS
     EnviarSms(codigo,dados.telefone)
 
-    return {"mensagem": "SMS Enviado!",
-            "codigo" : codigo
-            }
+    return {"mensagem": "SMS Enviado!"}
 #########################
 @auth.post("/verificar_sms")
 async def verificar_sms(dados : TelefoneSchema , session = Depends(pegar_sessao)):
