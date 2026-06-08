@@ -2,8 +2,8 @@ import Style from "./ConteudoSobre.module.css";
 import hardwareIcon from "../../../fotos/hardware.svg";
 import softwareIcon from "../../../fotos/software.svg";
 import { useState } from "react";
-import { FaInstagram, FaLinkedinIn } from "react-icons/fa6";
-import { MdEmail } from "react-icons/md";
+// import { FaInstagram, FaLinkedinIn } from "react-icons/fa6";
+// import { MdEmail } from "react-icons/md";
 
 const ConteudoSobre = () => {
 

@@ -661,31 +661,24 @@ export class Configurações
     }//Adicionar Telefone
 
 
-    async Alterar_Telefone(telefone,setPopup,setDados,Navegacao)
+    async Remover_Telefone(setPopup,setDados)
     {
+        //Verifico o token
+        const usuario = new Api();
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
 
-         //Controle de Navegação
-        localStorage.setItem("alterar_telefone" , "false")
+        //Pego o token
+        const token = localStorage.getItem("token")
 
-         setPopup({
-                tipo: 'aviso',
-                titulo: 'Telefone',
-                mensagem: 'Alterando telefone...'
-            });
-
-        await sleep(1000)
 
         try
         {
-             const  response = await fetch("https://api-crashware.onrender.com/auth/alterar_telefone",
+             const response = await fetch("https://api-crashware.onrender.com/auth/remover_telefone",
                 {
                     method: "PATCH",
                     headers: { 
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        telefone : telefone
-                    })
+                        "Authorization": `Bearer ${token}`
+                    }
                 });
 
             if(response.ok)
@@ -696,7 +689,7 @@ export class Configurações
                 const dados = JSON.parse(localStorage.getItem("dados"));
 
                 //Atualiza apenas o email
-                dados.telefone = telefone;
+                dados.telefone = null;
 
                 //Salva novamente
                 localStorage.setItem("dados", JSON.stringify(dados));
@@ -706,14 +699,14 @@ export class Configurações
 
                 setPopup({
                     tipo: 'sucesso',
-                    titulo: 'Telefone Alterado',
-                    mensagem: 'Estamos te redirecionando...'
+                    titulo: 'Telefone',
+                    mensagem: 'Telefone Removido'
                 });
 
                 await sleep(2000)
 
-                //Levo para a Home
-                Navegacao('/home')
+                // //Atualizo a página
+                // window.location.href = '/configuracoes'
             }else
             {
                 const erro = await response.json();
@@ -723,6 +716,8 @@ export class Configurações
                     titulo: 'Telefone',
                     mensagem: erro.detail
                 });
+
+                console.log(erro)
             }
         }catch(error){
             //Erro na API ou de Conexão
@@ -732,10 +727,10 @@ export class Configurações
                 mensagem: 'Não foi possível conectar ao servidor.'
             });
 
-            console.log("Erro ao Alterar telefone : " + error)
+            console.log("Erro ao Remover telefone : " + error)
         }
 
-    }//Alterar Telefone
+    }//Remover Telefone
 
     async Alterar_Nome(nome,setPopup,setDados,Navegacao)
     {

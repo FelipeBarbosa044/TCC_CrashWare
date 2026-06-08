@@ -297,6 +297,17 @@ const ConteudoConfiguracoes = () => {
 
     const temPhone = usuario?.telefone;
 
+    const RemoverTelefone = async () =>
+    {
+        setPopup({
+                tipo: 'aviso',
+                titulo: 'Telefone',
+                mensagem: 'Removendo Telefone...'
+            });
+
+        await campo.Remover_Telefone(setPopup,setDados)
+    }
+
     const AlterarNome = async () => {
         if (!nome.trim()) {
 
@@ -460,9 +471,7 @@ const ConteudoConfiguracoes = () => {
                             </button>
                         </div>
 
-                        {!temPhone ? (
-                            <>
-                                <div className={Style.secaoDados}>
+                        <div className={Style.secaoDados}>
                                     <div className={Style.preencherDados}>
                                         <div className={Style.campoForm}>
                                             <label>Nome Atual</label>
@@ -484,6 +493,10 @@ const ConteudoConfiguracoes = () => {
                                         Alterar
                                     </button>
                                 </div>
+
+                        {!temPhone ? (
+                            <>
+                                
                                 <div className={Style.secaoDados}>
                                     <div className={Style.preencherDados}>
                                         <div className={Style.inputContainer}>
@@ -523,7 +536,13 @@ const ConteudoConfiguracoes = () => {
                             </>
                         ) : (
                             <>
-                                <p>tem: {usuario.telefone}</p>
+                                <h2>Telefone Atual: {usuario.telefone}</h2>
+                                <button
+                                        className={Style.botoes}
+                                        onClick={RemoverTelefone}
+                                    >
+                                        Remover Telefone
+                                    </button>
                             </>
                         )}
                         <div className={Style.secaoDados}>
