@@ -173,7 +173,7 @@ const AbaCriarMateria = () => {
         setQuestoes(estadoInicialQuestoes);
         setQuestaoAtiva(0);
         setEtapa(1);
-        setPopup({ mensagem: 'Aula criada com sucesso!' });
+        // setPopup({ mensagem: 'Aula criada com sucesso!' });
     };
 
     const isClaro = tema === 'Claro';

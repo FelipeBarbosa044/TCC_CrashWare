@@ -83,7 +83,7 @@ async def criar_alternativa(dados : AlternativaSchema,session = Depends(pegar_se
         session.commit()
 
         return {"mensagem" : "Alternativa Criada"}
-    
+
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
