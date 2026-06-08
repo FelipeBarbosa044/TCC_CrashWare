@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import { PgInicial, PgCadastro, SobreNos, PgLogin, PgErro, PgRecuperarSenha, PgVerificacaoEmail, PgPerfil, PgAnotacoes, PgConfiguracoes, PgHome, PgTermos, AbaConquistas, AbaUsuarios, PgConteudoHardware, PgAlterarSenha, AbaRelatorios, PgConteudoSoftware, AbaCriarMateria, PgLoja, PgSobre, PgVerificarTelefone} from "./Paginas"
 import { LayoutPadrao, LayoutADM, LayoutLogado } from "./Layouts"
-import { AuthProvider, RotaPrivada } from "./VerificacaoToken"
+import { AuthProvider, RotaAdm, RotaPrivada } from "./VerificacaoToken"
 import { AbaListarConquistas } from "./Paginas/ADM/AbasAdm/AbaListarConquistas"
 
 import { PgComoFunciona, PgMotivacaoMentalidade } from "./Paginas"
@@ -172,45 +172,45 @@ const Router = () => {
                 <Route
                     path="relatorio"
                     element={
-                        <RotaPrivada>
+                        <RotaAdm>
                             <AbaRelatorios />
-                        </RotaPrivada>
+                        </RotaAdm>
                     }
                 />
 
                 <Route
                     path="criar-conquista"
                     element={
-                        <RotaPrivada>
+                        <RotaAdm>
                             <AbaConquistas />
-                        </RotaPrivada>
+                        </RotaAdm>
                     }
                 />
 
                 <Route
                     path="listar-conquistas"
                     element={
-                        <RotaPrivada>
+                        <RotaAdm>
                             <AbaListarConquistas />
-                        </RotaPrivada>
+                        </RotaAdm>
                     }
                 />
 
                 <Route
                     path="usuarios"
                     element={
-                        <RotaPrivada>
+                        <RotaAdm>
                             <AbaUsuarios />
-                        </RotaPrivada>
+                        </RotaAdm>
                     }
                 />
 
                 <Route
                     path="criar-materia"
                     element={
-                        <RotaPrivada>
+                        <RotaAdm>
                             <AbaCriarMateria />
-                        </RotaPrivada>
+                        </RotaAdm>
                     }
                 />
             </Route>
