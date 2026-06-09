@@ -32,6 +32,7 @@ const ConteudoSobre = () => {
             fotinha: "/Joao_Foto.jpeg",
             nome: "João Vitor Duarte da Costa",
             funcao: "Backend do App",
+            agradecimento: "Primeiramente agradeço a Deus que cuidou de mim durante toda a produção, agradeço aos meus amigos e familiares que me incentivaram a continuar.Independente de todo sono, cansaço e dificuldades, segui sempre lembrando que: 'Sem sacrifício não há amor e sem amor não há nada' Pe. José Kentenisch",
             email: "joaovitorduartedacosta@gmail.com",
             linkedin: "https://www.linkedin.com/in/joão-vitor-duarte-da-costa-26b799376?utm_source=share_via&utm_content=profile&utm_medium=member_android",
             instagram: "https://www.instagram.com/duarte_jv23?igsh=MW9jNW4xMzB1a3FiYw=="
@@ -44,6 +45,14 @@ const ConteudoSobre = () => {
             email: "rreis.gabs@gmail.com",
             linkedin:"https://www.linkedin.com/in/grkings",
             instagram: "https://www.instagram.com/gabs_rreis/"
+        },
+        {
+            id: 5,
+            fotinha: "/Matheus_Foto.jpeg",
+            nome: "Matheus Adler",
+            funcao: "Adler",
+            email: "matheusadlerdeandrade@gmail.com",
+            instagram: "https://www.instagram.com/matheus_adler.a/"
         }
     ];
 

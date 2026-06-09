@@ -32,8 +32,11 @@ const AbaUsuarios = () => {
     //Input Ban
     const [Modal, setModal] = useState(null);
 
-    //Motivo Bdo Banimento
+    //Motivo do Banimento
     const [motivoBan, setMotivoBan] = useState("");
+
+    //Carregamento
+    const [usuariosLoading, setUsuariosLoading] = useState(true);
 
 
 
@@ -64,6 +67,8 @@ const AbaUsuarios = () => {
     }
 
     async function carregarUsuarios() {
+        setUsuariosLoading(true);
+
         //Listo as conquistas no banco de dados
         await adm.carregar_usuarios(setPopup);
 
@@ -81,13 +86,13 @@ const AbaUsuarios = () => {
 
         }
 
-
         //Conquistas no total
         setUsuarios(USUARIOS_MOCK)
 
         //Conquistas exibidas
         setUsuariosExibidos(USUARIOS_MOCK);
 
+        setUsuariosLoading(false);
     }
 
     function Buscar(texto) {
@@ -108,11 +113,11 @@ const AbaUsuarios = () => {
         setUsuariosExibidos(resultado);
     }
 
-    async function Usuario(id_usuario, status,motivoBanimento) {
+    async function Usuario(id_usuario, status, motivoBanimento) {
         try {
             if (status == "Ativo") {
                 //Desativo o usuario no banco de dados
-                const resultado = await adm.desativar_usuario(id_usuario,motivoBanimento, setPopup)
+                const resultado = await adm.desativar_usuario(id_usuario, motivoBanimento, setPopup)
 
                 //Limpo a cache do motivo do banimento
                 setMotivoBan(null)
@@ -225,12 +230,12 @@ const AbaUsuarios = () => {
             {Modal && (
                 <div className={Style.MotivoBan}>
                     {usuariosExibidos
-                        .filter((c) => c.id === Modal) //Filtra o Usuario pelo ID
+                        .filter((c) => c.id === Modal)
                         .map((c) => (
                             <div key={c.id}>
                                 <h3>Qual é o motivo do Ban de {c.nome}</h3>
                                 <CampoTexto
-                                className={Style.TextoBan}
+                                    className={Style.TextoBan}
                                     placeholder="Digite aqui o motivo"
                                     value={motivoBan}
                                     onChange={(e) => setMotivoBan(e.target.value)}
@@ -246,8 +251,7 @@ const AbaUsuarios = () => {
                                         className={Style.ModalBan}
                                         texto="Confirmar Ban"
                                         onClick={() => {
-                                            if(motivoBan.trim() === "") 
-                                            {
+                                            if (motivoBan.trim() === "") {
                                                 setPopup({
                                                     tipo: 'erro',
                                                     titulo: 'Motivo',
@@ -257,12 +261,8 @@ const AbaUsuarios = () => {
                                             }
                                             //Bani o usuário
                                             Usuario(c.id, c.status, motivoBan);
-
                                             //Fecha o modal
                                             setModal(null);
-
-                                            
-                                            
                                         }}
                                     />
                                 </div>
@@ -288,72 +288,72 @@ const AbaUsuarios = () => {
                     </div>
 
                     <div className={Style.Lista}>
-
-                        {usuariosExibidos.map((c) => (
-                            <div
-                                className={Style.ListaConquistas}
-                                key={c.id}
-                            >
-
-                                <div className={Style.ItensLista}>
-                                    <div className={Style.Dados}>
-                                        <h6>{c.nome}</h6>
-                                        <p>Cadastrado em: {c.criado}</p>
-                                        <p>Editado em: {c.editado}</p>
-                                    </div>
-
-                                    <p>Status: {c.status}</p>
-
-                                    <div className={Style.Botoes}>
-                                        <BotoesForm
-                                            texto="Ver Perfil"
-                                        />
-                                        <BotoesForm
-                                            onClick={() => setFechado(fechado === c.id ? null : c.id)}
-                                            texto="Editar"
-                                        />
-                                    </div>
-                                </div>
-                                {fechado === c.id && (
-                                    <div className={Style.sanfona}>
-                                        <BotoesForm
-                                            className={Style.btnSanfona}
-                                            texto="Remover Foto"
-                                            onClick={() => adm.removerFoto_usuario(c.id, setPopup)}
-                                        />
-
-                                        <BotoesForm
-                                            className={Style.btnSanfona}
-
-                                            texto="Remover Banner"
-                                            onClick={() => adm.removerBanner_usuario(c.id, setPopup)}
-                                        />
-
-                                        <BotoesForm
-                                            className={Style.btnSanfona}
-
-                                            texto="Redefinir Nome"
-                                            onClick={() => RedefinirNome(c.id)}
-                                        />
-                                        <BotoesForm
-                                            className={Style.Banir}
-                                            texto={c.banir}
-                                            onClick={() => 
-                                                {
-                                                    if(c.status == "Ativo")
-                                                    {
-                                                        setModal(c.id)
-                                                    }else
-                                                    {
-                                                        Usuario(c.id,c.status)
-                                                    }
-                                                }
-                                            }
-                                        />
-                                    </div>
-                                )}
+                        {usuariosLoading ? (
+                            <div className={Style.Loading}>
+                                <div className={Style.Spinner}></div>
+                                <p>Carregando usuários...</p>
                             </div>
-                        ))}
+                        ) : (
+                            usuariosExibidos.map((c) => (
+                                <div
+                                    className={Style.ListaConquistas}
+                                    key={c.id}
+                                >
+
+                                    <div className={Style.ItensLista}>
+                                        <div className={Style.Dados}>
+                                            <h6>{c.nome}</h6>
+                                            <p>Cadastrado em: {c.criado}</p>
+                                            <p>Editado em: {c.editado}</p>
+                                        </div>
+
+                                        <p>Status: {c.status}</p>
+
+                                        <div className={Style.Botoes}>
+                                            <BotoesForm
+                                                texto="Ver Perfil"
+                                            />
+                                            <BotoesForm
+                                                onClick={() => setFechado(fechado === c.id ? null : c.id)}
+                                                texto="Editar"
+                                            />
+                                        </div>
+                                    </div>
+                                    {fechado === c.id && (
+                                        <div className={Style.sanfona}>
+                                            <BotoesForm
+                                                className={Style.btnSanfona}
+                                                texto="Remover Foto"
+                                                onClick={() => adm.removerFoto_usuario(c.id, setPopup)}
+                                            />
+
+                                            <BotoesForm
+                                                className={Style.btnSanfona}
+                                                texto="Remover Banner"
+                                                onClick={() => adm.removerBanner_usuario(c.id, setPopup)}
+                                            />
+
+                                            <BotoesForm
+                                                className={Style.btnSanfona}
+                                                texto="Redefinir Nome"
+                                                onClick={() => RedefinirNome(c.id)}
+                                            />
+                                            <BotoesForm
+                                                className={Style.Banir}
+                                                texto={c.banir}
+                                                onClick={() => {
+                                                    if (c.status == "Ativo") {
+                                                        setModal(c.id)
+                                                    } else {
+                                                        Usuario(c.id, c.status)
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                            ))
+                        )}
 
                     </div> {/* Lista */}
                 </div> {/* Conteudos */}
@@ -362,4 +362,4 @@ const AbaUsuarios = () => {
     )
 }
 
-export { AbaUsuarios }
+export { AbaUsuarios }  
