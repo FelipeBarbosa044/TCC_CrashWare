@@ -11,6 +11,14 @@ const PopUpBanido = ({ onFechar }) => {
         const [dados, setDados] = useState(() =>
             JSON.parse(localStorage.getItem("dados")) || null
         );
+
+        //Pega os dados do usuario
+        const usuario = JSON.parse(localStorage.getItem("dados"));
+
+        const motivo = usuario?.motivo_banimento
+         ? `Motivo do banimento: ${usuario.motivo_banimento}`
+        : "";
+
     
     return (
         <>
@@ -23,13 +31,20 @@ const PopUpBanido = ({ onFechar }) => {
                 <h1>Conta Banida/Desativada</h1>
                 <p>
                     Sua conta está banida ou desativada.
-                    Caso queira solicitar a recuperação da conta, entre em contato com o suporte: plataformacrashware@gmail.com     
+                    Caso queira solicitar a recuperação da conta, entre em contato com o suporte: plataformacrashware@gmail.com   
                 </p>
-                    <div className={Style.botoes}>
-                        <button className={Style.primeiroBotao} onClick={() => SairDaConta(setToken, setRefresh, setDados)}>
-                            Entendi
-                        </button>
-                    </div>
+
+                {motivo && (
+                    <p className={Style.motivoBanimento}>
+                        {motivo}
+                    </p>
+                )}
+                
+                <div className={Style.botoes}>
+                    <button className={Style.primeiroBotao} onClick={() => SairDaConta(setToken, setRefresh, setDados)}>
+                        Entendi
+                    </button>
+                </div>
             </div>
         </>
     );

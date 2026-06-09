@@ -25,7 +25,7 @@ const RotaAdm = ({ children }) => {
             const adm = usuario.adm;
             const ativo = usuario.ativo;
 
-            //Verifico se usuário é adm
+            //Verifico se usuário é adm ou se esta banido/desativado
             if(adm == false || ativo == false )
             {
                 //Levo para a HOME

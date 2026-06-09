@@ -45,8 +45,6 @@ const ConteudoHome = () => {
     const [dados, setDados] = useState(() =>
         JSON.parse(localStorage.getItem("dados")) || null
     );
-    const admin = dados?.adm;
-
 
     //Lista que contém todos os usestate
     const set = [setToken, setRefresh, setDados];
@@ -66,15 +64,6 @@ const ConteudoHome = () => {
         await user.ValidarOfensiva(setMaiorOfensiva, setDados);
         usuario = JSON.parse(localStorage.getItem("dados"));
 
-    }
-
-    async function VerificarADM() {
-        const usuario = new Usuario(token, refresh_token, Navegacao, set);
-
-        if (admin === true) {
-            await usuario.conquista(21, setPopupConquista, setDados);
-            await usuario.perfil(setDados);
-        }
     }
 
     //Objeto da classe annotation
@@ -143,6 +132,16 @@ const ConteudoHome = () => {
     //Pega os dados do usuario
     let usuario = JSON.parse(localStorage.getItem("dados"));
 
+    //Conquista do ADM
+    async function VerificarADM() {
+    if (usuario.adm == true) {
+            //Crio o bjeto que contem requisições para o banco
+            const user = new Usuario(token, refresh_token, Navegacao, set);
+
+            //Pega a conquista de ADM
+            await user.conquista(21, setPopupConquista, setDados);
+        }
+    }
 
     useEffect(() => {
         //Verifico se usuario esta banido/desativado

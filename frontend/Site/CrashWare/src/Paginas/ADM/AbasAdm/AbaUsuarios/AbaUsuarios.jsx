@@ -12,7 +12,6 @@ const AbaUsuarios = () => {
 
 
     let USUARIOS_MOCK = []
-    // { id: 1, foto: Defaut, nome: 'UserName', nivel: "XX", criado: "00/00/0000", editar: 'Editar' }
 
     let [usuariosInterface, setUsuarios] = useState([]);
 
@@ -32,6 +31,9 @@ const AbaUsuarios = () => {
 
     //Input Ban
     const [Modal, setModal] = useState(null);
+
+    //Motivo Bdo Banimento
+    const [motivoBan, setMotivoBan] = useState("");
 
 
 
@@ -106,11 +108,14 @@ const AbaUsuarios = () => {
         setUsuariosExibidos(resultado);
     }
 
-    async function Usuario(id_usuario, status) {
+    async function Usuario(id_usuario, status,motivoBanimento) {
         try {
             if (status == "Ativo") {
                 //Desativo o usuario no banco de dados
-                const resultado = await adm.desativar_usuario(id_usuario, setPopup)
+                const resultado = await adm.desativar_usuario(id_usuario,motivoBanimento, setPopup)
+
+                //Limpo a cache do motivo do banimento
+                setMotivoBan(null)
 
 
                 if (resultado == 403) {
@@ -217,7 +222,6 @@ const AbaUsuarios = () => {
                     onFechar={() => setPopup(null)}
                 />
             )}
-
             {Modal && (
                 <div className={Style.MotivoBan}>
                     {usuariosExibidos
@@ -228,6 +232,8 @@ const AbaUsuarios = () => {
                                 <CampoTexto
                                 className={Style.TextoBan}
                                     placeholder="Digite aqui o motivo"
+                                    value={motivoBan}
+                                    onChange={(e) => setMotivoBan(e.target.value)}
                                 />
 
                                 <div className={Style.BotoesModal}>
@@ -240,8 +246,23 @@ const AbaUsuarios = () => {
                                         className={Style.ModalBan}
                                         texto="Confirmar Ban"
                                         onClick={() => {
-                                            Usuario(c.id, c.status);
+                                            if(motivoBan.trim() === "") 
+                                            {
+                                                setPopup({
+                                                    tipo: 'erro',
+                                                    titulo: 'Motivo',
+                                                    mensagem: 'Digite o Motivo do Banimento'
+                                                });
+                                                return;
+                                            }
+                                            //Bani o usuário
+                                            Usuario(c.id, c.status, motivoBan);
+
+                                            //Fecha o modal
                                             setModal(null);
+
+                                            
+                                            
                                         }}
                                     />
                                 </div>
@@ -317,7 +338,17 @@ const AbaUsuarios = () => {
                                         <BotoesForm
                                             className={Style.Banir}
                                             texto={c.banir}
-                                            onClick={() => setModal(c.id)}
+                                            onClick={() => 
+                                                {
+                                                    if(c.status == "Ativo")
+                                                    {
+                                                        setModal(c.id)
+                                                    }else
+                                                    {
+                                                        Usuario(c.id,c.status)
+                                                    }
+                                                }
+                                            }
                                         />
                                     </div>
                                 )}

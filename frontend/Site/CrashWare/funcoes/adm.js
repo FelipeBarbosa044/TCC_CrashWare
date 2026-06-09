@@ -265,7 +265,7 @@ export class Adm
         }//catch
     }//Carregar Usuários
 
-    async desativar_usuario(id_usuario,setPopup)
+    async desativar_usuario(id_usuario,motivoBanimento,setPopup)
     {
         setPopup({
                     tipo: 'aviso',
@@ -281,7 +281,8 @@ export class Adm
                     method: "PATCH",
                     headers:{  "Content-Type": "application/json" },
                      body: JSON.stringify({
-                        id_usuario : id_usuario
+                        id_usuario : id_usuario,
+                        motivo_banimento : motivoBanimento
                     })
 
                 });

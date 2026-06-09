@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import { PgInicial, PgCadastro, SobreNos, PgLogin, PgErro, PgRecuperarSenha, PgVerificacaoEmail, PgPerfil, PgAnotacoes, PgConfiguracoes, PgHome, PgTermos, AbaConquistas, AbaUsuarios, PgConteudoHardware, PgAlterarSenha, AbaRelatorios, PgConteudoSoftware, AbaCriarMateria, PgLoja, PgSobre, PgVerificarTelefone} from "./Paginas"
 import { LayoutPadrao, LayoutADM, LayoutLogado } from "./Layouts"
-import { AuthProvider, RotaAdm, RotaPrivada } from "./VerificacaoToken"
+import { AuthProvider, RotaAdm, RotaPrivada } from "./Rotas"
 import { AbaListarConquistas } from "./Paginas/ADM/AbasAdm/AbaListarConquistas"
 
 import { PgComoFunciona, PgMotivacaoMentalidade } from "./Paginas"

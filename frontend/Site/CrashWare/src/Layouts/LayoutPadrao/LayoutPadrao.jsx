@@ -36,13 +36,12 @@ const LayoutPadrao = () => {
                                 <div className={Style.RedesSociais}>
                                     <h5>Redes Sociais</h5>
                                     <div className={Style.Tamanho}>
-                                        <a href="https://www.instagram.com/thesousac/" target='_blank'>
-                                            <img src={Instagram} alt="" />
+                                        <a href="https://www.instagram.com/nesferaz/" target='_blank'>
+                                            <img src={Instagram} alt="Instagram de um dos criadores" />
                                         </a>
-                                        <a href="https://wa.me/5511992603770?text=Você%20é%20um%20BETA" target="_blank">
-                                        <img src={Whatsapp} alt="" />
+                                            <a href="https://github.com/FelipeBarbosa044/TCC_CrashWare" target='_blank'>
+                                            <img src={GitHub} alt="GitHub do TCC" />
                                         </a>
-                                        <img src={GitHub} alt="" />
                                     </div>
                                 </div> {/* RedesSociais */}
 
