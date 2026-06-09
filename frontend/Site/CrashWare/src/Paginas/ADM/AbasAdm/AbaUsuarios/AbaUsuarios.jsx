@@ -13,7 +13,7 @@ const AbaUsuarios = () => {
 
     let USUARIOS_MOCK = []
     // { id: 1, foto: Defaut, nome: 'UserName', nivel: "XX", criado: "00/00/0000", editar: 'Editar' }
-       
+
     let [usuariosInterface, setUsuarios] = useState([]);
 
     let [usuariosExibidos, setUsuariosExibidos] = useState([]);
@@ -30,15 +30,18 @@ const AbaUsuarios = () => {
     //Objeto da classe Adm
     const adm = new Adm;
 
+    //Input Ban
+    const [Modal, setModal] = useState(null);
 
-    
+
+
     useEffect(() => {
         //Quando a pag for carregada
-         setPopup({
-                    tipo: 'aviso',
-                    titulo: 'Usuários',
-                    mensagem: 'Listando Usuários...'
-                });
+        setPopup({
+            tipo: 'aviso',
+            titulo: 'Usuários',
+            mensagem: 'Listando Usuários...'
+        });
         carregarUsuarios();
 
     }, []);
@@ -50,13 +53,11 @@ const AbaUsuarios = () => {
         return new Date(data).toLocaleDateString("pt-BR");
     };
 
-    const verificarStatus= (status) =>{
-        if (status == false)
-        {
-            return  ["Desativado","Desbanir"]
-        }else
-        {
-            return  ["Ativo","Banir"]
+    const verificarStatus = (status) => {
+        if (status == false) {
+            return ["Desativado", "Desbanir"]
+        } else {
+            return ["Ativo", "Banir"]
         }
     }
 
@@ -73,9 +74,8 @@ const AbaUsuarios = () => {
         //Reinicio as conquistas para não duplicar
         USUARIOS_MOCK = [];
 
-        for (let n = 0; n < quantidade_usuarios; n++)
-        {
-            USUARIOS_MOCK.push({ id: usuarios[n].id_usuario, nome: usuarios[n].nome_usuario, criado: formatarData(usuarios[n].created_at), editado: formatarData(usuarios[n].updated_at),status : verificarStatus(usuarios[n].ativo)[0] , banir :verificarStatus(usuarios[n].ativo)[1] })
+        for (let n = 0; n < quantidade_usuarios; n++) {
+            USUARIOS_MOCK.push({ id: usuarios[n].id_usuario, nome: usuarios[n].nome_usuario, criado: formatarData(usuarios[n].created_at), editado: formatarData(usuarios[n].updated_at), status: verificarStatus(usuarios[n].ativo)[0], banir: verificarStatus(usuarios[n].ativo)[1] })
 
         }
 
@@ -88,7 +88,7 @@ const AbaUsuarios = () => {
 
     }
 
-     function Buscar(texto) {
+    function Buscar(texto) {
 
         texto = texto.toLowerCase().trim();
 
@@ -106,95 +106,91 @@ const AbaUsuarios = () => {
         setUsuariosExibidos(resultado);
     }
 
-    async function Usuario(id_usuario,status) {
-                try
-                {
-                    if(status == "Ativo")
-                    {
-                    //Desativo o usuario no banco de dados
-                    const resultado = await adm.desativar_usuario(id_usuario,setPopup)
+    async function Usuario(id_usuario, status) {
+        try {
+            if (status == "Ativo") {
+                //Desativo o usuario no banco de dados
+                const resultado = await adm.desativar_usuario(id_usuario, setPopup)
 
 
-                    if (resultado == 403){
-                        return;
-                    }
-                    
-                    //Atualizo o status do usuário
-                    
-                    // Atualizo o status na lista principal
-                    setUsuarios((antigas) =>
-                        antigas.map((c) =>
-                            c.id === id_usuario
-                                ? { ...c, status: "Desativado",banir: "Desbanir" }
-                                : c
-                        )
-                    )
-
-                    // Atualizo o status na lista exibida
-                    setUsuariosExibidos((antigas) =>
-                        antigas.map((c) =>
-                            c.id === id_usuario
-                                ? { ...c, status: "Desativado",banir: "Desbanir" }
-                                : c
-                        )
-                    )
-
-                    }else
-                    {
-                        //Desativo o usuario no banco de dados
-                        await adm.ativar_usuario(id_usuario,setPopup)
-
-
-                        //Atualizo o status do usuário
-                        
-                        // Atualizo o status na lista principal
-                        setUsuarios((antigas) =>
-                            antigas.map((c) =>
-                                c.id === id_usuario
-                                    ? { ...c, status: "Ativo",banir: "Banir" }
-                                    : c
-                            )
-                        )
-
-                        // Atualizo o status na lista exibida
-                        setUsuariosExibidos((antigas) =>
-                            antigas.map((c) =>
-                                c.id === id_usuario
-                                    ? { ...c, status: "Ativo",banir: "Banir" }
-                                    : c
-                            )
-                        )
-                    }
-                    
-                                            
-                }catch(error){
-                    setPopup({
-                        tipo: 'erro',
-                        titulo: 'Erro ao Banir ou Desbanir Usuário',
-                        mensagem: 'Tente Novamente mais tarde...'
-                    });
-
-                    console.log(error)
-
+                if (resultado == 403) {
+                    return;
                 }
-                
+
+                //Atualizo o status do usuário
+
+                // Atualizo o status na lista principal
+                setUsuarios((antigas) =>
+                    antigas.map((c) =>
+                        c.id === id_usuario
+                            ? { ...c, status: "Desativado", banir: "Desbanir" }
+                            : c
+                    )
+                )
+
+                // Atualizo o status na lista exibida
+                setUsuariosExibidos((antigas) =>
+                    antigas.map((c) =>
+                        c.id === id_usuario
+                            ? { ...c, status: "Desativado", banir: "Desbanir" }
+                            : c
+                    )
+                )
+
+            } else {
+                //Desativo o usuario no banco de dados
+                await adm.ativar_usuario(id_usuario, setPopup)
+
+
+                //Atualizo o status do usuário
+
+                // Atualizo o status na lista principal
+                setUsuarios((antigas) =>
+                    antigas.map((c) =>
+                        c.id === id_usuario
+                            ? { ...c, status: "Ativo", banir: "Banir" }
+                            : c
+                    )
+                )
+
+                // Atualizo o status na lista exibida
+                setUsuariosExibidos((antigas) =>
+                    antigas.map((c) =>
+                        c.id === id_usuario
+                            ? { ...c, status: "Ativo", banir: "Banir" }
+                            : c
+                    )
+                )
             }
+
+
+        } catch (error) {
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Erro ao Banir ou Desbanir Usuário',
+                mensagem: 'Tente Novamente mais tarde...'
+            });
+
+            console.log(error)
+
+        }
+
+    }
 
     async function RedefinirNome(id_usuario) {
 
-        const resultado = await adm.redefinir_nome(id_usuario,setPopup)
+        const resultado = await adm.redefinir_nome(id_usuario, setPopup)
 
 
-         if (resultado == 403)
-            {
-                return;
-            }
+        if (resultado == 403) {
+            return;
+        }
 
         // Atualizo o status na lista principal
         setUsuarios((antigas) =>
             antigas.map((c) =>
                 c.id === id_usuario
-                    ? { ...c, nome: "Usuário"}
+                    ? { ...c, nome: "Usuário" }
                     : c
             )
         )
@@ -203,7 +199,7 @@ const AbaUsuarios = () => {
         setUsuariosExibidos((antigas) =>
             antigas.map((c) =>
                 c.id === id_usuario
-                    ? { ...c, nome: "Usuário"}
+                    ? { ...c, nome: "Usuário" }
                     : c
             )
         )
@@ -214,13 +210,46 @@ const AbaUsuarios = () => {
         <>
 
             {popup && (
-                    <PopUp
-                        tipo={popup.tipo}
-                        titulo={popup.titulo}
-                        mensagem={popup.mensagem}
-                        onFechar={() => setPopup(null)}
-                    />
-                )}
+                <PopUp
+                    tipo={popup.tipo}
+                    titulo={popup.titulo}
+                    mensagem={popup.mensagem}
+                    onFechar={() => setPopup(null)}
+                />
+            )}
+
+            {Modal && (
+                <div className={Style.MotivoBan}>
+                    {usuariosExibidos
+                        .filter((c) => c.id === Modal) //Filtra o Usuario pelo ID
+                        .map((c) => (
+                            <div key={c.id}>
+                                <h3>Qual é o motivo do Ban de {c.nome}</h3>
+                                <CampoTexto
+                                className={Style.TextoBan}
+                                    placeholder="Digite aqui o motivo"
+                                />
+
+                                <div className={Style.BotoesModal}>
+
+                                    <BotoesForm
+                                        texto="Cancelar"
+                                        onClick={() => setModal(null)}
+                                    />
+                                    <BotoesForm
+                                        className={Style.ModalBan}
+                                        texto="Confirmar Ban"
+                                        onClick={() => {
+                                            Usuario(c.id, c.status);
+                                            setModal(null);
+                                        }}
+                                    />
+                                </div>
+
+                            </div>
+                        ))}
+                </div>
+            )}
             <div className={Style.separarConteudos}>
                 <div className={Style.Conteudos}>
                     <h1>Usuários</h1>
@@ -269,26 +298,26 @@ const AbaUsuarios = () => {
                                         <BotoesForm
                                             className={Style.btnSanfona}
                                             texto="Remover Foto"
-                                            onClick={()  =>  adm.removerFoto_usuario(c.id,setPopup) } 
+                                            onClick={() => adm.removerFoto_usuario(c.id, setPopup)}
                                         />
 
                                         <BotoesForm
                                             className={Style.btnSanfona}
 
                                             texto="Remover Banner"
-                                            onClick={()  =>  adm.removerBanner_usuario(c.id,setPopup) } 
+                                            onClick={() => adm.removerBanner_usuario(c.id, setPopup)}
                                         />
 
                                         <BotoesForm
                                             className={Style.btnSanfona}
 
                                             texto="Redefinir Nome"
-                                            onClick={()  =>  RedefinirNome(c.id) }
+                                            onClick={() => RedefinirNome(c.id)}
                                         />
                                         <BotoesForm
                                             className={Style.Banir}
                                             texto={c.banir}
-                                            onClick={()  =>  Usuario(c.id,c.status) } 
+                                            onClick={() => setModal(c.id)}
                                         />
                                     </div>
                                 )}

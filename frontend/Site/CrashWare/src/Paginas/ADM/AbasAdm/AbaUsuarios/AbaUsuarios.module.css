@@ -36,6 +36,73 @@
     margin: 20px 0px;
 }
 
+.MotivoBan{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22vw;
+    min-width: 500px;
+    background-color: #1c1b2e;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    border-radius: 16px;
+    padding: 36px 24px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.MotivoBan h3{
+    font-family: "Montserrat";
+    color: #e05252 !important;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
+
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.87);
+}
+
+.TextoBan{
+    width: 100%;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--borda);
+    text-indent: 20px;
+    margin-top: 10px;
+}
+
+.BotoesModal{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 8px;
+    gap: 30px;
+    width: 100%;
+}
+
+.BotoesModal button{
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid var(--borda);
+    transform: scale(1);
+    
+}
+
+.BotoesModal button:hover{
+    transform: scale(1.03);
+    transition: 0.2s;
+}
+
+.ModalBan{
+    background-color: #e05252;
+    color: white;
+}
+
 .Buscar{
     display: flex;
     flex-direction: row;
