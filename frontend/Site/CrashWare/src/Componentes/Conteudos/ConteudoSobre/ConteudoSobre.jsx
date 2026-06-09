@@ -11,7 +11,7 @@ const ConteudoSobre = () => {
         {
             id: 1,
             fotinha: "/Gabriel_Foto.jpeg",
-            nome: "Gabriel",
+            nome: "Gabriel Costa",
             funcao: "FullStack Site",
             agradecimento: "Em especial dedico esse TCC a Deus e meu Senhor Jesus Cristo, sem Deus eu nem estaria aqui e é tudo graças a Ele. Também queria dedicar a uma gatinha, a Luna, que desde o começo esteve comigo e me ajudou em momentos muito difícieis que passei, eu amo essa gatinha. Rm 8:28",
             email: "costasousagabriel075@gmail.com",
@@ -20,7 +20,7 @@ const ConteudoSobre = () => {
         {
             id: 2,
             fotinha: "/Felipe_Foto.jpeg",
-            nome: "Felipe",
+            nome: "Felipe Barbosa",
             funcao: "Backend Site e App, Banco de dados",
             agradecimento: "Depois de tantos erros, estresse, bugs e momentos em que eu quase questionei minha existência, uma coisa ficou clara: eu nasci para ser desenvolvedor back- end. No meio do caos, criando a API do zero com FastAPI, estruturando o banco de dados com SQLAlchemy e conectando tudo entre aplicativo, site e servidor, eu encontrei a área em que realmente quero seguir.",
             email: "felipebarbosaribeiro197@gmail.com",
@@ -35,6 +35,15 @@ const ConteudoSobre = () => {
             email: "joaovitorduartedacosta@gmail.com",
             linkedin: "https://www.linkedin.com/in/joão-vitor-duarte-da-costa-26b799376?utm_source=share_via&utm_content=profile&utm_medium=member_android",
             instagram: "https://www.instagram.com/duarte_jv23?igsh=MW9jNW4xMzB1a3FiYw=="
+        },
+        {
+            id: 4,
+            fotinha: "/Gabi_Foto.jpg",
+            nome: "Gabriela Reis",
+            funcao: "Desingner e Documentadora",
+            email: "rreis.gabs@gmail.com",
+            linkedin:"https://www.linkedin.com/in/grkings",
+            instagram: "https://www.instagram.com/gabs_rreis/"
         }
     ];
 
