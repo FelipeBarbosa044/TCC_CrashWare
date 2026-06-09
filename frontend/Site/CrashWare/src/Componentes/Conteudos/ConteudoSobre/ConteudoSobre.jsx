@@ -53,6 +53,14 @@ const ConteudoSobre = () => {
             funcao: "Adler",
             email: "matheusadlerdeandrade@gmail.com",
             instagram: "https://www.instagram.com/matheus_adler.a/"
+        },
+        {
+            id: 6,
+            fotinha: "/Fernando_Foto.jpeg",
+            nome: "Fernando Rodrigues",
+            funcao: "Documentador, Designer e Frontend App",
+            agradecimento: "Agradeço a todos que me ajudaram no desenvolvimento deste TCC, em especial aos meus pais, que sempre me apoiam e acreditam em tudo que eu me proponho a fazer. Além é claro dos meus amigos, que me apoiaram e entenderam o porquê de eu não poder comparecer naquele dia. Mas, com toda certeza, preciso agradecer aos meus colegas de equipe, sem eles, nada seria possível. Este projeto foi resultado do esforço de todos nós, tenho certeza que todos saíram desse TCC melhores do que entraram.",
+            instagram: "https://www.instagram.com/fe_rodrgues/"
         }
     ];
 
