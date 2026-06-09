@@ -314,6 +314,7 @@ public class Inicio_fragment extends Fragment {
                         String telefone = usuario.telefone;
                         String foto = usuario.foto;
                         String banner = usuario.banner;
+                        String criado_em = usuario.criado_em;
                         Integer moedas = usuario.moedas;
                         Float xp = usuario.xp;
                         Integer ofensiva = usuario.ofensiva;
@@ -326,6 +327,7 @@ public class Inicio_fragment extends Fragment {
                                 .putString("foto", foto)
                                 .putString("nome", nome)
                                 .putString("banner",banner)
+                                .putString("criado_em",criado_em)
                                 .putInt("moedas",moedas)
                                 .putFloat("xp_total", xp)
                                 .putInt("ofensiva",ofensiva)
