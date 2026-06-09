@@ -114,7 +114,7 @@ async def banir_usuario(dados : UsuarioSchema ,session = Depends(pegar_sessao)):
     try:
         # Desativo o Usuario
         usuario.ativo = False
-        usuario.motivo_banimento = dados.motivo_banimento
+        usuario.motivo_banimento = dados.motivo_banimento.upper()
         session.commit()
 
         return {"mensagem": "Usuario Desativado"}
