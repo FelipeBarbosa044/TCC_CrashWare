@@ -23,6 +23,7 @@ class DeletarConquistaSchema(BaseModel):
 #Schema de Banir Usuario
 class UsuarioSchema(BaseModel):
     id_usuario : int
+    motivo_banimento : Optional[str] = None
 
     class Config:
         from_attributes = True

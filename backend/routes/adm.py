@@ -108,13 +108,13 @@ async def banir_usuario(dados : UsuarioSchema ,session = Depends(pegar_sessao)):
     if (usuario.email == "felipebarbosaribeiro197@gmail.com" or usuario.email == "resferagamer@gmail.com"):
         raise HTTPException(status_code=403, detail="O Felipe Não pode ser Desativado")
 
-
     # if usuario.admin == True:
     #     raise HTTPException(status_code=403, detail="Administradores Não pode ser Desativados")
 
     try:
         # Desativo o Usuario
         usuario.ativo = False
+        usuario.motivo_banimento = dados.motivo_banimento
         session.commit()
 
         return {"mensagem": "Usuario Desativado"}

@@ -28,7 +28,7 @@ session = Session()
 
 try:
     # session.query(Usuarios).filter(Usuarios.email == "felipewasxz@gmail.com").update({"ativo" : True})
-    # session.query(Usuarios).filter(Usuarios.email == "eusolindo.com.br@gmail.com").update({"admin" : True})
+    # session.query(Usuarios).filter(Usuarios.email == "felipebarbosaribeiro197@gmail.com").update({"ativo" : True})
     # session.commit()
     pass
 except Exception as exception:
