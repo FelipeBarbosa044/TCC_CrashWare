@@ -83,7 +83,7 @@ TCC_CrashWare/
 | Davi Souza Martins | [@davimartins187](https://github.com/davimartins187) |
 | Felipe Barbosa Ribeiro | [@FelipeBarbosa044](https://github.com/FelipeBarbosa044)|
 | Fernando Rodrigues Souza | [@zFrndo](https://github.com/zFrndo) |
-| Gabriel de Sousa Costa | [@theSouzaC](https://github.com/TheSousaC) |
+| Gabriel de Sousa Costa | [@theSousaC](https://github.com/TheSousaC) |
 | Gabriela da Rocha Reis | - |
 | João Vitor Duarte da Costa | [@joaov2302](https://github.com/joaov2302) |
 | Matheus Adler de Andrade | — |
