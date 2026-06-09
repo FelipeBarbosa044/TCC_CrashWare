@@ -54,78 +54,10 @@ public class carregamento extends AppCompatActivity {
                     @Override
                     public void onSuccess() {
 
-                        barra.setProgress(60);
+                        barra.setProgress(100);
 
-                        abrirHome();
                     }
                 }
         );
-    }
-
-//    private void carregarPerfil()
-//    {
-//
-//        User.Perfil(
-//                this,
-//                prefs,
-//                new User.PerfilCallback() {
-//
-//                    @Override
-//                    public void sucesso(User.PerfilResponse usuario) {
-//
-//                        barra.setProgress(90);
-//
-//                        salvarDados(usuario);
-//
-//                    }
-//                }
-//        );
-//    }
-//
-//    private void salvarDados(User.PerfilResponse usuario) {
-//
-//        prefs.edit()
-//
-//                .putString("nome", usuario.nome)
-//                .putString("email", usuario.email)
-//                .putString("foto", usuario.foto)
-//                .putString("banner", usuario.banner)
-//
-//                .putInt(
-//                        "moedas",
-//                        usuario.moedas != null ? usuario.moedas : 0
-//                )
-//
-//                .putFloat(
-//                        "xp_total",
-//                        usuario.xp != null ? usuario.xp : 0f
-//                )
-//
-//                .putInt(
-//                        "ofensiva",
-//                        usuario.ofensiva != null ? usuario.ofensiva : 1
-//                )
-//
-//                .putBoolean(
-//                        "ativo",
-//                        usuario.ativo != null && usuario.ativo
-//                )
-//
-//                .commit();
-//
-//
-//        abrirHome();
-//    }
-
-    private void abrirHome() {
-
-        barra.setProgress(100);
-
-        Intent intent =
-                new Intent(carregamento.this, Home.class);
-
-        startActivity(intent);
-
-        finish();
     }
 }

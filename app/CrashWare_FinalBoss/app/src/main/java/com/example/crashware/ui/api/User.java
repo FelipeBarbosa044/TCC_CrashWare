@@ -755,7 +755,12 @@ public class User {
         );
     }
 
-    public static void Conquista(Integer conquista_id, SharedPreferences prefs, Context context) {
+    // Callback
+    public interface ConquistasCallback {
+
+        void onSuccess();
+    }
+    public static void Conquista(Integer conquista_id, SharedPreferences prefs, Context context, ConquistasCallback callback) {
 
         //Pego o valor do token
         String token = prefs.getString("token", null);
@@ -789,15 +794,10 @@ public class User {
             ) {
                 if (resposta.code() == 409) {
                     //Ignora
+                    callback.onSuccess();
                     return;
                 }
                 if (resposta.isSuccessful()) {
-
-                    //Primeiro Login se tornara Falso
-                    prefs.edit()
-                            .putBoolean("PrimeiroLogin", false)
-                            .apply();
-
 
                     //Requisição der certo
                     ConquistaResponse dados = resposta.body();
@@ -819,7 +819,7 @@ public class User {
 
                     if (xp_bonus != 0) {
                         //Adiciono xp para o usuario
-                        adicionar_xp(xp_bonus, prefs);
+                        adicionar_xp(xp_bonus, prefs,callback);
                     }
 
 
@@ -966,7 +966,7 @@ public class User {
         );
     }
 
-    public static void adicionar_xp(Float xp, SharedPreferences prefs) {
+    public static void adicionar_xp(Float xp, SharedPreferences prefs,ConquistasCallback callback) {
         //Pego o valor do token
         String token = prefs.getString("token", null);
 
@@ -998,7 +998,7 @@ public class User {
             ) {
                 if (resposta.isSuccessful()) {
                     //Requisição der certo
-
+                    callback.onSuccess();
                 }
 
 

@@ -25,6 +25,7 @@ import com.example.crashware.ui.api.Auth;
 import com.example.crashware.ui.navegacao.Home;
 import com.example.crashware.R;
 import com.example.crashware.ui.navegacao.carregamento;
+import com.example.crashware.ui.navegacao.carregamentoLogin;
 import com.example.crashware.ui.senha.RecuperarSenha;
 
 import retrofit2.Call;
@@ -308,7 +309,7 @@ public class Login extends AppCompatActivity {
 
 
                     //Vai para a HOME:
-                    Intent i = new Intent(Login.this, Home.class);
+                    Intent i = new Intent(Login.this, carregamentoLogin.class);
 
                     i.setFlags(
                             Intent.FLAG_ACTIVITY_NEW_TASK |

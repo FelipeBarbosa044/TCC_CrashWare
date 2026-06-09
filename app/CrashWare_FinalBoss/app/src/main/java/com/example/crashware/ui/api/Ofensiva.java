@@ -29,7 +29,13 @@ public class Ofensiva {
         );
     }//Interface
 
-    public static void SicronizarOfensiva(SharedPreferences prefs, Context context) {
+    // Callback
+    public interface OfensivaCallback {
+
+        void onSuccess();
+    }
+
+    public static void SicronizarOfensiva(SharedPreferences prefs, Context context,OfensivaCallback callback) {
 
         //Pego o valor do token
         String token = prefs.getString("token", null);
@@ -62,7 +68,7 @@ public class Ofensiva {
                     //Caso usuario ja estiver sicronizado
 
                     //Ignora
-
+                    callback.onSuccess();
                     return;
 
                 }
@@ -70,9 +76,8 @@ public class Ofensiva {
                 {
                     //Requisição der certo
 
-                    //Ignora
+                    callback.onSuccess();
 
-                    return;
                 }
                 else {
                     //Retorna erro caso  a reqsição estiver errado
@@ -128,7 +133,7 @@ public class Ofensiva {
         );
     }//Interface
 
-    public static void ValidarOfensiva(SharedPreferences prefs, Context context) {
+    public static void ValidarOfensiva(SharedPreferences prefs, Context context,OfensivaCallback callback) {
 
         //Pego o valor do token
         String token = prefs.getString("token", null);
@@ -168,6 +173,8 @@ public class Ofensiva {
                     prefs.edit()
                             .putInt("ofensiva",ofensiva)
                             .apply();
+
+                    callback.onSuccess();
 
                 }
                 else {

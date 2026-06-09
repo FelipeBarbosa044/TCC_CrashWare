@@ -119,15 +119,8 @@ public class Inicio_fragment extends Fragment {
 
         //(Não mexam aqui)
 
-        //Coleto as informações do usuário
-        Perfil();
-
-        //Primeiro Login
-        PrimeiroLogin();
-
-        //Valido a Ofensiva
-        ValidarOfensiva();
-
+//        //Coleto as informações do usuário
+//        Perfil();
 
         // Atualiza a interface de XP e nível
         atualizarInterfaceXp();
@@ -228,16 +221,16 @@ public class Inicio_fragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        //Informações do usuário
-        Perfil();
-
         //Valido a Ofensiva
         ValidarOfensiva();
 
+        //Informações do usuário
+        carregarDadosLocais();
+
+        //Perfil();
+
         atualizarInterfaceXp();
 
-
-        //        carregarDadosLocais();
     }
 
 
@@ -372,23 +365,7 @@ public class Inicio_fragment extends Fragment {
     }//Perfil
 
 
-    private void PrimeiroLogin() {
-        //Conquista do primeiro login
 
-
-        Boolean PrimeiroLogin = prefs.getBoolean("PrimeiroLogin",false);
-
-        if(PrimeiroLogin == true)
-        {
-            //Exibo a conquista
-            User.Conquista(9,prefs,requireContext());
-
-            //Sicronizo com o banco de dados a ofensiva
-            Ofensiva.SicronizarOfensiva(prefs,requireContext());
-        }
-
-
-    }//Primeiro login
 
 
     private void ValidarOfensiva()
@@ -399,7 +376,14 @@ public class Inicio_fragment extends Fragment {
             @Override
             public void onSuccess() {
                 //chamo a requisição de validar ofensiva
-                Ofensiva.ValidarOfensiva(prefs, requireContext());
+                Ofensiva.ValidarOfensiva(prefs, requireContext(),new Ofensiva.OfensivaCallback()
+                {
+                    @Override
+                    public void onSuccess()
+                    {
+                        //Se der certo ignora
+                    }
+                });
             }
         });
 
@@ -446,33 +430,32 @@ public class Inicio_fragment extends Fragment {
 
 
 
-//    private void carregarDadosLocais() {
-//
-//        String nome = prefs.getString("nome", "");
-//
-//        String foto = prefs.getString("foto", "");
-//
-//        int ofensiva = prefs.getInt("ofensiva", 1);
-//
-//        txtNomeInicio.setText(nome);
-//
-//        txtOfensiva.setText(ofensiva + " dias");
-//
-//        if (foto != null && !foto.isEmpty()) {
-//
-//            String linkFoto =
-//                    "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/"
-//                            + foto
-//                            + "?t=" + System.currentTimeMillis();
-//
-//            Glide.with(requireContext())
-//                    .load(linkFoto)
-//                    .skipMemoryCache(true)
-//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                    .into(imgfotoInicio);
-//
-//        }
-//
-//
-//    }
-}//
+    private void carregarDadosLocais() {
+
+      String nome = prefs.getString("nome", "");
+
+       String foto = prefs.getString("foto", "");
+       Integer ofensiva = prefs.getInt("ofensiva", 1);
+
+        txtNomeInicio.setText(nome);
+
+        txtOfensiva.setText(ofensiva + " dias");
+
+        if (foto != null && !foto.isEmpty()) {
+
+            String linkFoto =
+                    "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/"
+                            + foto
+                            + "?t=" + System.currentTimeMillis();
+
+            Glide.with(requireContext())
+                    .load(linkFoto)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(imgfotoInicio);
+
+        }
+
+
+    }
+}
