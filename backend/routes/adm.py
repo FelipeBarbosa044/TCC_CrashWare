@@ -135,6 +135,7 @@ async def desbanir_usuario(dados : UsuarioSchema ,session = Depends(pegar_sessao
     try:
         # Desativo o Usuario
         usuario.ativo = True
+        usuario.motivo_banimento = None
         session.commit()
 
         return {"mensagem": "Usuario Ativado"}
