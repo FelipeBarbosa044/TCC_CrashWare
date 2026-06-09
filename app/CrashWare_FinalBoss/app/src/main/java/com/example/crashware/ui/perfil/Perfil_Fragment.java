@@ -45,7 +45,7 @@ public class Perfil_Fragment extends Fragment {
     private SharedPreferences.OnSharedPreferenceChangeListener listenerFoto;
 
     private SharedPreferences.OnSharedPreferenceChangeListener listenerBanner;
-    TextView txtNomePerfil, txtQuantXP, txtPatente, txtVerTodasConquistas, txtNivelPerfil, txtQuantGemas;
+    TextView txtMembroDesde,txtNomePerfil, txtQuantXP, txtPatente, txtVerTodasConquistas, txtNivelPerfil, txtQuantGemas;
 
     ImageView imgConfigPerfil;
 
@@ -151,6 +151,7 @@ public class Perfil_Fragment extends Fragment {
         txtNivelPerfil        = view.findViewById(R.id.txtNivelPerfil       );
         BarraProgressoPerfil  = view.findViewById(R.id.barraProgressoPerfil );
         rvConquistas          = view.findViewById(R.id.rvConquistas         );
+        txtMembroDesde        = view.findViewById(R.id.txtMembroDesde       );
 
         //Carrego a foto assim que a tela foi incializada
         Foto();
@@ -159,11 +160,13 @@ public class Perfil_Fragment extends Fragment {
         String Nome = prefs.getString("nome", null);
         String Patente = prefs.getString("patente", "Iniciante");
         Integer Moedas = prefs.getInt("moedas", 0);
+        String Membro = prefs.getString("criado_em",null);
 
         //Atualizando as informações do Usuário
         txtNomePerfil.setText(Nome);
         txtPatente.setText(Patente);
         txtQuantGemas.setText(String.valueOf(Moedas));
+        txtMembroDesde.setText("Membro desde: '"+Membro);
 
         // Lista que vai armazenar as conquistas recentes
         List<Conquista> conquistasRecentes = new ArrayList<>();

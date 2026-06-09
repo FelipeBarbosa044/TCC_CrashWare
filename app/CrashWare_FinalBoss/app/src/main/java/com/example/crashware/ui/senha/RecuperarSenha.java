@@ -101,6 +101,7 @@ public class RecuperarSenha extends AppCompatActivity {
                 if (estado) {
                     txtEmailRec.setHint("(DDD) 9XXXX-XXXX");
                     txtEmailRec.setText("");
+
                 }
 
             }

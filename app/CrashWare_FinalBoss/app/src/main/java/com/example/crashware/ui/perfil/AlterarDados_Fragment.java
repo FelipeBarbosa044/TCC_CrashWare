@@ -1,10 +1,13 @@
 package com.example.crashware.ui.perfil;
 
+import static android.view.View.INVISIBLE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Patterns;
@@ -29,9 +32,11 @@ import com.example.crashware.ui.senha.RedefinirSenha;
 public class AlterarDados_Fragment extends Fragment {
 
     EditText txtNovoNome, txtNovoEmail, txtTelefone, txtConfirmarTelefone, txtSenhaAtual;
-    TextView txtNomeVinculado, txtEmailVinculado;
+    TextView txtNomeVinculado, txtEmailVinculado, txtTelConfirmado;
     Button btnAlterarNome, btnAlterarEmail, btnAdicionarTelefone, btnMudarSenha;
     ImageView imgVoltar, imgGoogle, imgGithub;
+
+
 
     SharedPreferences prefs;
 
@@ -100,19 +105,27 @@ public class AlterarDados_Fragment extends Fragment {
         imgVoltar            = view.findViewById(R.id.imgVoltarCampos            );
         imgGithub            = view.findViewById(R.id.imgGitHub                  );
         imgGoogle            = view.findViewById(R.id.imgGoogle                  );
+        txtTelConfirmado     = view.findViewById(R.id.txtConfirmeNumeroTelefone  );                
 
         nome  = prefs.getString("nome", null );
         email = prefs.getString("email", null);
         telefone = prefs.getString("telefone",null);
 
-//        if(telefone != null)
-//        {
-//            //Aparece o telefone vinculado , e o botao remover
-//        }else
-//        {
-//            //fica como esta
-//
-//        }
+        if(telefone != null)
+        {
+            txtTelefone.setText(telefone);
+            txtTelConfirmado.setVisibility(INVISIBLE);
+            txtConfirmarTelefone.setVisibility(INVISIBLE);
+
+            btnAdicionarTelefone.setText("Remover");
+        }
+
+        else
+        {
+           //txtTelefone.setText("null");
+            //aparntemente funcionando
+
+        }
 
         Toast Preencha = Toast.makeText(getContext(), "Preencha o campo Requisitado!", Toast.LENGTH_LONG);
         Toast DiferenteEmail = Toast.makeText(getContext(), "O Novo Email deve ser diferente do anterior!", Toast.LENGTH_LONG);

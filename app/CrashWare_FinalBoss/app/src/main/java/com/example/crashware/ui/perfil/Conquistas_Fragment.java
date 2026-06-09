@@ -243,7 +243,8 @@ public class Conquistas_Fragment extends Fragment {
                     @Override
                     public void sucesso(
                             List<User.ConquistaResponse> conquistasApi
-                    ) {
+                    )
+                    {
 
 
                         listaConquistasBloqueadas.clear();
@@ -265,50 +266,63 @@ public class Conquistas_Fragment extends Fragment {
                             String tipo =
                                     conquista.tipo_conquista;
                             /*
+
+
                              * Aqui você cria um objeto Conquista
                              * para adicionar ao RecyclerView
                              */
-                            Conquista novaConquista =
-                                    new Conquista(
-                                            nome,
-                                            descricao,
-                                            R.drawable.hardware_icon
-                                    );
-
-
-//                            if (tipoConquista.equals("Hardware")) {
-//                                Conquista novaConquista =
+//                            Conquista novaConquista =
 //                                        new Conquista(
 //                                                nome,
 //                                                descricao,
 //                                                R.drawable.hardware_icon
 //                                        );
-//
-//                            }
-//
-//                            if (tipoConquista.equals("Software"))
-//                            {
-//                                Conquista novaConquista =
-//                                        new Conquista(
-//                                                nome,
-//                                                descricao,
-//                                                R.drawable.softwarehome_icon
-//                                        );
-//
-//                            }
-//                            if (tipoConquista.equals("Outro"))
-//                            {
-//                                Conquista novaConquista =
-//                                        new Conquista(
-//                                                nome,
-//                                                descricao,
-//                                                R.drawable.raposa_icon
-//                                        );
-//                            }
-                            //Para quando der para puxar o tipo da conquista da criação no site, Filipin ajuda nois
+                            if (tipo.equals("Hardware"))
+                            {
+                                Conquista novaConquista =
+                                        new Conquista(
+                                                nome,
+                                                descricao,
+                                                R.drawable.hardware_icon
+                                        );
+                                listaConquistasBloqueadas.add(novaConquista);
+                            }//
+                            if (tipo.equals("Software"))
+                            {
+                                Conquista novaConquista =
+                                        new Conquista(
+                                                nome,
+                                                descricao,
+                                                R.drawable.softwarehome_icon
+                                        );
+                                listaConquistasBloqueadas.add(novaConquista);
+                            }
+                            if (tipo.equals("Outro"))
+                            {
+                                Conquista novaConquista =
+                                        new Conquista(
+                                                nome,
+                                                descricao,
+                                                R.drawable.banner_icon
+                                        );
+                                listaConquistasBloqueadas.add(novaConquista);
+                            }
+                            else
+                            {
+                                Conquista novaConquista =
+                                    new Conquista(
+                                            nome,
+                                            descricao,
+                                            R.drawable.ametista_icon
+                                    );
+                                listaConquistasBloqueadas.add(novaConquista);
+
+                            }
+
+
 
                             //Add conquistas bloqueadas na array
-                            listaConquistasBloqueadas.add(novaConquista);
+                           // listaConquistasBloqueadas.add(novaConquista);
 
 
                         }

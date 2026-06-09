@@ -147,6 +147,8 @@
                 android:background="@drawable/bg_edittext_borda"
                 android:fontFamily="@font/pt_sans_caption_bold"
                 android:hint="Insira o código de verificação"
+                android:maxLength="6"
+                android:inputType="number"
                 android:paddingHorizontal="16dp"
                 android:textColor="#000000"
                 android:textColorHint="@color/hint_modoclaro"
