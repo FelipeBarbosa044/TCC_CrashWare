@@ -61,6 +61,7 @@ async def  perfil(usuario = Depends(validar_token)):
             "xp" : usuario.xp,
             "ofensiva" : usuario.ofensiva,
             "ativo": usuario.ativo,
+            "motivo_banimento":usuario.motivo_banimento,
             "patente": nome_patente,
             "adm": usuario.admin,
             "criado_em" :  data_formatada
