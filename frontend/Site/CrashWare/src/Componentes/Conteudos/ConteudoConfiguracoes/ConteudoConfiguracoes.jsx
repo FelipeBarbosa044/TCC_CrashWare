@@ -297,15 +297,14 @@ const ConteudoConfiguracoes = () => {
 
     const temPhone = usuario?.telefone;
 
-    const RemoverTelefone = async () =>
-    {
+    const RemoverTelefone = async () => {
         setPopup({
-                tipo: 'aviso',
-                titulo: 'Telefone',
-                mensagem: 'Removendo Telefone...'
-            });
+            tipo: 'aviso',
+            titulo: 'Telefone',
+            mensagem: 'Removendo Telefone...'
+        });
 
-        await campo.Remover_Telefone(setPopup,setDados)
+        await campo.Remover_Telefone(setPopup, setDados)
     }
 
     const AlterarNome = async () => {
@@ -472,31 +471,31 @@ const ConteudoConfiguracoes = () => {
                         </div>
 
                         <div className={Style.secaoDados}>
-                                    <div className={Style.preencherDados}>
-                                        <div className={Style.campoForm}>
-                                            <label>Nome Atual</label>
-                                            <p>{usuario.nome}</p>
-                                        </div>
-                                        <div className={Style.inputContainer}>
-                                            <label htmlFor="idNovoNome">Novo Nome</label>
-                                            <input
-                                                type="text"
-                                                maxLength={100}
-                                                placeholder="Nome*"
-                                                id="idNovoNome"
-                                                value={nome}
-                                                onChange={(e) => setNome(e.target.value)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <button className={Style.botoes} onClick={AlterarNome}>
-                                        Alterar
-                                    </button>
+                            <div className={Style.preencherDados}>
+                                <div className={Style.campoForm}>
+                                    <label>Nome Atual</label>
+                                    <p>{usuario.nome}</p>
                                 </div>
+                                <div className={Style.inputContainer}>
+                                    <label htmlFor="idNovoNome">Novo Nome</label>
+                                    <input
+                                        type="text"
+                                        maxLength={100}
+                                        placeholder="Nome*"
+                                        id="idNovoNome"
+                                        value={nome}
+                                        onChange={(e) => setNome(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <button className={Style.botoes} onClick={AlterarNome}>
+                                Alterar
+                            </button>
+                        </div>
 
                         {!temPhone ? (
                             <>
-                                
+
                                 <div className={Style.secaoDados}>
                                     <div className={Style.preencherDados}>
                                         <div className={Style.inputContainer}>
@@ -535,15 +534,22 @@ const ConteudoConfiguracoes = () => {
                                 </div>
                             </>
                         ) : (
-                            <>
-                                <h2>Telefone Atual: {usuario.telefone}</h2>
+                            <div className={Style.secaoDados}>
+
+                                <div className={Style.preencherDados}>
+                                    <div className={Style.campoForm}>
+                                        <label>Telefone Atual: </label>
+                                        <p>{usuario.telefone}</p>
+                                    </div>
+                                </div>
                                 <button
-                                        className={Style.botoes}
-                                        onClick={RemoverTelefone}
-                                    >
-                                        Remover Telefone
-                                    </button>
-                            </>
+                                    className={Style.botoes}
+                                    onClick={RemoverTelefone}
+                                >
+                                    Remover Telefone
+                                </button>
+                            </div>
+
                         )}
                         <div className={Style.secaoDados}>
                             <div className={Style.preencherDados}>
