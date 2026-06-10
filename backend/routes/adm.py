@@ -10,11 +10,27 @@ from models.usuarios import Usuarios
 #Importando SHCEMAS:
 from schemas.admSchema import ConquistaSchema, DeletarConquistaSchema, UsuarioSchema
 
+#dotenv
+import os
+from dotenv import load_dotenv
+
+#Biblioteca de requisição
+import requests
+
 #Instânciando roteador
 adm = APIRouter(prefix="/adm",tags=["adiministração"])
 
 #Importando dependencias
 from dependences import pegar_sessao , validar_token
+
+##Carrego o .env
+load_dotenv()
+
+#Pego informações do banco e do bucket:
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
+SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET")
+SUPABASE_BUCKET2 = os.getenv("SUPABASE_BUCKET2")
 
 
 
@@ -162,14 +178,32 @@ async def removerFoto_usuario(dados : UsuarioSchema ,session = Depends(pegar_ses
     #     raise HTTPException(status_code=403, detail="Administradores Não pode ter a Foto Removida")
 
     try:
-        usuario.foto = 'default.png'
-        session.commit()
+        ##Deleto a pasta que contem o id dele no bucket
+        url_delete = f"{SUPABASE_URL}/storage/v1/object/{SUPABASE_BUCKET}"
+        resposta = requests.delete(
+            url_delete,
+            headers={
+                "Authorization": f"Bearer {SUPABASE_KEY}",
+                "apikey": SUPABASE_KEY,
+                "Content-Type": "application/json"
+            },
+            json={
+                "prefixes": [usuario.foto]
+            }
+        )
+        if (resposta.status_code > 199 and resposta.status_code < 300):
+            usuario.foto = 'default.png'
+            session.commit()
+            return {"mensagem": "Foto Removida"}
+        else:
+            raise HTTPException(status_code=400, detail=resposta.text)
 
-        return {"mensagem" : 'Foto Removida'}
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
         raise HTTPException(status_code=400, detail=str(exception))
+
+
 
 
 @adm.patch('/removerBanner_usuario')

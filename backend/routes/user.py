@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends,HTTPException,UploadFile, File
 #Importando comandos do sql para o código.
 from sqlalchemy import delete, true
 
-#Biblioteca de requesição
+#Biblioteca de requisição
 import requests
 
 
@@ -34,7 +34,7 @@ from datetime import datetime, timedelta
 ##Carrego o .env
 load_dotenv()
 
-#Pego informações do banco:
+#Pego informações do banco e do bucket:
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
 SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET")
