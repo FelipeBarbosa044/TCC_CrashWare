@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom"
-import { PgInicial, PgCadastro, SobreNos, PgLogin, PgErro, PgRecuperarSenha, PgVerificacaoEmail, PgPerfil, PgAnotacoes, PgConfiguracoes, PgHome, PgTermos, AbaConquistas, AbaUsuarios, PgConteudoHardware, PgAlterarSenha, AbaRelatorios, PgConteudoSoftware, AbaCriarMateria, PgLoja, PgSobre, PgVerificarTelefone} from "./Paginas"
-import { LayoutPadrao, LayoutADM, LayoutLogado } from "./Layouts"
+import { PgInicial, PgCadastro, SobreNos, PgLogin, PgErro, PgRecuperarSenha, PgVerificacaoEmail, PgPerfil, PgAnotacoes, PgConfiguracoes, PgHome, PgTermos, AbaConquistas, AbaUsuarios, PgConteudoHardware, PgAlterarSenha, AbaRelatorios, PgConteudoSoftware, AbaCriarMateria, PgLoja, PgSobre, PgVerificarTelefone } from "./Paginas"
+import { LayoutPadrao, LayoutADM, LayoutLogado, LayoutForm } from "./Layouts"
 import { AuthProvider, RotaAdm, RotaPrivada } from "./Rotas"
 import { AbaListarConquistas } from "./Paginas/ADM/AbasAdm/AbaListarConquistas"
 
@@ -23,6 +23,13 @@ const Router = () => {
                     }
                 />
 
+                <Route path="recuperar-senha" element={<PgRecuperarSenha />} />
+                <Route path="verificacao-email" element={<PgVerificacaoEmail />} />
+                <Route path="alterar-senha" element={<PgAlterarSenha />} />
+                <Route path="*" element={<PgErro />} />
+            </Route>
+
+            <Route path="/" element={<LayoutForm />}>
                 <Route
                     path="cadastro"
                     element={
@@ -40,11 +47,6 @@ const Router = () => {
                         </AuthProvider>
                     }
                 />
-
-                <Route path="recuperar-senha" element={<PgRecuperarSenha />} />
-                <Route path="verificacao-email" element={<PgVerificacaoEmail />} />
-                <Route path="alterar-senha" element={<PgAlterarSenha />} />
-                <Route path="*" element={<PgErro />} />
             </Route>
 
             {/* Layout Logado */}
@@ -100,7 +102,7 @@ const Router = () => {
                             <PgTermos />
                         </RotaPrivada>
                     }
-                />  
+                />
 
                 <Route
                     path="verificar-telefone"
@@ -159,7 +161,7 @@ const Router = () => {
                     path="sobre"
                     element={
                         // <RotaPrivada>
-                            <PgSobre />
+                        <PgSobre />
                         /* </RotaPrivada> */
                     }
                 />

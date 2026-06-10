@@ -169,7 +169,7 @@ h5 {
     }
 
     .Container{
-        flex-direction: row;
+        flex-direction: column;
     }
 
     .RedesSociais {
