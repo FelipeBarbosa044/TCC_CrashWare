@@ -277,7 +277,7 @@ public class Conquistas_Fragment extends Fragment {
 //                                                descricao,
 //                                                R.drawable.hardware_icon
 //                                        );
-                            if (tipo.equals("Hardware"))
+                            if  ("Hardware".equals(tipo))
                             {
                                 Conquista novaConquista =
                                         new Conquista(
@@ -287,7 +287,7 @@ public class Conquistas_Fragment extends Fragment {
                                         );
                                 listaConquistasBloqueadas.add(novaConquista);
                             }//
-                            if (tipo.equals("Software"))
+                            if ("Software".equals(tipo))
                             {
                                 Conquista novaConquista =
                                         new Conquista(
@@ -297,7 +297,7 @@ public class Conquistas_Fragment extends Fragment {
                                         );
                                 listaConquistasBloqueadas.add(novaConquista);
                             }
-                            if (tipo.equals("Outro"))
+                            if ("Outro".equals(tipo))
                             {
                                 Conquista novaConquista =
                                         new Conquista(
@@ -307,17 +307,17 @@ public class Conquistas_Fragment extends Fragment {
                                         );
                                 listaConquistasBloqueadas.add(novaConquista);
                             }
-                            else
-                            {
-                                Conquista novaConquista =
-                                    new Conquista(
-                                            nome,
-                                            descricao,
-                                            R.drawable.ametista_icon
-                                    );
-                                listaConquistasBloqueadas.add(novaConquista);
-
-                            }
+//                            else
+//                            {
+//                                Conquista novaConquista =
+//                                    new Conquista(
+//                                            nome,
+//                                            descricao,
+//                                            R.drawable.ametista_icon
+//                                    );
+//                                listaConquistasBloqueadas.add(novaConquista);
+//
+//                            }
 
 
 

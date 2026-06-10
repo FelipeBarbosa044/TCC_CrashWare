@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.example.crashware.ui.login.Login;
 import com.example.crashware.ui.navegacao.Home;
 import com.example.crashware.ui.navegacao.carregamento;
+import com.example.crashware.ui.navegacao.carregamentoLogin;
 
 import org.json.JSONObject;
 
@@ -112,7 +113,7 @@ public class Auth {
                     if(home == false)
                     {
                         //Levo para a tela HOME
-                        Intent i = new Intent(context, Home.class);
+                        Intent i = new Intent(context, carregamentoLogin.class);
                         context.startActivity(i);
                         context.finish();
                     }else
@@ -299,7 +300,7 @@ public class Auth {
                     if(!home)
                     {
                         //Vou para a HOME
-                        Intent i = new Intent(context, Home.class);
+                        Intent i = new Intent(context, carregamentoLogin.class);
                         context.startActivity(i);
                         context.finish();
 

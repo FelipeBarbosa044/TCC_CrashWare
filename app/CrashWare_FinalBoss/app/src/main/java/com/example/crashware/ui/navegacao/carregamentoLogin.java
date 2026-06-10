@@ -165,7 +165,6 @@ public class carregamentoLogin  extends  AppCompatActivity{
         }
 
 
-
     }
 
     private void abrirHome() {
