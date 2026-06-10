@@ -76,7 +76,8 @@ async def conquista_bloqueada(usuario = Depends(validar_token),session = Depends
     conquistas_bloqueadas = session.execute(
         select(
             Conquista.nome_conquista,
-            Conquista.descricao
+            Conquista.descricao,
+            Conquista.tipo_conquista
         )
         .where(
             ~Conquista.id_conquista.in_(

@@ -220,7 +220,7 @@ async def removerBanner_usuario(dados : UsuarioSchema ,session = Depends(pegar_s
 
     # if usuario.admin == True:
     #     raise HTTPException(status_code=403, detail="Administradores Não pode ter from Banner Removido")
-    
+
     try:
         url_delete = f"{SUPABASE_URL}/storage/v1/object/{SUPABASE_BUCKET2}"
         resposta = requests.delete(
