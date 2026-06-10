@@ -9,6 +9,7 @@ import erradaBrancaIcon from "../../../../fotos/errada.svg";
 import erradaPretaIcon from "../../../../fotos/errada_preta.svg";
 
 import Style from './AbaCriarMateria.module.css';
+import { Aula } from '../../../../../funcoes/aula';
 
 export const aulasArray = [];
 
@@ -43,6 +44,9 @@ const AbaCriarMateria = () => {
     const [artigo, setArtigo] = useState(estadoInicialArtigo);
     const [questoes, setQuestoes] = useState(estadoInicialQuestoes);
     const [questaoAtiva, setQuestaoAtiva] = useState(0);
+
+    //Objeto da classe Aula
+    const aula = new Aula();
 
     const ArtigoChange = (campo, valor) => {
         setArtigo(prev => ({ ...prev, [campo]: valor }));
@@ -89,13 +93,18 @@ const AbaCriarMateria = () => {
                 setPopup({titulo : "Formulário" ,mensagem: 'Selecione o Módulo.' });
                 return;
             }
+            if(!artigo.subtitulos[0].subtitulo.trim() || !artigo.subtitulos[0].paragrafo.trim())
+            {
+                setPopup({titulo : "Formulário" ,mensagem: 'Digite o Primeiro Subtítulo e Paragrafo'});
+                return;
+            }
             setEtapa(2);
         } else {
             setEtapa(1);
         }
     };
 
-    const CriarAula = (e) => {
+    const CriarAula = async (e) => {
         e.preventDefault();
 
         for (let i = 0; i < questoes.length; i++) {
@@ -107,7 +116,7 @@ const AbaCriarMateria = () => {
             }
         }
 
-        const novaAula = {
+        const novaAula  = {
             tituloAula: artigo.tituloAula,
             tipo: artigo.tipo,
             modulo: artigo.modulo,
@@ -137,7 +146,7 @@ const AbaCriarMateria = () => {
                 opcao2: questoes[1].opcao1,
                 opcao3: questoes[1].opcao2,
                 opcao4: questoes[1].opcao3,
-                opcao5: questoes[0].opcao4
+                opcao5: questoes[1].opcao4
             },
             questao3: {
                 enunciado: questoes[2].enunciado,
@@ -146,7 +155,7 @@ const AbaCriarMateria = () => {
                 opcao2: questoes[2].opcao1,
                 opcao3: questoes[2].opcao2,
                 opcao4: questoes[2].opcao3,
-                opcao5: questoes[0].opcao4
+                opcao5: questoes[2].opcao4
             },
             questao4: {
                 enunciado: questoes[3].enunciado,
@@ -155,7 +164,7 @@ const AbaCriarMateria = () => {
                 opcao2: questoes[3].opcao1,
                 opcao3: questoes[3].opcao2,
                 opcao4: questoes[3].opcao3,
-                opcao5: questoes[0].opcao4
+                opcao5: questoes[3].opcao4
             },
             questao5: {
                 enunciado: questoes[4].enunciado,
@@ -164,9 +173,21 @@ const AbaCriarMateria = () => {
                 opcao2: questoes[4].opcao1,
                 opcao3: questoes[4].opcao2,
                 opcao4: questoes[4].opcao3,
-                opcao5: questoes[0].opcao4
+                opcao5: questoes[4].opcao4
             },
         };
+
+        //Lista da descrição da Aula
+        const descricaoAula = [artigo.tituloAula,artigo.tipo,artigo.modulo]
+
+        //Lista do conteúdo da Aula
+        const conteudoAula = [novaAula.subtitulo1,novaAula.paragrafo1,novaAula.subtitulo2,novaAula.paragrafo2,novaAula.subtitulo3,novaAula.paragrafo3,novaAula.subtitulo4,novaAula.paragrafo4]
+
+        //Lista das Questões
+        const questoesAula = [novaAula.questao1,novaAula.questao2,novaAula.questao3,novaAula.questao4,novaAula.questao5]
+
+        await aula.criar_aula(descricaoAula,conteudoAula,questoesAula,5,500,setPopup)
+
 
         aulasArray.push(novaAula);
         setArtigo(estadoInicialArtigo);

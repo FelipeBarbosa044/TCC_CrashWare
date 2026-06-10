@@ -1,7 +1,22 @@
 export class Aula
 {
-    async criar_aula(titulo,tipo,modulo,subtitulo1,paragrafo1,subtitulo2,paragrafo2,subtitulo3,paragrafo3,subtitulo4,paragrafo4,moeda_bonus,xp_bonus,setPopup,questoes,alternativas)
+    async criar_aula(descricaoAula,conteudoAula,questoes,moeda_bonus,xp_bonus,setPopup)
     {
+        //Pego a descrição da Aula
+        const titulo = descricaoAula[0];
+        const tipo = descricaoAula[1];
+        const modulo = descricaoAula[2];
+
+        //Pego o conteudo da Aula
+        const subtitulo1 = conteudoAula[0];
+        const paragrafo1 = conteudoAula[1];
+        const subtitulo2 = conteudoAula[2];
+        const paragrafo2 = conteudoAula[3];
+        const subtitulo3 = conteudoAula[4];
+        const paragrafo3 = conteudoAula[5];
+        const subtitulo4 = conteudoAula[6];
+        const paragrafo4 = conteudoAula[7];
+
         try
         {
             const response = await fetch("https://api-crashware.onrender.com/materia/",
@@ -37,15 +52,19 @@ export class Aula
                 const id_aula = resposta.id_aula;
 
                 //Crio Exercicio
-                await this.criar_exercicio(id_aula,setPopup)
+                const aulaCriada = await this.criar_exercicio(id_aula,setPopup,questoes)
 
-                 //Exibo PoPup de Sucesso
-                setPopup({
-                    tipo: 'sucesso',
-                    titulo: 'Aula',
-                    mensagem: "Aula Criada"
-                });
+                if(aulaCriada == true)
+                {
+                     //Exibo PoPup de Sucesso
+                    setPopup({
+                        tipo: 'sucesso',
+                        titulo: 'Aula',
+                        mensagem: "Aula Criada"
+                    });
 
+                }
+                
             }else
             {
                 //Exibo Popup De Erro
@@ -66,12 +85,14 @@ export class Aula
             });
 
             console.log("Erro ao Tentar Criar Aula : " + error)
+
+            return false;
         }
     }//Criar Aula
 
 
     //Criar Exercicio 
-    async criar_exercicio(id_aula,setPopup)
+    async criar_exercicio(id_aula,setPopup,questoes)
     {
         try
         {
@@ -91,11 +112,26 @@ export class Aula
                 //Pego a resposta
                 const resposta = await response.json();
 
-                //Pego o id_aula
+                //Pego o id_exercicio
                 const id_exercicio = resposta.id_exercicio;
 
-                //Crio  a Questao/Enunciado
-                await this.criar_questao(id_exercicio,setPopup)
+                for(let q = 0;q < questoes.length;q++)
+                {
+                    //Pego a pergunta
+                    const pergunta = questoes[q].enunciado;
+
+                    const ordem = q + 1
+
+                    //Crio a Questao/Enunciado
+                    const questaoCriada = await this.criar_questao(id_exercicio, pergunta, ordem, setPopup, questoes[q]);
+
+                    if (questaoCriada == false)
+                    {
+                        return false
+                    }
+
+                }
+                return true
             }else
             {
                 const erro = await response.json();
@@ -104,11 +140,13 @@ export class Aula
                 setPopup({
                     tipo: 'erro',
                     titulo: 'Exercicio',
-                    mensagem: 'Erro ao criar Exercício' + erro.detail
+                    mensagem: 'Erro ao criar Exercício ' + erro.detail
                 });
 
                 //Exibo no log
                 console.log(erro.detail)
+
+                return false;
             }
 
         }catch (error)
@@ -121,11 +159,13 @@ export class Aula
             });
 
             console.log("Erro ao Tentar Criar Exercício : " + error)
+
+            return false;
         }
     }//Criar Exercicio
 
-    async criar_questao(id_exercicio,pergunta,ordem,setPopup)
-    {
+    async criar_questao(id_exercicio,pergunta,ordem,setPopup,questao)
+    {   
         try
         {
              const response = await fetch("https://api-crashware.onrender.com/materia/criar_questao",{
@@ -146,11 +186,29 @@ export class Aula
                 //Pego a resposta
                 const resposta = await response.json();
 
-                //Pego o id_aula
+                //Pego o id_questao
                 const id_questao = resposta.id_questao;
 
-                //Crio as Alternativas
-                await this.criar_alternativa(id_questao,setPopup)
+
+                for(let p = 1; p <= 5;p++)
+                {
+                    //Pego o texto
+                    const texto = questao[`opcao${p}`];
+
+                    //Retorna True se p for igual a 1
+                    const correta = p == 1;
+
+                    //Crio as Alternativas
+                    const alternativaCriada = await this.criar_alternativa(id_questao,texto,correta,setPopup)
+
+                    if(alternativaCriada == false)
+                    {
+                        return false;
+                    }
+                }
+
+                return true
+
             }else
             {
                 const erro = await response.json();
@@ -159,11 +217,13 @@ export class Aula
                 setPopup({
                     tipo: 'erro',
                     titulo: 'Questão',
-                    mensagem: 'Erro ao criar Questão' + erro.detail
+                    mensagem: 'Erro ao criar Questão ' + erro.detail
                 });
 
                 //Exibo no log
                 console.log(erro.detail)
+
+                return false;
             }
         }catch (error)
         {
@@ -175,11 +235,13 @@ export class Aula
             });
 
             console.log("Erro ao Tentar Criar Questão : " + error)
+
+            return false;
         }
     }//Criar Questao
 
 
-    async criar_alternativa(id_questao,setPopup)
+    async criar_alternativa(id_questao,texto,correta,setPopup)
     {
         try
         {
@@ -190,7 +252,7 @@ export class Aula
                         "Content-Type": "application/json"
                     },
                 body: JSON.stringify({
-                        questap_id : id_questao,
+                        questao_id : id_questao,
                         texto : texto,
                         correta : correta
                     })
@@ -199,7 +261,7 @@ export class Aula
             if(response.ok)
             {
                 //Ignora
-                return;
+                return true;
             }else
             {
                  const erro = await response.json();
@@ -208,11 +270,13 @@ export class Aula
                 setPopup({
                     tipo: 'erro',
                     titulo: 'Alternativa',
-                    mensagem: 'Erro ao criar Alternativa' + erro.detail
+                    mensagem: 'Erro ao criar Alternativa ' + erro.detail
                 });
 
                 //Exibo no log
                 console.log(erro.detail)
+
+                return false;
             }
         }catch (error)
         {
@@ -224,6 +288,8 @@ export class Aula
             });
 
             console.log("Erro ao Tentar Criar Alternativa : " + error)
+
+            return false;
         }
     }
 }//Aula
