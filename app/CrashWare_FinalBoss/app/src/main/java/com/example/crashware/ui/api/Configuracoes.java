@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.crashware.R;
 import com.example.crashware.ui.login.ConfirmarIdentidade;
 import com.example.crashware.ui.login.ConfirmarTelefone;
 import com.example.crashware.ui.login.Login;
@@ -688,7 +690,7 @@ public class Configuracoes {
 
     // INTERFACE da API:
     public static interface RemoverTelefone {
-        @DELETE("/auth/remover_telefone")
+        @PATCH("/auth/remover_telefone")
         Call<RemoverTelefoneResponse> remover(
                 @Header("Authorization") String token
         );
@@ -723,17 +725,18 @@ public class Configuracoes {
                 if (resposta.isSuccessful()) {
                     //Requisição der certo
 
+                    //Deixo como nulo o telefone do SharedPreferences
+                    prefs.edit()
+                            .putString("telefone",null)
+                            .apply();
 
                     //Exibi isso
                     Toast.makeText(fragment.requireContext(),
                             "Telefone Removido!",
                             Toast.LENGTH_SHORT).show();
 
-                    //Deixo como nulo o telefone do SharedPreferences
-                    prefs.edit()
-                            .putString("telefone",null)
-                            .apply();
-
+                    //Força atualizar a tela
+                    fragment.requireActivity().recreate();
 
 
 //                    //Vou para a home
@@ -1032,7 +1035,7 @@ public class Configuracoes {
                         //Exibo a mensagem
                         Toast.makeText(activity, "Adicionando Telefone..." , Toast.LENGTH_LONG).show();
                         //Chamo o metodo de adicionar telefone
-                        Adicionar_Telefone(telefone,email,prefs,activity);
+                        Adicionar_Telefone(telefone,email,prefs,(AppCompatActivity) activity);
 
 
                     }else
@@ -1098,7 +1101,7 @@ public class Configuracoes {
     }//Interface
 
 
-    public static void Adicionar_Telefone(String telefone, String email, SharedPreferences prefs, Activity activity) {
+    public static void Adicionar_Telefone(String telefone, String email, SharedPreferences prefs, AppCompatActivity activity) {
 
 
         // Criando a API
@@ -1133,12 +1136,11 @@ public class Configuracoes {
                         .apply();
 
 
-
                     //Resposta da API
                     Toast.makeText(activity, dados.mensagem, Toast.LENGTH_LONG).show();
 
-                    //Envio para a tela De  Alterar Dados Fragment
-                    Intent i = new Intent(activity, AlterarDados_Fragment.class);
+                    //Vou para a HOME
+                    Intent i = new Intent(activity, Home.class);
                     activity.startActivity(i);
                     activity.finish();
 

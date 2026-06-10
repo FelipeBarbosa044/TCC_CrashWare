@@ -239,33 +239,9 @@ public class AlterarDados_Fragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                String telefone = txtTelefone.getText().toString().trim();
-                String confirmarTelefone = txtConfirmarTelefone.getText().toString().trim();
-
-                if (telefone.isEmpty() || confirmarTelefone.isEmpty())
-                {
-                    Preencha.show();
-                    return;
-                }//se os Campos forem vazio mostra a mensagem para preencher
-
-                if(telefone.length() < 11 || confirmarTelefone.length() < 11)
-                {
+                if(telefone != null) {
                     //Exibo na tela
-                    Toast.makeText(requireContext(), "Digite um telefone válido com DDD.", Toast.LENGTH_LONG).show();
-                }
-                else if (!telefone.equals(confirmarTelefone))
-                {
-                    FalhaTelefone.show();
-                    return;
-                }//se o telefone for diferente da confirmação, mostra mensagem de erro
-
-                else
-                {
-
-                    //Exibo na tela
-                    Toast.makeText(requireContext(), "Verificando Telefone...", Toast.LENGTH_LONG).show();
-
-                    String numerotelefone = txtConfirmarTelefone.getText().toString();
+                    Toast.makeText(requireContext(), "Removendo Telefone...", Toast.LENGTH_LONG).show();
 
                     //Verifico o token
                     Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
@@ -273,19 +249,60 @@ public class AlterarDados_Fragment extends Fragment {
                         @Override
                         public void onSuccess() {
 
-                            //Controle de Navegacao
-                            prefs.edit()
-                                    .putString("add_telefone", "true")
-                                    .apply();
-
-                            //Chamo o metodo de verificar  telefone
-                             Configuracoes.Verificar_Telefone(numerotelefone,email, prefs, AlterarDados_Fragment.this);
+                            //Chamo o metodo de Remover Telefone
+                            Configuracoes.Remover_Telefone(prefs, AlterarDados_Fragment.this);
 
 
                         }
 
                     });
+                }else
+                {
+                    String telefone = txtTelefone.getText().toString().trim();
+                    String confirmarTelefone = txtConfirmarTelefone.getText().toString().trim();
 
+                    if (telefone.isEmpty() || confirmarTelefone.isEmpty())
+                    {
+                        Preencha.show();
+                        return;
+                    }//se os Campos forem vazio mostra a mensagem para preencher
+
+                    if(telefone.length() < 11 || confirmarTelefone.length() < 11)
+                    {
+                        //Exibo na tela
+                        Toast.makeText(requireContext(), "Digite um telefone válido com DDD.", Toast.LENGTH_LONG).show();
+                    }
+                    else if (!telefone.equals(confirmarTelefone))
+                    {
+                        FalhaTelefone.show();
+                        return;
+                    }//se o telefone for diferente da confirmação, mostra mensagem de erro
+                    else
+                    {
+                        //Exibo na tela
+                        Toast.makeText(requireContext(), "Verificando Telefone...", Toast.LENGTH_LONG).show();
+
+                        String numerotelefone = txtConfirmarTelefone.getText().toString();
+
+                        //Verifico o token
+                        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+
+                            @Override
+                            public void onSuccess() {
+
+                                //Controle de Navegacao
+                                prefs.edit()
+                                        .putString("add_telefone", "true")
+                                        .apply();
+
+                                //Chamo o metodo de verificar  telefone
+                                Configuracoes.Verificar_Telefone(numerotelefone,email, prefs, AlterarDados_Fragment.this);
+
+
+                            }
+
+                        });
+                }
 
 //                    Telefone.show();
 //                    prefs.edit()

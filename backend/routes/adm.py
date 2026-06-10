@@ -204,8 +204,6 @@ async def removerFoto_usuario(dados : UsuarioSchema ,session = Depends(pegar_ses
         raise HTTPException(status_code=400, detail=str(exception))
 
 
-
-
 @adm.patch('/removerBanner_usuario')
 async def removerBanner_usuario(dados : UsuarioSchema ,session = Depends(pegar_sessao)):
     usuario = session.query(Usuarios).filter(Usuarios.id_usuario == dados.id_usuario).first()

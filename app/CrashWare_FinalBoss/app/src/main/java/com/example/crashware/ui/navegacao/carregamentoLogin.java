@@ -129,6 +129,7 @@ public class carregamentoLogin  extends  AppCompatActivity{
                 .putString("email", usuario.email)
                 .putString("foto", usuario.foto)
                 .putString("banner", usuario.banner)
+                .putString("telefone",usuario.telefone)
                 .putString("criado_em" , usuario.criado_em)
 
                 .putInt(
