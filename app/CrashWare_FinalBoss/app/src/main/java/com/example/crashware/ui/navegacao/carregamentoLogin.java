@@ -153,8 +153,19 @@ public class carregamentoLogin  extends  AppCompatActivity{
 
                 .apply();
 
+        if(usuario.ativo == true)
+        {
+            //Exibo a conquista
+            User.Conquista(23, prefs, this, new User.ConquistasCallback() {
+                @Override
+                public void onSuccess() {
+                    abrirHome();
+                }
+            });
+        }
 
-        abrirHome();
+
+
     }
 
     private void abrirHome() {

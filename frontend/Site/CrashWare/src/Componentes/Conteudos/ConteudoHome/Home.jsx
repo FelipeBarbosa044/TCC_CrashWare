@@ -127,8 +127,6 @@ const ConteudoHome = () => {
 
     }
 
-
-
     //Pega os dados do usuario
     let usuario = JSON.parse(localStorage.getItem("dados"));
 
@@ -139,7 +137,7 @@ const ConteudoHome = () => {
             const user = new Usuario(token, refresh_token, Navegacao, set);
 
             //Pega a conquista de ADM
-            await user.conquista(21, setPopupConquista, setDados);
+            await user.conquista(23, setPopupConquista, setDados);
         }
     }
 
