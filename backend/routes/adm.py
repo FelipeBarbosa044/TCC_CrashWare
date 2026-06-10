@@ -220,12 +220,29 @@ async def removerBanner_usuario(dados : UsuarioSchema ,session = Depends(pegar_s
 
     # if usuario.admin == True:
     #     raise HTTPException(status_code=403, detail="Administradores Não pode ter from Banner Removido")
-
+    
     try:
-        usuario.banner = 'default.png'
-        session.commit()
+        url_delete = f"{SUPABASE_URL}/storage/v1/object/{SUPABASE_BUCKET2}"
+        resposta = requests.delete(
+            url_delete,
+            headers={
+                "Authorization": f"Bearer {SUPABASE_KEY}",
+                "apikey": SUPABASE_KEY,
+                "Content-Type": "application/json"
+            },
+            json={
+                "prefixes": [usuario.banner]
+            }
+        )
+        if (resposta.status_code > 199 and resposta.status_code < 300):
+            # Se der certo a requisição:
 
-        return {"mensagem" : 'Banner Removido'}
+            usuario.banner = 'default.png'
+            session.commit()
+            return {"mensagem": 'Banner Removido'}
+        else:
+            raise HTTPException(status_code=400, detail=resposta.text)
+
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
