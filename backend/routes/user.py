@@ -574,6 +574,37 @@ async def validar_ofensiva(usuario = Depends(validar_token),session = Depends(pe
         session.rollback()
         raise HTTPException(status_code=400, detail=str(exception))
 
+@user.patch('/subir_patente')
+async def subir_patente(usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+    if(usuario.patentes.nome_patente == 'Omega'):
+        raise HTTPException(status_code=409,detail="Usuário já está na patente máxima")
+
+    #Pego a proxima patente
+    proxima_patente = session.query(Patente).filter(Patente.id_patente == usuario.patente_id + 1).first()
+
+    #Verifico se subiu de patente
+    if(usuario.xp >= proxima_patente.xp_minimo):
+        try:
+            usuario.patente_id = proxima_patente.id_patente
+            session.commit()
+            #Retorno a Patente
+            return {"patente" : proxima_patente.nome_patente}
+
+        except Exception as exception:
+            ##Se não der certo eu retorno o erro, e dou rollback no banco.
+            session.rollback()
+            raise HTTPException(status_code=400, detail=str(exception))
+
+    else:
+        raise HTTPException(status_code=409, detail="Usuário não tem Nível Suficiente")
+
+
+
+
+
 
 
 

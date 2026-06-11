@@ -29,7 +29,7 @@ class Patente(Base):
     # Criando atributos PARA O PYTHON (Não altera nada no banco de dados)
     def __init__(self,nome_patente,xp_minimo = 0):
         self.nome_patente = nome_patente
-        self.nivel_minimo = xp_minimo
+        self.xp_minimo = xp_minimo
 
 #Tabela Conquista
 class Conquista(Base):
