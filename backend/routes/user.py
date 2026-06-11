@@ -602,7 +602,7 @@ async def subir_patente(usuario = Depends(validar_token),session = Depends(pegar
     else:
         raise HTTPException(status_code=409, detail="Usuário não tem Nível Suficiente")
 
-@user.get('/atualizar_recursos')
+@user.post('/atualizar_recursos')
 async def atualizar_recursos(dados : EmailSchema,session = pegar_sessao()):
     usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     if usuario is None:
