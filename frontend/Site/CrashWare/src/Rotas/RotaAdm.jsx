@@ -7,7 +7,7 @@ import { Usuario } from "../../funcoes/user";
 
 const RotaAdm = ({ children }) => {
 
-    //Pego as informações do usuário
+    //Pego as informações do usuárioo
     const usuario = JSON.parse(localStorage.getItem("dados"));
 
     //Navegação --> Permite eu levar o usuario para outras telas
