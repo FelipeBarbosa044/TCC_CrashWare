@@ -98,9 +98,8 @@
 /* ===== BOTÕES ===== */
 
 .btnEnviar {
-    width: 70%;
-    height: 5vh;
-    min-height: 44px;
+    width: 60%;
+    height: 52px;
 
     background: var(--bg-principal);
     border: none;

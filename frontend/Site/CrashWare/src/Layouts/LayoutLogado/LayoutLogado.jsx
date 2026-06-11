@@ -28,25 +28,6 @@ const LayoutLogado = () => {
     return (
         <>
             <Cabecalho>
-
-                <div className={style.linksEscrito}>
-
-                    <div className={style.textos}>
-
-                        <Link to="/perfil">
-                            <p>perfil</p>
-                        </Link>
-
-                        <Link to="/configuracoes">
-                            <p>configurações</p>
-                        </Link>
-
-                        <Tema/>
-
-                    </div>
-
-                </div>
-
                 <div className={style.links}>
 
                     <Link to="/perfil">
