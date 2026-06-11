@@ -73,13 +73,12 @@ const ConteudoInicial = () => {
                     </section>
 
                     <section className={Style.Chamada}>
-                        {/* Chamada para ação */}
-
-                        <h3>A tecnologia não é mágica, é lógica</h3>
-
-                        <hr />
-
-                        <h5>Nosso guia introdutório desmistifica o que acontece por trás da tela, ensinando você a enxergar hardware e software como ferramentas de criação, não apenas consumo.</h5>
+                        
+                        <div className={Style.chamadaTextos}>
+                            <h3>A tecnologia não é mágica, é lógica</h3>
+                            <hr />
+                            <h5>Nosso guia introdutório desmistifica o que acontece por trás da tela, ensinando você a enxergar hardware e software como ferramentas de criação, não apenas consumo.</h5>
+                        </div>
 
                     </section>
 
@@ -91,7 +90,7 @@ const ConteudoInicial = () => {
                             <section className={Style.ConteudoHardware}>
 
                                 <div className={Style.ConteudoHardware_texto}>
-                                    <h2>⚙️ Hardware</h2>
+                                    <h2>⚙️ HARDWARE</h2>
 
                                     <h4>Componentes do Computador</h4>
                                     <p>Entenda como funcionam CPU, RAM, SSD, placa-mãe e placa de vídeo e como cada peça influencia no desempenho.</p>
@@ -116,7 +115,7 @@ const ConteudoInicial = () => {
                             <section className={Style.ConteudoSoftware}>
 
                                 <div className={Style.ConteudoSoftware_texto}>
-                                    <h2>&lt;/&gt; Software</h2>
+                                    <h2>&lt;/&gt; SOFTWARE</h2>
 
                                     <h4>Sistemas Operacionais</h4>
                                     <p>Aprenda a instalar, configurar e otimizar sistemas como Windows e Linux.</p>
