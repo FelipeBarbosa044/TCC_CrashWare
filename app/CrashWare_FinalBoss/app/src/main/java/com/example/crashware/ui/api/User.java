@@ -5,6 +5,7 @@ import static android.app.ProgressDialog.show;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.crashware.R;
 
 import org.json.JSONObject;
 
@@ -824,7 +826,66 @@ public class User {
 
 
                     //Mostrara esse popup por enquanto (AQUI AONDE VOCê VAI MOSTRAR A CONQUISTA JAO OU ADLER)
-                    Toast.makeText(context, nome_conquista, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(context, nome_conquista, Toast.LENGTH_LONG).show();
+
+                    android.app.Dialog dialog = new android.app.Dialog(context);
+                    dialog.setContentView(R.layout.dialog_conquista);
+
+                    // Deixa o fundo do Dialog transparente para as bordas redondas do CardView aparecerem
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    dialog.setCancelable(false); // Impede de fechar clicando fora
+
+                    // 2. Mapeia os componentes do XML
+                    android.widget.ImageView imgIcone = dialog.findViewById(R.id.imgIconePopup);
+                    android.widget.TextView txtNome = dialog.findViewById(R.id.txtNomePopup);
+                    android.widget.TextView txtDescricao = dialog.findViewById(R.id.txtDescricaoPopup);
+                    android.widget.TextView txtRecompensas = dialog.findViewById(R.id.txtRecompensasPopup);
+                    android.widget.Button btnFechar = dialog.findViewById(R.id.btnFecharPopup);
+
+                    // 3. Preenche com os dados da API
+                    txtNome.setText(nome_conquista);
+                    txtDescricao.setText(descricao);
+
+                    // 4. Lógica da Imagem baseada no Tipo
+                    String tipo = tipo_conquista != null ? tipo_conquista.trim() : "";
+
+                    if ("Hardware".equalsIgnoreCase(tipo)) {
+                        imgIcone.setImageResource(R.drawable.hardware_icon);
+                    } else if ("Software".equalsIgnoreCase(tipo)) {
+                        imgIcone.setImageResource(R.drawable.softwarehome_icon);
+                    } else if ("Outro".equalsIgnoreCase(tipo)) {
+                        imgIcone.setImageResource(R.drawable.raposa_icon);
+                    } else {
+                        imgIcone.setImageResource(R.drawable.raposa_icon);
+                    }
+
+                    // 5. Monta o texto de recompensas (se houver)
+                    String recompensasTexto = "";
+                    if (moedas_bonus != null && moedas_bonus > 0) {
+                        recompensasTexto += "+" + moedas_bonus + " Moedas ";
+                    }
+                    if (xp_bonus != null && xp_bonus > 0) {
+                        recompensasTexto += "+" + Math.round(xp_bonus) + " XP";
+                    }
+
+                    // Se ganhou algo, mostra o texto de recompensa
+                    if (!recompensasTexto.isEmpty()) {
+                        txtRecompensas.setText("Recompensas: " + recompensasTexto);
+                        txtRecompensas.setVisibility(View.VISIBLE);
+                    }
+
+                    // 6. Botão de fechar
+                    btnFechar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss(); // Fecha o pop-up
+                        }
+                    });
+
+                    // 7. Mostra o pop-up na tela!
+                    dialog.show();
+
+
 
                 } else {
                     //Retorna erro caso a reqsição dar errado

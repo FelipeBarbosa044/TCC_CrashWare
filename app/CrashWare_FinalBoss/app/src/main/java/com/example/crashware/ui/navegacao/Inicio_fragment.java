@@ -162,9 +162,19 @@ public class Inicio_fragment extends Fragment {
                 //
                 if (Carinho == 10)
                 {
-                    conquista.show();
-                    //add conquista de carinho
+
+                    //exibo conquista
+                        User.Conquista(17, prefs, getActivity(), new User.ConquistasCallback()
+                        {
+                            @Override
+                            public void onSuccess()
+                            {
+
+                            }
+                        });
+
                 }
+
 
                 else if (Carinho > 10)
                 {
@@ -172,6 +182,8 @@ public class Inicio_fragment extends Fragment {
                 }
             }
         });
+
+
 
         btnRetomar.setOnClickListener(new View.OnClickListener() {
             @Override

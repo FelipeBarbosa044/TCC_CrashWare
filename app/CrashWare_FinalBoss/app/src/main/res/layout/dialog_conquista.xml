@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="24dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
+        android:background="@drawable/bg_gradiendtelasiniciais"> <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOVA CONQUISTA!"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"/>
+
+        <ImageView
+            android:id="@+id/imgIconePopup"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/raposa_icon" /> <TextView
+            android:id="@+id/txtNomePopup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome da Conquista"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/txtDescricaoPopup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descrição do que o usuário fez para ganhar isso."
+            android:textColor="#DDDDDD"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/txtRecompensasPopup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFD700"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnFecharPopup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="INCRÍVEL!"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:cornerRadius="10dp"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
