@@ -297,7 +297,7 @@ const AbaCriarMateria = () => {
                                 value={artigo.moedas}
                                 onChange={e => RecompensaChange('moedas', e.target.value)}
                             />
-                            <p>numero maximo 100</p>
+                            <p>Número Maximo 100</p>
                         </div>
 
                         <div className={Style.inputs} id={Style.xp}>
