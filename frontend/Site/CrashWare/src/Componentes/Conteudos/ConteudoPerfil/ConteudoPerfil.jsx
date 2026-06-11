@@ -452,7 +452,7 @@ const ConteudoPerfil = () => {
                                         key={c.id}
                                         className={`${style.ItemConquista} ${style[c.tipo]}`}
                                     >
-                                        <img src={FotoPadrao} alt={c.titulo} />
+                                        <img src={c.tipo === "Outro" ? "/IconOutro.svg" : c.tipo === "Hardware" ? "/IconHardware.png" : "/IconSoftware.png"} alt={c.titulo} />
 
                                         <div>
                                             <h6>{c.titulo}</h6>

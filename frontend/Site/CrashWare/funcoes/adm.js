@@ -200,7 +200,7 @@ export class Adm
 
     //Total de usuários
 
-    async carregar_usuarios(setPopup,setTotal = null)
+    async carregar_usuarios(setPopup,setTotal = null, setDadosGraficos)
     {
         try
         {
@@ -231,6 +231,8 @@ export class Adm
 
                     //Guardo os usuarios no LocalStorage
                     localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+                    //Coloca Aqui Gabriel o Gráfico
                 }
                 
 
