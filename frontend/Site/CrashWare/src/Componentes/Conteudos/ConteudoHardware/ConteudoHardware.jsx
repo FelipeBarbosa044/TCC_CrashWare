@@ -5,6 +5,8 @@ import certoIcon from "../../../fotos/certo.svg";
 import playIcon from "../../../fotos/play.svg";
 import arduinoIcon from "../../../fotos/arduino.svg";
 
+import { PopUp } from "../../pop-up";
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 

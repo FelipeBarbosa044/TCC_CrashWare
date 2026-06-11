@@ -8,7 +8,7 @@
 
 .corpo {
     width: 98vw;
-    padding-top: 100px;
+    padding-top: 120px;
     padding-bottom: 40px;
 
     display: flex;
@@ -273,7 +273,6 @@
     .corpo {
         flex-direction: column;
         align-items: center;
-        padding-top: 300px;
         width: 95vw;
     }
 
@@ -303,9 +302,6 @@
 }
 
 @media (max-width: 768px) {
-    .corpo {
-        padding-top: 200px !important;
-    }
 
     .titulo {
         flex-direction: column;
@@ -361,7 +357,6 @@
 @media (max-width: 480px) {
     .corpo {
         width: 100%;
-        padding-top: 100px;
     }
 
     .apresentacao {

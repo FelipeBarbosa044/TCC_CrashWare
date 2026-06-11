@@ -5,24 +5,9 @@
 }
 
 /* ===== CONTAINER PRINCIPAL ===== */
-.corpo{
-    height: 100%;
-    background-color: var(--bg-principal);
-    /* background: var(--gradiente-inicial); */
-    width: 100%;
-    padding-top: 100px;
-}
 
-.MainEstilo {
-    /* min-width: 1100px; */
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* padding-top: 80px; */
-    font-family: "Montserrat", sans-serif;
-    border-radius: 20px;
-}
+
+
 
 /* .LimitarConteudo{
     max-width: 1324px;
@@ -39,15 +24,15 @@
 
 /* ===== HERO ===== */
 .Apresentacao {
+    padding-top: 80px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 32px;
-    width: 100%;
+    width: 100% !important;
     /* padding-bottom: 30px; */
-    background: var(--bg-principal);
-
+    background: var(--bg-quinto);
 }
 
 .Apresentacao_texto {
@@ -74,12 +59,12 @@
 }
 
 .Apresentacao_btns button {
-    background: var(--Entrar-Inicial);
-    border: none;
+    background-color: var(--bg-principal);
+    border: 1px solid var(--texto-principal);
     width: 260px;
     height: 52px;
     border-radius: 40px;
-    color: white;
+    color: var(--texto-principal);
     font-size: 16px;
     font-weight: 700;
     font-family: "Montserrat", sans-serif;
@@ -89,12 +74,12 @@
 
 .Apresentacao_btns button:hover {
     transform: translateY(-2px);
-    border: 1.5px solid var(--borda);
+    /* border: 1.5px solid var(--borda); */
 }
 
 .btnSecundario {
     background: var(--Cadastrar) !important;
-    border: 1.5px solid var(--borda) !important;
+    border: 1.5px solid var(--texto-secundario) !important;
     color: var(--texto-principal) !important;
 }
 
@@ -121,19 +106,21 @@
     align-items: center;
     justify-content: center;
     gap: 32px;
-    width: 100%;
+    width: 100% !important;
     padding: 28px 40px;
     box-shadow: none;
-    border: 2px solid var(--Border-Chamada);
-    background: var(--gradiente-Chamada-Inicial);
+    border-top: 1px solid var(--texto-principal);
+    border-bottom: 1px solid var(--texto-principal);
+    background: var(--bg-quinto);
 }
 
 .Chamada h3 {
     font-size: clamp(20px, 2.5vw, 36px);
     font-weight: 800;
-    color: white;
+    color: var(--texto-principal);
     flex: 1;
     margin: 0;
+    text-align: center;
 }
 
 .Chamada hr {
@@ -141,16 +128,16 @@
     border-radius: 50px;
     height: 90px;
     border: none;
-    background: white;
+    background: var(--texto-principal);
     flex-shrink: 0;
 }
 
 .Chamada h5 {
     flex: 1.2;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     line-height: 1.6;
-    color: white;
+    color: var(--texto-principal);
     opacity: 0.75;
     width: auto;
     margin: 0;
@@ -164,7 +151,7 @@
     display: flex;
     flex-direction: column;
     padding: 30px 0px;
-    background-color: var(--bg-secundario);
+    background-color: var(--bg-quinto);
 }
 
 
@@ -212,7 +199,7 @@
 
 .ConteudoHardware_texto {
     flex: 1;
-    border: 2px solid var(--cor-primaria);
+    border: 2px solid #15C021;
     padding: 20px;
     border-radius: 12px;
 }
@@ -248,7 +235,7 @@
 .ConteudoHardware_texto hr {
     border: none;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--cor-primaria-hover), transparent);
+    background: linear-gradient(90deg, transparent, #15C021, transparent);
     margin: 8px 0;
     width: 70%;
     text-align: center;
@@ -268,11 +255,12 @@
 }
 
 .ConteudoSoftware_img img {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-    width: 260px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-self: center;
+        flex-shrink: 0;
+        width: 260px;
     }
 
 .ConteudoSoftware_img div {
@@ -292,7 +280,7 @@
 
 .ConteudoSoftware_texto {
     flex: 1;
-    border: 2px solid var(--cor-secundaria);
+    border: 2px solid #1893C7;
     padding: 20px;
     border-radius: 12px;
 }
@@ -302,7 +290,7 @@
     font-weight: 800;
     margin-bottom: 8px;
     text-align: center;
-        background: linear-gradient(90deg,#19C4D0,#1893C7,#1964D1);
+    background: linear-gradient(90deg,#19C4D0,#1893C7,#1964D1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -338,15 +326,21 @@
 /* ===== TEXTO FINAL ===== */
 .aplicativo {
     text-align: center;
-    padding: 40px 20px;
+    /* padding: 40px 20px; */
     width: 100%;
-    background: var(--gradiente-app);
+    background: var(--bg-quinto);
+    opacity: 0.97;
+    display: flex;
+
+    flex-direction: column;
+    justify-items: center;
+    align-content: center;
 }
 
 .Caixa {
-    width: 80%;
-    max-width: 700px;
-    margin: 0 auto;
+    width: 100%;
+    /* max-width: 700px; */
+    /* margin: 0 auto; */
 }
 
 .aplicativo h2 {
@@ -388,7 +382,7 @@
 
     justify-content: center;
 
-    gap: 60px;
+    /* gap: 60px; */
 }
 
 .botoesInstalar p{
@@ -472,8 +466,8 @@
 /* ===== RESPONSIVIDADE (max 700px) ===== */
 @media (max-width: 700px) {
 
-    .corpo{
-        padding-top: 150px;
+    .Apresentacao_btns {
+        margin-bottom: 20px;
     }
 
     .MainEstilo {
@@ -485,12 +479,12 @@
         flex-direction: column-reverse;
         text-align: center;
         padding: 0px 0px;
-        gap: 20px;
+        padding-top: 40px !important;
+        gap: 10px;
     }
 
     .Apresentacao_img img {
-        max-width: 280px;
-        margin-bottom: 40px;
+        max-width: 300px;
     }
 
     .Apresentacao_texto {
@@ -503,6 +497,7 @@
         gap: 12px;
         padding: 24px 16px;
         text-align: center;
+
     }
 
     .Chamada h3 {
@@ -631,6 +626,11 @@
     }
 
     .ConteudoHardware, .ConteudoSoftware{
-        width: 70%;
+        width: 90%;
+    }
+
+    .ConteudoHardware_img img,
+    .ConteudoSoftware_img img{
+        width: 100px;
     }
 }

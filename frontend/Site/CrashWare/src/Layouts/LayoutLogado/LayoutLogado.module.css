@@ -155,7 +155,7 @@ h5 {
     text-align: start;
 }
 
-    .hamburger {
+    /* .hamburger {
         background: none;
         border: none;
         color: var(--Texto2);
@@ -167,11 +167,55 @@ h5 {
 
     .hamburger:hover{
         background: none;
+    } */
+    
+    .linksEscrito{
+        margin-right: 30px;
     }
-    
-    
+
+    .linksEscrito .textos{
+        display: flex;
+        gap: 30px;
+    }
+
+    .linksEscrito .textos p{
+       color: var(--texto-principal);
+    }
+
+    .linksEscrito .textos p:hover{
+        scale: 1.1;
+        transition: 0.5s ease;
+    }
+
+    .links {
+    display: none !important;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    gap: 10px;
+    }
+
+    .links img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .links img:hover{
+        transform: scale(1.1);
+        transition: 0.5s ease;
+    }
+
+@media (max-width: 1000px){
+
+    .links{
+        display: flex !important;
+    }
+
+    .linksEscrito{
+        display: none;
+    }
+}
 @media (max-width: 600px) {
-    
 
     .infoCabecalho{
         width: 85vw;

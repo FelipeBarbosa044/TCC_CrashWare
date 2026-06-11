@@ -26,7 +26,7 @@ const Carrossel = () => {
 
 
             <div className={Style.Controles}>
-                <BotoesForm texto="Voltar" onClick={prev} />
+                {/* <BotoesForm texto="<" onClick={prev} /> */}
 
                 {CadsCarrossel.map((_, index) => (
                     <span
@@ -36,7 +36,7 @@ const Carrossel = () => {
                     />
                 ))}
 
-                <BotoesForm className={Style.Avancar} texto="Avançar" onClick={next} />
+                {/* <BotoesForm className={Style.Avancar} texto=">" onClick={next} /> */}
             </div>
         </div>
     );

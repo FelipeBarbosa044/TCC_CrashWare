@@ -22,7 +22,7 @@
   /* Botoes */
   --install-app: #ffffff;
   --Entrar-Inicial: #3B77BE;
-  --Cadastrar: #62BDF3;
+  --Cadastrar: #91a4af;
   --Login: linear-gradient(to right, var(--BotaoADD-gradiente1), var(--BotaoADD-gradiente2));
   --BotaoADD-gradiente1:#101017CC;
   --BotaoADD-gradiente2:#06060A;
@@ -125,6 +125,7 @@
   --bg-secundario: #5756562f;
   --bg-terceiro: #868686a9;
   --bg-quarto: #3f3f3f;
+  --bg-quinto: #04011080;
   /* ---------- */
 
   /* Gradientes */
@@ -138,7 +139,7 @@
   /* --------  */
   
   /* Botoes */
-  --install-app: #faf6f683;
+  --install-app: #faf6f60a;
   --Entrar-Inicial: linear-gradient(to right, #241952, #5039B8);
   --Cadastrar: #6C6A6A4D;
   --Login: linear-gradient(to right, var(--BotaoADD-gradiente1), var(--BotaoADD-gradiente2));

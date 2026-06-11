@@ -150,10 +150,15 @@ const ModeloBase = ({
                             opcao4={opcao4}
                         />
                     )}
-                    <div className={Style.butaozinho}>
-                        <button onClick={trocarConteudo}>
-                            {conteudo === "artigo" ? <p>exercicios</p> : <p>artigo</p>}
-                        </button>
+                    <div className={Style.botoes}>
+                        <div className={Style.butaozinho}>
+                            <button onClick={trocarConteudo}>
+                                {conteudo === "artigo" ? <p>exercicios</p> : <p>artigo</p>}
+                            </button>
+                        </div>
+                        <Link to="/home" className={Style.butaozinho} id={Style.btnVoltar}>
+                            <button>Voltar para Home</button>
+                        </Link>
                     </div>
                 </div>
             </div>

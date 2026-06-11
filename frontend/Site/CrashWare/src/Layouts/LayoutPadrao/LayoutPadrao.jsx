@@ -1,8 +1,11 @@
-import { Outlet, Link } from "react-router-dom"
-import { useState } from "react";
+import { Outlet, Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Cabecalho, LinksCabecalho, Rodape, Tema } from "../../Componentes";
 import { Sidebar } from '../../Componentes/Cabecalho/barraLateral/sideBar';
-import Logo from '../../Logo/logo_sem_fundo.png';
+
+import logoBranca from '../../fotos/escuro/logo_sem_fundo.svg';
+import logoEscura from '../../fotos/claro/logo_sem_fundo.svg';
+
 import Instagram from "../../fotos/Instagram.svg"
 import Whatsapp from "../../fotos/Whatsapp.svg"
 import GitHub from "../../fotos/GitHub.svg"
@@ -12,6 +15,18 @@ const LayoutPadrao = () => {
 
     const DataATual = new Date().getFullYear();
     const [aberto, setAberto] = useState(false);
+
+      const [tema, setTema] = useState(localStorage.getItem('TemaSelecionado') || 'Claro');
+
+    useEffect(() => {
+        const checarTema = (e) => setTema(e.detail);
+        window.addEventListener('temaAtualizado', checarTema);
+        
+        return () => window.removeEventListener('temaAtualizado', checarTema);
+    }, []);
+
+    const isClaro = tema === 'Claro';
+    const Navegacao = useNavigate();
 
 
     return (
@@ -26,7 +41,11 @@ const LayoutPadrao = () => {
                         <div className={Style.Container}>
                             <div className={Style.Marca}>
                                 <Link to="/">
-                                    <img src={Logo} alt="" />
+                                <img 
+                                className={Style.logo_legal} 
+                                src={isClaro ? logoEscura : logoBranca} 
+                                alt="Logo do CrashWare" 
+                                />
                                     <h4>CRASHWARE</h4>
                                 </Link>
                                 <p>Plataforma de Aprendizado de Hardware e Software</p>
