@@ -358,6 +358,10 @@
     outline: none;
 }
 
+#recompensas{
+    margin-top: 90px;
+}
+
 @media (max-width: 1090px){
 
     .tipoModuloLinha{

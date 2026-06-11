@@ -17,6 +17,8 @@ const estadoInicialArtigo = {
     tituloAula: '',
     tipo: '',
     modulo: '',
+    moedas: '',
+    xp: '',
     subtitulos: [
         { subtitulo: '', paragrafo: '' },
         { subtitulo: '', paragrafo: '' },
@@ -58,6 +60,10 @@ const AbaCriarMateria = () => {
             novasSecoes[index] = { ...novasSecoes[index], [campo]: valor };
             return { ...prev, subtitulos: novasSecoes };
         });
+    };
+
+    const RecompensaChange = (campo, valor) => {
+        setArtigo(prev => ({ ...prev, [campo]: valor }));
     };
 
     const LimparArtigo = (e) => {
@@ -275,6 +281,34 @@ const AbaCriarMateria = () => {
                                     <option value="3">Módulo 3</option>
                                 </select>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className={Style.parteCima} id={Style.recompensas}>
+                        <h1>Recompensas</h1>
+
+                        <div className={Style.inputs} id={Style.moedasInput}>
+                            <label htmlFor="moedasInput">Moedas</label>
+                            <input
+                                type="number"
+                                id='moedasInput'
+                                placeholder='Digite a quantidade de moedas'
+                                max={100}
+                                value={artigo.moedas}
+                                onChange={e => RecompensaChange('moedas', e.target.value)}
+                            />
+                            <p>numero maximo 100</p>
+                        </div>
+
+                        <div className={Style.inputs} id={Style.xp}>
+                            <label htmlFor="xpInput">Xp</label>
+                            <input
+                                type="text"
+                                id='xpInput'
+                                placeholder='Digite a quantidade de xp'
+                                value={artigo.xp}
+                                onChange={e => RecompensaChange('xp', e.target.value)}
+                            />
                         </div>
                     </div>
 
