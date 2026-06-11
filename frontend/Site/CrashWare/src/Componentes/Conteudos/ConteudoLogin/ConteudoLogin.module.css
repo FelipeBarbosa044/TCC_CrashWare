@@ -159,7 +159,7 @@
     font-weight: 700;
     margin: 20px 0px;
     text-align: center;
-    font-size: 18px !important;
+    font-size: 19px !important;
 }
 
 .Cadastrar a {
@@ -192,7 +192,7 @@
 @media (max-width: 700px) {
     
     .corpo{
-        width: 100vw;
+        width: 99vw;
         padding-bottom: 30px;
     }
 

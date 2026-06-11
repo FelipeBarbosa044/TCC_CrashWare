@@ -15,7 +15,7 @@
     flex-wrap: wrap;
     gap: 20px;
     padding-top: 50px;
-
+    min-height: 100vh;
 }
 
 .barraLateral {
@@ -30,7 +30,7 @@
 
     margin-top: 70px;
     margin-bottom: 150px;
-    margin-left: 20px;
+    margin-left: 60px;
 }
 
 .barraLateral h1 {
@@ -106,7 +106,8 @@
 .Conteudos {
     display: flex;
     flex-direction: column;
-    align-content: flex-start;
+    align-content: center;
+    justify-content: center;
     margin: 70px auto;
     background-color: var(--bg-secundario);
     border-radius: 16px;
@@ -349,6 +350,10 @@
     background-color: rgba(255, 255, 255, 0.16);
 }
 
+.link{
+    text-decoration: none;
+}
+
 @media (max-width: 1420px) {
 
     .Conteudos{
@@ -414,6 +419,7 @@
     .barraLateral{
         width: 90vw;
         margin: auto;
+        margin-top: 60px;
     }
 
     .parteEmail{

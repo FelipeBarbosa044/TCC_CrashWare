@@ -427,13 +427,13 @@ const ConteudoConfiguracoes = () => {
                         <h1>Privacidade e Segurança</h1>
                         <hr />
 
-                        <Link to={"/sobre"}>
+                        <Link to={"/sobre"} className={Style.link}>
                             <ItemBarraLateral
                                 descricao={"Sobre"}
                                 img={sobreModoClaro}
                             />
                         </Link>
-                        <Link to="/termos">
+                        <Link to="/termos" className={Style.link}>
                             <ItemBarraLateral
                                 descricao={"Termos de Serviço"}
                                 img={termosModoClaro}

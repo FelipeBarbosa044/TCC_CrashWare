@@ -1,32 +1,110 @@
-import { useEffect } from 'react'
-import style from "./PopUp.module.css"
+import { useState, useEffect } from "react";
+import Style from "./PopUp.module.css";
 
-const PopUp = ({ tipo = 'erro', titulo, mensagem, onFechar, duracao = 4000 }) => {
+import iconeErroClaro from "../../fotos/erroPopUpClaro.svg";
+import iconeErroEscuro from "../../fotos/erroPopUpEscuro.svg";
 
-  useEffect(() => {
-    if (!duracao) return
-    const t = setTimeout(onFechar, duracao)
-    return () => clearTimeout(t)
-  }, [duracao, onFechar])
+import iconeAvisoClaro from "../../fotos/avisoPopUpClaro.svg";
+import iconeAvisoEscuro from "../../fotos/avisoPopUpEscuro.svg";
 
-  return (
-    <div className={style["popup-overlay"]}>
-      <div className={`${style.popup} ${style[`popup-${tipo}`]}`}>
-        
-        <div className={style["popup-icone"]}>!</div>
+import iconeSucessoClaro from "../../fotos/correta.svg";
+import iconeSucessoEscuro from "../../fotos/correta_preta.svg";
 
-        <div className={style["popup-body"]}>
-          <p className={style["popup-titulo"]}>{titulo}</p>
-          {mensagem && <p className={style["popup-mensagem"]}>{mensagem}</p>}
+const PopUp = ({
+    tipo = "erro",
+    titulo,
+    mensagem,
+    onFechar,
+    duracao = 4000,
+}) => {
+
+    const [temaEscuro, setTemaEscuro] = useState(
+        localStorage.getItem("TemaSelecionado") === "Escuro"
+    );
+
+    useEffect(() => {
+        const atualizarTema = () => {
+            setTemaEscuro(
+                localStorage.getItem("TemaSelecionado") === "Escuro"
+            );
+        };
+
+        window.addEventListener("temaAtualizado", atualizarTema);
+
+        return () => {
+            window.removeEventListener(
+                "temaAtualizado",
+                atualizarTema
+            );
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!duracao || !onFechar) return;
+
+        const timer = setTimeout(() => {
+            onFechar();
+        }, duracao);
+
+        return () => clearTimeout(timer);
+    }, [duracao, onFechar]);
+
+    const icones = {
+        erro: temaEscuro
+            ? iconeErroEscuro
+            : iconeErroClaro,
+
+        aviso: temaEscuro
+            ? iconeAvisoEscuro
+            : iconeAvisoClaro,
+
+        sucesso: temaEscuro
+            ? iconeSucessoClaro
+            : iconeSucessoEscuro,
+    };
+
+    return (
+        <div className={Style.popupOverlay}>
+            <div
+                className={`${Style.popup} ${
+                    Style[
+                        `popup${
+                            tipo.charAt(0).toUpperCase() +
+                            tipo.slice(1)
+                        }`
+                    ]
+                }`}
+            >
+                <div className={Style.popupIcone}>
+                    <img
+                        src={icones[tipo]}
+                        alt={tipo}
+                    />
+                </div>
+
+                <div className={Style.popupBody}>
+                    <p className={Style.popupTitulo}>
+                        {titulo}
+                    </p>
+
+                    {mensagem && (
+                        <p className={Style.popupMensagem}>
+                            {mensagem}
+                        </p>
+                    )}
+                </div>
+
+                {onFechar && (
+                    <button
+                        className={Style.popupFechar}
+                        onClick={onFechar}
+                    >
+                        ×
+                    </button>
+                )}
+            </div>
         </div>
+    );
+};
 
-        <button className={style["popup-fechar"]} onClick={onFechar}>
-          ×
-        </button>
-
-      </div>
-    </div>
-  )
-}
-
-export { PopUp }
+export { PopUp };

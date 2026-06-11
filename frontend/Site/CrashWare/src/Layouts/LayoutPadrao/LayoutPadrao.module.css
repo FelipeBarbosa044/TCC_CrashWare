@@ -13,8 +13,8 @@
     width: 100%;
     box-sizing: border-box;
     padding: 20px;
-    color: var(--texto-secundario);
-    background-color: var(--Rodape);
+    color: var(--texto-principal) !important;
+    background-color: var(--bg-principal);
     font-family: "Montserrat", sans-serif;
     font-weight: 700;
     border-top: 1px solid rgba(0, 0, 0, 0.24);
@@ -26,9 +26,6 @@
     justify-content: space-around;
     align-items: flex-start;
     width: 100%;
-    gap: 30px;
-    margin-left: 20px;
-    padding: 0px 50px;
 }
 
 .Rodape img {
@@ -64,9 +61,10 @@
     gap: 8px;
 }
 
-h5 {
+.informacoes h5 {
     margin-bottom: 10px;
-    margin-left: 0;  
+    margin-left: 0px;
+    margin-right: 0px;  
     font-size: 18px;
     color: var(--texto-principal);
 }
@@ -78,10 +76,6 @@ h5 {
 .RedesSociais {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-
-    justify-self: center;
-    align-items: center;
 }
 
 .RedesSociais img {
@@ -107,10 +101,7 @@ h5 {
     font-size: 30px;
     font-family: "Exo 2", sans-serif;
     font-weight: 800;
-    color: transparent;
-    background: linear-gradient(135deg, #00ff88, #00c8ff);
-    -webkit-background-clip: text;
-    background-clip: text;
+    color: var(--texto-principal);
     margin-left: 10px;
 }
 
@@ -163,8 +154,6 @@ h5 {
 
 @media (max-width: 480px) {
     .Rodape {
-        border-top-left-radius: 30px;
-        border-top-right-radius: 30px;
         padding: 16px;
     }
 
