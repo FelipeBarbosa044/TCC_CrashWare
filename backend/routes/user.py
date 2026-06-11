@@ -603,16 +603,7 @@ async def subir_patente(usuario = Depends(validar_token),session = Depends(pegar
         raise HTTPException(status_code=409, detail="Usuário não tem Nível Suficiente")
 
 #Rota de retonar XP e GEMA
-@user.post('/atualizar_recursos')
-async def atualizar_recursos(dados : EmailSchema,session = Depends(pegar_sessao)):
-    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
-    if usuario is None:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado")
 
-    return {
-            "xp" : usuario.xp,
-            "gema" : usuario.moedas
-            }
 
 
 
