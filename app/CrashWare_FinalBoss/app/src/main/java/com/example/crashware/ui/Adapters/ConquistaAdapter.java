@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.crashware.R;
@@ -40,6 +41,8 @@ public class ConquistaAdapter extends RecyclerView.Adapter<ConquistaAdapter.View
         holder.titulo.setText(conquista.getTitulo());
         holder.descricao.setText(conquista.getDescricao());
         holder.imagem.setImageResource(conquista.getImagem());
+        holder.fundo.setBackgroundResource(conquista.getFundo());
+
     }
 
     @Override
@@ -53,6 +56,8 @@ public class ConquistaAdapter extends RecyclerView.Adapter<ConquistaAdapter.View
         TextView titulo, descricao;
         ImageView imagem;
 
+        ConstraintLayout fundo;
+
         public ViewHolder(@NonNull View itemView)
         {
             super(itemView);
@@ -60,6 +65,7 @@ public class ConquistaAdapter extends RecyclerView.Adapter<ConquistaAdapter.View
             titulo = itemView.findViewById(R.id.txtTituloConquista);
             descricao = itemView.findViewById(R.id.txtDescricaoConquista);
             imagem = itemView.findViewById(R.id.imgConquista);
+            fundo = itemView.findViewById(R.id.fundo);
         }
     }
 }

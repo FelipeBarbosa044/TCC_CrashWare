@@ -1,0 +1,32 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Gradiente da bordda -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#FAFAFA"
+                android:centerColor="#C0C0C0"
+                android:endColor="#EFEFEF"
+                android:centerX="0.72"
+                android:angle="135"
+                android:type="linear"/>
+            <corners android:radius="80dp" />
+        </shape>
+    </item>
+
+    <!-- Manter a mesma cor do fundo -->
+    <item
+        android:bottom="3dp"
+        android:left="3dp"
+        android:right="3dp"
+        android:top="3dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="@color/branco"
+                android:centerColor="@color/branco"
+                android:endColor="#0BC9DE"
+                />
+            <corners android:radius="80dp" />
+        </shape>
+    </item>
+</layer-list>
