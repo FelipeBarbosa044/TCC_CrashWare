@@ -50,9 +50,6 @@ const ConteudoPerfil = () => {
     //Pego as informações do usuario
     let usuario = JSON.parse(localStorage.getItem("dados"));
 
-    //Patente
-    const Patente = usuario?.patente || "Beta";
-
 
     //Trata a data do mês
     const DataCadastro = usuario?.criado_em;
@@ -80,10 +77,14 @@ const ConteudoPerfil = () => {
     const inputRef = useRef();
     const inputBanner = useRef();
 
+    //Informações do usuario
     const [ofensiva, setOfensiva] = useState(0);
     const [conquistas, setConquistas] = useState(CONQUISTAS_MOCK);
     const [totalCompras, setTotalCompras] = useState(0);
     const [totalGemas, setTotalGemas] = useState(usuario?.moedas);
+    const [patente, setPatente] = useState(usuario?.patente);
+
+    //Popup
     const [popup, setPopup] = useState(null);
 
     // const XpMax = 500;
@@ -125,7 +126,10 @@ const ConteudoPerfil = () => {
             }
         };
 
+        carregarPatente();
+        atualizarRecursos();
         carregarConquistas();
+
 
         setMaiorOfensiva(localStorage.getItem("maior_ofensiva"))
 
@@ -138,6 +142,13 @@ const ConteudoPerfil = () => {
     }, []);
 
 
+    //Verificar Patente
+    async function carregarPatente() 
+    {
+        //Verifico Patente
+        const user = new Usuario(token, refresh_token, Navegacao, set);
+        await user.subir_patente(setPatente,setPopup,setDados)
+    }
 
     async function carregarConquistas() {
 
@@ -157,6 +168,16 @@ const ConteudoPerfil = () => {
         setConquistas(novasConquistas)
 
         //
+    }
+
+     //Atualizo XP e GEMA
+    async function atualizarRecursos() 
+    {
+        //Crio o bjeto que contem requisições para o banco
+        const user = new Usuario(token, refresh_token, Navegacao, set);
+        
+        //Atualizo os recursos
+        user.atulizar_recursos(usuario?.email,setDados)
     }
 
     if (!usuario) {
@@ -405,9 +426,9 @@ const ConteudoPerfil = () => {
                         </div>
 
                         <div className={style.Patente}>
-                            <img src={iconOfensiva} alt="Compras" />
+                            <img src={iconOfensiva} alt="Patente" />
                             <div>
-                                <h1>{Patente}</h1>
+                                <h1>{patente}</h1>
                                 <p>Patente</p>
                             </div>
                         </div>

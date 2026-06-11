@@ -66,6 +66,15 @@ const ConteudoHome = () => {
 
     }
 
+     //Verificar Patente
+    async function carregarPatente() 
+    {
+        //Verifico Patente
+        const user = new Usuario(token, refresh_token, Navegacao, set);
+        await user.subir_patente(setPatente,setPopup,setDados)
+    }
+
+
     //Objeto da classe annotation
     const annotation = new Annotation(token, refresh_token, Navegacao, set);
 
@@ -84,7 +93,7 @@ const ConteudoHome = () => {
     //Exibie na tela as anotações
     async function atualizarAnotacoes() {
 
-        setCarregandoAnotacoes(true); //add hj 04/05/26
+        setCarregandoAnotacoes(true); 
         //Busco as ultimas anotações
         const anotacao = await annotation.buscar_anotacao(setPopup)
 
@@ -120,6 +129,8 @@ const ConteudoHome = () => {
         //Conquista ao logar
         await user.conquista(9, setPopupConquista, setDados)
 
+        //Carrego a Patente
+        carregarPatente()
 
         //Pego as informações do usuario
         await user.perfil(setDados);
@@ -129,6 +140,7 @@ const ConteudoHome = () => {
 
     //Pega os dados do usuario
     let usuario = JSON.parse(localStorage.getItem("dados"));
+
 
     //Conquista do ADM
     async function VerificarADM() {
@@ -148,22 +160,26 @@ const ConteudoHome = () => {
         }
     }, [usuario?.ativo]);
 
-    // const XpMax = 500;
+    
     let xp = usuario?.xp ?? 0;
     const xpAtual = xp % 500;
     const porcentagem = (xpAtual / 500) * 100;
     const nome = usuario?.nome ?? "Usuário";
+    const [patente, setPatente] = useState(usuario?.patente);
 
     //Calcula o nível
     const Nivel = Math.min(Math.floor(xp / 500) + 1, 15);
 
 
-
+    //Ofensiva
     const ofensiva = usuario?.ofensiva ?? 0;
 
     useEffect(() => {
 
 
+        //Atualizar XP e GEMA
+        atualizarRecursos();
+        
         //Valido a ofensiva
         VerificarOfensiva();
 
@@ -173,9 +189,20 @@ const ConteudoHome = () => {
         //Verificar Adm
         VerificarADM();
 
+        //AtualizarPatente
+        carregarPatente();
 
     }, []);
 
+    //Atualizo XP e GEMA
+    async function atualizarRecursos() 
+    {
+        //Crio o bjeto que contem requisições para o banco
+        const user = new Usuario(token, refresh_token, Navegacao, set);
+        
+        //Atualizo os recursos
+        user.atulizar_recursos(usuario?.email,setDados)
+    }
 
 
     const ultimaAula = {
@@ -234,7 +261,7 @@ const ConteudoHome = () => {
                             src={`https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/${usuario?.foto}`}
                             alt="Foto de perfil"
                             onClick={() => {
-                                Navegacao('/perfil')
+                                window.location.href = '/perfil'
                             }
 
                             }

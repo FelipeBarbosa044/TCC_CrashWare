@@ -1032,4 +1032,123 @@ export class Usuario
         }
     }//ValidarOfensiva
 
+
+
+    async subir_patente(setPatente,setPopup,setDados)
+    {
+        //Verifico o token
+        const usuario = new Api;
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/user/subir_patente",
+                {
+                    method: 'PATCH',
+                    headers:
+                    {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+            if(response.status == 409)
+            {
+                //Se usuario está na patente maxima ou nao tem nivel para subir de patente
+
+                const erro = await response.json();
+
+                //Exibo no console log o erro
+                console.log(erro.detail)
+                return;
+            }
+            if (response.ok)
+            {
+                const dadosPatente = await response.json();
+
+                const patente = dadosPatente.patente;
+                
+                //Pega os dados atuais
+                const dados = JSON.parse(localStorage.getItem("dados"));
+
+                //Atualizo a patente
+                dados.patente = patente;
+                
+                 //Salva novamente no local storage
+                localStorage.setItem("dados", JSON.stringify(dados));
+
+                //Atualizo a patente
+                setPatente(patente);
+             
+                //Atualizo o setDados
+                setDados(dados)
+               
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo no console log o erro
+                console.log("Erro ao Subir Patente" + erro.detail)
+            }
+        
+        }catch (error)
+        {
+            console.log("Erro ao Subir Patente " + error)
+        }
+    }
+
+    async atulizar_recursos(email,setDados)
+    {
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/user/atualizar_recursos",
+                {
+                    method: 'POST',
+                    headers:
+                    {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email :  email
+                    })
+                });
+            if (response.ok)
+            {
+                //Pego a resposta da API
+                const dadosRecursos = await response.json();
+
+                //pego o xp e a gema
+                const xp = dadosRecursos.xp;
+                const gemas = dadosRecursos.gema;
+                
+                //Pega os dados atuais
+                const dados = JSON.parse(localStorage.getItem("dados"));
+
+
+                //Atualizo o xp e gema
+                dados.xp = xp;
+                dados.moeda = gemas;
+
+                //Salva novamente no local storage
+                localStorage.setItem("dados", JSON.stringify(dados));
+
+                //Atualizo o setDados
+                setDados(dados)
+               
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo no console log o erro
+                console.log("Erro ao Atualizar Recursos" + erro.detail)
+            }
+        
+        }catch (error)
+        {
+            console.log("Erro ao atualizar XP e GEMA " + error)
+        }
+    }
+
 }//classe
