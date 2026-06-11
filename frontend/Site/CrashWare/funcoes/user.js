@@ -1060,8 +1060,8 @@ export class Usuario
 
                 const erro = await response.json();
 
-                //Exibo no console log o erro
-                console.log(erro.detail)
+                // //Exibo no console log o erro
+                // console.log(erro.detail)
                 return;
             }
             if (response.ok)
