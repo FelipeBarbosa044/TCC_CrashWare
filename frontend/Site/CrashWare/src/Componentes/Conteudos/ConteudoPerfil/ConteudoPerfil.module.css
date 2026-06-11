@@ -463,12 +463,10 @@
 }
 
 .ItemConquista img {
-    width: 32px; 
-    height: 32px; 
-    border-radius: 20px; 
+    width: 30px; 
+    height: 30px; 
     object-fit: cover;
     flex-shrink: 0;
-    border: 1px solid var(--borda); 
 }
 
 .ItemConquista > div {
