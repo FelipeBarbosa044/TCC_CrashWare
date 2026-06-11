@@ -13,6 +13,7 @@ from models.usuarios import Usuarios
 from models.usuarios_oauth import UsuariosOauth
 from models.gamificacao import Patente, Usuario_Ofensiva
 from routes.auth import auth
+from schemas.UsuarioSchema import EmailSchema
 
 #Instânciando roteador
 user = APIRouter(prefix="/user",tags=["usuario"])
@@ -601,6 +602,16 @@ async def subir_patente(usuario = Depends(validar_token),session = Depends(pegar
     else:
         raise HTTPException(status_code=409, detail="Usuário não tem Nível Suficiente")
 
+@user.get('/atualizar_recursos')
+async def atualizar_xp(dados : EmailSchema,session = pegar_sessao()):
+    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+    return {
+            "xp" : usuario.xp,
+            "gema" : usuario.moedas
+            }
 
 
 
