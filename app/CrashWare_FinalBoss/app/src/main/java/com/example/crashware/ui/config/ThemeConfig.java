@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.example.crashware.R;
+
 public class ThemeConfig {
 
     public static final String KEY_THEME = "theme";
@@ -12,6 +14,7 @@ public class ThemeConfig {
     public static final String SYSTEM = "system";
     public static final String LIGHT = "light";
     public static final String DARK = "dark";
+    public static final String GELO = "gelo";
 
     public static void aplicarTema(Context context) {
 
@@ -31,6 +34,13 @@ public class ThemeConfig {
                 AppCompatDelegate.setDefaultNightMode(
                         AppCompatDelegate.MODE_NIGHT_YES);
                 break;
+
+            case GELO:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+                // 2. Aplica o XML de cores do Gelo!
+                // Crie o 'Theme.CrashWare.Gelo' lá no seu themes.xml
+                context.setTheme(R.style.Theme_CrashWare_Gelo);
 
             default:
                 AppCompatDelegate.setDefaultNightMode(

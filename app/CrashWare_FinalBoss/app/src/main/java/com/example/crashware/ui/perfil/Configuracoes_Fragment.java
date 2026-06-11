@@ -112,7 +112,7 @@ public class Configuracoes_Fragment extends Fragment {
         ExcluirConta        = view.findViewById(R.id.cardConfigUsuarioExluirConta);
         DesativarConta = view.findViewById(R.id.cardConfigUsuarioDesativarConta);
 
-        imgGelo.setEnabled(false);
+        //imgGelo.setEnabled(false);
         imgLeitura.setEnabled(false);
         imgMeiaNoite.setEnabled(false);
 
@@ -151,7 +151,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-//                salvarTema(ThemeConfig.GELO);
+                salvarTema(ThemeConfig.GELO);
 
             }
         });//
