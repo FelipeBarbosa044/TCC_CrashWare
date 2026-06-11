@@ -125,6 +125,7 @@ public class Configuracoes_Fragment extends Fragment {
             {
                 salvarTema(ThemeConfig.SYSTEM);
 
+
             }
         });
 
@@ -142,6 +143,7 @@ public class Configuracoes_Fragment extends Fragment {
             public void onClick(View view)
             {
                 salvarTema(ThemeConfig.DARK);
+
             }
         });//
 
@@ -352,10 +354,26 @@ public class Configuracoes_Fragment extends Fragment {
     {
         prefs.edit()
                 .putString(ThemeConfig.KEY_THEME, tema)
-                .apply();
+                .commit();
 
         ThemeConfig.aplicarTema(requireContext());
 
-    }//Método que salva a escolha do usuário para alterar o tema
+        // 1. Pega a "Intent" que inicia o seu aplicativo do zero (geralmente a sua Splash Screen ou Login)
+        Intent intent = requireContext().getPackageManager().getLaunchIntentForPackage(requireContext().getPackageName());
 
+        if (intent != null)
+        {
+            // 2. Adiciona flags para limpar todo o histórico de telas abertas.
+            // Isso impede que o usuário clique em "voltar" e veja uma tela antiga bugada.
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            // 3. Inicia o aplicativo novamente
+            startActivity(intent);
+
+            // 4. "Mata" o processo atual para garantir que toda a memória e variáveis estáticas sejam resetadas
+            Runtime.getRuntime().exit(0);
+
+        }//Método que salva a escolha do usuário para alterar o tema
+
+    }
 }
