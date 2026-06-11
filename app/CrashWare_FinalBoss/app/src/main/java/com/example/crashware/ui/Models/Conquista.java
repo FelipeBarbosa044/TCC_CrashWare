@@ -5,11 +5,13 @@ public class Conquista {
     private String titulo;
     private String descricao;
     private int imagem;
+    private int fundo;
 
-    public Conquista(String titulo, String descricao, int imagem) {
+    public Conquista(String titulo, String descricao, int imagem, int fundo) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.imagem = imagem;
+        this.fundo = fundo;
     }
 
     public String getTitulo() {
@@ -23,4 +25,6 @@ public class Conquista {
     public int getImagem() {
         return imagem;
     }
+
+    public int getFundo(){return fundo;}
 }

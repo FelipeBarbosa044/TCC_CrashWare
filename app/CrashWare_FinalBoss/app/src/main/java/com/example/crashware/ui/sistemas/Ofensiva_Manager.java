@@ -3,6 +3,7 @@ package com.example.crashware.ui.sistemas;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.crashware.R;
 import com.example.crashware.ui.BaseActivity.BaseActivity;
 
 import java.util.Calendar;
@@ -123,6 +124,8 @@ public class Ofensiva_Manager extends BaseActivity {
                         .putInt(KEY_OFENSIVA, ofensivaAtual)
                         .putLong(KEY_ULTIMO_DIA, hojeMillis)
                         .apply();
+
+                int Raposatriste = R.drawable.raposasad_icon;
             }
         }
 

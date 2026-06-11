@@ -89,6 +89,8 @@ public class Inicio_fragment extends Fragment {
         //Adiciono a conquista de login e sicronizo a ofensiva
         XP_Manager = new XP_Manager(requireContext());
 
+
+
 //        XP_Manager = new XP_Manager(requireContext());
 
     }
@@ -114,7 +116,7 @@ public class Inicio_fragment extends Fragment {
         btnRetomar          = view.findViewById(R.id.btnRetomar              );
         txtXpInicio         = view.findViewById(R.id.txtXPInicio             );
         imgNotificacoes     = view.findViewById(R.id.layoutSino              );
-        imgRaposa           = view.findViewById(R.id.imgRaposa);
+        imgRaposa           = view.findViewById(R.id.imgRaposa               );
 
 
         //(Não mexam aqui)
@@ -128,13 +130,11 @@ public class Inicio_fragment extends Fragment {
         Toast conquista = Toast.makeText(getContext(),"Conquista Adquirida",LENGTH_LONG);
 
 
-//        //Chamar função Ofensiva
-//        Ofensiva_Manager ofensivaManager =
-//                new Ofensiva_Manager(requireContext());
-//
-//        int ofensiva = ofensivaManager.verificarOfensiva();
-//
-//
+        verificarHumorRaposa();
+
+
+
+
 
 
 
@@ -458,4 +458,30 @@ public class Inicio_fragment extends Fragment {
 
 
     }
+
+    private void verificarHumorRaposa() {
+        // Instancia o Manager
+        Ofensiva_Manager ofensivaManager = new Ofensiva_Manager(requireContext());
+
+        // Pega a ofensiva ANTES da verificação matemática
+        int ofensivaAntiga = ofensivaManager.getOfensiva();
+
+        // Roda a verificação (isso atualiza os dias automaticamente)
+        int ofensivaNova = ofensivaManager.verificarOfensiva();
+
+        // Compara para saber se ele perdeu o combo
+        if (ofensivaAntiga > 1 && ofensivaNova == 1) {
+
+            // Perdeu a ofensiva! Raposa triste.
+            // Troque 'raposasad_icon' pelo nome exato da sua imagem triste
+            imgRaposa.setImageResource(R.drawable.raposasad_icon);
+
+        } else {
+
+            // Manteve, aumentou ou é o primeiro dia. Raposa feliz padrão.
+            // Troque 'raposa_icon' pelo nome exato da sua imagem normal
+            imgRaposa.setImageResource(R.drawable.raposa_icon);
+        }
+    }//
+
 }

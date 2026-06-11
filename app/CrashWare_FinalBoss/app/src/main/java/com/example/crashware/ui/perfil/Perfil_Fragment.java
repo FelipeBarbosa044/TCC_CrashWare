@@ -226,16 +226,67 @@ public class Perfil_Fragment extends Fragment {
                                     User.ConquistaResponse conquista =
                                             conquistasApi.get(i);
 
+                                    // Nome da conquista
+                                    String nome =
+                                            conquista.nome_conquista;
+
+                                    // Descrição da conquista
+                                    String descricao =
+                                            conquista.descricao;
+
+                                    //Tipo da conquista
+                                    String tipo =
+                                            conquista.tipo_conquista;
+
                                     // Cria objeto da RecyclerView
-                                    Conquista novaConquista =
-                                            new Conquista(
-                                                    conquista.nome_conquista,
-                                                    conquista.descricao,
-                                                    R.drawable.banner_icon
-                                            );
+                                    if ("Hardware".equals(tipo))
+                                    {
+                                        Conquista novaConquista =
+                                                new Conquista(
+                                                        nome,
+                                                        descricao,
+                                                        R.drawable.hardware_icon,
+                                                        R.drawable.bg_cardconquista_hardware
+                                                );
+                                        conquistasRecentes.add(novaConquista);
+                                    }
+
+                                    else if ("Software".equals(tipo))
+                                    {
+                                        Conquista novaConquista =
+                                                new Conquista(
+                                                        nome,
+                                                        descricao,
+                                                        R.drawable.softwarehome_icon,
+                                                        R.drawable.bg_cardconquista_software
+                                                );
+                                        conquistasRecentes.add(novaConquista);
+                                    }//
+                                    else if ("Outro".equals(tipo))
+                                    {
+                                        Conquista novaConquista =
+                                                new Conquista(
+                                                        nome,
+                                                        descricao,
+                                                        R.drawable.raposa_icon,
+                                                        R.drawable.bg_cardconquista_outros
+                                                );
+                                        conquistasRecentes.add(novaConquista);
+                                    }
+                                    else
+                                    {
+                                        Conquista novaConquista =
+                                                new Conquista(
+                                                        nome,
+                                                        descricao,
+                                                        R.drawable.raposa_icon,
+                                                        R.drawable.bg_cardconquista_outros
+                                                );
+                                        conquistasRecentes.add(novaConquista);
+                                    }
 
                                     // Adiciona na lista
-                                    conquistasRecentes.add(novaConquista);
+
                                 }
 
                                 // Atualiza RecyclerView

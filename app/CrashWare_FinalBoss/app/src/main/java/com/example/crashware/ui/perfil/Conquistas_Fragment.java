@@ -169,8 +169,6 @@ public class Conquistas_Fragment extends Fragment {
                         // Limpa as listas antes de atualizar
                         listaConquistas.clear();
 
-                        listaConquistasBloqueadas.clear();
-
                         // Percorre todas as conquistas recebidas
                         for (User.ConquistaResponse conquista : conquistasApi)
                         {
@@ -187,16 +185,57 @@ public class Conquistas_Fragment extends Fragment {
                             String tipo =
                                     conquista.tipo_conquista;
 
+                            if ("Hardware".equalsIgnoreCase(tipo))
+                            {
+                                Conquista novaConquista =
+                                        new Conquista(
+                                                nome,
+                                                descricao,
+                                                R.drawable.hardware_icon,
+                                                R.drawable.bg_cardconquista_hardware
+                                        );
+                                listaConquistas.add(novaConquista);
+                            }
+
+                            else if ("Software".equalsIgnoreCase(tipo))
+                            {
+                                Conquista novaConquista =
+                                        new Conquista(
+                                                nome,
+                                                descricao,
+                                                R.drawable.softwarehome_icon,
+                                                R.drawable.bg_cardconquista_software
+                                        );
+                                listaConquistas.add(novaConquista);
+                            }//
+                            else if ("Outro".equalsIgnoreCase(tipo))
+                            {
+                                Conquista novaConquista =
+                                        new Conquista(
+                                                nome,
+                                                descricao,
+                                                R.drawable.raposa_icon,
+                                                R.drawable.bg_cardconquista_outros
+                                        );
+                                listaConquistas.add(novaConquista);
+                            }
+                            else
+                            {
+                                Conquista novaConquista =
+                                        new Conquista(
+                                                nome,
+                                                descricao,
+                                                R.drawable.raposa_icon,
+                                                R.drawable.bg_cardconquista_outros
+                                        );
+                                listaConquistas.add(novaConquista);
+                            }
+
                             /*
                              * Aqui você cria um objeto Conquista
                              * para adicionar ao RecyclerView
                              */
-                            Conquista novaConquista =
-                                    new Conquista(
-                                            nome,
-                                            descricao,
-                                            R.drawable.banner_icon
-                                    );
+
 
                             /*
                              * Atualmente sua API só retorna
@@ -205,7 +244,7 @@ public class Conquistas_Fragment extends Fragment {
                              * Então estamos adicionando
                              * tudo na lista de adquiridas.
                              */
-                            listaConquistas.add(novaConquista);
+
 
 //                            /*
 //                             * FUTURAMENTE:
@@ -277,47 +316,51 @@ public class Conquistas_Fragment extends Fragment {
 //                                                descricao,
 //                                                R.drawable.hardware_icon
 //                                        );
-                            if  ("Hardware".equals(tipo))
+                            if  ("Hardware".equalsIgnoreCase(tipo))
                             {
                                 Conquista novaConquista =
                                         new Conquista(
                                                 nome,
                                                 descricao,
-                                                R.drawable.hardware_icon
+                                                R.drawable.hardware_icon,
+                                                R.drawable.bg_cardconquista_hardware
                                         );
                                 listaConquistasBloqueadas.add(novaConquista);
                             }//
-                            if ("Software".equals(tipo))
+                            else if ("Software".equalsIgnoreCase(tipo))
                             {
                                 Conquista novaConquista =
                                         new Conquista(
                                                 nome,
                                                 descricao,
-                                                R.drawable.softwarehome_icon
+                                                R.drawable.softwarehome_icon,
+                                                R.drawable.bg_cardconquista_software
                                         );
                                 listaConquistasBloqueadas.add(novaConquista);
-                            }
-                            if ("Outro".equals(tipo))
+                            }//
+                            else if ("Outro".equalsIgnoreCase(tipo))
                             {
                                 Conquista novaConquista =
                                         new Conquista(
                                                 nome,
                                                 descricao,
-                                                R.drawable.banner_icon
+                                                R.drawable.banner_icon,
+                                                R.drawable.bg_gradiendtelasiniciais
                                         );
                                 listaConquistasBloqueadas.add(novaConquista);
                             }
-//                            else
-//                            {
-//                                Conquista novaConquista =
-//                                    new Conquista(
-//                                            nome,
-//                                            descricao,
-//                                            R.drawable.ametista_icon
-//                                    );
-//                                listaConquistasBloqueadas.add(novaConquista);
-//
-//                            }
+                            else
+                            {
+                                Conquista novaConquista =
+                                    new Conquista(
+                                            nome,
+                                            descricao,
+                                            R.drawable.raposa_icon,
+                                            R.drawable.bg_gradiendtelasiniciais
+                                    );
+                                listaConquistasBloqueadas.add(novaConquista);
+
+                            }
 
 
 
