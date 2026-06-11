@@ -344,8 +344,8 @@ public class Conquistas_Fragment extends Fragment {
                                         new Conquista(
                                                 nome,
                                                 descricao,
-                                                R.drawable.banner_icon,
-                                                R.drawable.bg_gradiendtelasiniciais
+                                                R.drawable.raposa_icon,
+                                                R.drawable.bg_cardconquista_outros
                                         );
                                 listaConquistasBloqueadas.add(novaConquista);
                             }
@@ -356,7 +356,7 @@ public class Conquistas_Fragment extends Fragment {
                                             nome,
                                             descricao,
                                             R.drawable.raposa_icon,
-                                            R.drawable.bg_gradiendtelasiniciais
+                                            R.drawable.bg_cardconquista_outros
                                     );
                                 listaConquistasBloqueadas.add(novaConquista);
 
