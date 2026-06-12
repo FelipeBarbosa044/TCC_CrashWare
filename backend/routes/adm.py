@@ -1,8 +1,6 @@
 from fastapi import APIRouter, Depends,HTTPException
 from sqlalchemy import select
 
-
-
 #Importando tabelas:
 from models.gamificacao import Conquista
 from models.usuarios import Usuarios
