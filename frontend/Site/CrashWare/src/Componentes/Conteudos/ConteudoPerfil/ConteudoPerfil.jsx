@@ -142,14 +142,6 @@ const ConteudoPerfil = () => {
     }, []);
 
 
-    //Verificar Patente
-    async function carregarPatente() 
-    {
-        //Verifico Patente
-        const user = new Usuario(token, refresh_token, Navegacao, set);
-        await user.subir_patente(setPatente,setPopup,setDados)
-    }
-
     async function carregarConquistas() {
 
         const user = new Usuario(token, refresh_token, Navegacao, set);
@@ -170,13 +162,16 @@ const ConteudoPerfil = () => {
         //
     }
 
-     //Atualizo XP e GEMA
+    //Atualizo XP/GEMA e Patente
     async function atualizarRecursos() 
     {
         //Crio o bjeto que contem requisições para o banco
         const user = new Usuario(token, refresh_token, Navegacao, set);
+
+        //Verifico Patente
+        await user.subir_patente(usuario?.email,setPatente,setDados)
         
-        //Atualizo os recursos
+        //Atualizo os xp e gema
         user.atulizar_recursos(usuario?.email,setDados)
     }
 

@@ -1034,15 +1034,8 @@ export class Usuario
 
 
 
-    async subir_patente(setPatente,setPopup,setDados)
+    async subir_patente(email,setPatente,setDados)
     {
-        //Verifico o token
-        const usuario = new Api;
-        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
-        
-        //Pego o token
-        const token = localStorage.getItem("token")
-
         try
         {
             const response = await fetch("https://api-crashware.onrender.com/user/subir_patente",
@@ -1050,18 +1043,16 @@ export class Usuario
                     method: 'PATCH',
                     headers:
                     {
-                        "Authorization": `Bearer ${token}`
-                    }
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email :  email
+                    })
                 });
 
             if(response.status == 409)
             {
                 //Se usuario está na patente maxima ou nao tem nivel para subir de patente
-
-                const erro = await response.json();
-
-                // //Exibo no console log o erro
-                // console.log(erro.detail)
                 return;
             }
             if (response.ok)
@@ -1090,12 +1081,12 @@ export class Usuario
                 const erro = await response.json();
 
                 //Exibo no console log o erro
-                console.log("Erro ao Subir Patente" + erro.detail)
+                // console.log("Erro ao Subir Patente" + erro.detail)
             }
         
         }catch (error)
         {
-            console.log("Erro ao Subir Patente " + error)
+            // console.log("Erro ao Subir Patente " + error)
         }
     }
 

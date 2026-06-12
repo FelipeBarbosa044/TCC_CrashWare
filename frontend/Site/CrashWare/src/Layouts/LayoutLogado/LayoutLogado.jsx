@@ -43,11 +43,13 @@ const LayoutLogado = () => {
 
                 <div className={`${style.links} ${menuAberto ? style.aberto : ""}`}>
 
-                    <Link to="/perfil">
-                        <img src={temaEscuro ? perfilIconEscuro : perfilIconClaro} alt="Perfil" />
+                    <Link onClick={() => {
+                        window.location.href = "/perfil";
+                    }}>
+                        <img src={temaEscuro ? perfilIconEscuro : perfilIconClaro} alt="perfil" />
                     </Link>
 
-                    {usuario.adm == true ? (
+                    {usuario?.adm == true ? (
                         <>
                         <Link to="relatorio">
                             <p>ADM</p>
