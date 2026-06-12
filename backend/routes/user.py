@@ -576,7 +576,8 @@ async def validar_ofensiva(usuario = Depends(validar_token),session = Depends(pe
         raise HTTPException(status_code=400, detail=str(exception))
 
 @user.patch('/subir_patente')
-async def subir_patente(usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+async def subir_patente(dados : EmailSchema,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     if usuario is None:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
 
