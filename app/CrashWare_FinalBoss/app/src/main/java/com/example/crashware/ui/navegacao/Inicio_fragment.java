@@ -50,6 +50,8 @@ public class Inicio_fragment extends Fragment {
     //Iniciando as váriaveis, Objetos e funções que vão ser utilizadas
     private SharedPreferences.OnSharedPreferenceChangeListener listenerFoto;
 
+    private SharedPreferences.OnSharedPreferenceChangeListener listenerRecursos;
+
     private TextView txtNomeInicio, txtAulasConcluidas, txtOfensiva, txtNivelInicio, txtXpInicio;
     private ShapeableImageView imgfotoInicio;
     ImageView imgNotificacoes, imgRaposa;
@@ -150,7 +152,22 @@ public class Inicio_fragment extends Fragment {
             }
         };
 
+        //Listener do xp/nivel
+        listenerRecursos = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+                if (key.equals("xp_total")) {
+                    //função que atualiza o progresso do xp
+                    atualizarInterfaceXp();
+                }
+
+            }
+        };
+
         prefs.registerOnSharedPreferenceChangeListener(listenerFoto);
+
+        prefs.registerOnSharedPreferenceChangeListener(listenerRecursos);
 
         imgRaposa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,12 +253,14 @@ public class Inicio_fragment extends Fragment {
         //Valido a Ofensiva
         ValidarOfensiva();
 
+        //Atualiza XP/GEMAS e Patente
+        CarregarRecursos();
+
         //Informações do usuário
         carregarDadosLocais();
 
-        //Perfil();
 
-        atualizarInterfaceXp();
+//        atualizarInterfaceXp();
 
     }
 
@@ -403,6 +422,20 @@ public class Inicio_fragment extends Fragment {
     }//Validar Ofensiva
 
 
+    private void CarregarRecursos()
+    {
+
+        //Atualiza XP/GEMAS e a Patente
+        String email = prefs.getString("email", "");
+
+        User.Patente(email,prefs);
+
+        User.AtualizarRecursos(email,prefs);
+
+
+    }//Carregar Recursos
+
+
     // =========================
     // CARREGAR IMAGEM
     // =========================
@@ -435,8 +468,15 @@ public class Inicio_fragment extends Fragment {
 
         super.onDestroyView();
 
-        if (prefs != null && listenerFoto != null) {
-            prefs.unregisterOnSharedPreferenceChangeListener(listenerFoto);
+
+        if (prefs != null) {
+            if (listenerFoto != null) {
+                prefs.unregisterOnSharedPreferenceChangeListener(listenerFoto);
+            }
+
+            if (listenerRecursos != null) {
+                prefs.unregisterOnSharedPreferenceChangeListener(listenerRecursos);
+            }
         }
     }
 
@@ -444,7 +484,7 @@ public class Inicio_fragment extends Fragment {
 
     private void carregarDadosLocais() {
 
-      String nome = prefs.getString("nome", "");
+       String nome = prefs.getString("nome", "");
 
        String foto = prefs.getString("foto", "");
        Integer ofensiva = prefs.getInt("ofensiva", 1);
@@ -484,14 +524,13 @@ public class Inicio_fragment extends Fragment {
         // Compara para saber se ele perdeu o combo
         if (ofensivaAntiga > 1 && ofensivaNova == 1) {
 
-            // Perdeu a ofensiva! Raposa triste.
+            // Perdeu a ofensiva
             // Troque 'raposasad_icon' pelo nome exato da sua imagem triste
             imgRaposa.setImageResource(R.drawable.raposasad_icon);
 
         } else {
 
             // Manteve, aumentou ou é o primeiro dia. Raposa feliz padrão.
-            // Troque 'raposa_icon' pelo nome exato da sua imagem normal
             imgRaposa.setImageResource(R.drawable.raposa_icon);
         }
     }//

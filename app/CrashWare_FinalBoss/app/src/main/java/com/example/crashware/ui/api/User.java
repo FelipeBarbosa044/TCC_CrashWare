@@ -3,6 +3,7 @@ package com.example.crashware.ui.api;
 import static android.app.ProgressDialog.show;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.crashware.R;
+import com.example.crashware.ui.senha.RedefinirSenha;
 
 import org.json.JSONObject;
 
@@ -31,6 +33,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
@@ -821,12 +824,9 @@ public class User {
 
                     if (xp_bonus != 0) {
                         //Adiciono xp para o usuario
-                        adicionar_xp(xp_bonus, prefs,callback);
+                        adicionar_xp(xp_bonus, prefs);
                     }
 
-
-                    //Mostrara esse popup por enquanto (AQUI AONDE VOCê VAI MOSTRAR A CONQUISTA JAO OU ADLER)
-                    //Toast.makeText(context, nome_conquista, Toast.LENGTH_LONG).show();
 
                     android.app.Dialog dialog = new android.app.Dialog(context);
                     dialog.setContentView(R.layout.dialog_conquista);
@@ -944,7 +944,9 @@ public class User {
 
     //Resposta da API
     public static class RecursosResponse {
-        //Ignora
+
+        Float xp;
+        Integer gemas;
 
     }
 
@@ -991,7 +993,14 @@ public class User {
             ) {
                 if (resposta.isSuccessful()) {
                     //Requisição der certo
+                    RecursosResponse dados = resposta.body();
 
+                    Integer moedas = dados.gemas;
+
+                    //Salvo o valor no SharedPreferences
+                    prefs.edit()
+                            .putInt("moedas",moedas)
+                            .apply();
 
                 }
 
@@ -1027,7 +1036,7 @@ public class User {
         );
     }
 
-    public static void adicionar_xp(Float xp, SharedPreferences prefs,ConquistasCallback callback) {
+    public static void adicionar_xp(Float xp, SharedPreferences prefs) {
         //Pego o valor do token
         String token = prefs.getString("token", null);
 
@@ -1059,7 +1068,15 @@ public class User {
             ) {
                 if (resposta.isSuccessful()) {
                     //Requisição der certo
-                    callback.onSuccess();
+
+                    RecursosResponse dados = resposta.body();
+
+                    Float xp = dados.xp;
+
+                    //Salvo o valor no SharedPreferences
+                    prefs.edit()
+                            .putFloat("xp_total",xp)
+                            .apply();
                 }
 
 
@@ -1223,7 +1240,212 @@ public class User {
 
     }//Exibir conquista Bloqueada
 
+    //Atualizar XP e GEMAS
+
+    //Envia para a API
+    static class AtualizarRecursosRequest {
+        String email;
+        public AtualizarRecursosRequest(String email) {
+            this.email = email;
+        }
+    }
+    //Resposta da API
+    public static class AtualizarRecursosResponse {
+        Float xp;
+        Integer gema;
+
+    }
+
+    // INTERFACE da API:
+    public static interface atualizar_recursos {
+
+        @POST("/user/atualizar_recursos")
+        Call<AtualizarRecursosResponse> atualizar(
+                @Body AtualizarRecursosRequest request
+        );
+    }
+
+    public static void AtualizarRecursos(String email,SharedPreferences prefs) {
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
 
+        // Objeto que vou enviar para a API:
+        AtualizarRecursosRequest valor = new AtualizarRecursosRequest(email);
+
+        // Fazendo que a interface da API seja utilizavel:
+        atualizar_recursos api = retrofit.create(atualizar_recursos.class);
+
+        // Monto a chamada da API:
+        Call<AtualizarRecursosResponse> requisicao = api.atualizar(valor);
+
+        //Executo a requisição
+        requisicao.enqueue(new Callback<AtualizarRecursosResponse>() {
+            @Override
+            public void onResponse(
+                    Call<AtualizarRecursosResponse> requisicao,
+                    retrofit2.Response<AtualizarRecursosResponse> resposta
+            ) {
+
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+                    AtualizarRecursosResponse dados = resposta.body();
+
+                    Float xp = dados.xp;
+                    Integer gemas = dados.gema;
+
+                    //Salvo o valor no SharedPreferences
+                    prefs.edit()
+                            .putFloat("xp_total",xp)
+                            .putInt("moedas",gemas)
+                            .apply();
+
+                } else {
+                    //Retorna erro caso a reqsição estiver errada
+
+                    String erro = "Erro ao Atualizar XP e GEMAS";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    //Toast.makeText(fragment.requireContext(), erro, Toast.LENGTH_LONG).show();
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AtualizarRecursosResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+//                Toast.makeText(
+//                        fragment.requireContext(),
+//                        "Erro de conexão: " + t.getMessage(),
+//                        Toast.LENGTH_LONG
+//                ).show();
+            }
+
+
+        });
+    }//Atualizar Recursos
+
+
+    //Verificar Patente
+    //Resposta da API
+    public static class PatenteResponse {
+        String patente;
+
+    }
+
+    // INTERFACE da API:
+    public static interface verificar_patente {
+
+        @PATCH("/user/subir_patente")
+        Call<PatenteResponse> verificar(
+                @Body AtualizarRecursosRequest request
+        );
+    }
+
+    public static void Patente(String email,SharedPreferences prefs) {
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        // Objeto que vou enviar para a API:
+        AtualizarRecursosRequest valor = new AtualizarRecursosRequest(email);
+
+        // Fazendo que a interface da API seja utilizavel:
+        verificar_patente api = retrofit.create(verificar_patente.class);
+
+        // Monto a chamada da API:
+        Call<PatenteResponse> requisicao = api.verificar(valor);
+
+        //Executo a requisição
+        requisicao.enqueue(new Callback<PatenteResponse>() {
+            @Override
+            public void onResponse(
+                    Call<PatenteResponse> requisicao,
+                    retrofit2.Response<PatenteResponse> resposta
+            ) {
+                if(resposta.code() == 409)
+                {
+                    //Se usuario está na patente maxima ou nao tem nivel para subir de patente
+
+                    return;
+                }
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+                    PatenteResponse dados = resposta.body();
+
+                    String patente = dados.patente;
+
+                    //Salvo o valor no SharedPreferences
+                    prefs.edit()
+                            .putString("patente",patente)
+                            .apply();
+
+                } else {
+                    //Retorna erro caso a reqsição estiver errada
+
+                    String erro = "Erro ao Verificar Patente";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    //Toast.makeText(fragment.requireContext(), erro, Toast.LENGTH_LONG).show();
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PatenteResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+//                Toast.makeText(
+//                        fragment.requireContext(),
+//                        "Erro de conexão: " + t.getMessage(),
+//                        Toast.LENGTH_LONG
+//                ).show();
+            }
+
+
+        });
+
+    }//Verificar Patente
 
 }//User

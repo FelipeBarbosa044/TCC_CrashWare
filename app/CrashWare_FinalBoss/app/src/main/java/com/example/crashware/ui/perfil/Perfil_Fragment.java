@@ -45,6 +45,8 @@ public class Perfil_Fragment extends Fragment {
     private SharedPreferences.OnSharedPreferenceChangeListener listenerFoto;
 
     private SharedPreferences.OnSharedPreferenceChangeListener listenerBanner;
+
+    private SharedPreferences.OnSharedPreferenceChangeListener listenerRecursos;
     TextView txtMembroDesde,txtNomePerfil, txtQuantXP, txtPatente, txtVerTodasConquistas, txtNivelPerfil, txtQuantGemas;
 
     ImageView imgConfigPerfil;
@@ -325,9 +327,33 @@ public class Perfil_Fragment extends Fragment {
             }
         };
 
+        //Listener do xp/gemas e patente
+        listenerRecursos = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+                if (key.equals("xp_total")) {
+                    //função que atualiza o progresso do xp
+                    atualizarXp();
+                }
+
+                if (key.equals("moedas")) {
+                    int moedas = sharedPreferences.getInt("moedas", 0);
+                    txtQuantGemas.setText(String.valueOf(moedas));
+                }
+
+                if (key.equals("patente")) {
+                    String patente = sharedPreferences.getString("patente", "Iniciante");
+                    txtPatente.setText(patente);
+                }
+            }
+        };
+
         prefs.registerOnSharedPreferenceChangeListener(listenerBanner);
 
         prefs.registerOnSharedPreferenceChangeListener(listenerFoto);
+
+        prefs.registerOnSharedPreferenceChangeListener(listenerRecursos);
 
 
 
@@ -390,9 +416,27 @@ public class Perfil_Fragment extends Fragment {
     public void onResume()
     {
         super.onResume();
+
+        //Atualizo XM/GEMAS e Patente (pego do banco)
+        CarregarRecursos();
+
+        //Atualiza nivel + xp na interface
         atualizarXp();
 
     }
+
+    private void CarregarRecursos()
+    {
+
+        //Atualiza XP/GEMAS e a Patente
+        String email = prefs.getString("email", "");
+
+        User.Patente(email,prefs);
+
+        User.AtualizarRecursos(email,prefs);
+
+
+    }//Carregar Recursos
 
     private void atualizarXp()
     {
@@ -619,6 +663,17 @@ public class Perfil_Fragment extends Fragment {
                 .into(imgBanner);
 
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if (prefs != null) {
+            prefs.unregisterOnSharedPreferenceChangeListener(listenerFoto);
+            prefs.unregisterOnSharedPreferenceChangeListener(listenerBanner);
+            prefs.unregisterOnSharedPreferenceChangeListener(listenerRecursos);
+        }
     }
 
 }

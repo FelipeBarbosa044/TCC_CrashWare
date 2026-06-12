@@ -131,6 +131,7 @@ public class carregamentoLogin  extends  AppCompatActivity{
                 .putString("banner", usuario.banner)
                 .putString("telefone",usuario.telefone)
                 .putString("criado_em" , usuario.criado_em)
+                .putString("patente",usuario.patente)
 
                 .putInt(
                         "moedas",
@@ -154,7 +155,7 @@ public class carregamentoLogin  extends  AppCompatActivity{
 
                 .apply();
 
-        if(usuario.ativo == true)
+        if(usuario.adm == true)
         {
             //Exibo a conquista
             User.Conquista(23, prefs, this, new User.ConquistasCallback() {
@@ -164,6 +165,9 @@ public class carregamentoLogin  extends  AppCompatActivity{
                 }
             });
         }
+
+
+        abrirHome();
 
 
     }
