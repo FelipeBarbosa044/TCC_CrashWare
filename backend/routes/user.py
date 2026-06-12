@@ -474,7 +474,7 @@ async def remover_banner(usuario = Depends(validar_token), session = Depends(peg
 
 #Rota de ganhar XP
 @user.post('/xp')
-async def ganhar_xp(dados : RecursoSchema,usuario = Depends(pegar_sessao),session = Depends(pegar_sessao)):
+async def ganhar_xp(dados : RecursoSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
     if usuario is None:
         raise HTTPException(status_code=404,detail="Usuário não encontrado")
     if dados.xp == 0:
@@ -493,7 +493,7 @@ async def ganhar_xp(dados : RecursoSchema,usuario = Depends(pegar_sessao),sessio
 
 #Rota de ganhar MOEDA
 @user.post('/moeda')
-async def ganhar_moeda(dados : RecursoSchema,usuario = Depends(pegar_sessao),session = Depends(pegar_sessao)):
+async def ganhar_moeda(dados : RecursoSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
     if usuario is None:
         raise HTTPException(status_code=404,detail="Usuário não encontrado")
     if dados.moedas == 0:
@@ -533,8 +533,7 @@ async def sicronizar_ofensiva(usuario = Depends(validar_token),session = Depends
 
 
 @user.post('/validar_ofensiva')
-async def validar_ofensiva(dados: EmailSchema,session = Depends(pegar_sessao)):
-    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+async def validar_ofensiva(usuario = Depends(validar_token),session = Depends(pegar_sessao)):
     if usuario is None:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
     ##Verificar validade de ofensiva
