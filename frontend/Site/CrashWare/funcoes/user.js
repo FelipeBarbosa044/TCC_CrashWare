@@ -693,7 +693,7 @@ export class Usuario
                     if (moeda_bonus != 0)
                     {
                        //Adiciono moedas para a conta do usuario
-                        await this.adicionar_moeda(moeda_bonus);
+                        await this.adicionar_moeda(moeda_bonus,setDados);
                     }
                     
                         
@@ -702,7 +702,7 @@ export class Usuario
                     if(xp_bonus != 0)
                     {
                         //adciono xp para conta do usuario
-                        await this.adicionar_xp(xp_bonus);
+                        await this.adicionar_xp(xp_bonus,setDados);
                     }
 
                     
@@ -780,7 +780,10 @@ export class Usuario
                         "Authorization": `Bearer ${token}`,
                         "Content-Type": "application/json"
                     },
-                    body:  JSON.stringify({xp})
+                    body:  JSON.stringify({
+                        xp : xp,
+                        moedas : 0
+                    })
                 });
 
 
@@ -798,7 +801,7 @@ export class Usuario
                 const dados = JSON.parse(localStorage.getItem("dados"));
 
                 //Atualizo o xp
-                dados.xp = xp;
+                dados.xp += xp;
 
                 //Salva novamente
                 localStorage.setItem("dados", JSON.stringify(dados));
@@ -818,9 +821,6 @@ export class Usuario
 
     async adicionar_moeda(moedas,setDados)
     {
-
-        
-
          //Pego o token
         const token = localStorage.getItem("token")
 
@@ -836,7 +836,10 @@ export class Usuario
                         "Authorization": `Bearer ${token}`,
                         "Content-Type": "application/json"
                     },
-                    body:  JSON.stringify({moedas})
+                    body:  JSON.stringify({
+                        xp : 0,
+                        moedas : moedas
+                    })
                 });
 
 
@@ -854,7 +857,7 @@ export class Usuario
                 const dados = JSON.parse(localStorage.getItem("dados"));
 
                 //Atualizo a moeda
-                dados.moedas = moedas;
+                dados.moedas += moedas;
 
                 //Salva novamente
                 localStorage.setItem("dados", JSON.stringify(dados));

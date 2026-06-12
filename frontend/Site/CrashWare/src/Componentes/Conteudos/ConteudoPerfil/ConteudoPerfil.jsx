@@ -81,7 +81,7 @@ const ConteudoPerfil = () => {
     const [ofensiva, setOfensiva] = useState(0);
     const [conquistas, setConquistas] = useState(CONQUISTAS_MOCK);
     const [totalCompras, setTotalCompras] = useState(0);
-    const [totalGemas, setTotalGemas] = useState(usuario?.moedas);
+    let gemas = usuario?.moedas ?? 0;
     const [patente, setPatente] = useState(usuario?.patente);
 
     //Popup
@@ -171,7 +171,7 @@ const ConteudoPerfil = () => {
         await user.subir_patente(usuario?.email,setPatente,setDados)
         
         //Atualizo os xp e gema
-        user.atulizar_recursos(usuario?.email,setDados)
+        user.atulizar_recursos(usuario?.email,setDados,setTotalGemas)
     }
 
     if (!usuario) {
@@ -430,7 +430,7 @@ const ConteudoPerfil = () => {
                         <div className={style.Gemas}>
                             <img src={iconGema} alt="Gemas" />
                             <div>
-                                {totalGemas}
+                                {gemas}
                                 <p>Gemas</p>
                             </div>
                         </div>

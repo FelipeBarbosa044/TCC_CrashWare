@@ -200,7 +200,7 @@ export class Adm
 
     //Total de usuários
 
-    async carregar_usuarios(setPopup,setTotal = null, setDadosGraficos)
+    async carregar_usuarios(setPopup,setTotal, setDadosGraficos)
     {
         try
         {
@@ -221,9 +221,17 @@ export class Adm
 
                 const desativados = resposta.desativados;
 
-                if (setTotal  != null)
+                if (setDadosGraficos != null)
                 {
                     setTotal(total)
+
+                     setDadosGraficos([
+                        { nome: "Cadastrados", quantidade: total },
+                        { nome: "Não Autenticados", quantidade: usuariosNaoAutenticados },
+                        { nome: "Desativados", quantidade: desativados },
+                    ])
+
+                    //Coloca Aqui Gabriel o Gráfico
                 }else
                 {
                     //Pego as informações do usuarios
@@ -231,14 +239,6 @@ export class Adm
 
                     //Guardo os usuarios no LocalStorage
                     localStorage.setItem("usuarios", JSON.stringify(usuarios));
-                }
-                
-                if(setDadosGraficos != null){
-                    setDadosGraficos([
-                        { nome: "Cadastrados", quantidade: total },
-                        { nome: "Não Autenticados", quantidade: usuariosNaoAutenticados },
-                        { nome: "Desativados", quantidade: desativados },
-                    ])
                 }
 
 

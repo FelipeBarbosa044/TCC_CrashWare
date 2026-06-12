@@ -49,14 +49,11 @@ const ConteudoHome = () => {
     //Lista que contém todos os usestate
     const set = [setToken, setRefresh, setDados];
 
+    //Carregamento
+    const [carregando, setCarregando] = useState(!JSON.parse(localStorage.getItem("dados")));
+
+
     const informacoes = localStorage.getItem("info")
-
-    //Pego todas as informações do usuario
-    if (informacoes == "false") {
-
-        CarregarInformacoes();
-
-    }
 
     async function VerificarOfensiva() {
         const user = new Usuario(token, refresh_token, Navegacao, set);
@@ -65,15 +62,6 @@ const ConteudoHome = () => {
         usuario = JSON.parse(localStorage.getItem("dados"));
 
     }
-
-     //Verificar Patente
-    async function carregarPatente() 
-    {
-        //Verifico Patente
-        const user = new Usuario(token, refresh_token, Navegacao, set);
-        await user.subir_patente(setPatente,setPopup,setDados)
-    }
-
 
     //Objeto da classe annotation
     const annotation = new Annotation(token, refresh_token, Navegacao, set);
@@ -116,26 +104,22 @@ const ConteudoHome = () => {
 
 
     async function CarregarInformacoes() {
+    const user = new Usuario(token, refresh_token, Navegacao, set);
 
-        //Crio o bjeto que contem requisições para o banco
-        const user = new Usuario(token, refresh_token, Navegacao, set);
+    //Conquista ao Logar
+    await user.conquista(9, setPopupConquista, setDados)
 
-        //Sicronizo ofensiva do banco de dados
-        await user.SicronizarOfensiva(setPopup)
+    //Carrega ofensiva + informações do usuarios em parelelo.
+    await Promise.all([
+        // sincronizar + validar ofensiva em sequência 
+        user.SicronizarOfensiva(setPopup).then(() => VerificarOfensiva()),
+        // Carrego informações do usuario
+        atualizarAnotacoes(),
+        user.perfil(setDados),
+        
+    ]);
 
-        //Valido a ofensiva
-        await VerificarOfensiva();
-
-        //Conquista ao logar
-        await user.conquista(9, setPopupConquista, setDados)
-
-        //Carrego a Patente
-        carregarPatente()
-
-        //Pego as informações do usuario
-        await user.perfil(setDados);
-
-
+    setCarregando(false);
     }
 
     //Pega os dados do usuario
@@ -175,22 +159,27 @@ const ConteudoHome = () => {
     const ofensiva = usuario?.ofensiva ?? 0;
 
     useEffect(() => {
+         
+        async function inicializar() {
+            //Verifico se esta vindo do login
+            if (localStorage.getItem("info") === "false") {
+                await CarregarInformacoes(); // Carrega as informações
+            } else {
+                setCarregando(false);
+                atualizarAnotacoes(); //Só carrega se o login do usuario for antigo 
+            }
 
+            // Só roda depois qie outras informações forem carregadas
+            await atualizarRecursos();
+            VerificarOfensiva();
+            VerificarADM();
+        }
+                
 
-        //Atualizar XP/GEMA e Patente
-        atualizarRecursos();
-        
-        //Valido a ofensiva
-        VerificarOfensiva();
-
-        //Atualizo a lista
-        atualizarAnotacoes();
-
-        //Verificar Adm
-        VerificarADM();
-
-
+        //Chamo a função de inicializar
+        inicializar();
     }, []);
+
 
     
     //Atualizo XP/GEMA e Patente
@@ -214,7 +203,7 @@ const ConteudoHome = () => {
         proximoModulo: "Introdução ao Hardware",
     };
 
-    if (!usuario && !xpAtual && !ofensiva) {
+    if (carregando && !usuario) {
         return (
             <div className={style.Carregamento}>
                 <h3>
