@@ -474,7 +474,8 @@ async def remover_banner(usuario = Depends(validar_token), session = Depends(peg
 
 #Rota de ganhar XP
 @user.post('/xp')
-async def ganhar_xp(dados : RecursoSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+async def ganhar_xp(dados : RecursoSchema,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     if usuario is None:
         raise HTTPException(status_code=404,detail="Usuário não encontrado")
     if dados.xp == 0:
@@ -493,7 +494,8 @@ async def ganhar_xp(dados : RecursoSchema,usuario = Depends(validar_token),sessi
 
 #Rota de ganhar MOEDA
 @user.post('/moeda')
-async def ganhar_moeda(dados : RecursoSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+async def ganhar_moeda(dados : RecursoSchema,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     if usuario is None:
         raise HTTPException(status_code=404,detail="Usuário não encontrado")
     if dados.moedas == 0:
@@ -563,6 +565,7 @@ async def validar_ofensiva(dados: EmailSchema,session = Depends(pegar_sessao)):
             # Reseto a ofensiva
             usuario.ofensiva = 1
             usuario_ofensiva.ultima_data_valida = data_atual
+
 
         # Calculo a maior ofensiva do usuario
         if usuario.ofensiva > usuario_ofensiva.maior_ofensiva:

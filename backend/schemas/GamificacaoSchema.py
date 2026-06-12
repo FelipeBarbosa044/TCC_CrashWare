@@ -4,8 +4,9 @@ from typing import Optional #Adiciona tipos primitivos para o Schema
 
 #Recursos Schema
 class RecursoSchema(BaseModel):
-    xp : float = 0
-    moedas : int = 0
+    xp : Optional[float] = 0
+    moedas : Optional[int] = 0
+    email : str
 
     class Config:
         from_attributes = True
