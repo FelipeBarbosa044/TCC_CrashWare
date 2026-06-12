@@ -45,58 +45,26 @@ public class carregamentoLogin  extends  AppCompatActivity{
         // 30%
         barra.setProgress(30);
 
-        PrimeiroLogin();
+        SincronizarOfensiva();
     }
 
-    private void PrimeiroLogin() {
+    private void SincronizarOfensiva() {
 
-        //Conquista do primeiro login
-        //Exibo a conquista
-        User.Conquista(9,prefs,this, new User.ConquistasCallback()
-        {
+        //Sicronizo com o banco de dados a ofensiva
+        Ofensiva.SicronizarOfensiva(prefs, carregamentoLogin.this, new Ofensiva.OfensivaCallback() {
             @Override
             public void onSuccess() {
-                // Se Conquista der certo
+                // Se Sicronizar Ofensiva der certo
 
-                //Sicronizo com o banco de dados a ofensiva
-                Ofensiva.SicronizarOfensiva(prefs, carregamentoLogin.this, new Ofensiva.OfensivaCallback() {
-                    @Override
-                    public void onSuccess() {
-                        // Se Sicronizar Ofensiva der certo
+                // 40%
+                barra.setProgress(40);
 
-                        // 40%
-                        barra.setProgress(30);
-
-                        ValidarOfensiva();
-                    }
-
-                });
-            }
-        });
-
-
-    }//Primeiro login
-
-
-    private void ValidarOfensiva()
-    {
-        //Valido a Ofensiva
-        Ofensiva.ValidarOfensiva(prefs, carregamentoLogin.this, new Ofensiva.OfensivaCallback()
-        {
-            @Override
-            public void onSuccess()
-            {
-                //Se validar ofensiva der certo
-                // 60%
-                barra.setProgress(60);
-
-                //Apos validar pego os dados do usuario
                 carregarPerfil();
             }
 
         });
 
-    }//Validar Ofensiva
+    }//Sincronizar Ofensiva
 
 
     private void carregarPerfil()
@@ -109,16 +77,46 @@ public class carregamentoLogin  extends  AppCompatActivity{
 
                     @Override
                     public void sucesso(User.PerfilResponse usuario) {
-                        // 80%
-                        barra.setProgress(80);
+                        // 50%
+                        barra.setProgress(50);
 
-                        //Salvo os dados
-                        salvarDados(usuario);
+
+                        //Primeira conquista e valido a ofensiva
+                        primeiroLogin(usuario);
 
                     }
                 }
         );
     }
+
+
+    private  void primeiroLogin(User.PerfilResponse usuario)
+    {
+
+        //Primeira conquista
+         User.Conquista(9,prefs, carregamentoLogin.this, new User.ConquistasCallback()
+            {
+                @Override
+                public void onSuccess()
+                {
+                    //Valido a Ofensiva
+                    Ofensiva.ValidarOfensiva(prefs, carregamentoLogin.this, new Ofensiva.OfensivaCallback()
+                    {
+                        @Override
+                        public void onSuccess()
+                        {
+                            //Se validar ofensiva der certo
+                            // 60%
+                            barra.setProgress(60);
+
+                            salvarDados(usuario);
+
+                        }
+                    });
+                }
+            });
+
+    }//Primeiro Login
 
 
     private void salvarDados(User.PerfilResponse usuario) {
@@ -164,13 +162,12 @@ public class carregamentoLogin  extends  AppCompatActivity{
                     abrirHome();
                 }
             });
+        }else
+        {
+            abrirHome();
         }
 
-
-        abrirHome();
-
-
-    }
+    }//salvarDados
 
     private void abrirHome() {
         // 100%

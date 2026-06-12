@@ -3,19 +3,15 @@ package com.example.crashware.ui.api;
 import static android.app.ProgressDialog.show;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.crashware.R;
-import com.example.crashware.ui.senha.RedefinirSenha;
 
 import org.json.JSONObject;
 
@@ -738,6 +734,8 @@ public class User {
         }
     }
 
+
+
     //Resposta da API
     public static class ConquistaResponse {
         public String nome_conquista;
@@ -754,7 +752,6 @@ public class User {
 
         @POST("/achievement/")
         Call<ConquistaResponse> conquistar(
-
                 @Header("Authorization") String token,
                 @Body ConquistaRequest request
         );
@@ -788,7 +785,7 @@ public class User {
 
 
         // Monto a chamada da API
-        Call<ConquistaResponse> requisicao = api.conquistar(token, dados);
+        Call<ConquistaResponse> requisicao = api.conquistar(token,dados);
 
         // executo a requisicao:
         requisicao.enqueue(new Callback<ConquistaResponse>() {
@@ -803,6 +800,11 @@ public class User {
                     return;
                 }
                 if (resposta.isSuccessful()) {
+
+                    //Aviso o listener que usuario ganhou mais uma conquista
+                    prefs.edit()
+                            .putLong("conquistas", System.currentTimeMillis())
+                            .commit();
 
                     //Requisição der certo
                     ConquistaResponse dados = resposta.body();
@@ -878,7 +880,9 @@ public class User {
                     btnFechar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
                             dialog.dismiss(); // Fecha o pop-up
+                            callback.onSuccess();
                         }
                     });
 
@@ -1242,13 +1246,15 @@ public class User {
 
     //Atualizar XP e GEMAS
 
+
     //Envia para a API
-    static class AtualizarRecursosRequest {
+    static class EmailRequest {
         String email;
-        public AtualizarRecursosRequest(String email) {
+        public EmailRequest(String email) {
             this.email = email;
         }
     }
+
     //Resposta da API
     public static class AtualizarRecursosResponse {
         Float xp;
@@ -1261,7 +1267,7 @@ public class User {
 
         @POST("/user/atualizar_recursos")
         Call<AtualizarRecursosResponse> atualizar(
-                @Body AtualizarRecursosRequest request
+                @Body EmailRequest request
         );
     }
 
@@ -1275,7 +1281,7 @@ public class User {
 
 
         // Objeto que vou enviar para a API:
-        AtualizarRecursosRequest valor = new AtualizarRecursosRequest(email);
+        EmailRequest valor = new EmailRequest(email);
 
         // Fazendo que a interface da API seja utilizavel:
         atualizar_recursos api = retrofit.create(atualizar_recursos.class);
@@ -1359,7 +1365,7 @@ public class User {
 
         @PATCH("/user/subir_patente")
         Call<PatenteResponse> verificar(
-                @Body AtualizarRecursosRequest request
+                @Body EmailRequest request
         );
     }
 
@@ -1373,7 +1379,7 @@ public class User {
 
 
         // Objeto que vou enviar para a API:
-        AtualizarRecursosRequest valor = new AtualizarRecursosRequest(email);
+        EmailRequest valor = new EmailRequest(email);
 
         // Fazendo que a interface da API seja utilizavel:
         verificar_patente api = retrofit.create(verificar_patente.class);

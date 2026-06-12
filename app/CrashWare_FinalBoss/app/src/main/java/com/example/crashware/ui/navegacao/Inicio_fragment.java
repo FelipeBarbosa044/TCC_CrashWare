@@ -135,12 +135,6 @@ public class Inicio_fragment extends Fragment {
         verificarHumorRaposa();
 
 
-
-
-
-
-
-
         // Listener da foto
         listenerFoto = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
@@ -179,9 +173,9 @@ public class Inicio_fragment extends Fragment {
                 //
                 if (Carinho == 10)
                 {
-
+                    String email = prefs.getString("email", "");
                     //exibo conquista
-                        User.Conquista(17, prefs, getActivity(), new User.ConquistasCallback()
+                        User.Conquista(17,prefs, getActivity(), new User.ConquistasCallback()
                         {
                             @Override
                             public void onSuccess()
@@ -404,16 +398,21 @@ public class Inicio_fragment extends Fragment {
 
         //Verifico o token
         Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+
             @Override
-            public void onSuccess() {
-                //chamo a requisição de validar ofensiva
+            public void onSuccess()
+            {
+                //Se verificar token  certo
+
+                //Valido a ofensiva
                 Ofensiva.ValidarOfensiva(prefs, requireContext(),new Ofensiva.OfensivaCallback()
                 {
                     @Override
                     public void onSuccess()
                     {
-                        //Se der certo ignora
+                        //Ignora
                     }
+
                 });
             }
         });

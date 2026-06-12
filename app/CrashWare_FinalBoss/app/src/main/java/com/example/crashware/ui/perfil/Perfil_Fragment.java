@@ -47,6 +47,8 @@ public class Perfil_Fragment extends Fragment {
     private SharedPreferences.OnSharedPreferenceChangeListener listenerBanner;
 
     private SharedPreferences.OnSharedPreferenceChangeListener listenerRecursos;
+
+    private SharedPreferences.OnSharedPreferenceChangeListener listenerConquistas;
     TextView txtMembroDesde,txtNomePerfil, txtQuantXP, txtPatente, txtVerTodasConquistas, txtNivelPerfil, txtQuantGemas;
 
     ImageView imgConfigPerfil;
@@ -70,6 +72,9 @@ public class Perfil_Fragment extends Fragment {
     private DatabaseReference db;
 
     private String tipoImagem = ""; // "perfil" ou "banner"
+
+    // Verifica se as conquistas ja forma carregadas
+    private boolean inicializado = false;
 
 
 
@@ -173,7 +178,7 @@ public class Perfil_Fragment extends Fragment {
         // Lista que vai armazenar as conquistas recentes
         List<Conquista> conquistasRecentes = new ArrayList<>();
 
-// Layout do RecyclerView
+        // Layout do RecyclerView
         rvConquistas.setLayoutManager(
                 new LinearLayoutManager(
                         getContext(),
@@ -182,16 +187,15 @@ public class Perfil_Fragment extends Fragment {
                 )
         );
 
-// Adapter do RecyclerView
+        // Adapter do RecyclerView
         ConquistaAdapter adapter =
                 new ConquistaAdapter(conquistasRecentes);
 
-// Define o adapter
+        // Define o adapter
         rvConquistas.setAdapter(adapter);
 
-        /*
-         * Busca as conquistas da API
-         */
+
+        //Carrega as Conquistas:
 
         //Verifico o token
         Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
@@ -293,6 +297,8 @@ public class Perfil_Fragment extends Fragment {
 
                                 // Atualiza RecyclerView
                                 adapter.notifyDataSetChanged();
+
+                                inicializado = true;
                             }
                         }
                 );
@@ -349,15 +355,26 @@ public class Perfil_Fragment extends Fragment {
             }
         };
 
+        //Listener das conquistas
+        listenerConquistas = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+                if (key.equals("conquistas") && inicializado) {
+                    //função que atualiza as conquistas exibidas
+                    CarregarConquistas();
+                }
+
+            }
+        };
+
         prefs.registerOnSharedPreferenceChangeListener(listenerBanner);
 
         prefs.registerOnSharedPreferenceChangeListener(listenerFoto);
 
         prefs.registerOnSharedPreferenceChangeListener(listenerRecursos);
 
-
-
-
+        prefs.registerOnSharedPreferenceChangeListener(listenerConquistas);
 
 
 
@@ -665,6 +682,132 @@ public class Perfil_Fragment extends Fragment {
 
     }
 
+    private  void CarregarConquistas()
+    {
+        // Lista que vai armazenar as conquistas recentes
+        List<Conquista> conquistasRecentes = new ArrayList<>();
+
+        // Layout do RecyclerView
+        rvConquistas.setLayoutManager(
+                new LinearLayoutManager(
+                        getContext(),
+                        LinearLayoutManager.VERTICAL,
+                        false
+                )
+        );
+
+        // Adapter do RecyclerView
+        ConquistaAdapter adapter =
+                new ConquistaAdapter(conquistasRecentes);
+
+        // Define o adapter
+        rvConquistas.setAdapter(adapter);
+        //Verifico o token
+        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+
+            @Override
+            public void onSuccess() {
+                //Se token for valido executo a requisição
+                User.ExibirConquista(
+                        prefs,
+                        new User.ConquistaCallback() {
+
+                            @Override
+                            public void sucesso(
+                                    List<User.ConquistaResponse> conquistasApi
+                            ) {
+
+                                // Limpa a lista antiga
+                                conquistasRecentes.clear();
+
+                                /*
+                                 * Pega no máximo 3 conquistas
+                                 */
+                                int limite =
+                                        Math.min(conquistasApi.size(), 3);
+
+                                /*
+                                 * Percorre somente as 3 primeiras
+                                 */
+                                for(int i = 0; i < limite; i++)
+                                {
+
+                                    // Pega a conquista atual
+                                    User.ConquistaResponse conquista =
+                                            conquistasApi.get(i);
+
+                                    // Nome da conquista
+                                    String nome =
+                                            conquista.nome_conquista;
+
+                                    // Descrição da conquista
+                                    String descricao =
+                                            conquista.descricao;
+
+                                    //Tipo da conquista
+                                    String tipo =
+                                            conquista.tipo_conquista;
+
+                                    // Cria objeto da RecyclerView
+                                    if ("Hardware".equals(tipo))
+                                    {
+                                        Conquista novaConquista =
+                                                new Conquista(
+                                                        nome,
+                                                        descricao,
+                                                        R.drawable.hardware_icon,
+                                                        R.drawable.bg_cardconquista_hardware
+                                                );
+                                        conquistasRecentes.add(novaConquista);
+                                    }
+
+                                    else if ("Software".equals(tipo))
+                                    {
+                                        Conquista novaConquista =
+                                                new Conquista(
+                                                        nome,
+                                                        descricao,
+                                                        R.drawable.softwarehome_icon,
+                                                        R.drawable.bg_cardconquista_software
+                                                );
+                                        conquistasRecentes.add(novaConquista);
+                                    }//
+                                    else if ("Outro".equals(tipo))
+                                    {
+                                        Conquista novaConquista =
+                                                new Conquista(
+                                                        nome,
+                                                        descricao,
+                                                        R.drawable.raposa_icon,
+                                                        R.drawable.bg_cardconquista_outros
+                                                );
+                                        conquistasRecentes.add(novaConquista);
+                                    }
+                                    else
+                                    {
+                                        Conquista novaConquista =
+                                                new Conquista(
+                                                        nome,
+                                                        descricao,
+                                                        R.drawable.raposa_icon,
+                                                        R.drawable.bg_cardconquista_outros
+                                                );
+                                        conquistasRecentes.add(novaConquista);
+                                    }
+
+                                    // Adiciona na lista
+
+                                }
+
+                                // Atualiza RecyclerView
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                );
+            }
+        });
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -673,6 +816,7 @@ public class Perfil_Fragment extends Fragment {
             prefs.unregisterOnSharedPreferenceChangeListener(listenerFoto);
             prefs.unregisterOnSharedPreferenceChangeListener(listenerBanner);
             prefs.unregisterOnSharedPreferenceChangeListener(listenerRecursos);
+            prefs.unregisterOnSharedPreferenceChangeListener(listenerConquistas);
         }
     }
 

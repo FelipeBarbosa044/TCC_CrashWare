@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -107,17 +108,24 @@ public class Ofensiva {
             public void onFailure(Call<SicronizarOfensivaResponse> call, Throwable t) {
                 // Caso deu erro na requisição
                 // erro de conexão (internet, URL, servidor fora)
-                Toast.makeText(
-                        context,
-                        "Erro de conexão: " + t.getMessage(),
-                        Toast.LENGTH_LONG
-                ).show();
+//                Toast.makeText(
+//                        context,
+//                        "Erro de conexão: " + t.getMessage(),
+//                        Toast.LENGTH_LONG
+//                ).show();
             }
         });
 
 
     }//Sicronizar Ofensiva
 
+
+    static class EmailRequest {
+        String email;
+        public EmailRequest(String email) {
+            this.email = email;
+        }
+    }
 
     //Validar Ofensiva
     // Armazena a resposta da API:
@@ -205,11 +213,11 @@ public class Ofensiva {
             public void onFailure(Call<ValidarOfensivaResponse> call, Throwable t) {
                 // Caso deu erro na requisição
                 // erro de conexão (internet, URL, servidor fora)
-                Toast.makeText(
-                        context,
-                        "Erro de conexão: " + t.getMessage(),
-                        Toast.LENGTH_LONG
-                ).show();
+//                Toast.makeText(
+//                        context,
+//                        "Erro de conexão: " + t.getMessage(),
+//                        Toast.LENGTH_LONG
+//                ).show();
             }
         });
 
