@@ -15,6 +15,8 @@ from database.session import Session
 #Importando comandos do sql para o código.
 from sqlalchemy import Column, String, Integer, update, true
 
+from models.gamificacao import Conquista
+
 # Cria a sessão
 session = Session()
 
@@ -28,8 +30,9 @@ session = Session()
 
 try:
     # session.query(Usuarios).filter(Usuarios.email == "felipewasxz@gmail.com").update({"ativo" : True})
-    session.query(Usuarios).filter(Usuarios.email == "resferagamer@gmail.com").update({"xp" : 4500 })
+    # session.query(Usuarios).filter(Usuarios.email == "resferagamer@gmail.com").update({"xp" : 4500 })
     # session.query(Patente).filter(Patente.id_patente == 3).update({"xp_minimo" : 4500})
+    session.query(Conquista).filter(Conquista.id_conquista == 20).update({"xp_bonus": 1500})
     session.commit()
 except Exception as exception:
     session.rollback()

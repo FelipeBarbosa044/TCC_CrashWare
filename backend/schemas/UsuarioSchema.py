@@ -19,7 +19,7 @@ class VerificarEmailSchema(BaseModel):
     class Config:
         from_attributes = True
 
-#SCHEMA Reenviar Email
+#SCHEMA Emails
 class EmailSchema (BaseModel):
     email: Optional[str] = None
     email_novo : Optional[str] = None

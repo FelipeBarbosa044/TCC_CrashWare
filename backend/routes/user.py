@@ -484,7 +484,7 @@ async def ganhar_xp(dados : RecursoSchema,usuario = Depends(validar_token),sessi
         session.commit()
 
         return {"xp": usuario.xp}
-    
+
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
@@ -533,7 +533,8 @@ async def sicronizar_ofensiva(usuario = Depends(validar_token),session = Depends
 
 
 @user.post('/validar_ofensiva')
-async def validar_ofensiva(usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+async def validar_ofensiva(dados: EmailSchema,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     if usuario is None:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
     ##Verificar validade de ofensiva

@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends,HTTPException
 
 ##Importando Tabelas
+from models.usuarios import Usuarios
 from models.gamificacao import Conquista, Usuario_Conquista
+from schemas.UsuarioSchema import EmailSchema
 
 #Instânciando roteador
 achievement = APIRouter(prefix="/achievement",tags=["conquistas"])
@@ -16,7 +18,8 @@ from sqlalchemy import select
 
 #ROTAS
 @achievement.post('/')
-async def achievement_login(dados : AchievementSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+async def achievement_login(dados : AchievementSchema,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
     if usuario is None:
         raise HTTPException(status_code=404,detail="Usuário não encontrado")
     if dados.conquista_id is None:
