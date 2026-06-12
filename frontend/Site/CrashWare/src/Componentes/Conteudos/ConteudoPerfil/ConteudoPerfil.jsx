@@ -103,7 +103,7 @@ const ConteudoPerfil = () => {
     const [popupConquista, setPopupConquista] = useState(null);
 
     if (click == 10) {
-        //Crio o bjeto que contem requisições para o banco
+        //Conquista da raposa
         const user = new Usuario(token, refresh_token, Navegacao, set);
         user.conquista(17, setPopupConquista, setDados);
     }
