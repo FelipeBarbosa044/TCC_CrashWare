@@ -482,6 +482,9 @@ async def ganhar_xp(dados : RecursoSchema,usuario = Depends(validar_token),sessi
     try:
         usuario.xp += dados.xp
         session.commit()
+
+        return {"xp": usuario.xp}
+    
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
@@ -498,6 +501,8 @@ async def ganhar_moeda(dados : RecursoSchema,usuario = Depends(validar_token),se
     try:
         usuario.moedas += dados.moedas
         session.commit()
+
+        return {"gemas" : usuario.moedas}
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
