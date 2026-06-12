@@ -126,7 +126,6 @@ const ConteudoPerfil = () => {
             }
         };
 
-        carregarPatente();
         atualizarRecursos();
         carregarConquistas();
 
