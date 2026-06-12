@@ -42,16 +42,16 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    border: 2px solid var(--texto-principal);
+    border: 2px solid var(--borda);
     border-radius: 16px;
-    width: 30%;
+    width: 90%;
     align-self: center;
     margin-bottom: 20px;
 }
 
 .UsuariosCadastrados h3{
     font-family: "Montserrat";
-    color: var(--texto-principal);
+    color: var(--Texto1);
     font-size: 22px;
     text-align: center;
     margin-bottom: 10px;
@@ -59,7 +59,7 @@
 
 .UsuariosCadastrados p{
     font-family: "Montserrat";
-    color: var(--texto-principal);
+    color: var(--Texto1);
     font-size: 18px;
     text-align: center;
     white-space: nowrap;
@@ -81,11 +81,11 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    border: 2px solid var(--texto-principal);
+    border: 2px solid var(--borda);
     border-radius: 16px;
     width: 30%;
     align-self: center;
-    color: var(--texto-principal);
+    color: var(--Texto1);
     font-family: "Montserrat";
     font-size: 18px;
     
