@@ -1,7 +1,7 @@
 import { Sidebar } from '../../Componentes/Cabecalho/barraLateral/sideBar';
 import { Outlet, Link } from "react-router-dom"
-import { useState } from "react"
-import { Cabecalho } from "../../Componentes"
+import { useState, useEffect } from "react"
+import { Cabecalho, Tema } from "../../Componentes"
 
 import Seta from '../../fotos/Seta.png';
 
@@ -19,6 +19,12 @@ import sobreModoEscuro from "../../fotos/escuro/Sobre.svg";
 
 import termosModoClaro from "../../fotos/claro/termos.svg";
 import termosModoEscuro from "../../fotos/escuro/termos.svg";
+import perfilIconEscuro from "../../fotos/escuro/login_icon.svg";
+import perfilIconClaro from "../../fotos/claro/login_icon_claro.svg";
+
+import configuracoesIconEscuro from "../../fotos/claro/configuracoes_icon_claro.svg";
+import configuracoesIconClaro from "../../fotos/escuro/configuracoes_icon.svg";
+
 import { CampoTexto } from '../../Componentes';
 import { BotoesForm } from '../../Componentes';
 import { Adm } from '../../../funcoes/adm';
@@ -28,6 +34,11 @@ import { PopUp } from "../../Componentes/pop-up";
 import Style from "./LayoutADM.module.css"
 
 const LayoutADM = () => {
+
+    const [temaEscuro, setTemaEscuro] = useState(
+        localStorage.getItem('TemaSelecionado') === 'Escuro'
+    );
+
     const Links = [
         { label: "Usuários", to: "/usuario" },
         { label: "Conquistas", to: "/conquistas" },
@@ -53,6 +64,20 @@ const LayoutADM = () => {
         );
     };
 
+    let usuario = JSON.parse(localStorage.getItem("dados"));
+    
+    //Hamburger
+    const [menuAberto, setMenuAberto] = useState(false);
+
+    useEffect(() => {
+        const aoAtualizarTema = () => {
+            setTemaEscuro(localStorage.getItem('TemaSelecionado') === 'Escuro');
+        };
+
+        window.addEventListener('temaAtualizado', aoAtualizarTema);
+        return () => window.removeEventListener('temaAtualizado', aoAtualizarTema);
+    }, []);
+
     const [abrirConquistas, setAbrirConquistas] = useState(false);
     const [abrirMaterias, setAbrirMaterias] = useState(false);
     const [aberto, setAberto] = useState(false);
@@ -60,10 +85,37 @@ const LayoutADM = () => {
     return (
         <>
             <Cabecalho>
-                <button className={Style.hamburger} onClick={() => setAberto(!aberto)}>
-                    {aberto ? <p>✕</p> : <p>☰</p>}
-                </button>
-                <Sidebar aberto={aberto} onFechar={() => setAberto(false)} />
+                {/* Menu Hamburger */}
+                <BotoesForm
+                    className={Style.hamburger}
+                    onClick={() => setMenuAberto(!menuAberto)}
+                    texto={menuAberto ? "✕" : "☰"}
+                />
+
+                <div className={`${Style.links} ${menuAberto ? Style.aberto : ""}`}>
+
+                    <Link to="/perfil">
+                        <img src={temaEscuro ? perfilIconEscuro : perfilIconClaro} alt="Perfil" />
+                    </Link>
+
+                    {usuario.adm == true ? (
+                        <>
+                            <Link to="relatorio">
+                                <p>ADM</p>
+                            </Link>
+                        </>
+                    ) : (
+                        <>
+                        </>
+                    )}
+
+                    <Link to="/configuracoes">
+                        <img src={temaEscuro ? configuracoesIconClaro : configuracoesIconEscuro} alt="configurações" />
+                    </Link>
+
+
+                    <Tema />
+                </div>
             </Cabecalho>
 
             <div className={Style.separarConteudos}>
@@ -81,7 +133,7 @@ const LayoutADM = () => {
                                     onClick={() => {
                                         if (item.descricao === "Conquistas") {
                                             setAbrirConquistas(!abrirConquistas);
-                                        }else if(item.descricao === "Materias"){
+                                        } else if (item.descricao === "Materias") {
                                             setAbrirMaterias(!abrirMaterias);
                                         } else if (item.acao) {
                                             setPopupAtivo(item.acao);

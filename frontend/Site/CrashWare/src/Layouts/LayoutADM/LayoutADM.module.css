@@ -48,6 +48,28 @@
     text-decoration: none;
 }
 
+.links {
+    /* display: none !important; */
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    gap: 10px;
+}
+
+.links img {
+    width: 32px;
+    height: 32px;
+}
+
+.links p{
+    color: var(--Texto2);
+}
+
+.links img:hover{
+    transform: scale(1.1);
+    transition: 0.5s ease;
+}
+
 .itemBarraLateral {
     display: flex;
     flex-direction: row;
@@ -126,20 +148,44 @@
 }
 
 
-    .hamburger {
-        background: none;
-        border: none;
-        color: var(--texto-principal);
-        font-size: 26px;
-        cursor: pointer;
-
-        margin-right: 20px;
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--Texto2);
+    font-size: 26px;
+    cursor: pointer;
+    margin-right: 20px;
     }
 
-    .hamburger:hover{
-        background: none;
-    }
-    
+.hamburger:hover{
+    background: none;
+}
+
+
+.links {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    gap: 10px;
+}
+
+.links img {
+    width: 32px;
+    height: 32px;
+}
+
+.links p{
+    color: var(--Texto2);
+}
+
+.links img:hover{
+    transform: scale(1.1);
+    transition: 0.5s ease;
+}
+
+
+
 @media (max-width: 1322px){
 
     .separarConteudos{
@@ -151,6 +197,52 @@
         width: 65%;
         margin-left: 0px;
         margin-bottom: 40px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .links {
+        flex-direction: column;
+        position: absolute;
+        top: 60px; 
+        right: 0;   
+        background-color: var(--bg-terceiro);
+        width: 200px;
+        align-items: center;
+        gap: 15px;
+        border-bottom-left-radius: 12px;
+        box-shadow: -4px 4px 10px rgba(0,0,0,0.3);
+
+        /* animação */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .links.aberto {
+        max-height: 300px;
+        border: 1px solid var(--borda);
+
+        padding: 10px;
+        display: flex;
+    }
+
+    .links a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .ItensLink{
+        width: 100%;
+        border: 2px solid var(--borda);
+        display: flex;
     }
 }
 
@@ -191,6 +283,8 @@
     .separarConteudos {
         flex-direction: wrap;
         align-items: center;
+        padding-top: 20px;
+
     }
 
     .barraLateral {

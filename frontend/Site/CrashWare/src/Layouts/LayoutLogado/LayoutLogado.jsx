@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { Cabecalho } from "../../Componentes";
+import { BotoesForm, Cabecalho } from "../../Componentes";
 import style from "./LayoutLogado.module.css";
 import { Link } from "react-router-dom";
 import { Tema } from "../../Componentes";
@@ -16,6 +16,12 @@ const LayoutLogado = () => {
         localStorage.getItem('TemaSelecionado') === 'Escuro'
     );
 
+    let usuario = JSON.parse(localStorage.getItem("dados"));
+
+    //Hamburger
+    const [menuAberto, setMenuAberto] = useState(false);
+
+
     useEffect(() => {
         const aoAtualizarTema = () => {
             setTemaEscuro(localStorage.getItem('TemaSelecionado') === 'Escuro');
@@ -28,15 +34,34 @@ const LayoutLogado = () => {
     return (
         <>
             <Cabecalho>
-                <div className={style.links}>
+                {/* Menu Hamburger */}
+                <BotoesForm
+                    className={style.hamburger}
+                    onClick={() => setMenuAberto(!menuAberto)}
+                    texto={menuAberto ?  "✕" : "☰"}
+                />
+
+                <div className={`${style.links} ${menuAberto ? style.aberto : ""}`}>
 
                     <Link to="/perfil">
-                        <img src={temaEscuro ? perfilIconEscuro : perfilIconClaro} alt="perfil" />
+                        <img src={temaEscuro ? perfilIconEscuro : perfilIconClaro} alt="Perfil" />
                     </Link>
 
+                    {usuario.adm == true ? (
+                        <>
+                        <Link to="relatorio">
+                            <p>ADM</p>
+                        </Link>
+                        </>
+                    ) : (
+                        <>
+                        </>
+                    )}
+
                     <Link to="/configuracoes">
-                        <img src={temaEscuro? configuracoesIconClaro : configuracoesIconEscuro} alt="configurações" />
+                        <img src={temaEscuro ? configuracoesIconClaro : configuracoesIconEscuro} alt="configurações" />
                     </Link>
+
 
                     <Tema />
                 </div>
