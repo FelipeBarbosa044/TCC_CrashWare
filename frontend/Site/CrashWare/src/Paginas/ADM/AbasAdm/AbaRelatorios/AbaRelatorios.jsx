@@ -5,7 +5,7 @@ import { Adm } from '../../../../../funcoes/adm'
 import Style from './AbaRelatorios.module.css'
 import { PopUp } from '../../../../Componentes';
 import { useState } from 'react';
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 const AbaRelatorios = () =>{
 
@@ -38,7 +38,6 @@ const AbaRelatorios = () =>{
     async function carregarInformacoes() {    
 
         await adm.carregar_usuarios(setPopup,setTotal, setDadosGraficos)
-        // await adm.
     }
 
  
@@ -48,6 +47,8 @@ const AbaRelatorios = () =>{
             carregarInformacoes()
     
         }, []);
+
+        const CoresTabela = ["#31C26D", "#0d4c00", "#dc2626"]
     
         // if (loading) return <p>Carregando</p>;
 
@@ -71,19 +72,18 @@ const AbaRelatorios = () =>{
                         <p>{total}</p>
 
 
-                        {/* <ResponsiveContainer width="100%" height={300}>
+                        <ResponsiveContainer width="100%" height={300}>
                             <BarChart data={dadosGrafico}>
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="mes" />
-                                <YAxis />
-                                <Tooltip
-                                    formatter={(value, name) =>[
-                                        value, name === 'total' ? 'total acumlado' : 'Novos'
-                                    ]}
-                                    />
-                                    <Bar dataKey="total" name="Total acumulado" fill="red" />
+                                <XAxis dataKey="nome" />
+                                <YAxis  allowDecimals={false}/>
+                                    <Bar dataKey="quantidade" name="Usuarios" fill="red" radius={[4,4,0,0]} barSize={100}>
+                                        {dadosGrafico.map((entry, index) => (
+                                            <Cell key={index} fill={CoresTabela[index]}/>
+                                        ))}
+                                    </Bar>
                             </BarChart>
-                        </ResponsiveContainer> */}
+                        </ResponsiveContainer>
                     </div>
 
                     {/* <div className={Style.Acertos}>

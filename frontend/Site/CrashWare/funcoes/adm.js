@@ -231,10 +231,15 @@ export class Adm
 
                     //Guardo os usuarios no LocalStorage
                     localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-                    //Coloca Aqui Gabriel o Gráfico
                 }
                 
+                if(setDadosGraficos != null){
+                    setDadosGraficos([
+                        { nome: "Cadastrados", quantidade: total },
+                        { nome: "Não Autenticados", quantidade: usuariosNaoAutenticados },
+                        { nome: "Desativados", quantidade: desativados },
+                    ])
+                }
 
 
             }else
