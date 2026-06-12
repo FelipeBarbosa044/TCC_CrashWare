@@ -474,8 +474,7 @@ async def remover_banner(usuario = Depends(validar_token), session = Depends(peg
 
 #Rota de ganhar XP
 @user.post('/xp')
-async def ganhar_xp(dados : RecursoSchema,session = Depends(pegar_sessao)):
-    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+async def ganhar_xp(dados : RecursoSchema,usuario = Depends(pegar_sessao),session = Depends(pegar_sessao)):
     if usuario is None:
         raise HTTPException(status_code=404,detail="Usuário não encontrado")
     if dados.xp == 0:
@@ -494,8 +493,7 @@ async def ganhar_xp(dados : RecursoSchema,session = Depends(pegar_sessao)):
 
 #Rota de ganhar MOEDA
 @user.post('/moeda')
-async def ganhar_moeda(dados : RecursoSchema,session = Depends(pegar_sessao)):
-    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+async def ganhar_moeda(dados : RecursoSchema,usuario = Depends(pegar_sessao),session = Depends(pegar_sessao)):
     if usuario is None:
         raise HTTPException(status_code=404,detail="Usuário não encontrado")
     if dados.moedas == 0:
