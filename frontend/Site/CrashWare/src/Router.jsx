@@ -5,6 +5,7 @@ import { AuthProvider, RotaAdm, RotaPrivada } from "./Rotas"
 import { AbaListarConquistas } from "./Paginas/ADM/AbasAdm/AbaListarConquistas"
 
 import { PgComoFunciona, PgMotivacaoMentalidade } from "./Paginas"
+import { PgVerPerfil } from "./Paginas/VerPerfil/Verperfil"
 
 
 const Router = () => {
@@ -214,6 +215,13 @@ const Router = () => {
                             <AbaCriarMateria />
                         </RotaAdm>
                     }
+                />
+
+                <Route
+                    path="perfil-usuario"
+                    element={<RotaAdm>
+                        <PgVerPerfil/>
+                    </RotaAdm>}
                 />
             </Route>
 

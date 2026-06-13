@@ -4,9 +4,11 @@ import { BotoesForm } from '../../../../Componentes'
 import Defaut from '../../../../fotos/FotoPerfilPadrao.jpeg'
 import { PopUp } from '../../../../Componentes'
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 
 import Style from './AbaUsuarios.module.css'
 import { Adm } from '../../../../../funcoes/adm'
+import { PerfilUsuario } from './VerUsuario'
 
 const AbaUsuarios = () => {
 
@@ -32,11 +34,19 @@ const AbaUsuarios = () => {
     //Input Ban
     const [Modal, setModal] = useState(null);
 
+    //Ver Perfil
+    const [abrirPerfil, setAbrirPerfil] = useState(null);
+    //Ver Perfil
+    const [verPerfil, setVerPerfil] = useState(null);
+    //Navegacão
+    const Navegacao = useNavigate();
+
     //Motivo do Banimento
     const [motivoBan, setMotivoBan] = useState("");
 
     //Carregamento
     const [usuariosLoading, setUsuariosLoading] = useState(true);
+
 
 
 
@@ -213,7 +223,12 @@ const AbaUsuarios = () => {
                     : c
             )
         )
+    }
 
+
+        // AQUI FELIPE
+    const VerPerfil = () =>{
+        Navegacao('/perfil-usuario')
     }
 
     return (
@@ -311,6 +326,8 @@ const AbaUsuarios = () => {
 
                                         <div className={Style.Botoes}>
                                             <BotoesForm
+                                            //aqui felipe
+                                                onClick={() => VerPerfil()}
                                                 texto="Ver Perfil"
                                             />
                                             <BotoesForm
