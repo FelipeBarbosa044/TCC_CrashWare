@@ -191,7 +191,7 @@ public class Conquistas_Fragment extends Fragment {
                                         new Conquista(
                                                 nome,
                                                 descricao,
-                                                R.drawable.hardware_icon,
+                                                R.drawable.raposahard_icon,
                                                 R.drawable.bg_cardconquista_hardware
                                         );
                                 listaConquistas.add(novaConquista);
@@ -203,7 +203,7 @@ public class Conquistas_Fragment extends Fragment {
                                         new Conquista(
                                                 nome,
                                                 descricao,
-                                                R.drawable.softwarehome_icon,
+                                                R.drawable.raposasoft_icon,
                                                 R.drawable.bg_cardconquista_software
                                         );
                                 listaConquistas.add(novaConquista);
@@ -231,39 +231,6 @@ public class Conquistas_Fragment extends Fragment {
                                 listaConquistas.add(novaConquista);
                             }
 
-                            /*
-                             * Aqui você cria um objeto Conquista
-                             * para adicionar ao RecyclerView
-                             */
-
-
-                            /*
-                             * Atualmente sua API só retorna
-                             * conquistas desbloqueadas.
-                             *
-                             * Então estamos adicionando
-                             * tudo na lista de adquiridas.
-                             */
-
-
-//                            /*
-//                             * FUTURAMENTE:
-//                             *
-//                             * Se sua API retornar algo como:
-//                             *
-//                             * conquista.desbloqueada
-//                             *
-//                             * você poderá fazer:
-//                             *
-//                             * if(conquista.desbloqueada)
-//                             * {
-//                             *     listaConquistas.add(novaConquista);
-//                             * }
-//                             * else
-//                             * {
-//                             *     listaConquistasBloqueadas.add(novaConquista);
-//                             * }
-//                             */
                         }
 
                         // Atualiza os RecyclerViews
@@ -285,7 +252,6 @@ public class Conquistas_Fragment extends Fragment {
                     )
                     {
 
-
                         listaConquistasBloqueadas.clear();
 
                         // Percorre todas as conquistas recebidas
@@ -304,25 +270,13 @@ public class Conquistas_Fragment extends Fragment {
                             //Tipo da conquista
                             String tipo =
                                     conquista.tipo_conquista;
-                            /*
-
-
-                             * Aqui você cria um objeto Conquista
-                             * para adicionar ao RecyclerView
-                             */
-//                            Conquista novaConquista =
-//                                        new Conquista(
-//                                                nome,
-//                                                descricao,
-//                                                R.drawable.hardware_icon
-//                                        );
                             if  ("Hardware".equalsIgnoreCase(tipo))
                             {
                                 Conquista novaConquista =
                                         new Conquista(
                                                 nome,
                                                 descricao,
-                                                R.drawable.hardware_icon,
+                                                R.drawable.raposahard_icon,
                                                 R.drawable.bg_cardconquista_hardware
                                         );
                                 listaConquistasBloqueadas.add(novaConquista);
@@ -333,7 +287,7 @@ public class Conquistas_Fragment extends Fragment {
                                         new Conquista(
                                                 nome,
                                                 descricao,
-                                                R.drawable.softwarehome_icon,
+                                                R.drawable.raposasoft_icon,
                                                 R.drawable.bg_cardconquista_software
                                         );
                                 listaConquistasBloqueadas.add(novaConquista);

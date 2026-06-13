@@ -1,7 +1,7 @@
 package com.example.crashware.ui.aulas;
 
 import android.content.Intent;
-import android.media.Image;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,7 +17,8 @@ import com.example.crashware.R;
 
 public class ModuloHardware extends AppCompatActivity {
 
-    ImageView imgVoltarH;
+    ImageView imgVoltarH,
+            imgLivro1M1H, imgLivro1M2H, imgLivro2M1H, imgLivro2M2H, imgLivro2M3H, imgLivro2M4H, imgLivro3M1H, imgLivro3M2H, imgLivro3M3H, imgLivro3M4H, imgLivro3M5H;
 
     TextView txtTituloAula1M1H, txtTituloAula2M1H,txtTituloAula1M2H,txtTituloAula2M2H,txtTituloAula3M2H,txtTituloAula4M2H,
             txtTituloAula1M3H,txtTituloAula2M3H,txtTituloAula3M3H, txtTituloAula4M3H, txtTituloAula5M3H, txtTituloAula6M3H;
@@ -47,6 +48,36 @@ public class ModuloHardware extends AppCompatActivity {
         txtTituloAula5M3H = findViewById(R.id.txtTituloAula5M3H);
         txtTituloAula6M3H = findViewById(R.id.txtTituloAula6M3H);
         imgVoltarH        = findViewById(R.id.imgVoltarH       );
+        imgLivro1M1H      = findViewById(R.id.imgLivro1M1H     );
+        imgLivro1M2H      = findViewById(R.id.imgLivro1M2H     );
+        imgLivro2M1H      = findViewById(R.id.imgLivro2M1H     );
+        imgLivro2M2H      = findViewById(R.id.imgLivro2M2H     );
+        imgLivro2M3H      = findViewById(R.id.imgLivro2M3H     );
+        imgLivro2M4H      = findViewById(R.id.imgLivro2M4H     );
+        imgLivro3M1H      = findViewById(R.id.imgLivro3M1H     );
+        imgLivro3M2H      = findViewById(R.id.imgLivro3M2H     );
+        imgLivro3M3H      = findViewById(R.id.imgLivro3M3H     );
+        imgLivro3M4H      = findViewById(R.id.imgLivro3M4H     );
+        imgLivro3M5H      = findViewById(R.id.imgLivro3M5H     );
+
+        // Módulo 1
+        configurarAula(imgLivro1M1H, "aula_1_m1_hardware");
+        configurarAula(imgLivro1M2H, "aula_2_m1_hardware");
+
+        // Módulo 2
+        configurarAula(imgLivro2M1H, "aula_1_m2_hardware");
+        configurarAula(imgLivro2M2H, "aula_2_m2_hardware");
+        configurarAula(imgLivro2M3H, "aula_3_m2_hardware");
+        configurarAula(imgLivro2M4H, "aula_4_m2_hardware");
+
+
+        // Módulo 3
+        configurarAula(imgLivro3M1H, "aula_1_m3_hardware");
+        configurarAula(imgLivro3M2H, "aula_2_m3_hardware");
+        configurarAula(imgLivro3M3H, "aula_3_m3_hardware");
+        configurarAula(imgLivro3M4H, "aula_4_m3_hardware");
+        configurarAula(imgLivro3M5H, "aula_5_m3_hardware");
+
 
         imgVoltarH.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,14 +97,37 @@ public class ModuloHardware extends AppCompatActivity {
         });//
 
 
-
-
     }
 
+    private void configurarAula(ImageView imgLivro, String chave) {
+
+        SharedPreferences prefs = getSharedPreferences("CrashWare", MODE_PRIVATE);
+
+        // Restaura o estado salvo ao abrir a tela
+        if (prefs.getBoolean(chave, false)) {
+            imgLivro.setImageResource(R.drawable.aulaconcluida_icon);
+        }
+
+        // Alterna ao clicar
+        imgLivro.setOnClickListener(v -> {
+            boolean concluida = prefs.getBoolean(chave, false);
+
+            if (!concluida) {
+                imgLivro.setImageResource(R.drawable.aulaconcluida_icon);
+                prefs.edit().putBoolean(chave, true).apply();
+            } else {
+                imgLivro.setImageResource(R.drawable.aulaassistir_icon);
+                prefs.edit().putBoolean(chave, false).apply();
+            }
+        });
+    }
     private void Aula1M1H()
     {
         Intent NovaAula = new Intent(ModuloHardware.this, ContainerSoftware.class);
         startActivity(NovaAula);
 
     }
+
+
+
 }

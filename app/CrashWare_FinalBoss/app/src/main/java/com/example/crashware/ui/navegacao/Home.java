@@ -19,14 +19,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Home extends BaseActivity {
 
     // Fragmentos instanciados
-    private Fragment inicio    = new Inicio_fragment();
-    private Fragment loja      = new Loja_fragment();
-    private Fragment anotacoes = new Anotacoes_fragment();
-    private Fragment aulas     = new EscolhaTrilha_fragment();
-    private Fragment perfil    = new Perfil_Fragment();
+//    private Fragment inicio    = new Inicio_fragment();
+//    private Fragment loja      = new Loja_fragment();
+//    private Fragment anotacoes = new Anotacoes_fragment();
+//    private Fragment aulas     = new EscolhaTrilha_fragment();
+//    private Fragment perfil    = new Perfil_Fragment();
+//
+//    private Fragment active = inicio;
 
-    private Fragment active = inicio;
-
+    private Fragment inicio, loja, anotacoes, aulas, perfil;
+    private Fragment active;
+    private Fragment fragmentAntesDaTelaExtra = null;
+    private java.util.Deque<Fragment> pilhaExtras = new java.util.ArrayDeque<>();
 
 
     @Override
@@ -39,19 +43,34 @@ public class Home extends BaseActivity {
 
         getSupportFragmentManager().addOnBackStackChangedListener(() -> {
 
-            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
 
-                Fragment visible = null;
+            if (!pilhaExtras.isEmpty() && backStackCount < pilhaExtras.size()) {
+                // Usuário voltou de uma tela extra
+                Fragment anterior = pilhaExtras.pop();
 
-                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                    if (fragment.isVisible()) {
-                        visible = fragment;
-                        break;
+                androidx.fragment.app.FragmentTransaction tx =
+                        getSupportFragmentManager().beginTransaction();
+
+                for (Fragment f : getSupportFragmentManager().getFragments()) {
+                    boolean ehNavFragment = f == inicio || f == loja ||
+                            f == anotacoes || f == aulas || f == perfil;
+                    if (!ehNavFragment && !f.isHidden()) {
+                        tx.hide(f);
                     }
                 }
 
-                if (visible != null) {
-                    active = visible;
+                tx.show(anterior).commit();
+                active = anterior;
+
+            } else if (pilhaExtras.isEmpty() && backStackCount == 0) {
+                // Fallback navbar
+                Fragment[] navFragments = {inicio, loja, anotacoes, aulas, perfil};
+                for (Fragment f : navFragments) {
+                    if (f != null && !f.isHidden()) {
+                        active = f;
+                        break;
+                    }
                 }
             }
         });
@@ -59,6 +78,14 @@ public class Home extends BaseActivity {
         BottomNavigationView menu = findViewById(R.id.NavBar);
 
         if (savedInstanceState == null) {
+
+            inicio    = new Inicio_fragment();
+            loja      = new Loja_fragment();
+            anotacoes = new Anotacoes_fragment();
+            aulas     = new EscolhaTrilha_fragment();
+            perfil    = new Perfil_Fragment();
+            active    = inicio;
+
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, perfil, "perfil").hide(perfil)
@@ -73,17 +100,18 @@ public class Home extends BaseActivity {
         else
         {
 
-            inicio = getSupportFragmentManager().findFragmentByTag("inicio");
-            loja = getSupportFragmentManager().findFragmentByTag("loja");
+            inicio    = getSupportFragmentManager().findFragmentByTag("inicio");
+            loja      = getSupportFragmentManager().findFragmentByTag("loja");
             anotacoes = getSupportFragmentManager().findFragmentByTag("anotacoes");
-            aulas = getSupportFragmentManager().findFragmentByTag("aulas");
-            perfil = getSupportFragmentManager().findFragmentByTag("perfil");
+            aulas     = getSupportFragmentManager().findFragmentByTag("aulas");
+            perfil    = getSupportFragmentManager().findFragmentByTag("perfil");
 
-            for (Fragment fragment : getSupportFragmentManager().getFragments())
+            Fragment[] navFragments = {inicio, loja, anotacoes, aulas, perfil};
+            for (Fragment f : navFragments)
             {
-                if (fragment.isVisible())
+                if (f != null && !f.isHidden())
                 {
-                    active = fragment;
+                    active = f;
                     break;
                 }
             }
@@ -96,19 +124,16 @@ public class Home extends BaseActivity {
             Fragment selected = null;
 
             int id = item.getItemId();
-            if (id == R.id.nav_home) {
-                selected = inicio;
-            } else if (id == R.id.nav_loja) {
-                selected = loja;
-            } else if (id == R.id.nav_anotacoes) {
-                selected = anotacoes;
-            } else if (id == R.id.nav_materias) {
-                selected = aulas;
-            } else if (id == R.id.nav_perfil) {
-                selected = perfil;
-            }
+            if (id == R.id.nav_home)          selected = inicio;
+            else if (id == R.id.nav_loja)     selected = loja;
+            else if (id == R.id.nav_anotacoes) selected = anotacoes;
+            else if (id == R.id.nav_materias) selected = aulas;
+            else if (id == R.id.nav_perfil)   selected = perfil;
 
-            if (selected != null && selected != active) {
+            if (selected != null && selected != active)
+            {
+                // Limpa a pilha ANTES do pop para o listener não agir
+                pilhaExtras.clear();
 
                 if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                     getSupportFragmentManager().popBackStackImmediate(
@@ -145,15 +170,26 @@ public class Home extends BaseActivity {
         });
     }
 
-    public void irParaTelaExtra(Fragment novoFragmento)
-    {
-        getSupportFragmentManager().beginTransaction()
-                .hide(active) // Esconde a tela principal (ex: Aulas)
-                .add(R.id.fragment_container, novoFragmento,
-                        novoFragmento.getClass().getSimpleName()) // Adiciona a nova (ex: Hardware)
-                .addToBackStack(null)// Permite que o botão voltar do Android funcione
-                .commit();
+    public void irParaTelaExtra(Fragment novoFragmento) {
+        String tag = novoFragmento.getClass().getSimpleName();
+        Fragment existente = getSupportFragmentManager().findFragmentByTag(tag);
 
-        active = novoFragmento; // Atualiza quem é a tela ativa agora
+        pilhaExtras.push(active); // ← empilha quem estava ativo
+
+        if (existente != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .hide(active)
+                    .show(existente)
+                    .addToBackStack(null)
+                    .commit();
+            active = existente;
+        } else {
+            getSupportFragmentManager().beginTransaction()
+                    .hide(active)
+                    .add(R.id.fragment_container, novoFragmento, tag)
+                    .addToBackStack(null)
+                    .commit();
+            active = novoFragmento;
+        }
     }
 }

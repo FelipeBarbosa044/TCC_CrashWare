@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.crashware.R;
 import com.example.crashware.ui.api.Auth;
+import com.example.crashware.ui.config.ThemeConfig;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -23,8 +24,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-       // aplicarTema(temaAtual);
-
+        ThemeConfig.aplicarTema(this);
         super.onCreate(savedInstanceState);
 
         //SharedPreferences

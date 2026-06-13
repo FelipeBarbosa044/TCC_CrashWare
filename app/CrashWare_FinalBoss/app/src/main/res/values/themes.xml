@@ -7,7 +7,7 @@
 
         <item name="colorPrimarySurface">#FFFFFF</item>
         <item name="colorOnPrimarySurface">#000000</item>
-        <item name="colorSecondaryContainer">#00FFFFFF</item>
+        <item name="colorSecondaryContainer">@color/azul</item>
 
         <item name="colorOutline">#C8D1D5</item>
     </style>
@@ -19,4 +19,20 @@
     <style name="Banner" parent=""><item name="cornerFamily">rounded</item></style>
 
     <color name="bg_vidro_transparente">#FFFFFF</color>
+
+    <style name="Theme.CrashWare.Gelo"
+        parent="Base.Theme.CrashWare">
+
+        <item name="colorPrimary">#367575</item>
+        <item name="colorOnPrimary">#009688</item>
+
+        <item name="colorSurface">#673AB7</item>
+        <item name="colorOnSurface">#0F172A</item>
+
+        <item name="android:colorBackground">#367575</item>
+
+        <item name="colorSecondaryContainer">#F44336</item>
+        <item name="colorOutline">#00BCD4</item>
+
+    </style>
 </resources>

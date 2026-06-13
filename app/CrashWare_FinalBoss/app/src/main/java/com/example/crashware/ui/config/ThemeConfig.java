@@ -36,11 +36,15 @@ public class ThemeConfig {
                 break;
 
             case GELO:
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                AppCompatDelegate.setDefaultNightMode(
+                        AppCompatDelegate.MODE_NIGHT_NO);
 
-                // 2. Aplica o XML de cores do Gelo!
-                // Crie o 'Theme.CrashWare.Gelo' lá no seu themes.xml
-                context.setTheme(R.style.Theme_CrashWare_Gelo);
+                if (context instanceof android.app.Activity)
+                {
+                    ((android.app.Activity) context)
+                            .setTheme(R.style.Theme_CrashWare_Gelo);
+                }
+                break;
 
             default:
                 AppCompatDelegate.setDefaultNightMode(

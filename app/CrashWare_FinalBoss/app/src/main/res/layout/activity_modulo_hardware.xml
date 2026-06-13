@@ -153,7 +153,7 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="26dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/aulaconcluida_icon"
+                android:src="@drawable/aulaassistir_icon"
                 app:layout_constraintEnd_toStartOf="@+id/txtTituloAula1M1H"
                 app:layout_constraintStart_toStartOf="@id/cardIntroducaoH"
                 app:layout_constraintTop_toBottomOf="@id/barraM1H" />
@@ -176,12 +176,12 @@
 
             <!-- Imagem Livro -->
             <ImageView
-                android:id="@+id/imgLivro2M1H"
+                android:id="@+id/imgLivro1M2H"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="26dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/aulaconcluida_icon"
+                android:src="@drawable/aulaassistir_icon"
                 app:layout_constraintEnd_toStartOf="@+id/txtTituloAula2M1H"
                 app:layout_constraintStart_toStartOf="@id/cardIntroducaoH"
                 app:layout_constraintTop_toBottomOf="@id/imgLivro1M1H" />
@@ -199,7 +199,7 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/cardIntroducaoH"
-                app:layout_constraintStart_toEndOf="@+id/imgLivro2M1H"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro1M2H"
                 app:layout_constraintTop_toBottomOf="@id/txtTituloAula1M1H" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -245,7 +245,7 @@
 
             <!-- Imagem Play -->
             <ImageView
-                android:id="@+id/imgLivro1M2H"
+                android:id="@+id/imgLivro2M1H"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="26dp"
@@ -268,7 +268,7 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/cardFundamentosHardware"
-                app:layout_constraintStart_toEndOf="@+id/imgLivro1M2H"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro2M1H"
                 app:layout_constraintTop_toBottomOf="@id/barraM2H" />
 
             <!-- Imagem Livro -->
@@ -281,7 +281,7 @@
                 android:src="@drawable/aulaassistir_icon"
                 app:layout_constraintEnd_toStartOf="@+id/txtTituloAula2M2H"
                 app:layout_constraintStart_toStartOf="@id/cardFundamentosHardware"
-                app:layout_constraintTop_toBottomOf="@id/imgLivro1M2H" />
+                app:layout_constraintTop_toBottomOf="@id/imgLivro2M1H" />
 
             <!-- Título Aula -->
             <TextView
@@ -301,7 +301,7 @@
 
             <!-- Imagem Livro -->
             <ImageView
-                android:id="@+id/imgLivro3M2H"
+                android:id="@+id/imgLivro2M3H"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="26dp"
@@ -324,12 +324,12 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/cardFundamentosHardware"
-                app:layout_constraintStart_toEndOf="@+id/imgLivro3M2H"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro2M3H"
                 app:layout_constraintTop_toBottomOf="@id/txtTituloAula2M2H" />
 
             <!-- Imagem Livro -->
             <ImageView
-                android:id="@+id/imgLivro4M2H"
+                android:id="@+id/imgLivro2M4H"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="26dp"
@@ -337,7 +337,7 @@
                 android:src="@drawable/aulaassistir_icon"
                 app:layout_constraintEnd_toStartOf="@+id/txtTituloAula4M2H"
                 app:layout_constraintStart_toStartOf="@id/cardFundamentosHardware"
-                app:layout_constraintTop_toBottomOf="@id/imgLivro3M2H" />
+                app:layout_constraintTop_toBottomOf="@id/imgLivro2M3H" />
 
             <!-- Título Aula -->
             <TextView
@@ -352,7 +352,7 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/cardFundamentosHardware"
-                app:layout_constraintStart_toEndOf="@+id/imgLivro4M2H"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro2M4H"
                 app:layout_constraintTop_toBottomOf="@id/txtTituloAula3M2H" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -398,7 +398,7 @@
 
             <!-- Imagem Livro -->
             <ImageView
-                android:id="@+id/imgLivro1M3H"
+                android:id="@+id/imgLivro3M1H"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="26dp"
@@ -421,12 +421,12 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/cardComponentesInternos"
-                app:layout_constraintStart_toEndOf="@+id/imgLivro1M3H"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro3M1H"
                 app:layout_constraintTop_toBottomOf="@id/barraM3H" />
 
             <!-- Imagem Livro -->
             <ImageView
-                android:id="@+id/imgLivro2M3H"
+                android:id="@+id/imgLivro3M2H"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="26dp"
@@ -434,7 +434,7 @@
                 android:src="@drawable/aulaassistir_icon"
                 app:layout_constraintEnd_toStartOf="@+id/txtTituloAula2M3H"
                 app:layout_constraintStart_toStartOf="@id/cardComponentesInternos"
-                app:layout_constraintTop_toBottomOf="@id/imgLivro1M3H" />
+                app:layout_constraintTop_toBottomOf="@id/imgLivro3M1H" />
 
             <!-- Título Aula -->
             <TextView
@@ -449,7 +449,7 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/cardComponentesInternos"
-                app:layout_constraintStart_toEndOf="@+id/imgLivro2M3H"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro3M2H"
                 app:layout_constraintTop_toBottomOf="@id/txtTituloAula1M3H" />
 
             <!-- Imagem Livro -->
@@ -462,7 +462,7 @@
                 android:src="@drawable/aulaassistir_icon"
                 app:layout_constraintEnd_toStartOf="@+id/txtTituloAula3M3H"
                 app:layout_constraintStart_toStartOf="@id/cardComponentesInternos"
-                app:layout_constraintTop_toBottomOf="@id/imgLivro2M3H" />
+                app:layout_constraintTop_toBottomOf="@id/imgLivro3M2H" />
 
             <!-- Título Aula -->
             <TextView
@@ -482,7 +482,7 @@
 
             <!-- Imagem Livro -->
             <ImageView
-                android:id="@+id/imgLivro4M3H"
+                android:id="@+id/imgLivro3M4H"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="26dp"
@@ -505,12 +505,12 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/cardComponentesInternos"
-                app:layout_constraintStart_toEndOf="@+id/imgLivro4M3H"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro3M4H"
                 app:layout_constraintTop_toBottomOf="@id/txtTituloAula3M3H" />
 
             <!-- Imagem Livro -->
             <ImageView
-                android:id="@+id/imgLivro5M3H"
+                android:id="@+id/imgLivro3M5H"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="26dp"
@@ -518,7 +518,7 @@
                 android:src="@drawable/aulaassistir_icon"
                 app:layout_constraintEnd_toStartOf="@+id/txtTituloAula5M3H"
                 app:layout_constraintStart_toStartOf="@id/cardComponentesInternos"
-                app:layout_constraintTop_toBottomOf="@id/imgLivro4M3H" />
+                app:layout_constraintTop_toBottomOf="@id/imgLivro3M4H" />
 
             <!-- Título Aula -->
             <TextView
@@ -533,12 +533,12 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/cardComponentesInternos"
-                app:layout_constraintStart_toEndOf="@+id/imgLivro5M3H"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro3M5H"
                 app:layout_constraintTop_toBottomOf="@id/txtTituloAula4M3H" />
 
             <!-- Imagem Livro -->
             <ImageView
-                android:id="@+id/imgLivro6M3H"
+                android:id="@+id/imgLivro3M6H"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="26dp"
@@ -546,7 +546,7 @@
                 android:src="@drawable/aulaassistir_icon"
                 app:layout_constraintEnd_toStartOf="@+id/txtTituloAula6M3H"
                 app:layout_constraintStart_toStartOf="@id/cardComponentesInternos"
-                app:layout_constraintTop_toBottomOf="@id/imgLivro5M3H" />
+                app:layout_constraintTop_toBottomOf="@id/imgLivro3M5H" />
 
             <!-- Título Aula -->
             <TextView
@@ -561,7 +561,7 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/cardComponentesInternos"
-                app:layout_constraintStart_toEndOf="@+id/imgLivro6M3H"
+                app:layout_constraintStart_toEndOf="@+id/imgLivro3M6H"
                 app:layout_constraintTop_toBottomOf="@id/txtTituloAula5M3H" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
