@@ -125,24 +125,6 @@ const ConteudoSoftware = () => {
         );
     }
 
-    async function BuscarAulas() {
-        setPopup({
-                tipo: 'aviso',
-                titulo: 'Aulas',
-                mensagem: 'Buscando suas Aulas...'
-            });
-
-        //Busco as anotações
-        const aulas = await aula.buscar_software();
-
-
-    }
-    //Busco as aulas sempre que a pag for carregada
-    useEffect(() => {
-
-        BuscarAulas();
-
-    }, [])
 
     return (
         <>

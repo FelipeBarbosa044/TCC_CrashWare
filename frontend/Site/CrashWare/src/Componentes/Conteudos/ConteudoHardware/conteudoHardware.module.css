@@ -168,6 +168,7 @@
     width: 30px;
     height: 30px;
     object-fit: contain;
+    cursor: pointer;
 }
 
 .introducao a, .fundamentos a, .componentes a{
@@ -188,6 +189,7 @@
     align-items: center;
     margin-top: 50px;
     width: 100%;
+    cursor: pointer;
 }
 
 .progressoCurso p{

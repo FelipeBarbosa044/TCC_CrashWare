@@ -65,7 +65,18 @@ const ConteudoAnotacao = () => {
     const formatarData = (data) => {
         if (!data) return "";
 
-        return new Date(data).toLocaleDateString("pt-BR");
+        if (typeof data === "string" && /^\d{2}\/\d{2}\/\d{4}/.test(data)) {
+            return data.split(" ")[0]; // retorna direto, já está formatado
+        }
+
+        const dataCorrigida = typeof data === "string"
+            ? data.replace(" ", "T")
+            : data;
+
+        const resultado = new Date(dataCorrigida);
+        if (isNaN(resultado.getTime())) return "";
+
+        return resultado.toLocaleDateString("pt-BR");
     };
 
     // PESQUISA
@@ -115,6 +126,8 @@ const ConteudoAnotacao = () => {
         //Chamo o método de criar anotação
         //Crio a anotação no banco de dados
         const anotacao = await annotation.adicionar_anotacao(infoNota.tituloAnotacao, infoNota.textoAnotacao, setPopup)
+
+        console.log("criado_em:", anotacao?.criado_em)
 
         const nova = {
 

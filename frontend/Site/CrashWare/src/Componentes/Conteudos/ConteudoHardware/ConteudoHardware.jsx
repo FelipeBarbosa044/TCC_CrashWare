@@ -100,7 +100,6 @@ const ConteudoHardware = () => {
     function marcarFeito(jaFez){
 
         let novoValor;
-
         if(jaFez){
             novoValor = quantidadeFeita + 1;
         }else{
@@ -115,24 +114,24 @@ const ConteudoHardware = () => {
         );
     }
 
-    async function BuscarAulas() {
-        setPopup({
-                tipo: 'aviso',
-                titulo: 'Aulas',
-                mensagem: 'Buscando suas Aulas...'
-            });
+    // async function BuscarAulas() {
+    //     setPopup({
+    //             tipo: 'aviso',
+    //             titulo: 'Aulas',
+    //             mensagem: 'Buscando suas Aulas...'
+    //         });
 
-        //Busco as anotações
-        const aulas = await aula.buscar_hardware();
+    //     //Busco as anotações
+    //     const aulas = await aula.buscar_hardware();
 
 
-    }
-    //Busco as aulas sempre que a pag for carregada
-    useEffect(() => {
+    // }
+    // //Busco as aulas sempre que a pag for carregada
+    // useEffect(() => {
 
-        BuscarAulas();
+    //     BuscarAulas();
 
-    }, [])
+    // }, [])
 
     return (
         <>

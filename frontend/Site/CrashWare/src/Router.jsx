@@ -149,6 +149,15 @@ const Router = () => {
                     }
                 />
 
+                 {/* <Route
+                    path="IntroducaoTecnologia"
+                    element={
+                        <RotaPrivada>
+                            <PgIntroducaoTecnologia />
+                        </RotaPrivada>
+                    }
+                /> */}
+
                 <Route
                     path="loja"
                     element={
