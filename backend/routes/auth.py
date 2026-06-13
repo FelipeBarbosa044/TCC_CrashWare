@@ -271,8 +271,7 @@ async def login(dados : UsuarioLoginSchema , session = Depends(pegar_sessao)):
             return {
                 "token" : acess_token,
                 "refresh_token" : refresh_token,
-                "token_type": "bearer",
-                "email" : usuario.email
+                "token_type": "bearer"
             }
 
 ########################
