@@ -104,8 +104,6 @@ async def buscar_usuarios(session = Depends(pegar_sessao)):
     #Usuários que estão Desativados/Banidos
     usuariosDesativados = session.query(Usuarios).filter(Usuarios.ativo == False).count()
 
-
-
     return {
         "quantidade" : quantidade_usuarios,
         "usuarios" : usuarios,

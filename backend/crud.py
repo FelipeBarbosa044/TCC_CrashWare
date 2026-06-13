@@ -1,7 +1,6 @@
 ##Importando tabelas
 
-from models import Usuarios, UsuariosOauth, Patente
-
+from models import Usuarios, UsuariosOauth, Patente, Aula
 
 #Importando A conexao com o Banco de dados
 from database.connection import engine
@@ -32,7 +31,7 @@ try:
     # session.query(Usuarios).filter(Usuarios.email == "felipewasxz@gmail.com").update({"ativo" : True})
     # session.query(Usuarios).filter(Usuarios.email == "resferagamer@gmail.com").update({"xp" : 4500 })
     # session.query(Patente).filter(Patente.id_patente == 3).update({"xp_minimo" : 4500})
-    session.query(Conquista).filter(Conquista.id_conquista == 20).update({"xp_bonus": 1500})
+    session.query(Aula).filter(Aula.id_aula == 4).delete()
     session.commit()
 except Exception as exception:
     session.rollback()

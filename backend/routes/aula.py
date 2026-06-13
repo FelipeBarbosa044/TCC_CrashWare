@@ -2,6 +2,7 @@
 from fastapi import APIRouter, Depends,HTTPException
 
 #Ferramentas do sqlAlchemy
+from sqlalchemy import select
 
 #Importando Tabelas referente as AULAS
 from models.aula import Aula,Exercicio,Questao,Alternativa
@@ -88,5 +89,18 @@ async def criar_alternativa(dados : AlternativaSchema,session = Depends(pegar_se
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
         raise HTTPException(status_code=400, detail=str(exception))
+
+
+@materia.get('/buscar_materia')
+async def buscar_materia(session = Depends(pegar_sessao)):
+    aulas = session.execute(
+        select(Aula.titulo, Aula.modulo)
+    ).mappings().all()
+    if not aulas:
+        raise HTTPException(status_code=404, detail="Nenhuma Aula encontrada!")
+
+    return {"aulas" : aulas}
+
+
 
 
