@@ -283,7 +283,7 @@ public class Anotacoes_fragment extends Fragment {
                     new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
             SimpleDateFormat formatoSaida =
-                    new SimpleDateFormat("dd/MM/yyyy HH:mm  ", Locale.getDefault());
+                    new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
             Date data = formatoEntrada.parse(dataApi);
 

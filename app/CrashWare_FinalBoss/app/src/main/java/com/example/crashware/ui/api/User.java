@@ -51,6 +51,8 @@ public class User {
         public Integer ofensiva;
         public Boolean adm;
         public String criado_em;
+
+        public String motivo_banimento;
     }
 
     // INTERFACE da API:

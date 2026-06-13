@@ -12,6 +12,7 @@ import com.example.crashware.R;
 import com.example.crashware.ui.api.Auth;
 import com.example.crashware.ui.api.Ofensiva;
 import com.example.crashware.ui.api.User;
+import com.example.crashware.ui.config.Banido;
 import com.example.crashware.ui.config.ThemeConfig;
 
 public class carregamentoLogin  extends  AppCompatActivity{
@@ -109,7 +110,21 @@ public class carregamentoLogin  extends  AppCompatActivity{
                             // 60%
                             barra.setProgress(60);
 
-                            salvarDados(usuario);
+                            //Verifico se usuário está banido/desativado
+                            if(usuario.ativo == false)
+                            {
+                                //Levo para a tela de Banido/Desativado
+                                Intent intent = new Intent(carregamentoLogin.this, Banido.class);
+                                // passando o motivo do banimento
+                                intent.putExtra("motivo_banimento", usuario.motivo_banimento);
+                                startActivity(intent);
+                                finish();
+                            }else{
+                                //Se tiver ativo salvo os dados
+                                salvarDados(usuario);
+                            }
+
+
 
                         }
                     });
