@@ -18,5 +18,7 @@ export * from './Termos';
 export * from './VerificacaoEmail';
 export * from './VerificarTelefone'
 
+export * from './VerPerfil'
+
 //     Aulas
 export * from "./Aulas";

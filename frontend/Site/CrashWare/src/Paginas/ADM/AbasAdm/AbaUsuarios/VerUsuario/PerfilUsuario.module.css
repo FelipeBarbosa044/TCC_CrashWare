@@ -1,0 +1,340 @@
+.corpo {
+    width: 70%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 60px;
+    font-family: 'Montserrat', sans-serif;
+    border: 2px solid var(--borda);
+    border-radius: 15px;
+}
+
+.banner {
+    width: 100%;
+    height: 30vh;
+    top: 0;
+    object-fit: cover;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-image: var(--banner-img);  
+    border-radius: 15px;
+    }
+
+.banner img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    /* opacity: 0.90; */
+}
+
+.container {
+    width: 100%;
+    max-width: 1020px;
+    padding: 0 20px;
+    margin-top: -60px;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 14px;
+
+    top: 30vh;
+}
+
+.apresentacao,
+.blocos > div,
+.Historico_Compras,
+.ConquistasBloco {
+    background: var(--bg-secundario);
+    backdrop-filter: blur(14px);
+    border-radius: 14px;
+    border: 1px solid var(--borda);
+}
+
+.apresentacao {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-around; */
+    gap: 10px;
+    padding: 20px 24px;
+}
+
+
+.foto {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 3px solid var(--cor-primaria);
+    box-shadow: 0 0 16px rgba(119,114,214,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.fotoPerfil{
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.texto h3 {
+    color: var(--Texto1);
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.texto h4{
+    color: var(--Texto1);
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--Texto2);
+    font-size: 12px;
+    opacity: 0.65;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.bolinha {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--cor-primaria);
+    box-shadow: 0 0 6px var(--cor-primaria);
+    animation: pisca 2s ease-in-out infinite;
+}
+
+.Nivel {
+    width: 100%;
+    /* max-width: 280px;  */
+    text-align: end;
+}
+
+.NivelTopo {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+.NivelTopo p{
+    color: var(--cor-primaria);
+    font-weight: 700; 
+    text-transform: uppercase;
+}
+
+.NivelTopo span{ 
+    color: var(--Texto2); 
+    opacity: 0.55; 
+}
+
+.Barra {
+    width: 100%; height: 7px;
+    background: var(--texto-secundario);
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.Progresso {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--Botao-gradiente1), var(--Botao-gradiente2), var(--Botao-gradiente3));
+    box-shadow: 0 0 10px rgba(122,90,216,0.45);
+    transition: width 0.9s cubic-bezier(0.22,1,0.36,1);
+    position: relative; overflow: hidden;
+}
+
+
+.blocos {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+    text-align: center;
+}
+
+/* RESPONSIVO */
+@media (max-width: 860px) {
+
+    .corpo{
+        height: 126vh;
+    }
+
+    .container { 
+        grid-template-columns: 1fr; 
+        margin-top: -55px;
+    }
+
+    .apresentacao, .Direita { 
+        grid-column: 1; 
+        grid-row: auto; 
+    }
+
+    .ConquistasBloco { 
+        height: auto; 
+    }
+
+    .listaConquistas { 
+        max-height: 300px; 
+    }
+
+    .banner { 
+        height: 36vh !important; 
+    }
+
+    .fotoPerfil{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 710px){
+
+    .corpo{
+        height: 136vh;
+    }
+
+    .container{
+        padding-top: 40px;
+    }
+}
+
+@media (max-width: 620px) {
+    
+    .corpo{
+        height: 128vh;
+    }
+    
+    .container { 
+        padding: 20px 12px; 
+        gap: 20px; 
+        margin-top: -45px; 
+        top: 20vh;
+    }
+
+    .banner { 
+        width: 100%;
+        height: 33vh !important;
+        top: 0;
+        position: absolute;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--gradiente1), var(--gradiente2), var(--gradiente3));
+    }
+
+    .apresentacao { 
+        flex-direction: column; 
+        align-items: center; 
+        text-align: center; 
+        padding: 16px; 
+        gap: 10px;
+        margin-top: 70px; 
+    }
+
+    .agruparRaposaDados{
+        flex-wrap: wrap;
+    }
+
+    .texto{
+        min-width: 80%;
+        margin-bottom: 30px;
+    }
+
+    .foto { 
+        width: 80px; 
+        height: 80px; 
+    }
+
+    .fotoPerfil{
+        flex-direction: row;
+    }
+
+    .raposa{
+        justify-content: center;
+    }
+
+    .texto h3 { 
+        font-size: 18px; 
+    }
+
+    .status { 
+        justify-content: center; 
+    }
+
+    .Nivel { 
+        max-width: 100%; 
+    }
+
+    .Conquistas, .Compras, .Gemas { 
+        padding: 14px 8px; 
+        font-size: 22px; 
+    }
+
+    .ofensiva{
+        margin-left: 0px;
+        width: 50%;
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 440px) {
+
+    .corpo{
+        height: 183vh;
+    }
+
+    .agruparRaposaDados{
+        flex-wrap: wrap;
+    }
+
+    .raposa{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .texto{
+        min-width: none;
+    }
+
+    .blocos { 
+        grid-template-columns: 1fr; 
+    }
+
+    .Conquistas, .Compras, .Gemas { 
+        flex-direction: row;
+        justify-content: center; 
+        gap: 12px; 
+        padding: 12px 14px; 
+    }
+
+    .Conquistas p, .Compras p, .Gemas p {
+         margin-top: 0; 
+    }
+
+    .ofensiva {
+    text-align: center;
+    justify-content: space-around;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-left: 0px;
+    }
+
+    .ofensiva img {
+        width: 20px;
+    }
+
+    .ofensivaDias {
+        font-size: 15px;
+    }
+
+    .ofensivaLabel {
+        font-size: 8px;
+    }
+}
