@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { BotoesForm } from '../../../../../Componentes'
 import style from './PerfilUsuario.module.css'
 
 const PerfilUsuario = () => {
@@ -64,6 +65,9 @@ const PerfilUsuario = () => {
                                 </div>
                             </div>
                         </div>
+                        <BotoesForm 
+                            texto="Voltar"
+                        />
                     </div>
                 </div>
             </div>

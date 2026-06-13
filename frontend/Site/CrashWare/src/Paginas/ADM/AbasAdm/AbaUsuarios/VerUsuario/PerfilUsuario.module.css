@@ -78,14 +78,14 @@
 }
 
 .texto h3 {
-    color: var(--Texto1);
+    color: var(--Texto2);
     font-size: 20px;
     font-weight: 800;
     margin-bottom: 4px;
 }
 
 .texto h4{
-    color: var(--Texto1);
+    color: var(--Texto2);
     font-size: 16px;
     font-weight: 800;
     margin-bottom: 4px;
