@@ -143,7 +143,6 @@ public class Configuracoes_Fragment extends Fragment {
             public void onClick(View view)
             {
                 salvarTema(ThemeConfig.DARK);
-
             }
         });//
 
@@ -152,7 +151,6 @@ public class Configuracoes_Fragment extends Fragment {
             public void onClick(View view)
             {
                 salvarTema(ThemeConfig.GELO);
-
             }
         });//
 
@@ -160,7 +158,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-
+                //salvarTema(ThemeConfig.LEITURA);
             }
         });//
 
@@ -168,8 +166,7 @@ public class Configuracoes_Fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-
-
+                //salvarTema(ThemeConfig.NOITE);
             }
         });
 
@@ -356,10 +353,13 @@ public class Configuracoes_Fragment extends Fragment {
                 .putString(ThemeConfig.KEY_THEME, tema)
                 .commit();
 
-        ThemeConfig.aplicarTema(requireContext());
+        ThemeConfig.aplicarTema(requireActivity());
 
         // 1. Pega a "Intent" que inicia o seu aplicativo do zero (geralmente a sua Splash Screen ou Login)
-        Intent intent = requireContext().getPackageManager().getLaunchIntentForPackage(requireContext().getPackageName());
+        //Intent intent = requireContext().getPackageManager().getLaunchIntentForPackage(requireContext().getPackageName());
+
+        Intent intent = requireContext().getPackageManager()
+                .getLaunchIntentForPackage(requireContext().getPackageName());
 
         if (intent != null)
         {
@@ -374,6 +374,10 @@ public class Configuracoes_Fragment extends Fragment {
             Runtime.getRuntime().exit(0);
 
         }//Método que salva a escolha do usuário para alterar o tema
+        else
+        {
+            requireActivity().recreate();
+        }
 
     }
 }

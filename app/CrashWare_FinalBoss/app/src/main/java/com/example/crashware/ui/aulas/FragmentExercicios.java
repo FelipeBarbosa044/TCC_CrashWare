@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.crashware.R;
+import com.example.crashware.ui.navegacao.Home;
+import com.example.crashware.ui.perfil.AlterarDados_Fragment;
 
 import android.animation.ObjectAnimator;
 import android.view.animation.DecelerateInterpolator;
@@ -73,7 +75,7 @@ public class FragmentExercicios extends Fragment
 
         txtPorcentagem      = view.findViewById(R.id.txtPorcentagem     );
         BarraProgressoAula  = view.findViewById(R.id.BarraProgressoAula );
-        btnProximaQuestao   = view.findViewById(R.id.btnProximaQuestao  );
+        btnProximaQuestao   = view.findViewById(R.id.btnConcluirAula);
         selecionar1         = view.findViewById(R.id.selecionar1        );
         selecionar2         = view.findViewById(R.id.selecionar2        );
         selecionar3         = view.findViewById(R.id.selecionar3        );
@@ -163,6 +165,10 @@ public class FragmentExercicios extends Fragment
 
                  ResetarSelecao();
 
+
+                    Fragment FragmentTaxaAcertos = new FragmentTaxaAcertos();
+                    ((ContainerSoftware) requireActivity()).irParaFragment(FragmentTaxaAcertos);
+
                 }//Se "Selecionado" for igual a 3,Resposta correta
 
                 else
@@ -213,7 +219,7 @@ public class FragmentExercicios extends Fragment
         animacaoBarra.setInterpolator(new DecelerateInterpolator());
 
         animacaoBarra.start();
-        BarraProgressoAula.setProgress(novoProgresso);
+       // BarraProgressoAula.setProgress(novoProgresso);
 
         // Texto animado
         ValueAnimator animacaoTexto = ValueAnimator.ofInt(

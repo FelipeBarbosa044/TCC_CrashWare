@@ -263,7 +263,7 @@ public class Perfil_Fragment extends Fragment {
                                                 new Conquista(
                                                         nome,
                                                         descricao,
-                                                        R.drawable.softwarehome_icon,
+                                                        R.drawable.raposasoft_icon,
                                                         R.drawable.bg_cardconquista_software
                                                 );
                                         conquistasRecentes.add(novaConquista);

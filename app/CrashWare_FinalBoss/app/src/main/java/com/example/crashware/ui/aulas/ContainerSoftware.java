@@ -42,5 +42,24 @@ public class ContainerSoftware extends AppCompatActivity {
 
 
 
+
+
+    }
+    public void irParaFragment(Fragment novoFragmento) {
+        String tag = novoFragmento.getClass().getSimpleName();
+        Fragment existente = getSupportFragmentManager().findFragmentByTag(tag);
+
+        if (existente != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentSoftware_Container, existente, tag)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        else {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentSoftware_Container, novoFragmento, tag)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 }

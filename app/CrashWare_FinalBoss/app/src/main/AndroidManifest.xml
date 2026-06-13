@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CrashWare">
         <activity
+            android:name=".ui.config.Banido"
+            android:exported="false" />
+        <activity
             android:name=".ui.login.ConfirmarTelefone"
             android:exported="false" />
         <activity
