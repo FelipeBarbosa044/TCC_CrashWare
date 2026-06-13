@@ -82,7 +82,9 @@ async def deletar_conquista(dados : DeletarConquistaSchema ,session = Depends(pe
 
 @adm.get('/buscar_usuarios')
 async def buscar_usuarios(session = Depends(pegar_sessao)):
+
     quantidade_usuarios = session.query(Usuarios).count()
+
     usuarios = session.execute(
         select(
             Usuarios.nome_usuario,
@@ -97,7 +99,7 @@ async def buscar_usuarios(session = Depends(pegar_sessao)):
     #Pego a quantidade de
 
     #Usuários que não verificaram o email
-    usuariosnaoAutenticados = session.query(Usuarios).filter(Usuarios.email_verificado == False).count()
+    usuariosNaoAutenticados = session.query(Usuarios).filter(Usuarios.email_verificado == False).count()
 
     #Usuários que estão Desativados/Banidos
     usuariosDesativados = session.query(Usuarios).filter(Usuarios.ativo == False).count()
@@ -107,7 +109,7 @@ async def buscar_usuarios(session = Depends(pegar_sessao)):
     return {
         "quantidade" : quantidade_usuarios,
         "usuarios" : usuarios,
-        "naoAutenicados" : usuariosnaoAutenticados,
+        "naoAutenticados" : usuariosNaoAutenticados,
         "desativados" : usuariosDesativados
         }
 

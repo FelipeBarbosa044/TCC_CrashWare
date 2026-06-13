@@ -16,7 +16,23 @@ const LayoutLogado = () => {
         localStorage.getItem('TemaSelecionado') === 'Escuro'
     );
 
-    let usuario = JSON.parse(localStorage.getItem("dados"));
+    const [adm, setAdm] = useState(() => {
+    const dados = JSON.parse(localStorage.getItem("dados"));
+    return dados?.adm ?? false;
+    });
+
+    useEffect(() => {
+
+        const aoAtualizarDados = () => {
+        const dados = JSON.parse(localStorage.getItem("dados"));
+        setAdm(dados?.adm ?? false);
+        };
+
+        
+
+        window.addEventListener("dadosAtualizados", aoAtualizarDados);
+        return () => window.removeEventListener("dadosAtualizados", aoAtualizarDados);
+    }, []);
 
     //Hamburger
     const [menuAberto, setMenuAberto] = useState(false);
@@ -49,7 +65,7 @@ const LayoutLogado = () => {
                         <img src={temaEscuro ? perfilIconEscuro : perfilIconClaro} alt="perfil" />
                     </Link>
 
-                    {usuario?.adm == true ? (
+                    {adm == true ? (
                         <>
                         <Link to="relatorio">
                             <p>ADM</p>

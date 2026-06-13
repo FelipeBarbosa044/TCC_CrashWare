@@ -119,6 +119,9 @@ const ConteudoHome = () => {
         
     ]);
 
+    // Avisa o LayoutLogado que os dados do usuário chegaram
+    window.dispatchEvent(new Event("dadosAtualizados"));
+
     setCarregando(false);
     }
 
