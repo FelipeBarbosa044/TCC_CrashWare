@@ -52,11 +52,6 @@ const AbaUsuarios = () => {
 
     useEffect(() => {
         //Quando a pag for carregada
-        setPopup({
-            tipo: 'aviso',
-            titulo: 'Usuários',
-            mensagem: 'Listando Usuários...'
-        });
         carregarUsuarios();
 
     }, []);

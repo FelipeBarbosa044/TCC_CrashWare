@@ -122,11 +122,8 @@ async def banir_usuario(dados : UsuarioSchema ,session = Depends(pegar_sessao)):
     if (usuario.ativo == False):
         raise HTTPException(status_code=409, detail="Usuario já está Desativado")
 
-    if (usuario.email == "felipebarbosaribeiro197@gmail.com" or usuario.email == "resferagamer@gmail.com"):
-        raise HTTPException(status_code=403, detail="O Felipe Não pode ser Desativado")
-
-    # if usuario.admin == True:
-    #     raise HTTPException(status_code=403, detail="Administradores Não pode ser Desativados")
+    if usuario.admin == True:
+        raise HTTPException(status_code=403, detail="Administradores Não pode ser Desativados")
 
     try:
         # Desativo o Usuario
@@ -172,11 +169,8 @@ async def removerFoto_usuario(dados : UsuarioSchema ,session = Depends(pegar_ses
     if (usuario.foto == 'default.png'):
         raise HTTPException(status_code=404, detail="Usuário não tem foto!")
 
-    if (usuario.email == "felipebarbosaribeiro197@gmail.com" or usuario.email == "resferagamer@gmail.com"):
-        raise HTTPException(status_code=403, detail="O Felipe Não Pode ter a foto Removida")
-
-    # if usuario.admin == True:
-    #     raise HTTPException(status_code=403, detail="Administradores Não pode ter a Foto Removida")
+    if usuario.admin == True:
+        raise HTTPException(status_code=403, detail="Administradores Não pode ter a Foto Removida")
 
     try:
         ##Deleto a pasta que contem o id dele no bucket
@@ -214,11 +208,8 @@ async def removerBanner_usuario(dados : UsuarioSchema ,session = Depends(pegar_s
     if(usuario.banner == 'default.png'):
         raise HTTPException(status_code=404,detail="Usuário não tem banner!")
 
-    if (usuario.email == "felipebarbosaribeiro197@gmail.com" or usuario.email == "resferagamer@gmail.com"):
-        raise HTTPException(status_code=403, detail="O Felipe Não Pode ter o Banner Removido")
-
-    # if usuario.admin == True:
-    #     raise HTTPException(status_code=403, detail="Administradores Não pode ter from Banner Removido")
+    if usuario.admin == True:
+        raise HTTPException(status_code=403, detail="Administradores Não pode ter o Banner Removido")
 
     try:
         url_delete = f"{SUPABASE_URL}/storage/v1/object/{SUPABASE_BUCKET2}"
@@ -256,8 +247,8 @@ async def redefinir_nome(dados : UsuarioSchema,session = Depends(pegar_sessao)):
     if(usuario.nome_usuario == "Usuário"):
         raise HTTPException(status_code=403, detail="Esse Nome não pode ser Redefinido")
 
-    if (usuario.email == "felipebarbosaribeiro197@gmail.com" or usuario.email == "resferagamer@gmail.com"):
-        raise HTTPException(status_code=403, detail="O Felipe Não Pode ter o Nome Redefinido")
+    if usuario.admin == True:
+        raise HTTPException(status_code=403, detail="Administradores Não pode ter o Nome Redefinido")
 
     try:
         usuario.nome_usuario = "Usuário"
