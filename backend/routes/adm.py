@@ -92,7 +92,9 @@ async def buscar_usuarios(session = Depends(pegar_sessao)):
             Usuarios.id_usuario,
             Usuarios.updated_at,
             Usuarios.ativo,
-            Usuarios.email
+            Usuarios.email,
+            Usuarios.foto,
+            Usuarios.banner
         )
         .order_by(Usuarios.id_usuario)
     ).mappings().all()
