@@ -74,6 +74,7 @@ const PerfilUsuario = () => {
                         </div>
                         <BotoesForm 
                             texto="Voltar"
+                            onClick={() => Navegacao('/usuarios')}
                         />
                     </div>
                 </div>
