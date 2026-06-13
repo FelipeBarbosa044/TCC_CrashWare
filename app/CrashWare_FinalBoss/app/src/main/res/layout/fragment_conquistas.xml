@@ -11,6 +11,7 @@ android:fillViewport="true">
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!-- Header -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -21,8 +22,9 @@ android:fillViewport="true">
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Botão -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/addAnotacao"
+            android:id="@+id/bgvoltar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -32,18 +34,17 @@ android:fillViewport="true">
             app:layout_constraintTop_toTopOf="@id/header"
             app:layout_constraintStart_toStartOf="parent">
 
-            <!-- Adicionar Anotacao -->
+            <!-- Seta -->
             <ImageView
                 android:id="@+id/imgVoltarCampos"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/seta_icon"
-                app:layout_constraintStart_toStartOf="@id/addAnotacao"
-                app:layout_constraintTop_toTopOf="@id/addAnotacao"
-                />
-
+                app:layout_constraintStart_toStartOf="@id/bgvoltar"
+                app:layout_constraintTop_toTopOf="@id/bgvoltar" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Voltar -->
         <TextView
             android:id="@+id/txtVoltar"
             android:layout_width="wrap_content"
@@ -54,8 +55,8 @@ android:fillViewport="true">
             android:text="Voltar"
             android:textColor="?attr/colorOnSurface"
             android:textSize="24sp"
-            app:layout_constraintStart_toEndOf="@id/addAnotacao"
-            app:layout_constraintTop_toTopOf="@id/addAnotacao" />
+            app:layout_constraintStart_toEndOf="@id/bgvoltar"
+            app:layout_constraintTop_toTopOf="@id/bgvoltar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Titulo Conquistas -->
@@ -111,7 +112,7 @@ android:fillViewport="true">
             android:textColor="?attr/colorOnSurface"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/rvConquistas"
+            app:layout_constraintBottom_toTopOf="@+id/rvConquistasAdquiridas"
             app:layout_constraintEnd_toEndOf="@+id/cardConquistasAdquiridas"
             app:layout_constraintStart_toStartOf="@+id/cardConquistasAdquiridas"
             app:layout_constraintTop_toTopOf="@id/cardConquistasAdquiridas" />
