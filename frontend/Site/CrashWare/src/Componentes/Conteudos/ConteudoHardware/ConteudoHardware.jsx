@@ -1,5 +1,4 @@
 import Style from "./conteudoHardware.module.css";
-
 import hardwareIcon from "../../../fotos/hardware.svg";
 import certoIcon from "../../../fotos/certo.svg";
 import playIcon from "../../../fotos/play.svg";
@@ -7,8 +6,9 @@ import arduinoIcon from "../../../fotos/arduino.svg";
 
 import { PopUp } from "../../pop-up";
 
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Aula } from "../../../../funcoes/aula";
 
 const conteudoHardware_Introducao = [
     { descricao: "Motivação e mentalidade", to: "/MotivacaoMentalidade"},
@@ -40,6 +40,8 @@ const totalAulas = totalAulasComponentes +
 
 const Item_ConteudoHardware = ({ descricao, to, onMarcarFeito }) => {
 
+    
+
     const [jaFez, setJaFez] = useState(() => {
         const salvo = localStorage.getItem(`aula-${descricao}`);
         return salvo === "true";
@@ -58,6 +60,8 @@ const Item_ConteudoHardware = ({ descricao, to, onMarcarFeito }) => {
         onMarcarFeito(novoStatus);
     }
 
+
+
     return (
         <div className={Style.item}>
             <img
@@ -75,6 +79,12 @@ const Item_ConteudoHardware = ({ descricao, to, onMarcarFeito }) => {
 
 
 const ConteudoHardware = () => {
+
+    //Objeto que contém a classe "Aula"
+    const aula = new Aula();
+
+    //Popup
+    const [popup, setPopup] = useState(null);
 
     const [quantidadeFeita, setQuantidadeFeita] = useState(() => {
 
@@ -105,8 +115,36 @@ const ConteudoHardware = () => {
         );
     }
 
+    async function BuscarAulas() {
+        setPopup({
+                tipo: 'aviso',
+                titulo: 'Aulas',
+                mensagem: 'Buscando suas Aulas...'
+            });
+
+        //Busco as anotações
+        const aulas = await aula.buscar_hardware();
+
+
+    }
+    //Busco as aulas sempre que a pag for carregada
+    useEffect(() => {
+
+        BuscarAulas();
+
+    }, [])
+
     return (
         <>
+        
+            {popup && (
+                <PopUp
+                    tipo={popup.tipo}
+                    titulo={popup.titulo}
+                    mensagem={popup.mensagem}
+                    onFechar={() => setPopup(null)}
+                />
+            )}
             <main className={Style.corpo}>
                 
                 <section className={Style.apresentacao}>

@@ -6,8 +6,13 @@ import playIcon from "../../../fotos/play.svg";
 import htmlIcon from "../../../fotos/html.svg";
 import cssIcon from "../../../fotos/css.svg";
 
-import { useState } from "react";
+
+import { PopUp } from "../../pop-up";
+
+
+import { useState , useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Aula } from "../../../../funcoes/aula";
 
 const conteudoSoftware_Introducao = [
     { descricao: "Introdução à Tecnologia", to: "" },
@@ -83,6 +88,12 @@ const Item_ConteudoSoftware = ({
 
 const ConteudoSoftware = () => {
 
+    //Objeto que contém a classe "Aula"
+    const aula = new Aula();
+
+    //Popup
+    const [popup, setPopup] = useState(null);
+
     const [quantidadeFeita, setQuantidadeFeita] =
         useState(() => {
 
@@ -114,8 +125,36 @@ const ConteudoSoftware = () => {
         );
     }
 
+    async function BuscarAulas() {
+        setPopup({
+                tipo: 'aviso',
+                titulo: 'Aulas',
+                mensagem: 'Buscando suas Aulas...'
+            });
+
+        //Busco as anotações
+        const aulas = await aula.buscar_software();
+
+
+    }
+    //Busco as aulas sempre que a pag for carregada
+    useEffect(() => {
+
+        BuscarAulas();
+
+    }, [])
+
     return (
         <>
+
+            {popup && (
+                <PopUp
+                    tipo={popup.tipo}
+                    titulo={popup.titulo}
+                    mensagem={popup.mensagem}
+                    onFechar={() => setPopup(null)}
+                />
+            )}
             <main className={Style.corpo}>
 
                 <section className={Style.apresentacao}>
