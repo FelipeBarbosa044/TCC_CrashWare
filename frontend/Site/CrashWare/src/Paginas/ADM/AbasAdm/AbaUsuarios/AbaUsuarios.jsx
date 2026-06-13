@@ -110,7 +110,7 @@ const AbaUsuarios = () => {
         }
 
         const resultado = usuariosInterface.filter((c) =>
-            `${c.nome}${c.criado} ${c.status} ${c.editado}`
+            `${c.nome}${c.criado} ${c.status} ${c.editado}${c.email}`
                 .toLowerCase()
                 .includes(texto)
         );
