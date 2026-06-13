@@ -126,6 +126,8 @@ const AbaCriarMateria = () => {
             tituloAula: artigo.tituloAula,
             tipo: artigo.tipo,
             modulo: artigo.modulo,
+            gemas : artigo.moedas,
+            xp : artigo.xp,
 
             subtitulo1: artigo.subtitulos[0].subtitulo,
             paragrafo1: artigo.subtitulos[0].paragrafo,
@@ -192,7 +194,13 @@ const AbaCriarMateria = () => {
         //Lista das Questões
         const questoesAula = [novaAula.questao1,novaAula.questao2,novaAula.questao3,novaAula.questao4,novaAula.questao5]
 
-        await aula.criar_aula(descricaoAula,conteudoAula,questoesAula,5,500,setPopup)
+         setPopup({
+            tipo: 'aviso',
+            titulo: 'Aula',
+            mensagem: 'Criando Aula... Aguarde um momento.\nIsso pode levar alguns minutos...'
+        });
+        
+        await aula.criar_aula(descricaoAula,conteudoAula,questoesAula,novaAula.gemas,novaAula.xp,setPopup)
 
 
         aulasArray.push(novaAula);
@@ -288,11 +296,12 @@ const AbaCriarMateria = () => {
                         <h1>Recompensas</h1>
 
                         <div className={Style.inputs} id={Style.moedasInput}>
-                            <label htmlFor="moedasInput">Moedas</label>
+                            <label htmlFor="moedasInput">Gemas</label>
                             <input
                                 type="number"
+                                min={0}
                                 id='moedasInput'
-                                placeholder='Digite a quantidade de moedas'
+                                placeholder='Digite a quantidade de gemas'
                                 max={100}
                                 value={artigo.moedas}
                                 onChange={e => RecompensaChange('moedas', e.target.value)}
@@ -301,11 +310,12 @@ const AbaCriarMateria = () => {
                         </div>
 
                         <div className={Style.inputs} id={Style.xp}>
-                            <label htmlFor="xpInput">Xp</label>
+                            <label htmlFor="xpInput">XP</label>
                             <input
-                                type="text"
+                                type="number"
+                                min={0}
                                 id='xpInput'
-                                placeholder='Digite a quantidade de xp'
+                                placeholder='Digite a quantidade de XP'
                                 value={artigo.xp}
                                 onChange={e => RecompensaChange('xp', e.target.value)}
                             />

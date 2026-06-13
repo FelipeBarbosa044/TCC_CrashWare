@@ -2,6 +2,7 @@ export class Aula
 {
     async criar_aula(descricaoAula,conteudoAula,questoes,moeda_bonus,xp_bonus,setPopup)
     {
+       
         //Pego a descrição da Aula
         const titulo = descricaoAula[0];
         const tipo = descricaoAula[1];
