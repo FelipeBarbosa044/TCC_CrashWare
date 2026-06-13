@@ -37,7 +37,11 @@ const PerfilUsuario = () => {
             {/* ── Banner ─────────────────────────────────────── */}
             <div className={style.banner}>
                 <img
-                    src={`https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/banner/${banner}`} alt="Banner do usuário"
+                    src={`https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/banner/${banner}`}
+                    onError={(e) => {
+                        e.target.src = "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/banner/default.png"
+                    }}
+                     alt="Banner do usuário"
                 />
 
             </div>
@@ -49,6 +53,9 @@ const PerfilUsuario = () => {
                             <img
                                 className={style.foto}
                                 src={`https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/${foto}`}
+                                 onError={(e) => {
+                                    e.target.src = "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/default.png"
+                                }}
                                 alt="Foto de perfil"
                             />
                         </div>
