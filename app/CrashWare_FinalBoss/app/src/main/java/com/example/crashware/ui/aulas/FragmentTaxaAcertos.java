@@ -1,5 +1,7 @@
 package com.example.crashware.ui.aulas;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +9,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.crashware.R;
+import com.example.crashware.ui.api.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +30,13 @@ public class FragmentTaxaAcertos extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    ImageView imgVoltar;
+    Button btnConcluirAula;
+    SharedPreferences prefs;
+
+
+
 
     public FragmentTaxaAcertos() {
         // Required empty public constructor
@@ -61,6 +73,52 @@ public class FragmentTaxaAcertos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_taxa_acertos, container, false);
+        View view = inflater.inflate(R.layout.fragment_taxa_acertos, container, false);
+
+        prefs = requireContext().getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
+
+        imgVoltar = view.findViewById(R.id.imgVoltarCampos);
+        btnConcluirAula = view.findViewById(R.id.btnConcluirAula);
+
+
+        imgVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                requireActivity()//puxa o fragment atual
+                        .getSupportFragmentManager()//acessa o gerenciador das fragments
+                        .popBackStack();//simula o botão "voltar" do celular
+            }
+        });//
+
+        btnConcluirAula.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                User.Conquista(24,prefs, getActivity(), new User.ConquistasCallback()
+                {
+                    @Override
+                    public void onSuccess()
+                    {
+
+                    }
+                });
+                User.Conquista(28,prefs, getActivity(), new User.ConquistasCallback()
+                {
+                    @Override
+                    public void onSuccess()
+                    {
+
+                    }
+                });
+            }
+        });
+
+
+
+
+
+        return view;
+
     }
 }

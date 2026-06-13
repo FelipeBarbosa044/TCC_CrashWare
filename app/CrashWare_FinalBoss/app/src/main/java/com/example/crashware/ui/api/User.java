@@ -852,9 +852,9 @@ public class User {
                     String tipo = tipo_conquista != null ? tipo_conquista.trim() : "";
 
                     if ("Hardware".equalsIgnoreCase(tipo)) {
-                        imgIcone.setImageResource(R.drawable.hardware_icon);
+                        imgIcone.setImageResource(R.drawable.raposahard_icon);
                     } else if ("Software".equalsIgnoreCase(tipo)) {
-                        imgIcone.setImageResource(R.drawable.softwarehome_icon);
+                        imgIcone.setImageResource(R.drawable.raposasoft_icon);
                     } else if ("Outro".equalsIgnoreCase(tipo)) {
                         imgIcone.setImageResource(R.drawable.raposa_icon);
                     } else {
@@ -1311,7 +1311,9 @@ public class User {
                             .putInt("moedas",gemas)
                             .apply();
 
-                } else {
+                }
+                else
+                {
                     //Retorna erro caso a reqsição estiver errada
 
                     String erro = "Erro ao Atualizar XP e GEMAS";
