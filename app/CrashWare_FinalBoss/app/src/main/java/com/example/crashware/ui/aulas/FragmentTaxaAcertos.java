@@ -148,15 +148,7 @@ public class FragmentTaxaAcertos extends Fragment {
                     {
 
                     }
-                });
-                User.Conquista(28,prefs, getActivity(), new User.ConquistasCallback()
-                {
-                    @Override
-                    public void onSuccess()
-                    {
-
-                    }
-                });
+                });//Ganha a conquista ou xp e gemas
             }
         });
 

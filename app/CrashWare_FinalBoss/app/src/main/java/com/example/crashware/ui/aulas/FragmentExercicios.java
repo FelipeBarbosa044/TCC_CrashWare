@@ -18,8 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.crashware.R;
-import com.example.crashware.ui.navegacao.Home;
-import com.example.crashware.ui.perfil.AlterarDados_Fragment;
 
 import android.animation.ObjectAnimator;
 import android.view.animation.DecelerateInterpolator;
@@ -32,27 +30,59 @@ public class FragmentExercicios extends Fragment
     ConstraintLayout selecionar1, selecionar2, selecionar3, selecionar4;
     Button btnProximaQuestao;
     ProgressBar BarraProgressoAula;
-    TextView txtPorcentagem;
+    TextView txtPorcentagem,
+    txtPergunta, txtQuestao1, txtQuestao2, txtQuestao3, txtQuestao4;
     ImageView imgVoltarExercicios;
 
-    int Selecionado = -1;
+    // Controle de estado
+    int Selecionado  = -1; // -1 = nenhuma opção selecionada
+    int PerguntaAtual = 1; // começa na primeira pergunta
+
+    // Total de questões
+    private static final int TOTAL_QUESTOES = 10;
 
 
+    // Textos das perguntas — edite aqui para mudar o conteúdo
+
+    String[] perguntas = {
+            "Qual é o objetivo principal do curso apresentado no CrashWare?",
+            "Pergunta 2?",
+            "Pergunta 3?",
+            "Pergunta 4?",
+            "Pergunta 5?",
+            "Pergunta 6?",
+            "Pergunta 7?",
+            "Pergunta 8?",
+            "Pergunta 9?",
+            "Pergunta 10?"
+    };
 
 
+    // Alternativas de cada questão
+    // Cada linha = {opção1, opção2, opção3, opção4}
+
+    String[][] questoes = {
+            {"Ensinar apenas a montar computadores", "Ensinar apenas programação", "Ensinar os fundamentos de forma clara e progressiva", "Ensinar somente manutenção avançada"},
+            {"A2", "B2", "C2", "D2"},
+            {"A3", "B3", "C3", "D3"},
+            {"A4", "B4", "C4", "D4"},
+            {"A5", "B5", "C5", "D5"},
+            {"A6", "B6", "C6", "D6"},
+            {"A7", "B7", "C7", "D7"},
+            {"A8", "B8", "C8", "D8"},
+            {"A9", "B9", "C9", "D9"},
+            {"A10", "B10", "C10", "D10"}
+    };
+
+    // Qual opção é a correta em cada questão (1 a 4)
+    // Índice 0 = questão 1, índice 1 = questão 2, etc.
+
+    int[] respostasCorretas = {3, 1, 2, 4, 3, 1, 2, 3, 4, 2};
 
     public FragmentExercicios() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_Exercicios.
-     */
     // TODO: Rename and change types and number of parameters
     public static FragmentExercicios newInstance(String param1, String param2)
     {
@@ -76,17 +106,24 @@ public class FragmentExercicios extends Fragment
 
         txtPorcentagem      = view.findViewById(R.id.txtPorcentagem     );
         BarraProgressoAula  = view.findViewById(R.id.BarraProgressoAula );
-        btnProximaQuestao   = view.findViewById(R.id.btnConcluirAula);
+        btnProximaQuestao   = view.findViewById(R.id.btnConcluirAula    );
         selecionar1         = view.findViewById(R.id.selecionar1        );
         selecionar2         = view.findViewById(R.id.selecionar2        );
         selecionar3         = view.findViewById(R.id.selecionar3        );
         selecionar4         = view.findViewById(R.id.selecionar4        );
-        imgVoltarExercicios = view.findViewById(R.id.imgVoltarCampos);
+        imgVoltarExercicios = view.findViewById(R.id.imgVoltarCampos    );
+        txtPergunta         = view.findViewById(R.id.txtPergunta        );
+        txtQuestao1         = view.findViewById(R.id.txtQuestao1        );
+        txtQuestao2         = view.findViewById(R.id.txtQuestao2        );
+        txtQuestao3         = view.findViewById(R.id.txtQuestao3        );
+        txtQuestao4         = view.findViewById(R.id.txtQuestao4        );
 
-        Toast RespostaCerta       = Toast.makeText(getContext(), "Resposta Certa!  ", LENGTH_LONG);
-        Toast RespostaErrada      = Toast.makeText(getContext(), "Resposta Errada!  ", LENGTH_LONG);
+        Toast RespostaCerta       = Toast.makeText(getContext(), "Resposta Certa!  ", LENGTH_SHORT);
+        Toast RespostaErrada      = Toast.makeText(getContext(), "Resposta Errada!  ", LENGTH_SHORT);
         Toast SelecioneResposta   = Toast.makeText(getContext(), "Selecione uma resposta antes de prosseguir!  ", LENGTH_LONG);
         Toast RespostaSelecionada = Toast.makeText(getContext(), "Resposta Selecionada  ", LENGTH_SHORT);
+
+        AtualizarPergunta();
 
         imgVoltarExercicios.setOnClickListener(new View.OnClickListener()
         {
@@ -153,42 +190,46 @@ public class FragmentExercicios extends Fragment
             public void onClick(View v)
             {
                 // Nenhuma resposta selecionada
-                if (Selecionado == -1)
-                {
+                if (Selecionado == -1) {
                     SelecioneResposta.show();
                     return;
                 }
 
-                // Conta a questão respondida
+                // Conta mais uma questão respondida
                 ContadorQuestoes.totalQuestoes++;
 
-                // Verifica se acertou
-                if (Selecionado == 3)
-                {
+                // Verifica se a resposta está correta usando o array de respostas
+                // PerguntaAtual começa em 1, então subtrai 1 para acessar o índice do array
+                if (Selecionado == respostasCorretas[PerguntaAtual - 1]) {
                     ContadorQuestoes.totalAcertos++;
-
                     RespostaCerta.show();
-
-                    AtualizarBarra();
+                    AtualizarBarra(); // avança a barra de progresso
                 }
                 else
                 {
                     RespostaErrada.show();
                 }
 
-                // Limpa seleção
+                // Reseta a seleção para a próxima questão
                 Selecionado = -1;
                 ResetarSelecao();
 
-                // Vai para o próximo fragment
-                Fragment fragmentTaxaAcertos = new FragmentTaxaAcertos();
+                // Avança para a próxima pergunta
+                PerguntaAtual++;
 
-                ((ContainerSoftware) requireActivity())
-                        .irParaFragment(fragmentTaxaAcertos);
+                // Verifica se ainda há questões ou se chegou ao fim
+                if (PerguntaAtual > TOTAL_QUESTOES) {
+                    // se todas as questões respondidas vai para tela de resultado
+                    Fragment fragmentTaxaAcertos = new FragmentTaxaAcertos();
+                    ((ContainerSoftware) requireActivity()).irParaFragment(fragmentTaxaAcertos);
+                }
+                else
+                {
+                    // Ainda há questões → atualiza o texto na tela
+                    AtualizarPergunta();
+                }
             }
         });
-
-
 
 
         return view;
@@ -254,6 +295,19 @@ public class FragmentExercicios extends Fragment
         selecionar3.setBackgroundResource(R.drawable.btn_alternativa);
         selecionar4.setBackgroundResource(R.drawable.btn_alternativa);
     }//
+
+    private void AtualizarPergunta()
+    {
+        int i = PerguntaAtual - 1; // converte para índice do array (começa em 0)
+
+        txtPergunta.setText(perguntas[i]);
+        txtQuestao1.setText(questoes[i][0]);
+        txtQuestao2.setText(questoes[i][1]);
+        txtQuestao3.setText(questoes[i][2]);
+        txtQuestao4.setText(questoes[i][3]);
+    }
+
+
 
 
 }
