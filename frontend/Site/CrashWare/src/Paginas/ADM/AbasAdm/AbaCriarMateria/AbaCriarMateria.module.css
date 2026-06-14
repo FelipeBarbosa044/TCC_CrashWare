@@ -49,7 +49,7 @@
     width: 81%;
 }
 
-.inputs input, .Enunciado input{
+.inputs input[type="number"]{
     width: 85%;
     margin-left: 15px;
     padding: 6px;
@@ -57,19 +57,26 @@
     border-radius: 10px;
     border: 2px solid black;
     margin-top: 6px;
-    background-color: var(--bg-secundario);
+    background-color: rgba(255, 255, 255, 0.897);
     font-size: 16px;
-    color: var(--Texto3);
+    min-height: 40px;
+    height: auto;
+    color: #000000e8;
+    font-weight: 700;
 }
 
-
-.inputs input:focus, .Enunciado input:focus{
+.inputs input[type="number"]:focus{
     outline: none;
-    cursor: auto;
+}
+
+.inputs .textareaExpandivel{
+    width: 85%;
+    margin-left: 15px;
+    margin-top: 6px;
 }
 
 .inputs p, .Enunciado p{
-    color: var(--Texto2);
+    color: var(--Texto3);
     font-weight: 700;
     font-size: 12px;
     text-align: end;
@@ -77,7 +84,6 @@
     font-family: "Montserrat";
 }
 
-/* linha que agrupa Tipo e Módulo lado a lado */
 .tipoModuloLinha{
     display: flex;
     flex-direction: row;
@@ -96,7 +102,6 @@
     cursor: default;
 }
 
-
 .tipo label{
     font-family: "Montserrat";
     color: var(--Texto2);
@@ -111,13 +116,11 @@
     gap: 10px;
 }
 
-
 .opcoesTipo{
     display: flex;
     align-items: center;
     gap: 10px;
 }
-
 
 .opcoesTipo img{
     width: 3vw;
@@ -130,13 +133,10 @@
     font-weight: 700;
 }
 
-/*Cursor Ativado ao clicar no tipo*/
 .opcoesTipo:hover input{
-    
     cursor: pointer;
 }
 
-/* módulo */
 .modulo{
     display: flex;
     flex-direction: column;
@@ -166,7 +166,7 @@
 }
 
 .modulo option{
-    background-color: var(--Cadastrar); 
+    background-color: var(--Cadastrar);
     color: var(--Texto3);
     border: 1px solid var(--bg-principal);
 }
@@ -227,8 +227,6 @@
     transition: ease 0.3s;
 }
 
-/* exercicios */
-
 .parteExercicios{
     background-color: var(--bg-secundario);
     border: 2px solid var(--borda);
@@ -248,8 +246,6 @@
     color: var(--Texto2);
     font-size: 36px;
 }
-
-/* abas de questões */
 
 .abasQuestoes{
     display: flex;
@@ -302,11 +298,9 @@
     margin-bottom: 2px;
 }
 
-.Enunciado input{
+.Enunciado .textareaExpandivel{
     width: 100%;
     background-color: var(--bg-secundario);
-    border: 2px solid black;
-    border-radius: 12px;
     color: var(--Texto2);
 }
 
@@ -326,11 +320,10 @@
 }
 
 .alternativas label{
-    font-size: 26px !important; 
+    font-size: 26px !important;
 }
 
 .opcoesAlternativa{
-
     margin-left: 16px;
     display: flex;
     align-items: center;
@@ -343,23 +336,40 @@
     margin-right: 30px;
 }
 
-.opcoesAlternativa input{
-    padding: 10px;
-    padding-left: 30px;
-    max-height: 30px;
+.opcoesAlternativa .textareaExpandivel{
     width: 94%;
-    background-color: none;
-    border: 2px solid black;
-    border-radius: 12px;
-}
-
-.opcoesAlternativa input:focus{
-    cursor: auto;
-    outline: none;
 }
 
 #recompensas{
     margin-top: 90px;
+}
+
+.textareaExpandivel{
+    min-height: 45px;
+
+    resize: none;
+    overflow: hidden;
+
+    padding: 12px;
+    padding-left: 22px;
+
+    border-radius: 12px;
+    border: 2px solid black;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    background-color: rgba(255, 255, 255, 0.9);
+
+    line-height: 1.5;
+
+    font-family: "Montserrat";
+
+    color: #000000e8;
+}
+
+.textareaExpandivel:focus{
+    outline: none;
 }
 
 @media (max-width: 1090px){
@@ -397,8 +407,6 @@
 
     .escolherTipo{
         flex-wrap: wrap;
-        /* width: 100%; */
-
         justify-content: center;
     }
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PopUp } from '../../../../Componentes';
 
 import softwareIcon from "../../../../fotos/software.svg";
@@ -30,25 +30,53 @@ const estadoInicialArtigo = {
 const criarQuestaoVazia = () => ({
     enunciado: '',
     respostaCorreta: '',
-    opcao1: '',
-    opcao2: '',
-    opcao3: '',
-    opcao4: '',
+    alternativas: ['', '', '', ''],
 });
 
 const estadoInicialQuestoes = Array(5).fill(null).map(criarQuestaoVazia);
 
+const nomesOrdem = ['primeiro', 'segundo', 'terceiro', 'quarto'];
+
+const autoResize = (e) => {
+    e.target.style.height = 'auto';
+    e.target.style.height = `${e.target.scrollHeight}px`;
+};
+
+const carregarStorage = (chave, fallback) => {
+    try {
+        const salvo = localStorage.getItem(chave);
+        return salvo ? JSON.parse(salvo) : fallback;
+    } catch {
+        return fallback;
+    }
+};
+
 const AbaCriarMateria = () => {
 
     const [popup, setPopup] = useState(null);
-    const [etapa, setEtapa] = useState(1);
+    const [etapa, setEtapa] = useState(() => carregarStorage('criarAula_etapa', 1));
     const [tema] = useState(localStorage.getItem('TemaSelecionado') || 'Claro');
-    const [artigo, setArtigo] = useState(estadoInicialArtigo);
-    const [questoes, setQuestoes] = useState(estadoInicialQuestoes);
-    const [questaoAtiva, setQuestaoAtiva] = useState(0);
+    const [artigo, setArtigo] = useState(() => carregarStorage('criarAula_artigo', estadoInicialArtigo));
+    const [questoes, setQuestoes] = useState(() => carregarStorage('criarAula_questoes', estadoInicialQuestoes));
+    const [questaoAtiva, setQuestaoAtiva] = useState(() => carregarStorage('criarAula_questaoAtiva', 0));
 
-    //Objeto da classe Aula
     const aula = new Aula();
+
+    useEffect(() => {
+        localStorage.setItem('criarAula_artigo', JSON.stringify(artigo));
+    }, [artigo]);
+
+    useEffect(() => {
+        localStorage.setItem('criarAula_questoes', JSON.stringify(questoes));
+    }, [questoes]);
+
+    useEffect(() => {
+        localStorage.setItem('criarAula_etapa', JSON.stringify(etapa));
+    }, [etapa]);
+
+    useEffect(() => {
+        localStorage.setItem('criarAula_questaoAtiva', JSON.stringify(questaoAtiva));
+    }, [questaoAtiva]);
 
     const ArtigoChange = (campo, valor) => {
         setArtigo(prev => ({ ...prev, [campo]: valor }));
@@ -62,8 +90,11 @@ const AbaCriarMateria = () => {
         });
     };
 
-    const RecompensaChange = (campo, valor) => {
-        setArtigo(prev => ({ ...prev, [campo]: valor }));
+    const limparStorage = () => {
+        localStorage.removeItem('criarAula_artigo');
+        localStorage.removeItem('criarAula_questoes');
+        localStorage.removeItem('criarAula_etapa');
+        localStorage.removeItem('criarAula_questaoAtiva');
     };
 
     const LimparArtigo = (e) => {
@@ -75,6 +106,16 @@ const AbaCriarMateria = () => {
         setQuestoes(prev => {
             const novas = [...prev];
             novas[questaoAtiva] = { ...novas[questaoAtiva], [campo]: valor };
+            return novas;
+        });
+    };
+
+    const AlternativaChange = (indice, valor) => {
+        setQuestoes(prev => {
+            const novas = [...prev];
+            const alternativas = [...novas[questaoAtiva].alternativas];
+            alternativas[indice] = valor;
+            novas[questaoAtiva] = { ...novas[questaoAtiva], alternativas };
             return novas;
         });
     };
@@ -92,16 +133,15 @@ const AbaCriarMateria = () => {
         e.preventDefault();
         if (etapa === 1) {
             if (!artigo.tituloAula.trim() || !artigo.tipo) {
-                setPopup({titulo : "Formulário", mensagem: 'Preencha o Título e o Tipo' });
+                setPopup({ titulo: 'Formulário', mensagem: 'Preencha o Título e o Tipo' });
                 return;
             }
             if (!artigo.modulo) {
-                setPopup({titulo : "Formulário" ,mensagem: 'Selecione o Módulo.' });
+                setPopup({ titulo: 'Formulário', mensagem: 'Selecione o Módulo.' });
                 return;
             }
-            if(!artigo.subtitulos[0].subtitulo.trim() || !artigo.subtitulos[0].paragrafo.trim())
-            {
-                setPopup({titulo : "Formulário" ,mensagem: 'Digite o Primeiro Subtítulo e Paragrafo'});
+            if (!artigo.subtitulos[0].subtitulo.trim() || !artigo.subtitulos[0].paragrafo.trim()) {
+                setPopup({ titulo: 'Formulário', mensagem: 'Digite o Primeiro Subtítulo e Parágrafo' });
                 return;
             }
             setEtapa(2);
@@ -115,105 +155,47 @@ const AbaCriarMateria = () => {
 
         for (let i = 0; i < questoes.length; i++) {
             const q = questoes[i];
-            if (!q.enunciado.trim() || !q.respostaCorreta.trim() || !q.opcao1.trim() || !q.opcao2.trim() || !q.opcao3.trim() || !q.opcao4.trim()) {
+            const alternativasPreenchidas = q.alternativas.every(a => a.trim());
+            if (!q.enunciado.trim() || !q.respostaCorreta.trim() || !alternativasPreenchidas) {
                 setQuestaoAtiva(i);
-                setPopup({ mensagem: `Preencha os Campos da Questão ${i + 1}.` });
+                setPopup({ titulo: 'Questões', mensagem: `Preencha os Campos da Questão ${i + 1}.` });
                 return;
             }
         }
 
-        const novaAula  = {
-            tituloAula: artigo.tituloAula,
-            tipo: artigo.tipo,
-            modulo: artigo.modulo,
-            gemas : artigo.moedas,
-            xp : artigo.xp,
+        const descricaoAula = [artigo.tituloAula, artigo.tipo, artigo.modulo];
 
-            subtitulo1: artigo.subtitulos[0].subtitulo,
-            paragrafo1: artigo.subtitulos[0].paragrafo,
-            subtitulo2: artigo.subtitulos[1].subtitulo,
-            paragrafo2: artigo.subtitulos[1].paragrafo,
-            subtitulo3: artigo.subtitulos[2].subtitulo,
-            paragrafo3: artigo.subtitulos[2].paragrafo,
-            subtitulo4: artigo.subtitulos[3].subtitulo,
-            paragrafo4: artigo.subtitulos[3].paragrafo,
+        const conteudoAula = artigo.subtitulos.flatMap(secao => [secao.subtitulo, secao.paragrafo]);
 
-            questao1: {
-                enunciado: questoes[0].enunciado,
-                respostaCorreta: questoes[0].respostaCorreta,
-                opcao1: questoes[0].respostaCorreta,
-                opcao2: questoes[0].opcao1,
-                opcao3: questoes[0].opcao2,
-                opcao4: questoes[0].opcao3,
-                opcao5: questoes[0].opcao4
-            },
-            questao2: {
-                enunciado: questoes[1].enunciado,
-                respostaCorreta: questoes[1].respostaCorreta,
-                opcao1: questoes[1].respostaCorreta,
-                opcao2: questoes[1].opcao1,
-                opcao3: questoes[1].opcao2,
-                opcao4: questoes[1].opcao3,
-                opcao5: questoes[1].opcao4
-            },
-            questao3: {
-                enunciado: questoes[2].enunciado,
-                respostaCorreta: questoes[2].respostaCorreta,
-                opcao1: questoes[2].respostaCorreta,
-                opcao2: questoes[2].opcao1,
-                opcao3: questoes[2].opcao2,
-                opcao4: questoes[2].opcao3,
-                opcao5: questoes[2].opcao4
-            },
-            questao4: {
-                enunciado: questoes[3].enunciado,
-                respostaCorreta: questoes[3].respostaCorreta,
-                opcao1: questoes[3].respostaCorreta,
-                opcao2: questoes[3].opcao1,
-                opcao3: questoes[3].opcao2,
-                opcao4: questoes[3].opcao3,
-                opcao5: questoes[3].opcao4
-            },
-            questao5: {
-                enunciado: questoes[4].enunciado,
-                respostaCorreta: questoes[4].respostaCorreta,
-                opcao1: questoes[4].respostaCorreta,
-                opcao2: questoes[4].opcao1,
-                opcao3: questoes[4].opcao2,
-                opcao4: questoes[4].opcao3,
-                opcao5: questoes[4].opcao4
-            },
-        };
+        const questoesAula = questoes.map(q => ({
+            enunciado: q.enunciado,
+            respostaCorreta: q.respostaCorreta,
+            opcao1: q.respostaCorreta,
+            opcao2: q.alternativas[0],
+            opcao3: q.alternativas[1],
+            opcao4: q.alternativas[2],
+            opcao5: q.alternativas[3],
+        }));
 
-        //Lista da descrição da Aula
-        const descricaoAula = [artigo.tituloAula,artigo.tipo,artigo.modulo]
-
-        //Lista do conteúdo da Aula
-        const conteudoAula = [novaAula.subtitulo1,novaAula.paragrafo1,novaAula.subtitulo2,novaAula.paragrafo2,novaAula.subtitulo3,novaAula.paragrafo3,novaAula.subtitulo4,novaAula.paragrafo4]
-
-        //Lista das Questões
-        const questoesAula = [novaAula.questao1,novaAula.questao2,novaAula.questao3,novaAula.questao4,novaAula.questao5]
-
-         setPopup({
+        setPopup({
             tipo: 'aviso',
             titulo: 'Aula',
             mensagem: 'Criando Aula... Aguarde um momento.\nIsso pode levar alguns minutos...'
         });
-        
-        await aula.criar_aula(descricaoAula,conteudoAula,questoesAula,novaAula.gemas,novaAula.xp,setPopup)
 
+        await aula.criar_aula(descricaoAula, conteudoAula, questoesAula, artigo.moedas, artigo.xp, setPopup);
 
-        aulasArray.push(novaAula);
+        aulasArray.push({ ...artigo, questoes: questoesAula });
+        limparStorage();
         setArtigo(estadoInicialArtigo);
         setQuestoes(estadoInicialQuestoes);
         setQuestaoAtiva(0);
         setEtapa(1);
-        // setPopup({ mensagem: 'Aula criada com sucesso!' });
     };
 
     const isClaro = tema === 'Claro';
     const corretaIcon = isClaro ? corretaPretaIcon : corretaBrancaIcon;
-    const erradaIcon  = isClaro ? erradaPretaIcon  : erradaBrancaIcon;
+    const erradaIcon = isClaro ? erradaPretaIcon : erradaBrancaIcon;
 
     const questaoAtual = questoes[questaoAtiva];
 
@@ -236,12 +218,16 @@ const AbaCriarMateria = () => {
 
                         <div className={Style.inputs}>
                             <label>Título da aula</label>
-                            <input
+                            <textarea
+                                className={Style.textareaExpandivel}
                                 maxLength={50}
-                                type="text"
-                                placeholder='Título Da Aula'
+                                placeholder="Título Da Aula"
                                 value={artigo.tituloAula}
-                                onChange={e => ArtigoChange('tituloAula', e.target.value)}
+                                rows={1}
+                                onChange={e => {
+                                    ArtigoChange('tituloAula', e.target.value);
+                                    autoResize(e);
+                                }}
                             />
                             <p>max. 50 caracteres</p>
                         </div>
@@ -295,57 +281,65 @@ const AbaCriarMateria = () => {
                     <div className={Style.parteCima} id={Style.recompensas}>
                         <h1>Recompensas</h1>
 
-                        <div className={Style.inputs} id={Style.moedasInput}>
+                        <div className={Style.inputs}>
                             <label htmlFor="moedasInput">Gemas</label>
                             <input
                                 type="number"
                                 min={0}
-                                id='moedasInput'
-                                placeholder='Digite a quantidade de gemas'
                                 max={100}
+                                id="moedasInput"
+                                placeholder="Digite a quantidade de gemas"
                                 value={artigo.moedas}
-                                onChange={e => RecompensaChange('moedas', e.target.value)}
+                                onChange={e => ArtigoChange('moedas', e.target.value)}
                             />
-                            <p>Número Maximo 100</p>
+                            <p>Número Máximo 100</p>
                         </div>
 
-                        <div className={Style.inputs} id={Style.xp}>
+                        <div className={Style.inputs}>
                             <label htmlFor="xpInput">XP</label>
                             <input
                                 type="number"
                                 min={0}
-                                id='xpInput'
-                                placeholder='Digite a quantidade de XP'
+                                id="xpInput"
+                                placeholder="Digite a quantidade de XP"
                                 value={artigo.xp}
-                                onChange={e => RecompensaChange('xp', e.target.value)}
+                                onChange={e => ArtigoChange('xp', e.target.value)}
                             />
                         </div>
                     </div>
 
                     <div className={Style.parteMeio}>
-                        <h2>Subtitulos e Paragrafos</h2>
+                        <h2>Subtítulos e Parágrafos</h2>
 
                         {artigo.subtitulos.map((secao, i) => (
                             <div key={i}>
                                 <div className={Style.inputs}>
-                                    <label>{`0${i + 1} - Subtitulo`}</label>
-                                    <input
+                                    <label>{`0${i + 1} - Subtítulo`}</label>
+                                    <textarea
+                                        className={Style.textareaExpandivel}
                                         maxLength={70}
-                                        type="text"
-                                        placeholder={`Insira o ${['primeiro','segundo','terceiro','quarto'][i]} subtitulo`}
+                                        placeholder={`Insira o ${nomesOrdem[i]} subtítulo`}
                                         value={secao.subtitulo}
-                                        onChange={e => SubtituloChange(i, 'subtitulo', e.target.value)}
+                                        rows={1}
+                                        onChange={e => {
+                                            SubtituloChange(i, 'subtitulo', e.target.value);
+                                            autoResize(e);
+                                        }}
                                     />
                                     <p>max. 70 caracteres</p>
                                 </div>
 
                                 <div className={Style.inputs}>
                                     <label>{`0${i + 1} - Parágrafo`}</label>
-                                    <input
-                                        type="text"
-                                        placeholder={`Insira o ${['primeiro','segundo','terceiro','quarto'][i]} Parágrafo`}
+                                    <textarea
+                                        className={Style.textareaExpandivel}
+                                        placeholder={`Insira o ${nomesOrdem[i]} parágrafo`}
                                         value={secao.paragrafo}
-                                        onChange={e => SubtituloChange(i, 'paragrafo', e.target.value)}
+                                        rows={1}
+                                        onChange={e => {
+                                            SubtituloChange(i, 'paragrafo', e.target.value);
+                                            autoResize(e);
+                                        }}
                                     />
                                 </div>
                             </div>
@@ -378,11 +372,15 @@ const AbaCriarMateria = () => {
 
                         <div className={Style.Enunciado}>
                             <label>Enunciado</label>
-                            <input
-                                type="text"
-                                placeholder='Insira o Enunciado da Questão'
+                            <textarea
+                                className={Style.textareaExpandivel}
+                                placeholder="Insira o Enunciado da Questão"
                                 value={questaoAtual.enunciado}
-                                onChange={e => QuestaoChange('enunciado', e.target.value)}
+                                rows={1}
+                                onChange={e => {
+                                    QuestaoChange('enunciado', e.target.value);
+                                    autoResize(e);
+                                }}
                             />
                         </div>
 
@@ -391,53 +389,33 @@ const AbaCriarMateria = () => {
 
                             <div className={Style.opcoesAlternativa}>
                                 <img src={corretaIcon} alt="correta" />
-                                <input
-                                    type="text"
-                                    placeholder='Alternativa correta'
+                                <textarea
+                                    className={Style.textareaExpandivel}
+                                    placeholder="Alternativa correta"
                                     value={questaoAtual.respostaCorreta}
-                                    onChange={e => QuestaoChange('respostaCorreta', e.target.value)}
+                                    rows={1}
+                                    onChange={e => {
+                                        QuestaoChange('respostaCorreta', e.target.value);
+                                        autoResize(e);
+                                    }}
                                 />
                             </div>
 
-                            <div className={Style.opcoesAlternativa}>
-                                <img src={erradaIcon} alt="errada" />
-                                <input
-                                    type="text"
-                                    placeholder='Alternativa errada'
-                                    value={questaoAtual.opcao1}
-                                    onChange={e => QuestaoChange('opcao1', e.target.value)}
-                                />
-                            </div>
-
-                            <div className={Style.opcoesAlternativa}>
-                                <img src={erradaIcon} alt="errada" />
-                                <input
-                                    type="text"
-                                    placeholder='Alternativa errada'
-                                    value={questaoAtual.opcao2}
-                                    onChange={e => QuestaoChange('opcao2', e.target.value)}
-                                />
-                            </div>
-
-                            <div className={Style.opcoesAlternativa}>
-                                <img src={erradaIcon} alt="errada" />
-                                <input
-                                    type="text"
-                                    placeholder='Alternativa errada'
-                                    value={questaoAtual.opcao3}
-                                    onChange={e => QuestaoChange('opcao3', e.target.value)}
-                                />
-                            </div>
-
-                            <div className={Style.opcoesAlternativa}>
-                                <img src={erradaIcon} alt="errada" />
-                                <input
-                                    type="text"
-                                    placeholder='Alternativa errada'
-                                    value={questaoAtual.opcao4}
-                                    onChange={e => QuestaoChange('opcao4', e.target.value)}
-                                />
-                            </div>
+                            {questaoAtual.alternativas.map((alternativa, index) => (
+                                <div key={index} className={Style.opcoesAlternativa}>
+                                    <img src={erradaIcon} alt="errada" />
+                                    <textarea
+                                        className={Style.textareaExpandivel}
+                                        placeholder="Alternativa errada"
+                                        value={alternativa}
+                                        rows={1}
+                                        onChange={e => {
+                                            AlternativaChange(index, e.target.value);
+                                            autoResize(e);
+                                        }}
+                                    />
+                                </div>
+                            ))}
                         </div>
 
                         <div className={Style.botoes}>
