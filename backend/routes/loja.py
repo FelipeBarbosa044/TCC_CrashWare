@@ -33,7 +33,7 @@ async def comprar_item(dados : ItemSchema,usuario = Depends(validar_token),sessi
 
         if(dados.nome == "booster"):
             #Trato a data
-            agora = datetime.now(timezone.utc)
+            agora = datetime.utcnow()
 
             item = session.query(Usuario_Item).filter(Usuario_Item.usuario_id == usuario.id_usuario,Usuario_Item.item_id == 2).first()
 

@@ -487,12 +487,12 @@ async def ganhar_xp(dados : RecursoSchema,usuario = Depends(validar_token),sessi
                                                   Usuario_Item.item_id == 2).first()
 
         if booster is None or booster.quantidade == 0 or booster.equipado == False:
-            #Se noa tiver
+            #Se nao tiver
             usuario.xp += dados.xp
         else:
             #Se tiver
             #Trato a validade
-            agora = datetime.now(timezone.utc)
+            agora = datetime.utcnow()
 
             validade = booster.equipado_em + timedelta(hours=24)
 
@@ -581,7 +581,7 @@ async def validar_ofensiva(usuario = Depends(validar_token),session = Depends(pe
         ultima_data = usuario_ofensiva.ultima_data_valida
 
         # Pego a data atual
-        data_atual = datetime.now(timezone.utc)
+        data_atual = agora = datetime.utcnow()
 
         # Calculo quantos dias passou desde o ultimo dia em que o usuario ganhou a ofensiva
         dias_passados = (data_atual.date() - ultima_data.date()).days
