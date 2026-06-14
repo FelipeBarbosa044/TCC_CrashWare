@@ -180,7 +180,7 @@ public class EditarAnotacao_Fragment extends Fragment {
     private String pegarDataAtual()
     {
         SimpleDateFormat formato =
-                new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+                new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
         return formato.format(new Date());
     }

@@ -165,7 +165,7 @@
                 android:fontFamily="@font/righteous"
                 android:text="."
                 android:textAlignment="viewStart"
-                android:textColor="?attr/colorOnSurface"
+                android:textColor="#A80909"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/txtBanido"

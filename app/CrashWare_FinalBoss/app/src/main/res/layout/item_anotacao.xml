@@ -14,15 +14,13 @@
     <!-- TITULO -->
     <TextView
         android:id="@+id/txtTitulo"
-        android:layout_width="wrap_content"
+        android:layout_width="215dp"
         android:layout_height="wrap_content"
-
         android:fontFamily="@font/righteous"
         android:text="TITULO"
         android:textColor="?attr/colorOnSurface"
         android:textSize="16sp"
         android:textStyle="bold"
-
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -31,13 +29,11 @@
         android:id="@+id/txtData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:fontFamily="@font/righteous"
         android:text="16/04/2026"
         android:textColor="?attr/colorOnSurface"
         android:textSize="14sp"
         android:textStyle="bold"
-
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -46,10 +42,8 @@
         android:id="@+id/barraAnotacao"
         android:layout_width="0dp"
         android:layout_height="1dp"
-
         android:layout_marginTop="10dp"
         android:background="?attr/colorOutline"
-
         app:layout_constraintTop_toBottomOf="@id/txtTitulo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -59,14 +53,11 @@
         android:id="@+id/txtConteudo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="10dp"
-
         android:fontFamily="@font/righteous"
         android:text="CONTEUDO"
         android:textColor="?attr/colorOnSurface"
         android:textSize="14sp"
-
         app:layout_constraintTop_toBottomOf="@id/barraAnotacao"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

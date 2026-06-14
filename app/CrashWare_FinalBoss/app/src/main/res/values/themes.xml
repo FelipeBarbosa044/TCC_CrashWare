@@ -7,7 +7,7 @@
 
         <item name="colorPrimarySurface">#FFFFFF</item>
         <item name="colorOnPrimarySurface">#000000</item>
-        <item name="colorSecondaryContainer">@color/azul</item>
+        <item name="colorSecondaryContainer">#303F4552</item>
 
         <item name="colorOutline">#C8D1D5</item>
     </style>

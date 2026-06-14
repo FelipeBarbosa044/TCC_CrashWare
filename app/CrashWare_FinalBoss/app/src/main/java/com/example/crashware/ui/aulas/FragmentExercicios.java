@@ -26,6 +26,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.animation.ValueAnimator;
 
 
+
 public class FragmentExercicios extends Fragment
 {
     ConstraintLayout selecionar1, selecionar2, selecionar3, selecionar4;
@@ -105,10 +106,10 @@ public class FragmentExercicios extends Fragment
             @Override
             public void onClick(View v)
             {
-               ResetarSelecao();
-               Selecionado = 1;
-               selecionar1.setBackgroundResource(R.drawable.bg_botaoreenviar);
-               RespostaSelecionada.show();
+                ResetarSelecao();
+                Selecionado = 1;
+                selecionar1.setBackgroundResource(R.drawable.bg_botaoreenviar);
+                RespostaSelecionada.show();
             }
         });//
 
@@ -151,35 +152,41 @@ public class FragmentExercicios extends Fragment
             @Override
             public void onClick(View v)
             {
+                // Nenhuma resposta selecionada
                 if (Selecionado == -1)
                 {
                     SelecioneResposta.show();
-                    ResetarSelecao();
-                }// Se "Selecionado" for igual Null, pede para o Usuário escolher uma resposta
+                    return;
+                }
 
-                else if (Selecionado == 3)
+                // Conta a questão respondida
+                ContadorQuestoes.totalQuestoes++;
+
+                // Verifica se acertou
+                if (Selecionado == 3)
                 {
-                 RespostaCerta.show();
-                 AtualizarBarra();
-                 Selecionado = -1;
+                    ContadorQuestoes.totalAcertos++;
 
-                 ResetarSelecao();
+                    RespostaCerta.show();
 
-
-                    Fragment FragmentTaxaAcertos = new FragmentTaxaAcertos();
-                    ((ContainerSoftware) requireActivity()).irParaFragment(FragmentTaxaAcertos);
-
-                }//Se "Selecionado" for igual a 3,Resposta correta
-
+                    AtualizarBarra();
+                }
                 else
                 {
                     RespostaErrada.show();
-                    ResetarSelecao();
-                }//Senão, Resposta Errada
+                }
 
+                // Limpa seleção
+                Selecionado = -1;
+                ResetarSelecao();
 
+                // Vai para o próximo fragment
+                Fragment fragmentTaxaAcertos = new FragmentTaxaAcertos();
+
+                ((ContainerSoftware) requireActivity())
+                        .irParaFragment(fragmentTaxaAcertos);
             }
-        });//Interação com botão de Proxima questão
+        });
 
 
 
@@ -208,10 +215,10 @@ public class FragmentExercicios extends Fragment
         // Animação da barra
         ObjectAnimator animacaoBarra = ObjectAnimator.ofInt
                 (
-                BarraProgressoAula,
-                "progress",
-                progressoAtual,
-                novoProgresso
+                        BarraProgressoAula,
+                        "progress",
+                        progressoAtual,
+                        novoProgresso
                 );
 
         animacaoBarra.setDuration(700);
@@ -219,7 +226,7 @@ public class FragmentExercicios extends Fragment
         animacaoBarra.setInterpolator(new DecelerateInterpolator());
 
         animacaoBarra.start();
-       // BarraProgressoAula.setProgress(novoProgresso);
+        // BarraProgressoAula.setProgress(novoProgresso);
 
         // Texto animado
         ValueAnimator animacaoTexto = ValueAnimator.ofInt(

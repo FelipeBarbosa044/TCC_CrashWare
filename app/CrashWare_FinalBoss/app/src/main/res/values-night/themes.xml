@@ -10,6 +10,8 @@
         <item name="colorPrimarySurface">#141414</item>
         <item name="colorOnPrimarySurface">#FFFFFF</item>
 
+        <item name="colorSecondaryContainer">#30FFFFFF</item>
+
         <item name="colorOutline">#FFFFFF</item>
     </style>
 

@@ -15,6 +15,9 @@ import android.widget.ImageView;
 import com.example.crashware.R;
 import com.example.crashware.ui.api.User;
 
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FragmentTaxaAcertos#newInstance} factory method to
@@ -35,6 +38,13 @@ public class FragmentTaxaAcertos extends Fragment {
     Button btnConcluirAula;
     SharedPreferences prefs;
 
+
+    TextView txtPorcentagemAcertos;
+    TextView txtQuantAcertos;
+    ProgressBar progressBarGrafico;
+
+    ProgressBar barraProgressoAula;
+    TextView txtPorcentagem;
 
 
 
@@ -79,6 +89,42 @@ public class FragmentTaxaAcertos extends Fragment {
 
         imgVoltar = view.findViewById(R.id.imgVoltarCampos);
         btnConcluirAula = view.findViewById(R.id.btnConcluirAula);
+
+        txtPorcentagemAcertos = view.findViewById(R.id.txtPorcentagemAcertos);
+        txtQuantAcertos = view.findViewById(R.id.txtQuantAcertos);
+        progressBarGrafico = view.findViewById(R.id.progressBarGrafico);
+
+
+        barraProgressoAula = view.findViewById(R.id.BarraProgressoAula);
+        txtPorcentagem = view.findViewById(R.id.txtPorcentagem);
+
+
+        barraProgressoAula.setProgress(100);
+        txtPorcentagem.setText("100%");
+
+        float porcentagem = 0;
+
+        if (ContadorQuestoes.totalQuestoes > 0)
+        {
+            porcentagem =
+                    (ContadorQuestoes.totalAcertos * 100f)
+                            / ContadorQuestoes.totalQuestoes;
+        }
+
+        txtPorcentagemAcertos.setText(
+                String.format("%.0f%%", porcentagem)
+        );
+
+        progressBarGrafico.setProgress(
+                Math.round(porcentagem)
+        );
+
+        txtQuantAcertos.setText(
+                ContadorQuestoes.totalAcertos
+                        + "/"
+                        + ContadorQuestoes.totalQuestoes
+                        + " ACERTOS"
+        );
 
 
         imgVoltar.setOnClickListener(new View.OnClickListener() {
