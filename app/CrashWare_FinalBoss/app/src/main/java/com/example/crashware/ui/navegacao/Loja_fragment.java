@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.crashware.R;
-import com.example.crashware.ui.sistemas.Ofensiva_Manager;
+import com.example.crashware.ui.api.Auth;
+import com.example.crashware.ui.api.Loja;
 
 
 public class Loja_fragment extends Fragment {
@@ -27,7 +27,6 @@ public class Loja_fragment extends Fragment {
 
     //Váriaveis que serão Utilizadas
 
-    int Gemas;
 
     //Memória do app
     SharedPreferences prefs;
@@ -92,23 +91,22 @@ public class Loja_fragment extends Fragment {
         Toast SaldoInsuficiente = Toast.makeText(getContext(), "Saldo Insuficiente", Toast.LENGTH_LONG);
         Toast PowerUpAdquirido  = Toast.makeText(getContext(), "PowerUp Adquirido  ", Toast.LENGTH_LONG);
 
-
-        //A serem substituidas pelas gemas do usuário logado
-        Gemas = prefs.getInt("moedas", 0);
-
+        //Verifico se o tema já foi comprado
+        VerificarTemas();
 
         txtComprarTemaMeiaNoite.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                if (Gemas>=1500)
+                //Pego a gemas do usuário
+                Integer Gemas = prefs.getInt("moedas", 0);
+                if (Gemas>=50)
                 {
-                    Gemas= Gemas - 1500;
                     temaAdquirido.show();
                     txtComprarTemaMeiaNoite.setText("Adquirido");
                     txtComprarGelo.setEnabled(false);
-                }//Se o usuário possuir 1500 ou mais gemas, prossegue com a compra
+                }//Se o usuário possuir 50 ou mais gemas, prossegue com a compra
                 //E torna o Botão Indisponivel para compra novamente, alterando o texto para "Adquirido"
 
                 else
@@ -124,13 +122,19 @@ public class Loja_fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                if (Gemas>=1500)
+                //Pego a gemas do usuário
+                Integer Gemas = prefs.getInt("moedas", 0);
+                if (Gemas>=50)
                 {
-                    Gemas= Gemas - 1500;
-                    temaAdquirido.show();
-                    txtComprarGelo.setText("Adquirido");
-                    txtComprarGelo.setEnabled(false);
-                }//Se o usuário possuir 1500 ou mais gemas, prossegue com a compra
+                    Loja.ComprarItem("gelo", 50, "Tema Adquirido", prefs, Loja_fragment.this, new Loja.ComprarCallback() {
+                        @Override
+                        public void onSuccess() {
+                            txtComprarGelo.setText("Adquirido");
+                            txtComprarGelo.setEnabled(false);
+                        }
+                    });
+
+                }//Se o usuário possuir 50 ou mais gemas, prossegue com a compra
                 //E torna o Botão Indisponivel para compra novamente, alterando o texto para "Adquirido"
 
                 else
@@ -145,13 +149,14 @@ public class Loja_fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                if (Gemas>=1500)
+                //Pego a gemas do usuário
+                Integer Gemas = prefs.getInt("moedas", 0);
+                if (Gemas>=50)
                 {
-                    Gemas= Gemas - 1500;
                     temaAdquirido.show();
                     txtComprarLeitura.setText("Adquirido");
                     txtComprarLeitura.setEnabled(false);
-                }//Se o usuário possuir 1500 ou mais gemas, prossegue com a compra
+                }//Se o usuário possuir 50 ou mais gemas, prossegue com a compra
                 //E torna o Botão Indisponivel para compra novamente, alterando o texto para "Adquirido"
 
                 else
@@ -166,14 +171,20 @@ public class Loja_fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                if (Gemas>=600)
+                //Pego a gemas do usuário
+                Integer Gemas = prefs.getInt("moedas", 0);
+                if (Gemas >= 20)
                 {
-                    Gemas= Gemas - 600;
-                    PowerUpAdquirido.show();
-                    //mostra o Toast de PowerUp Adquirido
-                }//Se o Usuário possuir 600 ou mais gemas, prossegue com a compra
+                    //Realizo a compra
+                    Loja.ComprarItem("booster",20,"PowerUp Adquirido",prefs,Loja_fragment.this,new Loja.ComprarCallback()
+                    {
+                        @Override
+                        public void onSuccess() {
+                            //Ignora
+                        }
+                    });
 
-
+                }//Se o Usuário possuir 20 ou mais gemas, prossegue com a compra
                 else
                 {
                     SaldoInsuficiente.show();
@@ -187,24 +198,21 @@ public class Loja_fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                if (Gemas>=600)
+                //Pego a gemas do usuário
+                Integer Gemas = prefs.getInt("moedas", 0);
+
+                if (Gemas>=30)
                 {
-                    Gemas= Gemas - 600;
-                    PowerUpAdquirido.show();
-                    //Mostra o Toast de Power Up Adquirido
 
-                    //importa a classe da ofensiva com suas funções
-                    Ofensiva_Manager ofensivaManager =
-                            new Ofensiva_Manager(requireContext());
+                    //Realizo a compra
+                    Loja.ComprarItem("congelamento", 30, "PowerUp Adquirido", prefs, Loja_fragment.this, new Loja.ComprarCallback() {
+                        @Override
+                        public void onSuccess() {
+                            //Ignora
+                        }
+                    });
 
-                    //aciona a função de comprar um congelamento
-                    ofensivaManager.adicionarCongelamento();
-                    //
-
-                    //Para mostrar a quantidade de congelamentos
-                    //int congelamentos = ofensivaManager.getCongelamentos();
-
-                }//Se o usuário possuir 600 ou mais gemas, prossegue com a compra
+                }//Se o usuário possuir 20 ou mais gemas, prossegue com a compra
 
                 else
                 {
@@ -217,5 +225,40 @@ public class Loja_fragment extends Fragment {
 
 
         return view;
+    }
+
+    private void VerificarTemas()
+    {
+        //Verifico se o tema já foi comprado
+        //Verifico o token
+        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+
+            @Override
+            public void onSuccess()
+            {
+                //Se token for valido
+                Loja.VerificarTema(prefs,Loja_fragment.this,new  Loja.TemaCallback(){
+                    @Override
+                    public void onSuccess(Boolean valor)
+                    {
+                        if(valor == true)
+                        {
+                            txtComprarGelo.setText("Adquirido");
+                            txtComprarGelo.setEnabled(false);
+                        }
+                    }
+
+                    @Override
+                    public void onError()
+                    {
+                        //Se der erro a requisição:
+//                        txtComprarGelo.setText("Comprar");
+//                        txtComprarGelo.setEnabled(true);
+                    }
+
+                });
+            }
+        });
+
     }
 }

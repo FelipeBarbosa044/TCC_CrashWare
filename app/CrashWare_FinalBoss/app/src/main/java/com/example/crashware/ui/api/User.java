@@ -772,7 +772,7 @@ public class User {
         //Preparo ele para enviar para o header da requisição
         token = "Bearer " + token;
 
-        //Objeto do login
+        //Objeto da conquista
         ConquistaRequest dados = new ConquistaRequest(conquista_id);
 
 
