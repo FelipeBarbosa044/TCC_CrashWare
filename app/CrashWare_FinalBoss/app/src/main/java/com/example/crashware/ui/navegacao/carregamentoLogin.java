@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.crashware.R;
 import com.example.crashware.ui.api.Auth;
+import com.example.crashware.ui.api.Loja;
 import com.example.crashware.ui.api.Ofensiva;
 import com.example.crashware.ui.api.User;
 import com.example.crashware.ui.config.Banido;
@@ -46,8 +47,49 @@ public class carregamentoLogin  extends  AppCompatActivity{
         // 30%
         barra.setProgress(30);
 
-        SincronizarOfensiva();
+        PegarTemas();
     }
+
+    private void PegarTemas()
+    {
+
+        //Se token for valido
+        Loja.VerificarTema(prefs,carregamentoLogin.this,new  Loja.TemaCallback(){
+            @Override
+            public void onSuccess(Boolean valor)
+            {
+                if(valor == true)
+                {
+                    prefs.edit()
+                            .putBoolean("tema_gelo", true)
+                            .apply();
+
+                    SincronizarOfensiva();
+
+                }else
+                {
+                    prefs.edit()
+                            .putBoolean("tema_gelo", false)
+                            .apply();
+
+                    SincronizarOfensiva();
+                }
+            }
+
+            @Override
+            public void onError()
+            {
+                //Se der erro a requisição:
+//                        txtComprarGelo.setText("Comprar");
+//                        txtComprarGelo.setEnabled(true);
+
+//                SincronizarOfensiva();
+            }
+
+        });
+    }
+
+
 
     private void SincronizarOfensiva() {
 

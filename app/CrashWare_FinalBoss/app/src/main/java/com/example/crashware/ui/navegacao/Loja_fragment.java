@@ -230,35 +230,15 @@ public class Loja_fragment extends Fragment {
     private void VerificarTemas()
     {
         //Verifico se o tema já foi comprado
-        //Verifico o token
-        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
 
-            @Override
-            public void onSuccess()
-            {
-                //Se token for valido
-                Loja.VerificarTema(prefs,Loja_fragment.this,new  Loja.TemaCallback(){
-                    @Override
-                    public void onSuccess(Boolean valor)
-                    {
-                        if(valor == true)
-                        {
-                            txtComprarGelo.setText("Adquirido");
-                            txtComprarGelo.setEnabled(false);
-                        }
-                    }
+        //Pego o valor do Shared Preferences
+        Boolean tema_gelo = prefs.getBoolean("tema_gelo",false);
 
-                    @Override
-                    public void onError()
-                    {
-                        //Se der erro a requisição:
-//                        txtComprarGelo.setText("Comprar");
-//                        txtComprarGelo.setEnabled(true);
-                    }
-
-                });
-            }
-        });
+        if(tema_gelo == true)
+        {
+            txtComprarGelo.setText("Adquirido");
+            txtComprarGelo.setEnabled(false);
+        }
 
     }
 }

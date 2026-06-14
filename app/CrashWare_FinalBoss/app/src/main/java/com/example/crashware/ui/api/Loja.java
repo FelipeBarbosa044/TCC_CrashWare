@@ -1,5 +1,6 @@
 package com.example.crashware.ui.api;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
@@ -160,7 +161,7 @@ public class Loja {
         void onError();
     }
 
-    public static void VerificarTema(SharedPreferences prefs,Fragment fragment,TemaCallback callback) {
+    public static void VerificarTema(SharedPreferences prefs, Context context, TemaCallback callback) {
 
         //Pego o valor do token
         String token = prefs.getString("token", null);
@@ -220,8 +221,8 @@ public class Loja {
                         // ignora, mantém mensagem padrão
                     }
 
-                    //Aqui retorna o ERRO
-                    Toast.makeText(fragment.requireContext(), erro, Toast.LENGTH_LONG).show();
+//                    //Aqui retorna o ERRO
+//                    Toast.makeText(context, erro, Toast.LENGTH_LONG).show();
 
                     callback.onError();
                 }
@@ -231,12 +232,12 @@ public class Loja {
             public void onFailure(Call<TemaResponse> call, Throwable t) {
                 //Caso deu erro na requisição
                 //erro de conexão (internet, URL, servidor fora)
-                Toast.makeText(
-                        fragment.requireContext(),
-                        "Erro de conexão: " + t.getMessage(),
-                        Toast.LENGTH_LONG
-                ).show();
-            }
+//                Toast.makeText(
+//                        context,
+//                        "Erro de conexão: " + t.getMessage(),
+//                        Toast.LENGTH_LONG
+//                ).show();
+           }
         });
     }//Verificar Tema
 

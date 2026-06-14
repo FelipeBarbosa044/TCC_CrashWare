@@ -344,6 +344,7 @@ public class Auth {
                 .remove("alterar_nome")
                 .remove("logado")
                 .remove("add_telefone")
+                .remove("tema_gelo")
 
                 .apply();
 
