@@ -66,5 +66,18 @@ async def comprar_item(dados : ItemSchema,usuario = Depends(validar_token),sessi
         raise HTTPException(status_code=400, detail=str(exception))
 
 
+@loja.get('/tema')
+async def tema(usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+    tema_gelo = session.query(Usuario_Item).filter(Usuario_Item.usuario_id == usuario.id_usuario , Usuario_Item.item_id == 3).first()
+
+    if tema_gelo is None:
+        raise HTTPException(status_code=409, detail="Tema Não Comprado")
+    else:
+        return {"mensagem" : "Tema Comprado"}
+
+
+
 
 

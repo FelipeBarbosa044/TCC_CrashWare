@@ -29,10 +29,10 @@ session = Session()
 
 try:
     # session.query(Usuarios).filter(Usuarios.email == "felipewasxz@gmail.com").update({"ativo" : True})
-    # session.query(Usuarios).filter(Usuarios.email == "resferagamer@gmail.com").update({"xp" : 4500 })
+    session.query(Usuarios).filter(Usuarios.email == "felipebarbosaribeiro197@gmail.com").update({"moedas" : 100 })
     # session.query(Patente).filter(Patente.id_patente == 3).update({"xp_minimo" : 4500})
-    item = Item_Loja(preco=50,compravel_uma_vez=True)
-    session.add(item)
+    # item = Item_Loja(preco=50,compravel_uma_vez=True)
+    # session.add(item)
     session.commit()
 except Exception as exception:
     session.rollback()
