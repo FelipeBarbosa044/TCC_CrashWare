@@ -56,6 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/bg_botaoeditar"
             android:fontFamily="@font/righteous"
             android:text="Salvar"
@@ -63,7 +64,6 @@
             android:textColor="?attr/colorSurface"
             android:textSize="18sp"
             app:backgroundTint="@null"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -101,9 +101,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/righteous"
+                android:letterSpacing="0.03"
                 android:text="CRIADO EM"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="12sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/cardAnotacao"
                 app:layout_constraintTop_toBottomOf="@id/txtTituloNovaAnotacao" />
 
@@ -113,9 +115,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/righteous"
+                android:letterSpacing="0.03"
                 android:text="01/04/2026"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="12sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/txtCriadoEm"
                 app:layout_constraintStart_toEndOf="@id/txtCriadoEm"
                 app:layout_constraintTop_toTopOf="@id/txtCriadoEm" />
@@ -125,7 +129,6 @@
                 android:layout_width="375dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:minHeight="650dp"
                 android:padding="10dp"
                 android:background="@drawable/bg_cards"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -136,6 +139,7 @@
                     android:id="@+id/txtNovaAnotacao"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="700dp"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/righteous"
                     android:gravity="top"

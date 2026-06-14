@@ -263,7 +263,7 @@ public class Anotacoes_fragment extends Fragment {
         }
     }
 
-    //Formata a data correta
+    //Formata a data correta (Horário removido da máscara de saída)
     private String formatarData(String dataApi)
     {
         try
@@ -282,18 +282,13 @@ public class Anotacoes_fragment extends Fragment {
             SimpleDateFormat formatoEntrada =
                     new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
+            // MODIFICADO: Mantido apenas o formato de data (dd/MM/yyyy)
             SimpleDateFormat formatoSaida =
                     new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
             Date data = formatoEntrada.parse(dataApi);
 
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(data);
-
-            // Subtrai 3 horas
-            calendar.add(Calendar.HOUR_OF_DAY, -3);
-
-            return formatoSaida.format(calendar.getTime());
+            return formatoSaida.format(data);
         }
         catch (Exception e)
         {

@@ -101,10 +101,6 @@ public class NovaAnotacao_Fragment extends Fragment {
 
         prefs = requireContext().getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
 
-        String dataAtual = pegarDataAtual();
-        txtDataCriacao.setText(String.valueOf(dataAtual));
-
-
         cardAnotacao.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -173,13 +169,4 @@ public class NovaAnotacao_Fragment extends Fragment {
 
         return view;
     }
-
-    private String pegarDataAtual()
-    {
-        SimpleDateFormat formato =
-                new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-
-        return formato.format(new Date());
-    }
-
 }

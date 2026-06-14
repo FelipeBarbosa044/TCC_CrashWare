@@ -173,7 +173,7 @@ public class Perfil_Fragment extends Fragment {
         txtNomePerfil.setText(Nome);
         txtPatente.setText(Patente);
         txtQuantGemas.setText(String.valueOf(Moedas));
-        txtMembroDesde.setText("Membro desde: '"+Membro);
+        txtMembroDesde.setText("Membro desde: "+Membro);
 
         // Lista que vai armazenar as conquistas recentes
         List<Conquista> conquistasRecentes = new ArrayList<>();
