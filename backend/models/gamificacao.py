@@ -104,9 +104,10 @@ class Usuario_Ofensiva(Base):
 
     # Criando relação com objetos (relationship)
     usuario = relationship("Usuarios", backref=backref(
-        "usuario_ofensiva",
+        "streak",
         cascade="all, delete-orphan",
-        passive_deletes=True))
+        passive_deletes=True,
+        uselist=False))
 
     # Criando atributos PARA O PYTHON (Não altera nada no banco de dados)
     def __init__(self, id_usuario,maior_ofensiva=1,congelamentos = 0,congelada_ativa = False):

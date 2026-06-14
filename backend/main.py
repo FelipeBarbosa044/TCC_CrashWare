@@ -5,6 +5,7 @@ from routes.adm import adm
 from routes.achievement import achievement
 from routes.annotation import annotation
 from routes.aula import materia
+from routes.loja import  loja
 import os #Acessa outros arquivos
 from dotenv import load_dotenv # Le import arquivo .env
 #CORS:
@@ -55,6 +56,8 @@ crashware.include_router(achievement)
 crashware.include_router(annotation)
 
 crashware.include_router(materia)
+
+crashware.include_router(loja)
 
 #Alembic
 #Crio uma migração

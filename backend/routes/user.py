@@ -10,6 +10,7 @@ import requests
 
 #Importando tabelas:
 from models.usuarios import Usuarios
+from models.loja import Usuario_Item
 from models.usuarios_oauth import UsuariosOauth
 from models.gamificacao import Patente, Usuario_Ofensiva
 from routes.auth import auth
@@ -30,7 +31,7 @@ import os
 from dotenv import load_dotenv
 
 #Datetime
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta , timezone
 
 ##Carrego o .env
 load_dotenv()
@@ -479,11 +480,44 @@ async def ganhar_xp(dados : RecursoSchema,usuario = Depends(validar_token),sessi
         raise HTTPException(status_code=404,detail="Usuário não encontrado")
     if dados.xp == 0:
         return
-    try:
-        usuario.xp += dados.xp
-        session.commit()
 
+    try:
+        #Pego o booster
+        booster = session.query(Usuario_Item).filter(Usuario_Item.usuario_id == usuario.id_usuario,
+                                                  Usuario_Item.item_id == 2).first()
+
+        if booster is None or booster.quantidade == 0 or booster.equipado == False:
+            #Se noa tiver
+            usuario.xp += dados.xp
+        else:
+            #Se tiver
+            #Trato a validade
+            agora = datetime.now(timezone.utc)
+
+            validade = booster.equipado_em + timedelta(hours=24)
+
+            if agora > validade:
+                ##Verifico se tem mais booster
+                if booster.quantidade - 1 > 0:
+                    #Se tiver mais booster:
+                    booster.quantidade -= 1
+                    booster.equipado_em = agora
+                    usuario.xp += dados.xp * 2
+
+                else:
+                    #Se não tiver:
+                    usuario.xp += dados.xp
+                    booster.quantidade -= 1
+                    booster.equipado = False
+                    booster.equipado_em = None
+            else:
+                #Se for valida a validade
+                usuario.xp += dados.xp * 2
+
+        #Commito e retorno o xp
+        session.commit()
         return {"xp": usuario.xp}
+
 
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
@@ -547,7 +581,7 @@ async def validar_ofensiva(usuario = Depends(validar_token),session = Depends(pe
         ultima_data = usuario_ofensiva.ultima_data_valida
 
         # Pego a data atual
-        data_atual = datetime.now()
+        data_atual = datetime.now(timezone.utc)
 
         # Calculo quantos dias passou desde o ultimo dia em que o usuario ganhou a ofensiva
         dias_passados = (data_atual.date() - ultima_data.date()).days
@@ -559,9 +593,49 @@ async def validar_ofensiva(usuario = Depends(validar_token),session = Depends(pe
             usuario_ofensiva.ultima_data_valida = data_atual
 
         elif dias_passados > 1:
-            # Reseto a ofensiva
-            usuario.ofensiva = 1
-            usuario_ofensiva.ultima_data_valida = data_atual
+            #Verifico se tem Congelamento de ofensiva
+            if(usuario_ofensiva.congelamentos == 0 and usuario_ofensiva.congelada_ativa == False):
+                # Reseto a ofensiva
+                usuario.ofensiva = 1
+                usuario_ofensiva.ultima_data_valida = data_atual
+
+            else:
+                ##Verifica se congelamento esta ativo
+                if(usuario_ofensiva.equipado_em == None):
+                    #Equipa o congelamento
+
+                    usuario_ofensiva.equipado_em = data_atual
+                    usuario_ofensiva.congelada_ativa = True
+                    usuario_ofensiva.congelamentos -= 1
+                    session.commit()
+
+                    return{"mensagem" : "Ofensiva Congelada"}
+                else:
+                    #Verifica se congelamento é valido
+                    # Pego a data atual
+                    validade = usuario_ofensiva.equipado_em + timedelta(hours=24)
+                    if(data_atual > validade):
+                        #Verifico se tem mais congelamentos:
+                        if(usuario_ofensiva.congelamentos > 0):
+                            ##Se tiver mais congelamentos:
+
+                            usuario_ofensiva.equipado_em = data_atual
+                            usuario_ofensiva.congelada_ativa = True
+                            usuario_ofensiva.congelamentos -= 1
+                            session.commit()
+
+                            return {"mensagem": "Ofensiva Congelada"}
+                        else:
+                            #Se não tiver, reseto a ofensiva
+
+                            usuario.ofensiva = 1
+                            usuario_ofensiva.ultima_data_valida = data_atual
+                            usuario_ofensiva.congelada_ativa = False
+                            usuario_ofensiva.equipado_em = None
+                    else:
+                        # Congelamento ainda válido
+                        #Ignora
+                        pass
 
 
         # Calculo a maior ofensiva do usuario

@@ -9,8 +9,6 @@ from database.base import Base
 from database.session import Session
 
 
-
-
 # Cria a sessão
 session = Session()
 
