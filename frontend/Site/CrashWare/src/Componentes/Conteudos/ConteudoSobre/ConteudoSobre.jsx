@@ -2,7 +2,7 @@ import Style from "./ConteudoSobre.module.css";
 import hardwareIcon from "../../../fotos/hardware.svg";
 import softwareIcon from "../../../fotos/software.svg";
 import { useState } from "react";
-import { FaInstagram, FaLinkedinIn } from "react-icons/fa6";    
+import { FaInstagram, FaLinkedinIn, FaGithub } from "react-icons/fa6";    
 import { MdEmail } from "react-icons/md";
 
 const ConteudoSobre = () => {
@@ -13,9 +13,10 @@ const ConteudoSobre = () => {
             fotinha: "/Gabriel_Foto.jpeg",
             nome: "Gabriel Costa",
             funcao: "FullStack Site",
-            agradecimento: "Em especial dedico esse TCC a Deus e meu Senhor Jesus Cristo, sem Deus eu nem estaria aqui e é tudo graças a Ele. Também queria dedicar a uma gatinha, a Luna, que desde o começo esteve comigo e me ajudou em momentos muito difícieis que passei, eu amo essa gatinha. Rm 8:28",
+            agradecimento: "Eu dedico esse TCC para o Meu Senhor e Salvador Jesus Cristo, que teve misericórdia de mim. Também quero dedicar a uma gatinha, a que eu apelidei de Luna, que eu amo muito e tenho um carinho grande. Obrigado por essas experiências que tive com cada um ao decorrer do curso, inicluindo com a Luna.",
             email: "costasousagabriel075@gmail.com",
-            instagram: "https://www.instagram.com/thesousac/"
+            instagram: "https://www.instagram.com/thesousac/",
+            github: "https://github.com/TheSousaC"
         },
         {
             id: 2,
@@ -25,7 +26,8 @@ const ConteudoSobre = () => {
             agradecimento: "Depois de tantos erros, estresse, bugs e momentos em que eu quase questionei minha existência, uma coisa ficou clara: eu nasci para ser desenvolvedor back- end. No meio do caos, criando a API do zero com FastAPI, estruturando o banco de dados com SQLAlchemy e conectando tudo entre aplicativo, site e servidor, eu encontrei a área em que realmente quero seguir.",
             email: "felipebarbosaribeiro197@gmail.com",
             linkedin: "https://www.linkedin.com/in/felipe-barbosa-ribeiro-a93b9a320/",
-            instagram: "https://www.instagram.com/nesferaz/"
+            instagram: "https://www.instagram.com/nesferaz/",
+            github: "https://github.com/FelipeBarbosa044"
         },
         {
             id: 3,
@@ -35,7 +37,8 @@ const ConteudoSobre = () => {
             agradecimento: "Primeiramente agradeço a Deus que cuidou de mim durante toda a produção, agradeço aos meus amigos e familiares que me incentivaram a continuar.Independente de todo sono, cansaço e dificuldades, segui sempre lembrando que: 'Sem sacrifício não há amor e sem amor não há nada' Pe. José Kentenisch",
             email: "joaovitorduartedacosta@gmail.com",
             linkedin: "https://www.linkedin.com/in/joão-vitor-duarte-da-costa-26b799376?utm_source=share_via&utm_content=profile&utm_medium=member_android",
-            instagram: "https://www.instagram.com/duarte_jv23?igsh=MW9jNW4xMzB1a3FiYw=="
+            instagram: "https://www.instagram.com/duarte_jv23?igsh=MW9jNW4xMzB1a3FiYw==",
+            github: "https://github.com/joaov2302"
         },
         {
             id: 4,
@@ -60,7 +63,10 @@ const ConteudoSobre = () => {
             nome: "Fernando Rodrigues",
             funcao: "Documentador, Designer e Frontend App",
             agradecimento: "Agradeço a todos que me ajudaram no desenvolvimento deste TCC, em especial aos meus pais, que sempre me apoiam e acreditam em tudo que eu me proponho a fazer. Além é claro dos meus amigos, que me apoiaram e entenderam o porquê de eu não poder comparecer naquele dia. Mas, com toda certeza, preciso agradecer aos meus colegas de equipe, sem eles, nada seria possível. Este projeto foi resultado do esforço de todos nós, tenho certeza que todos saíram desse TCC melhores do que entraram.",
-            instagram: "https://www.instagram.com/fe_rodrgues/"
+            linkedin: "https://www.linkedin.com/in/fernando-rodrigues-souza-93315227a/",
+            email: "lfernando.rr.souzal@gmail.com",
+            instagram: "https://www.instagram.com/fe_rodrgues/",
+            github: "https://github.com/zFrndo"
         }
     ];
 
@@ -136,6 +142,12 @@ return (
                                     <a href={pessoa.instagram} target="_blank" rel="noreferrer" className={Style.SocialBtn} title="Instagram">
                                         <FaInstagram size={16} />
                                         <span>Instagram</span>
+                                    </a>
+                                )}
+                                {pessoa.github && (
+                                    <a href={pessoa.github} target="_blank" rel="noreferrer" className={Style.SocialBtn} targrt="GitHub">
+                                        <FaGithub size={16} />
+                                        <span>GitHub</span>
                                     </a>
                                 )}
                             </div>
