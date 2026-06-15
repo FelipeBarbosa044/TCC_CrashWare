@@ -136,7 +136,7 @@
     text-align: center;
     text-indent: 0;
     line-height: 1.5;
-    color: var( --texto-principal);
+    color: var(--texto-principal);
     font-weight: 500;
 }
 
@@ -204,7 +204,7 @@
 
 .exercicio button:hover:not(:disabled) {
     border-color: var(--cor-primaria);
-    background: var(--bg-terciario );
+    background: var(--bg-terciario);
 }
 
 .exercicio button:disabled {
@@ -228,7 +228,7 @@
     color: #e05c5c !important;
 }
 
-.verificarRespostabtn{
+.verificarRespostabtn {
     background-color: var(--cor-terciaria-hover) !important;
     color: white !important;
     width: 70% !important;
@@ -241,16 +241,102 @@
     border: 1px solid var(--borda) !important;
 }
 
-#btnVoltar{
+.proximaPerguntaBtn {
+    background-color: #4ec864 !important;
+    color: white !important;
+    width: 70% !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    font-family: "Montserrat", sans-serif !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+
+    margin-top: 10px !important;
+    margin-bottom: 10px;
+    align-self: center !important;
+    text-align: center !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 10px !important;
+    cursor: pointer !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.proximaPerguntaBtn:hover {
+    transform: scale(1.03) translateY(-2px) !important;
+    box-shadow: 0 4px 14px rgba(78, 200, 100, 0.35) !important;
+}
+
+.refazerBtn {
+    background-color: #e05c5c !important;
+    color: white !important;
+    width: 70% !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    font-family: "Montserrat", sans-serif !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+
+    margin-top: 10px !important;
+    margin-bottom: 10px;
+    align-self: center !important;
+    text-align: center !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 10px !important;
+    cursor: pointer !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.refazerBtn:hover {
+    transform: scale(1.03) translateY(-2px) !important;
+    box-shadow: 0 4px 14px rgba(224, 92, 92, 0.35) !important;
+}
+
+.progressoPerguntas {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 4px;
+}
+
+.progressoPerguntas span {
+    font-family: "Montserrat", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--texto-principal);
+    opacity: 0.5;
+    letter-spacing: 0.06em;
+}
+
+.conclusao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+}
+
+.conclusao h1 {
+    font-size: 18px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+}
+
+.conclusao p {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+#btnVoltar {
     text-decoration: none;
 }
 
-.botoes{
+.botoes {
     display: flex;
 }
 
-@media (max-width: 1100px){
-    .corpo{
+@media (max-width: 1100px) {
+    .corpo {
         padding-top: 120px;
     }
 }
@@ -274,12 +360,12 @@
         max-width: none;
     }
 
-    .botoes{
+    .botoes {
         flex-direction: column;
         margin-top: 20;
     }
 
-    .butaozinho{
+    .butaozinho {
         margin-top: 16px !important;
     }
 }

@@ -157,7 +157,7 @@ const LayoutADM = () => {
                                         Criar Materia
                                     </Link>
 
-                                    <Link to="/listar-materias">
+                                    <Link to="/listar-materia">
                                         Listar Materias
                                     </Link>
                                 </div>)}

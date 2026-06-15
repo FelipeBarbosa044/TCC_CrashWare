@@ -300,7 +300,7 @@
 
 .Enunciado .textareaExpandivel{
     width: 100%;
-    background-color: var(--bg-secundario);
+    background-color: white;
     color: var(--Texto2);
 }
 

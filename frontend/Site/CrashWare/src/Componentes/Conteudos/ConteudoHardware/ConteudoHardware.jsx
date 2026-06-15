@@ -11,12 +11,11 @@ import { Link } from "react-router-dom";
 import { Aula } from "../../../../funcoes/aula";
 
 const conteudoHardware_Introducao = [
-    { descricao: "Motivação e mentalidade", to: "/MotivacaoMentalidade"},
+    { descricao: "Introducao ao Hardware", to: "/MotivacaoMentalidade"},
     { descricao: "Como vai funcionar esse curso?", to: "/comoFunciona"}
 ];
 
 const conteudoHardware_Fundamentos = [
-    { descricao: "Introdução ao Hardware", to: ""},
     { descricao: "Evolução dos Compudores", to: ""},
     { descricao: "Arquitetura Básica (Von Neumann)", to: ""},
     { descricao: "Tipos de computadores", to: ""},

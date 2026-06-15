@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { Aula } from "../../../../funcoes/aula";
 
 const conteudoSoftware_Introducao = [
-    { descricao: "Introdução à Tecnologia", to: "" },
+    { descricao: "Introdução à Software", to: "/introducaoSoftware" },
     { descricao: "Como vai funcionar esse curso?", to: "" },
 ];
 

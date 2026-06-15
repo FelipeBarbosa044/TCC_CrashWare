@@ -35,21 +35,35 @@ const ModeloExecicios = ({
     opcao2,
     opcao3,
     opcao4,
+    opcao5,
     numeroPergunta,
-    respostaCorreta
+    respostaCorreta,
+    onAcertar,
+    totalPerguntas,
+    perguntaAtual
 }) => {
 
     const [respostaSelecionada, setRespostaSelecionada] = useState("");
     const [resultado, setResultado] = useState("");
     const [respondido, setRespondido] = useState(false);
+    const [acertou, setAcertou] = useState(false);
 
     function verificarResposta() {
         setRespondido(true);
         if (respostaSelecionada === respostaCorreta) {
             setResultado("Resposta correta!");
+            setAcertou(true);
         } else {
             setResultado("Resposta errada!");
+            setAcertou(false);
         }
+    }
+
+    function refazer() {
+        setRespostaSelecionada("");
+        setResultado("");
+        setRespondido(false);
+        setAcertou(false);
     }
 
     function estiloBotao(opcao) {
@@ -61,22 +75,54 @@ const ModeloExecicios = ({
         return "";
     }
 
+    const opcoes = [opcao1, opcao2, opcao3, opcao4, opcao5].filter(Boolean);
+    const ultimaPergunta = perguntaAtual === totalPerguntas - 1;
+
     return (
         <div className={Style.exercicio}>
+            <div className={Style.progressoPerguntas}>
+                <span>{perguntaAtual + 1} / {totalPerguntas}</span>
+            </div>
+
             <p>{numeroPergunta} - {descPergunta}</p>
 
-            <button className={estiloBotao(opcao1)} onClick={() => setRespostaSelecionada(opcao1)} disabled={respondido}>{opcao1}</button>
-            <button className={estiloBotao(opcao2)} onClick={() => setRespostaSelecionada(opcao2)} disabled={respondido}>{opcao2}</button>
-            <button className={estiloBotao(opcao3)} onClick={() => setRespostaSelecionada(opcao3)} disabled={respondido}>{opcao3}</button>
-            <button className={estiloBotao(opcao4)} onClick={() => setRespostaSelecionada(opcao4)} disabled={respondido}>{opcao4}</button>
+            {opcoes.map((opcao, i) => (
+                <button
+                    key={i}
+                    className={estiloBotao(opcao)}
+                    onClick={() => setRespostaSelecionada(opcao)}
+                    disabled={respondido}
+                >
+                    {opcao}
+                </button>
+            ))}
 
             {!respondido && (
-                <button onClick={verificarResposta} disabled={!respostaSelecionada} className={Style.verificarRespostabtn}>
+                <button
+                    onClick={verificarResposta}
+                    disabled={!respostaSelecionada}
+                    className={Style.verificarRespostabtn}
+                >
                     Verificar resposta
                 </button>
             )}
 
             {resultado && <h2>{resultado}</h2>}
+
+            {respondido && acertou && (
+                <button
+                    className={Style.proximaPerguntaBtn}
+                    onClick={onAcertar}
+                >
+                    {ultimaPergunta ? "Concluir exercícios" : "Próxima pergunta"}
+                </button>
+            )}
+
+            {respondido && !acertou && (
+                <button className={Style.refazerBtn} onClick={refazer}>
+                    Refazer
+                </button>
+            )}
         </div>
     );
 };
@@ -89,13 +135,7 @@ const ModeloBase = ({
     tipoMidia,
     proximaAula,
     aulaPassada,
-    numeroPergunta,
-    descPergunta,
-    respostaCorreta,
-    opcao1,
-    opcao2,
-    opcao3,
-    opcao4,
+    perguntas,
     subtitulo1, paragrafo1,
     subtitulo2, paragrafo2,
     subtitulo3, paragrafo3,
@@ -104,10 +144,24 @@ const ModeloBase = ({
 }) => {
 
     const [conteudo, setConteudo] = useState("artigo");
+    const [perguntaAtual, setPerguntaAtual] = useState(0);
+    const [exerciciosConcluidos, setExerciciosConcluidos] = useState(false);
 
     function trocarConteudo() {
         setConteudo(prev => prev === "artigo" ? "exercicio" : "artigo");
+        setPerguntaAtual(0);
+        setExerciciosConcluidos(false);
     }
+
+    function avancarPergunta() {
+        if (perguntaAtual < (perguntas?.length ?? 0) - 1) {
+            setPerguntaAtual(prev => prev + 1);
+        } else {
+            setExerciciosConcluidos(true);
+        }
+    }
+
+    const questaoAtual = perguntas?.[perguntaAtual];
 
     return (
         <>
@@ -139,17 +193,34 @@ const ModeloBase = ({
                         >
                             {children}
                         </ArtigoModelo>
-                    ) : (
+                    ) : exerciciosConcluidos ? (
+                        <div className={Style.conclusao}>
+                            <h1>Exercícios concluídos!</h1>
+                            <p>Parabéns, você respondeu todas as perguntas corretamente.</p>
+                            <button className={Style.verificarRespostabtn} onClick={() => {
+                                setPerguntaAtual(0);
+                                setExerciciosConcluidos(false);
+                            }}>
+                                Refazer exercícios
+                            </button>
+                        </div>
+                    ) : questaoAtual ? (
                         <ModeloExecicios
-                            numeroPergunta={numeroPergunta}
-                            descPergunta={descPergunta}
-                            respostaCorreta={respostaCorreta}
-                            opcao1={opcao1}
-                            opcao2={opcao2}
-                            opcao3={opcao3}
-                            opcao4={opcao4}
+                            key={perguntaAtual}
+                            numeroPergunta={perguntaAtual + 1}
+                            descPergunta={questaoAtual.descPergunta}
+                            respostaCorreta={questaoAtual.respostaCorreta}
+                            opcao1={questaoAtual.opcao1}
+                            opcao2={questaoAtual.opcao2}
+                            opcao3={questaoAtual.opcao3}
+                            opcao4={questaoAtual.opcao4}
+                            opcao5={questaoAtual.opcao5}
+                            onAcertar={avancarPergunta}
+                            totalPerguntas={perguntas.length}
+                            perguntaAtual={perguntaAtual}
                         />
-                    )}
+                    ) : null}
+
                     <div className={Style.botoes}>
                         <div className={Style.butaozinho}>
                             <button onClick={trocarConteudo}>

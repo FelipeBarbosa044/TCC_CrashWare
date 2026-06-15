@@ -1,11 +1,12 @@
 import { Routes, Route } from "react-router-dom"
-import { PgInicial, PgCadastro, SobreNos, PgLogin, PgErro, PgRecuperarSenha, PgVerificacaoEmail, PgPerfil, PgAnotacoes, PgConfiguracoes, PgHome, PgTermos, AbaConquistas, AbaUsuarios, PgConteudoHardware, PgAlterarSenha, AbaRelatorios, PgConteudoSoftware, AbaCriarMateria, PgLoja, PgSobre, PgVerificarTelefone } from "./Paginas"
+import { PgInicial, PgCadastro, SobreNos, PgLogin, PgErro, PgRecuperarSenha, PgVerificacaoEmail, PgPerfil, PgAnotacoes, PgConfiguracoes, PgHome, PgTermos, AbaConquistas, AbaUsuarios, PgConteudoHardware, PgAlterarSenha, AbaRelatorios, PgConteudoSoftware, AbaCriarMateria, PgLoja, PgSobre, PgVerificarTelefone, AbaListarMateria } from "./Paginas"
 import { LayoutPadrao, LayoutADM, LayoutLogado, LayoutForm } from "./Layouts"
 import { AuthProvider, RotaAdm, RotaPrivada } from "./Rotas"
 import { AbaListarConquistas } from "./Paginas/ADM/AbasAdm/AbaListarConquistas"
 
-import { PgComoFunciona, PgMotivacaoMentalidade } from "./Paginas"
+import { PgComoFunciona, PgMotivacaoMentalidade, PgIntroducaoSoftware} from "./Paginas"
 import { PgVerPerfil } from "./Paginas/VerPerfil/Verperfil"
+import { IntroducaoSoftware } from "./Componentes"
 
 
 const Router = () => {
@@ -176,6 +177,13 @@ const Router = () => {
                     }
                 />
 
+                <Route
+                    path="introducaoSoftware"
+                    element={
+                        <IntroducaoSoftware />
+                    }
+                />
+
             </Route>
 
             {/* ADM */}
@@ -230,6 +238,13 @@ const Router = () => {
                     path="perfil-usuario"
                     element={<RotaAdm>
                         <PgVerPerfil/>
+                    </RotaAdm>}
+                />
+                
+                <Route
+                    path="listar-materia"
+                    element={<RotaAdm>
+                        <AbaListarMateria />
                     </RotaAdm>}
                 />
             </Route>
