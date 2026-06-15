@@ -16,6 +16,9 @@ from dependences import pegar_sessao ,  validar_token
 #Importando Schemas
 from schemas.MateriaSchema import AulaSchema, ExercicioSchema, QuestaoSchema, AlternativaSchema, MateriaSchema
 
+#Biblioteca Random:
+from random import shuffle
+
 
 #ROTAS:
 #Rota de criar aula
@@ -155,14 +158,39 @@ async def sincronizar_exercicio(dados : MateriaSchema , usuario = Depends(valida
             raise HTTPException(status_code=400, detail=str(exception))
 
 
-@materia.get('/busca_enunciados')
+@materia.post('/buscar_exercicios')
 async def buscar_enunciados(dados : MateriaSchema,session = Depends(pegar_sessao)):
+    alternativas = []
+
+    #Pego os enunciados
     enunciados = session.execute(
         select(Questao.pergunta)
         .filter(Questao.exercicio_id == dados.id)
     ).mappings().all()
 
-    return {"enunciados" : enunciados}
+    #Pego o id de cada questão
+    id_questoes = session.execute(
+        select(Questao.id_questao)
+        .filter(Questao.exercicio_id == dados.id)
+    ).scalars().all()
+
+    #Pego as alternativas
+    for id_questao in  id_questoes:
+        alternativas_questao = session.execute(
+            select(Alternativa.texto, Alternativa.correta)
+            .filter(Alternativa.questao_id == id_questao)
+        ).mappings().all()
+
+        #Embaralho as alternativas
+        alternativas_questao = [dict(alternativa) for alternativa in alternativas_questao]
+        shuffle(alternativas_questao)
+
+        alternativas.append(alternativas_questao)
+
+
+    return {"enunciados" : enunciados,
+            "alternativas" : alternativas
+            }
 
 
 
