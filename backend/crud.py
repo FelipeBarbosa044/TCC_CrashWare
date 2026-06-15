@@ -1,6 +1,6 @@
 ##Importando tabelas
 
-from models import Usuarios, UsuariosOauth, Patente, Aula ,Item_Loja
+from models import Usuarios, UsuariosOauth, Patente, Aula, Item_Loja, Usuario_Aula
 
 #Importando A conexao com o Banco de dados
 from database.connection import engine
@@ -29,7 +29,7 @@ session = Session()
 
 try:
     # session.query(Usuarios).filter(Usuarios.email == "felipewasxz@gmail.com").update({"ativo" : True})
-    session.query(Usuarios).filter(Usuarios.email == "resferagamer@gmail.com").update({"moedas" : 15 })
+    session.query(Aula).filter(Aula.id_aula == 6 ).delete()
     # session.query(Patente).filter(Patente.id_patente == 3).update({"xp_minimo" : 4500})
     # item = Item_Loja(preco=50,compravel_uma_vez=True)
     # session.add(item)

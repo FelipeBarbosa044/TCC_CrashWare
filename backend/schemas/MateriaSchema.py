@@ -45,3 +45,11 @@ class AlternativaSchema(BaseModel):
     class Config:
         from_attributes = True
 
+class MateriaSchema(BaseModel):
+    id_aula : int
+
+    class Config:
+        from_attributes = True
+
+
+

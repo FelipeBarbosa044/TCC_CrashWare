@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends,HTTPException
 from sqlalchemy import select
 
 #Importando Tabelas referente as AULAS
-from models.aula import Aula,Exercicio,Questao,Alternativa
+from models.aula import Aula,Exercicio,Questao,Alternativa ,Usuario_Aula , Usuario_Exercicio
 
 #Instânciando roteador
 materia = APIRouter(prefix="/materia",tags=["matéria"])
@@ -14,7 +14,7 @@ materia = APIRouter(prefix="/materia",tags=["matéria"])
 from dependences import pegar_sessao ,  validar_token
 
 #Importando Schemas
-from schemas.MateriaSchema import AulaSchema, ExercicioSchema,QuestaoSchema,AlternativaSchema
+from schemas.MateriaSchema import AulaSchema, ExercicioSchema, QuestaoSchema, AlternativaSchema, MateriaSchema
 
 
 #ROTAS:
@@ -112,6 +112,29 @@ async def buscar_software(session = Depends(pegar_sessao)):
         raise HTTPException(status_code=404, detail="Nenhuma Aula encontrada!")
 
     return {"aulas" : aulas}
+
+
+@materia.post('/sincronizar_aula')
+async def sicronizar_aula(dados : MateriaSchema ,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+    aula_usuario = session.query(Usuario_Aula).filter(Usuario_Aula.usuario_id == usuario.id_usuario, Usuario_Aula.aula_id == dados.id_aula).first()
+
+    if aula_usuario is not None:
+        raise HTTPException(status_code=409, detail="Aula Já Sincronizada")
+    else:
+        try:
+            usuario_aula = Usuario_Aula(usuario_id= usuario.id_usuario,aula_id=dados.id_aula,iniciou=True,terminou=False)
+            session.add(usuario_aula)
+            session.commit()
+
+        except Exception as exception:
+            ##Se não der certo eu retorno o erro, e dou rollback no banco.
+            session.rollback()
+            raise HTTPException(status_code=400, detail=str(exception))
+
+
 
 
 
