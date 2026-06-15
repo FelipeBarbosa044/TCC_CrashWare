@@ -167,7 +167,7 @@ async def buscar_exercicios(dados : MateriaSchema,session = Depends(pegar_sessao
 
     questoes_lista = []
 
-    questao_atual = session.query(Usuario_Exercicio.questao_atual).filter(Usuario_Exercicio.exercicio_id == dados.id,Usuario_Exercicio.usuario_id == usuario.id_usuario).first()
+    questao_atual = session.query(Usuario_Exercicio.questao_atual).filter(Usuario_Exercicio.exercicio_id == dados.id,Usuario_Exercicio.usuario_id == usuario.id_usuario).scalar()
 
 
     # Pego as questões
