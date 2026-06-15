@@ -143,13 +143,14 @@ const ConteudoInicial = () => {
                         {/* <BotoesApp  /> */}
                         <div className={Style.botoesInstalar}>
                             <BotaoInstalar
-                                className={Style.BtnInstal}
                                 titulo="Google Play"
                                 icon={googleIcon}
                             />
                             <BotaoInstalar
+                            className={}
+                                titulo="Em aguardo..."
                                 icon={ApleIcon}
-                                titulo="Apple Store"
+                                disabled
                             />
 
                         </div>
