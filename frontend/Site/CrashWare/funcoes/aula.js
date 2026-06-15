@@ -1,3 +1,5 @@
+import { Api } from "./functions";
+
 export class Aula
 {
     async criar_aula(descricaoAula,conteudoAula,questoes,moeda_bonus,xp_bonus,setPopup)
@@ -362,4 +364,58 @@ export class Aula
         }
 
     }//Buscar aulas de HARDWARE
+
+
+    async SincronizarAula(id_aula)
+    {
+         //Verifico o token
+        const usuario = new Api();
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/materia/sincronizar_aula",
+            {
+                method : "POST",
+                headers: 
+                { 
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id_aula : id_aula
+                })
+
+            })
+
+            if(response.status == 409)
+            {
+                //Ignora
+                return;
+            }
+            if(response.ok)
+            {
+                //Ignora
+                return;
+            }else
+            {
+                const erro = await response.json();
+
+                // console.log("Erro ao sincronizar aula" + erro.detail)
+            }
+        }catch(error){
+            //Erro na API ou de Conexão
+            // setPopup({
+            //     tipo: 'erro',
+            //     titulo: 'Erro De Conexão',
+            //     mensagem: 'Não foi possível conectar ao servidor.'
+            // });
+
+            console.log("Erro ao Tentar Sincronizar aula : " + error)
+        }
+
+    }//Sincronizar Aula
 }//Aula

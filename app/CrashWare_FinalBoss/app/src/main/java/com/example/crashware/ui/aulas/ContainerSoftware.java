@@ -14,7 +14,7 @@ import com.example.crashware.R;
 
 public class ContainerSoftware extends AppCompatActivity {
 
-    private Fragment Aula1Software    = new Aula();
+    private Fragment Aula1Software    = new Aula_fragment();
 
     private Fragment Exercicio = new FragmentExercicios();
 

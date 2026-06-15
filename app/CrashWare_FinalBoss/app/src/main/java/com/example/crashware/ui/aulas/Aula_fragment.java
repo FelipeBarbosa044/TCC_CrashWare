@@ -1,5 +1,7 @@
 package com.example.crashware.ui.aulas;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,17 +14,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.crashware.R;
+import com.example.crashware.ui.api.Aula;
+import com.example.crashware.ui.api.Auth;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Aula#newInstance} factory method to
+ * Use the {@link Aula_fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Aula extends Fragment {
+public class Aula_fragment extends Fragment {
 
     ImageView imgVoltarAula;
 
     Button btnFazerExercicio;
+
+    SharedPreferences prefs;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,7 +39,7 @@ public class Aula extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Aula() {
+    public Aula_fragment() {
         // Required empty public constructor
     }
 
@@ -46,8 +52,8 @@ public class Aula extends Fragment {
      * @return A new instance of fragment Aula.
      */
     // TODO: Rename and change types and number of parameters
-    public static Aula newInstance(String param1, String param2) {
-        Aula fragment = new Aula();
+    public static Aula_fragment newInstance(String param1, String param2) {
+        Aula_fragment fragment = new Aula_fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -58,6 +64,10 @@ public class Aula extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        prefs = requireActivity().getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -67,6 +77,8 @@ public class Aula extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_aula, container, false);
 
@@ -108,11 +120,28 @@ public class Aula extends Fragment {
             }
         });//interação com a imagem de voltar
 
+        SincronizarAula();
+
 
 
 
 
 
         return view;
+    }
+
+    public void SincronizarAula(){
+        //Verifico o token
+        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+
+            @Override
+            public void onSuccess()
+            {
+                //Se verificar token  certo
+
+                //Sincronizo aula com usuario
+                Aula.SincronizarAula(5,prefs);
+            }
+        });
     }
 }
