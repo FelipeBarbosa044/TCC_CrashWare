@@ -1093,7 +1093,7 @@ export class Usuario
         }
     }
 
-    async atulizar_recursos(email,setDados)
+    async atulizar_recursos(email,setDados,setTotalGemas = null)
     {
         try
         {
@@ -1130,7 +1130,13 @@ export class Usuario
 
                 //Atualizo o setDados
                 setDados(dados)
-               
+
+                if (setTotalGemas != null)
+                {
+                    setTotalGemas(gemas)
+                }
+                
+
             }else
             {
                 const erro = await response.json();

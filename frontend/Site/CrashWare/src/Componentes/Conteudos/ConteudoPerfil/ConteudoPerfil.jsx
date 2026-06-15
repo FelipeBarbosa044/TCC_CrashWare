@@ -81,7 +81,7 @@ const ConteudoPerfil = () => {
     const [ofensiva, setOfensiva] = useState(0);
     const [conquistas, setConquistas] = useState(CONQUISTAS_MOCK);
     const [totalCompras, setTotalCompras] = useState(0);
-    let gemas = usuario?.moedas ?? 0;
+    const[gemas,setTotalGemas] = useState(usuario?.moedas);
     const [patente, setPatente] = useState(usuario?.patente);
 
     //Popup
