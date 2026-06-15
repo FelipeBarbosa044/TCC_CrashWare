@@ -25,6 +25,15 @@ const Router = () => {
                     }
                 />
 
+                <Route
+                    path="sobre"
+                    element={
+                        // <RotaPrivada>
+                        <PgSobre />
+                        /* </RotaPrivada> */
+                    }
+                />
+
                 <Route path="recuperar-senha" element={<PgRecuperarSenha />} />
                 <Route path="verificacao-email" element={<PgVerificacaoEmail />} />
                 <Route path="alterar-senha" element={<PgAlterarSenha />} />
@@ -150,7 +159,7 @@ const Router = () => {
                     }
                 />
 
-                 {/* <Route
+                {/* <Route
                     path="IntroducaoTecnologia"
                     element={
                         <RotaPrivada>
@@ -171,9 +180,9 @@ const Router = () => {
                 <Route
                     path="sobre"
                     element={
-                        // <RotaPrivada>
-                        <PgSobre />
-                        /* </RotaPrivada> */
+                        <RotaPrivada>
+                            <PgSobre />
+                        </RotaPrivada>
                     }
                 />
 
@@ -237,7 +246,7 @@ const Router = () => {
                 <Route
                     path="perfil-usuario"
                     element={<RotaAdm>
-                        <PgVerPerfil/>
+                        <PgVerPerfil />
                     </RotaAdm>}
                 />
                 

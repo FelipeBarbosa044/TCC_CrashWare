@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { SiGithub, SiGoogle } from 'react-icons/si'
 
 import Style from "./ConteudoConfiguracoes.module.css";
 
@@ -22,8 +23,6 @@ import sobreModoEscuro from "../../../fotos/escuro/Sobre.svg";
 import termosModoClaro from "../../../fotos/claro/termos.svg";
 import termosModoEscuro from "../../../fotos/escuro/termos.svg";
 
-import googleIcon from "../../../fotos/google.png";
-import githubIcon from "../../../fotos/github.png";
 import { Api, SairDaConta, sleep } from '../../../../funcoes/functions';
 import { Usuario } from '../../../../funcoes/user';
 import { Configurações } from '../../../../funcoes/configurações';
@@ -576,8 +575,7 @@ const ConteudoConfiguracoes = () => {
                         <div className={Style.conectarContas}>
                             <h2>Conecte suas contas para login</h2>
                             <div className={Style.imagens}>
-                                <img src={googleIcon} alt="google" />
-                                <img src={githubIcon} alt="github" />
+                                
                             </div>
                         </div>
                     </div>

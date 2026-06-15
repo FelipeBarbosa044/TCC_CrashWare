@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CampoTexto } from "../../CampoTexto";
 import { BotoesForm, TIPO_BOTAO } from "../../Botoes";
+import { SiGithub, SiGoogle } from 'react-icons/si'
 
 //popup
 import { PopUp } from "../../pop-up";
@@ -11,10 +12,6 @@ import verSenha_claro from '../../../fotos/claro/pode_ver_senha.svg';
 import esconderSenha_escuro from '../../../fotos/escuro/nao_pode_ver_senha_claro.svg';
 import verSenha_escuro from '../../../fotos/escuro/pode_ver_senha_claro.svg';
 
-import gitIconModoEscuro from "../../../fotos/GitHub.svg";
-import gitIconModoClaro from "../../../fotos/GitHub copy.svg";
-
-import googloIcon from "../../../fotos/google.png";
 
 import style from './ConteudoLogin.module.css';
 import { Api, sleep } from "../../../../funcoes/functions";
@@ -143,8 +140,12 @@ const ConteudoLogin = () => {
                 </p>
 
                 <div className={style.outrasFormasLogin}>
-                    <img src={tema === "Claro"? gitIconModoClaro : gitIconModoEscuro} alt="Icone Github" />
-                    <img src={googloIcon} alt="Icone google" />
+                    <a href="#">
+                        <SiGoogle size={32} style={{ color: '#4285F4' }}/>
+                    </a>
+                    <a href="#">
+                        <SiGithub size={32} style={{ color: '#000000' }}/>
+                    </a>
                 </div>
             </div>
         </>

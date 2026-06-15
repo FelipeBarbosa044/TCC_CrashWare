@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { GiShield } from 'react-icons/gi'
+import { GiShieldReflect, GiCheckedShield, GiShieldBash } from 'react-icons/gi'
+import { FaShield } from 'react-icons/fa6'
+
 import Raposa from '../../../fotos/Raposa.svg';
 import FotoPadrao from '../../../fotos/FotoPerfilPadrao.jpeg';
 import iconConquistas from '../../../fotos/Conquistas.svg';
@@ -81,7 +85,7 @@ const ConteudoPerfil = () => {
     const [ofensiva, setOfensiva] = useState(0);
     const [conquistas, setConquistas] = useState(CONQUISTAS_MOCK);
     const [totalCompras, setTotalCompras] = useState(0);
-    const[gemas,setTotalGemas] = useState(usuario?.moedas);
+    const [gemas, setTotalGemas] = useState(usuario?.moedas);
     const [patente, setPatente] = useState(usuario?.patente);
 
     //Popup
@@ -162,16 +166,15 @@ const ConteudoPerfil = () => {
     }
 
     //Atualizo XP/GEMA e Patente
-    async function atualizarRecursos() 
-    {
+    async function atualizarRecursos() {
         //Crio o bjeto que contem requisições para o banco
         const user = new Usuario(token, refresh_token, Navegacao, set);
 
         //Verifico Patente
-        await user.subir_patente(usuario?.email,setPatente,setDados)
-        
+        await user.subir_patente(usuario?.email, setPatente, setDados)
+
         //Atualizo os xp e gema
-        user.atulizar_recursos(usuario?.email,setDados,setTotalGemas)
+        user.atulizar_recursos(usuario?.email, setDados, setTotalGemas)
     }
 
     if (!usuario) {
@@ -354,6 +357,9 @@ const ConteudoPerfil = () => {
                                             <p>Nível {Nivel}</p>
                                             <span>{xpAtual} XP</span>
                                         </div>
+
+
+
                                         <div className={style.Barra}>
                                             <div
                                                 className={style.Progresso}
@@ -420,7 +426,7 @@ const ConteudoPerfil = () => {
                         </div>
 
                         <div className={style.Patente}>
-                            <img src={iconOfensiva} alt="Patente" />
+                            <FaShield size={32} />
                             <div>
                                 <h1>{patente}</h1>
                                 <p>Patente</p>

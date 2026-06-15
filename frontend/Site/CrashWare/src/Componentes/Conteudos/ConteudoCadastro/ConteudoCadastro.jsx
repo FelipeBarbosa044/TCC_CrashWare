@@ -3,14 +3,11 @@ import { useState, useEffect, useRef } from 'react';
 import { BotoesForm, TIPO_BOTAO } from '../../Botoes';
 import { CampoTexto } from '../../CampoTexto';
 import { PopUp } from '../../pop-up';
+import { SiGithub, SiGoogle } from 'react-icons/si'
+
 
 import verSenha_claro from '../../../fotos/claro/pode_ver_senha.svg';
 import esconderSenha_claro from '../../../fotos/claro/nao_pode_ver_senha.svg';
-
-import gitIconModoEscuro from "../../../fotos/GitHub.svg";
-import gitIconModoClaro from "../../../fotos/GitHub copy.svg";
-
-import googloIcon from "../../../fotos/google.png";
 
 import style from './ConteudoCadastro.module.css';
 
@@ -179,8 +176,12 @@ const ConteudoCadstro = () => {
                 </p>
 
                 <div className={style.outrasFormasCadastro}>
-                    <img src={tema === "Claro" ? gitIconModoClaro : gitIconModoEscuro} alt="Icone Github" />
-                    <img src={googloIcon} alt="Icone google" />
+                    <a href="#">
+                        <SiGoogle size={32} style={{ color: '#4285F4' }}/>
+                    </a>
+                    <a href="#">
+                        <SiGithub size={32} style={{ color: '#000000' }}/>
+                    </a>
                 </div>
             </div>
         </>
