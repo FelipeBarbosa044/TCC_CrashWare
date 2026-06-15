@@ -366,7 +366,7 @@ export class Aula
     }//Buscar aulas de HARDWARE
 
 
-    async SincronizarAula(id_aula)
+    async SincronizarAula(id)
     {
          //Verifico o token
         const usuario = new Api();
@@ -386,7 +386,7 @@ export class Aula
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    id_aula : id_aula
+                    id : id
                 })
 
             })
@@ -418,4 +418,58 @@ export class Aula
         }
 
     }//Sincronizar Aula
+
+    async SincronizarExercicio(id)
+    {
+         //Verifico o token
+        const usuario = new Api();
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/materia/sincronizar_exercicio",
+            {
+                method : "POST",
+                headers: 
+                { 
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id : id
+                })
+
+            })
+
+            if(response.status == 409)
+            {
+                //Ignora
+                return;
+            }
+            if(response.ok)
+            {
+                //Ignora
+                return;
+            }else
+            {
+                const erro = await response.json();
+
+                // console.log("Erro ao sincronizar exercicio" + erro.detail)
+            }
+        }catch(error){
+            //Erro na API ou de Conexão
+            // setPopup({
+            //     tipo: 'erro',
+            //     titulo: 'Erro De Conexão',
+            //     mensagem: 'Não foi possível conectar ao servidor.'
+            // });
+
+            console.log("Erro ao Tentar Sincronizar Exercicio : " + error)
+        }
+
+    }//Sincronizar Exercicio
+
 }//Aula

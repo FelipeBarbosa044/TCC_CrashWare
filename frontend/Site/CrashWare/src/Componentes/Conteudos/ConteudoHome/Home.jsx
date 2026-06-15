@@ -246,13 +246,12 @@ const ConteudoHome = () => {
                 />}
 
             
-                  
-        <PopUpConquista
+        {/* <PopUpConquista
           tipo="hardware"
           titulo="Primeira conquista!"
           mensagem="Você completou o módulo de Hardware."
           onFechar={() => setMostrarPopup(false)}
-        />
+        /> */}
             <div className={style.corpo}>
                 <div className={style.header}>
 
