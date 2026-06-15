@@ -115,20 +115,40 @@ async def buscar_software(session = Depends(pegar_sessao)):
 
 
 @materia.post('/sincronizar_aula')
-async def sicronizar_aula(dados : MateriaSchema ,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+async def sincronizar_aula(dados : MateriaSchema ,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
     if usuario is None:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
 
-    aula_usuario = session.query(Usuario_Aula).filter(Usuario_Aula.usuario_id == usuario.id_usuario, Usuario_Aula.aula_id == dados.id_aula).first()
+    aula_usuario = session.query(Usuario_Aula).filter(Usuario_Aula.usuario_id == usuario.id_usuario, Usuario_Aula.aula_id == dados.id).first()
 
     if aula_usuario is not None:
         raise HTTPException(status_code=409, detail="Aula Já Sincronizada")
     else:
         try:
-            usuario_aula = Usuario_Aula(usuario_id= usuario.id_usuario,aula_id=dados.id_aula,iniciou=True,terminou=False)
+            usuario_aula = Usuario_Aula(usuario_id= usuario.id_usuario,aula_id=dados.id,iniciou=True,terminou=False)
             session.add(usuario_aula)
             session.commit()
 
+        except Exception as exception:
+            ##Se não der certo eu retorno o erro, e dou rollback no banco.
+            session.rollback()
+            raise HTTPException(status_code=400, detail=str(exception))
+
+@materia.post('/sincronizar_exercicio')
+async def sincronizar_exercicio(dados : MateriaSchema , usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+    exercicio_usuario = (Usuario_Exercicio).filter(Usuario_Exercicio.usuario_id == usuario.id_usuario,Usuario_Exercicio.exercicio_id == dados.id).first()
+
+    if exercicio_usuario is not None:
+        raise HTTPException(status_code=409, detail="Exercicio Já Sincronizado")
+    else:
+        try:
+            usuario_exercicio = Usuario_Exercicio(usuario_id=usuario.id_usuario,exercicio_id=dados.id,iniciou=True,terminou=False,questao_atual=1,acertos=0)
+            session.add(usuario_exercicio)
+            session.commit()
+            
         except Exception as exception:
             ##Se não der certo eu retorno o erro, e dou rollback no banco.
             session.rollback()

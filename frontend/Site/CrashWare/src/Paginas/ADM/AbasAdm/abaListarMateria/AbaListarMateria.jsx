@@ -1,6 +1,6 @@
 import { BotoesForm, CampoTexto } from "../../../../Componentes"
 import { useEffect, useState } from "react"
-import Style from "./AbaListarMateria.module.css"
+import Style from "./abaListarMateria.module.css"
 import { PopUp } from '../../../../Componentes/pop-up';
 
 const MATERIAS_MOCK = [
