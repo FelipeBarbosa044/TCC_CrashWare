@@ -19,10 +19,10 @@ import com.example.crashware.ui.api.Auth;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Aula_fragment#newInstance} factory method to
+ * Use the {@link IntroducaoSoftware#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Aula_fragment extends Fragment {
+public class IntroducaoSoftware extends Fragment {
 
     ImageView imgVoltarAula;
 
@@ -39,7 +39,7 @@ public class Aula_fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Aula_fragment() {
+    public IntroducaoSoftware() {
         // Required empty public constructor
     }
 
@@ -52,8 +52,8 @@ public class Aula_fragment extends Fragment {
      * @return A new instance of fragment Aula.
      */
     // TODO: Rename and change types and number of parameters
-    public static Aula_fragment newInstance(String param1, String param2) {
-        Aula_fragment fragment = new Aula_fragment();
+    public static IntroducaoSoftware newInstance(String param1, String param2) {
+        IntroducaoSoftware fragment = new IntroducaoSoftware();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
