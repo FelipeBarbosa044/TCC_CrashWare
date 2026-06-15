@@ -179,7 +179,7 @@ async def buscar_exercicios(dados : MateriaSchema,session = Depends(pegar_sessao
         alternativas = [dict(alternativa) for alternativa in alternativas]
         shuffle(alternativas)
 
-        # Retorno só pergunta e alternativas
+        # Retorno só pergunta e as alternativas
         questoes_lista.append({
             "pergunta": questao["pergunta"],
             "alternativas": alternativas
@@ -188,6 +188,29 @@ async def buscar_exercicios(dados : MateriaSchema,session = Depends(pegar_sessao
     return {
         "questoes": questoes_lista
     }
+
+@materia.patch('/progresso_exercicio')
+async def progresso_exercicio(dados : MateriaSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+    #Pego o exercicio do usuario
+    exercicio_usuario = session.query(Usuario_Exercicio).filter(Usuario_Exercicio.usuario_id == usuario.id_usuario,Usuario_Exercicio.exercicio_id == dados.id).first()
+
+    try:
+        exercicio_usuario.questao_atual += 1
+
+        if(dados.acertou == True):
+            exercicio_usuario.acertos += 1
+
+        session.commit()
+
+
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
 
 
 
