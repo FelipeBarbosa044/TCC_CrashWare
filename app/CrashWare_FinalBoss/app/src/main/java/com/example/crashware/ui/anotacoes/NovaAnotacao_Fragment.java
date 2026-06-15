@@ -98,6 +98,8 @@ public class NovaAnotacao_Fragment extends Fragment {
         txtDataCriacao        = view.findViewById(R.id.txtDataCriacao       );
         cardAnotacao          = view.findViewById(R.id.cardAnotacao         );
 
+        String novaDataCriacao = pegarDataAtual();
+        txtDataCriacao.setText(novaDataCriacao);
 
         prefs = requireContext().getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
 
@@ -168,5 +170,13 @@ public class NovaAnotacao_Fragment extends Fragment {
         });//interação de clique com a imagem de voltar retornando para a tela de anotações
 
         return view;
+    }
+
+    private String pegarDataAtual()
+    {
+        SimpleDateFormat formato =
+                new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        return formato.format(new Date());
     }
 }
