@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.crashware.R;
-import com.example.crashware.ui.api.Auth;
 import com.example.crashware.ui.api.Loja;
 
 
@@ -23,9 +22,11 @@ public class Loja_fragment extends Fragment {
 
     //Objetos que serão Utilizados
     TextView txtComprarTemaMeiaNoite, txtComprarGelo, txtComprarBooster,
-            txtComprarOfensiva, txtComprarLeitura;
+            txtComprarOfensiva, txtComprarLeitura, txtQuantBooster, txtQuantGelo, txtUsarGelo, txtUsarBooster;
 
     //Váriaveis que serão Utilizadas
+
+    int Gelos = 1, Boosters = 0;
 
 
     //Memória do app
@@ -85,14 +86,23 @@ public class Loja_fragment extends Fragment {
         txtComprarOfensiva      = view.findViewById(R.id.txtComprarOfensiva );
         txtComprarGelo          = view.findViewById(R.id.txtComprarGelo     );
         txtComprarTemaMeiaNoite = view.findViewById(R.id.txtComprarMeiaNoite);
+        txtQuantBooster         = view.findViewById(R.id.txtValorBooster    );
+        txtQuantGelo            = view.findViewById(R.id.txtValorCongele1   );
+        txtUsarBooster          = view.findViewById(R.id.txtAtivarBoosterXP );
+        txtUsarGelo             = view.findViewById(R.id.txtAtivarCongelar  );
 
         //Criando os Toasts que serão Utilizados
         Toast temaAdquirido     = Toast.makeText(getContext(), "Tema Adquirido    ", Toast.LENGTH_LONG);
         Toast SaldoInsuficiente = Toast.makeText(getContext(), "Saldo Insuficiente", Toast.LENGTH_LONG);
         Toast PowerUpAdquirido  = Toast.makeText(getContext(), "PowerUp Adquirido  ", Toast.LENGTH_LONG);
+        Toast PowerupInsuficiente = Toast.makeText(getContext(), "Adquira o PowerUp antes de utiliza-lo!", Toast.LENGTH_LONG);
+        Toast PowerUpUtilizado = Toast.makeText(getContext(), "PowerUp Ativado!", Toast.LENGTH_LONG);
 
         //Verifico se o tema já foi comprado
         VerificarTemas();
+
+        //atualiza as infos
+        AtualizarInfo();
 
         txtComprarTemaMeiaNoite.setOnClickListener(new View.OnClickListener()
         {
@@ -223,6 +233,42 @@ public class Loja_fragment extends Fragment {
             }
         });//Interação com o Botão de Comprar Congelamentos
 
+        txtUsarGelo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (Gelos != 0)
+                {
+                    Gelos -= 1;
+                    PowerUpUtilizado.show();
+                    AtualizarInfo();
+                }
+
+                else
+                {
+                    PowerupInsuficiente.show();
+                }
+            }
+        });//
+
+        txtUsarBooster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if (Boosters != 0)
+                {
+                    Boosters -= 1;
+                    PowerUpUtilizado.show();
+                    AtualizarInfo();
+                }
+
+                else
+                {
+                    PowerupInsuficiente.show();
+                }
+
+            }
+        });
 
         return view;
     }
@@ -239,6 +285,13 @@ public class Loja_fragment extends Fragment {
             txtComprarGelo.setText("Adquirido");
             txtComprarGelo.setEnabled(false);
         }
+
+    }
+
+    private void AtualizarInfo()
+    {
+        txtQuantGelo.setText(Gelos + "/ 2");
+        txtQuantBooster.setText(Boosters + "/ 10");
 
     }
 }

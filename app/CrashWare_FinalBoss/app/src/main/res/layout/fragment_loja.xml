@@ -612,10 +612,237 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+            android:id="@+id/txtInventario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/righteous"
+            android:text="Inventário"
+            android:textAllCaps="true"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardTema3" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardInventarioPowerUp2"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:elevation="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintTop_toBottomOf="@id/cardInventarioPowerUp1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/imgBoosterXP"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/pocao_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cardInventarioPowerUp2" />
+
+            <TextView
+                android:id="@+id/txtBoosterXP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/righteous"
+                android:text="Booster"
+                android:textAllCaps="true"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/imgBoosterXP"
+                app:layout_constraintTop_toTopOf="@id/imgBoosterXP" />
+
+            <TextView
+                android:id="@+id/txtQuantPowerUp2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Quantidade disponivel para uso"
+                android:textAllCaps="true"
+                android:textColor="#62748E"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/imgBoosterXP"
+                app:layout_constraintTop_toBottomOf="@id/txtBoosterXP" />
+
+            <ImageView
+                android:id="@+id/imgMochila2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/saco_icon"
+                app:tint="#65910F"
+                app:layout_constraintStart_toStartOf="@id/txtQuantPowerUp2"
+                app:layout_constraintTop_toBottomOf="@id/txtQuantPowerUp2" />
+
+            <TextView
+                android:id="@+id/txtValorBooster"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/righteous"
+                android:text="1/2"
+                android:textAllCaps="true"
+                android:textColor="#65910F"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/imgMochila2"
+                app:layout_constraintTop_toTopOf="@id/imgMochila2" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnBoosterXP"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/btn_comprarpowerup2"
+                app:layout_constraintEnd_toEndOf="@id/cardInventarioPowerUp2"
+                app:layout_constraintTop_toBottomOf="@id/txtQuantPowerUp2">
+
+                <TextView
+                    android:id="@+id/txtAtivarBoosterXP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/righteous"
+                    android:text="Ativar"
+                    android:textAllCaps="true"
+                    android:textColor="@color/branco"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/btnBoosterXP"
+                    app:layout_constraintEnd_toEndOf="@id/btnBoosterXP"
+                    app:layout_constraintTop_toTopOf="@id/btnBoosterXP" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardInventarioPowerUp1"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:elevation="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintTop_toBottomOf="@id/txtInventario"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/imgCongeleOfensiva"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/podergelo_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cardInventarioPowerUp1" />
+
+            <TextView
+                android:id="@+id/txtCongeleOfensiva"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/righteous"
+                android:text="Congele a sua ofensiva"
+                android:textAllCaps="true"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/imgCongeleOfensiva"
+                app:layout_constraintTop_toTopOf="@id/imgCongeleOfensiva" />
+
+            <TextView
+                android:id="@+id/txtQuantPowerUp1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Quantidade disponivel para uso"
+                android:textAllCaps="true"
+                android:textColor="#62748E"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/imgCongeleOfensiva"
+                app:layout_constraintTop_toBottomOf="@id/txtCongeleOfensiva" />
+
+            <ImageView
+                android:id="@+id/imgMochila1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/saco_icon"
+                app:tint="#3B5A97"
+                app:layout_constraintStart_toStartOf="@id/txtQuantPowerUp1"
+                app:layout_constraintTop_toBottomOf="@id/txtQuantPowerUp1" />
+
+            <TextView
+                android:id="@+id/txtValorCongele1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/righteous"
+                android:text="1/2"
+                android:textAllCaps="true"
+                android:textColor="#3B5A97"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/imgMochila1"
+                app:layout_constraintTop_toTopOf="@id/imgMochila1" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnCongelarOfensiva"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/btn_comprarpowerup1"
+                app:layout_constraintEnd_toEndOf="@id/cardInventarioPowerUp1"
+                app:layout_constraintTop_toBottomOf="@id/txtQuantPowerUp1">
+
+                <TextView
+                    android:id="@+id/txtAtivarCongelar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/righteous"
+                    android:text="Ativar"
+                    android:textAllCaps="true"
+                    android:textColor="@color/branco"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/btnCongelarOfensiva"
+                    app:layout_constraintEnd_toEndOf="@id/btnCongelarOfensiva"
+                    app:layout_constraintTop_toTopOf="@id/btnCongelarOfensiva" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
             android:id="@+id/espaco_nav_bar"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            app:layout_constraintTop_toBottomOf="@id/cardTema3" />
+            app:layout_constraintTop_toBottomOf="@id/cardInventarioPowerUp2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
