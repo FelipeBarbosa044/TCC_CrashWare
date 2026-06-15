@@ -47,7 +47,7 @@ class AlternativaSchema(BaseModel):
 
 class MateriaSchema(BaseModel):
     id : int
-    acertou : Optional[str] = None
+    acertou : Optional[bool] = None
     email : Optional[str] = None
 
     class Config:
