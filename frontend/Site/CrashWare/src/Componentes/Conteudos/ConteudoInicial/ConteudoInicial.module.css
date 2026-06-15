@@ -6,7 +6,7 @@
 }
 
 .corpo{
-    width: 99.4vw;
+
     background-color: var(--bg-quinto);
     font-family: "Righteous";
     font-weight: 300;   
@@ -394,8 +394,19 @@
     /* gap: 60px; */
 }
 
+.BtnInstal{
+    cursor: pointer;
+}
+
+
 .botoesInstalar p{
     font-size: 12px;
+}
+
+.btnApple {
+    cursor: not-allowed !important;
+    pointer-events: none;
+    opacity: 0.5; /* visual de desabilitado */
 }
 
 @media (min-width: 1900px) {
@@ -418,7 +429,7 @@
     .Chamada{
         width: 98.8vw;
         justify-self: center;
-        padding: 28px 100px;
+        padding: 28px 100px;    
         border: none;
     }
 
@@ -500,26 +511,31 @@
         gap: 20px;
     }
 
-    /* Chamada */
     .Chamada {
         flex-direction: column;
         gap: 12px;
         padding: 24px 16px;
         text-align: center;
-
     }
 
-    .Chamada h3 {
+    .chamadaTextos {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .chamadaTextos h3 {
         text-align: center;
         flex: none;
     }
 
-    .Chamada hr {
-        width: 50%;
-        height: 1px;
+    .chamadaTextos hr {
+        width: 60%;
+        height: 2px;
+        border-radius: 2px;
     }
 
-    .Chamada h5 {
+    .chamadaTextos h5 {
         text-align: center;
         flex: none;
         width: 100%;
@@ -621,17 +637,19 @@
         width: 100%;
     }
 
-    .Chamada h3{
-        font-size: 16px;
-    }
 
     .Chamada h5{
         font-size: 11px;
         width: 100%;
     }
 
-    .Chamada hr{
-        width: 100%;
+
+    .chamadaTextos h3 {
+        font-size: 16px;
+    }
+
+    .chamadaTextos hr {
+        width: 80%;
     }
 
     .ConteudoHardware, .ConteudoSoftware{

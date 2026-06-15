@@ -147,10 +147,9 @@ const ConteudoInicial = () => {
                                 icon={googleIcon}
                             />
                             <BotaoInstalar
-                            className={}
                                 titulo="Em aguardo..."
-                                icon={ApleIcon}
                                 disabled
+                                icon={ApleIcon}
                             />
 
                         </div>
