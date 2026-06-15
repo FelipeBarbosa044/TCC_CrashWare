@@ -19,7 +19,7 @@ public class Aula {
     //Envio para API
     static class SincronizarRequest {
         Integer id;
-        public SincronizarRequest(Integer id_aula) {
+        public SincronizarRequest(Integer id) {
             this.id = id;
         }
     }

@@ -139,8 +139,10 @@ public class IntroducaoSoftware extends Fragment {
             {
                 //Se verificar token  certo
 
-                //Sincronizo aula com usuario
+                //Sincronizo aula e exercicio com usuario
                 Aula.SincronizarAula(5,prefs);
+
+                Aula.SincronizarExercicio(5,prefs);
             }
         });
     }

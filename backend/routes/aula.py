@@ -139,7 +139,7 @@ async def sincronizar_exercicio(dados : MateriaSchema , usuario = Depends(valida
     if usuario is None:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
 
-    exercicio_usuario = (Usuario_Exercicio).filter(Usuario_Exercicio.usuario_id == usuario.id_usuario,Usuario_Exercicio.exercicio_id == dados.id).first()
+    exercicio_usuario = session.query(Usuario_Exercicio).filter(Usuario_Exercicio.usuario_id == usuario.id_usuario,Usuario_Exercicio.exercicio_id == dados.id).first()
 
     if exercicio_usuario is not None:
         raise HTTPException(status_code=409, detail="Exercicio Já Sincronizado")
@@ -148,7 +148,7 @@ async def sincronizar_exercicio(dados : MateriaSchema , usuario = Depends(valida
             usuario_exercicio = Usuario_Exercicio(usuario_id=usuario.id_usuario,exercicio_id=dados.id,iniciou=True,terminou=False,questao_atual=1,acertos=0)
             session.add(usuario_exercicio)
             session.commit()
-            
+
         except Exception as exception:
             ##Se não der certo eu retorno o erro, e dou rollback no banco.
             session.rollback()
