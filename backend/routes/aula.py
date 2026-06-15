@@ -161,7 +161,14 @@ async def sincronizar_exercicio(dados : MateriaSchema , usuario = Depends(valida
 
 @materia.post('/buscar_exercicios')
 async def buscar_exercicios(dados : MateriaSchema,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
     questoes_lista = []
+
+    questao_atual = session.query(Usuario_Exercicio.questao_atual).filter(Usuario_Exercicio.exercicio_id == dados.id,Usuario_Exercicio.usuario_id == usuario.id_usuario).first()
+
 
     # Pego as questões
     questoes = session.execute(
@@ -187,7 +194,8 @@ async def buscar_exercicios(dados : MateriaSchema,session = Depends(pegar_sessao
         })
 
     return {
-        "questoes": questoes_lista
+        "questoes": questoes_lista,
+        "questao_atual" : questao_atual
     }
 
 @materia.patch('/progresso_exercicio')
