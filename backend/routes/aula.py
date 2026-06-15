@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends,HTTPException
 #Ferramentas do sqlAlchemy
 from sqlalchemy import select
 
+from models import Usuarios
 #Importando Tabelas referente as AULAS
 from models.aula import Aula,Exercicio,Questao,Alternativa ,Usuario_Aula , Usuario_Exercicio
 
@@ -190,8 +191,9 @@ async def buscar_exercicios(dados : MateriaSchema,session = Depends(pegar_sessao
     }
 
 @materia.patch('/progresso_exercicio')
-async def progresso_exercicio(dados : MateriaSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
-    if usuario is None:
+async def progresso_exercicio(dados : MateriaSchema,session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+    if usuario  is None:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
 
     #Pego o exercicio do usuario
@@ -206,6 +208,28 @@ async def progresso_exercicio(dados : MateriaSchema,usuario = Depends(validar_to
         session.commit()
 
 
+    except Exception as exception:
+        ##Se não der certo eu retorno o erro, e dou rollback no banco.
+        session.rollback()
+        raise HTTPException(status_code=400, detail=str(exception))
+
+
+@materia.patch('/acabar_aula')
+async def acabar_aula(dados : MateriaSchema, session = Depends(pegar_sessao)):
+    usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+
+    #Pego o exercicio do usuario
+    exercicio_usuario = session.query(Usuario_Exercicio).filter(Usuario_Exercicio.usuario_id == usuario.id_usuario,Usuario_Exercicio.exercicio_id == dados.id).first()
+
+    aula_usuario = session.query(Usuario_Aula).filter(Usuario_Aula.usuario_id == usuario.id_usuario, Usuario_Aula.aula_id == dados.id).first()
+    try:
+        exercicio_usuario.terminou = True
+        aula_usuario.terminou = True
+
+        session.commit()
     except Exception as exception:
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()

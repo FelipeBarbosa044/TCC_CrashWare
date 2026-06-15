@@ -48,6 +48,7 @@ class AlternativaSchema(BaseModel):
 class MateriaSchema(BaseModel):
     id : int
     acertou : Optional[str] = None
+    email : Optional[str] = None
 
     class Config:
         from_attributes = True
