@@ -197,7 +197,7 @@ const ModeloBase = ({
                         <div className={Style.conclusao}>
                             <h1>Exercícios concluídos!</h1>
                             <p>Parabéns, você respondeu todas as perguntas corretamente.</p>
-                            <button className={Style.verificarRespostabtn} onClick={() => {
+                            <button className={Style.refazerExerciciosbtn} onClick={() => {
                                 setPerguntaAtual(0);
                                 setExerciciosConcluidos(false);
                             }}>
@@ -227,9 +227,6 @@ const ModeloBase = ({
                                 {conteudo === "artigo" ? <p>exercicios</p> : <p>artigo</p>}
                             </button>
                         </div>
-                        <Link to="/home" className={Style.butaozinho} id={Style.btnVoltar}>
-                            <button>Voltar para Home</button>
-                        </Link>
                     </div>
                 </div>
             </div>
