@@ -146,7 +146,10 @@ async def sincronizar_exercicio(dados : MateriaSchema , usuario = Depends(valida
     exercicio_usuario = session.query(Usuario_Exercicio).filter(Usuario_Exercicio.usuario_id == usuario.id_usuario,Usuario_Exercicio.exercicio_id == dados.id).first()
 
     if exercicio_usuario is not None:
-        raise HTTPException(status_code=409, detail="Exercicio Já Sincronizado")
+        if exercicio_usuario.terminou == True:
+            raise HTTPException(status_code=409, detail={"terminou" : True})
+        else:
+            raise HTTPException(status_code=409, detail={"terminou": False})
     else:
         try:
             usuario_exercicio = Usuario_Exercicio(usuario_id=usuario.id_usuario,exercicio_id=dados.id,iniciou=True,terminou=False,questao_atual=1,acertos=0)
@@ -242,6 +245,19 @@ async def acabar_aula(dados : MateriaSchema, session = Depends(pegar_sessao)):
         ##Se não der certo eu retorno o erro, e dou rollback no banco.
         session.rollback()
         raise HTTPException(status_code=400, detail=str(exception))
+
+@materia.post('/retornar_acertos')
+async def retornar_acertos(dados : MateriaSchema,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+    acertos = session.query(Usuario_Exercicio.acertos).filter(Usuario_Exercicio.exercicio_id == dados.id,Usuario_Exercicio.usuario_id == usuario.id_usuario).scalar()
+
+    if acertos is None:
+        return {"acertos": 0}
+
+    return {"acertos" : acertos}
+
 
 
 
