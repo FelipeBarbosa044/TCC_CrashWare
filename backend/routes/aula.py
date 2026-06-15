@@ -155,6 +155,17 @@ async def sincronizar_exercicio(dados : MateriaSchema , usuario = Depends(valida
             raise HTTPException(status_code=400, detail=str(exception))
 
 
+@materia.get('/busca_enunciados')
+async def buscar_enunciados(dados : MateriaSchema,session = Depends(pegar_sessao)):
+    enunciados = session.execute(
+        select(Questao.pergunta)
+        .filter(Questao.exercicio_id == dados.id)
+    ).mappings().all()
+
+    return {"enunciados" : enunciados}
+
+
+
 
 
 
