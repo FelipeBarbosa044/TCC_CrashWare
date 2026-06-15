@@ -159,40 +159,35 @@ async def sincronizar_exercicio(dados : MateriaSchema , usuario = Depends(valida
 
 
 @materia.post('/buscar_exercicios')
-async def buscar_enunciados(dados : MateriaSchema,session = Depends(pegar_sessao)):
-    alternativas = []
+async def buscar_exercicios(dados : MateriaSchema,session = Depends(pegar_sessao)):
+    questoes_lista = []
 
-    #Pego os enunciados
-    enunciados = session.execute(
-        select(Questao.pergunta)
+    # Pego as questões
+    questoes = session.execute(
+        select(Questao.id_questao, Questao.pergunta)
         .filter(Questao.exercicio_id == dados.id)
     ).mappings().all()
 
-    #Pego o id de cada questão
-    id_questoes = session.execute(
-        select(Questao.id_questao)
-        .filter(Questao.exercicio_id == dados.id)
-    ).scalars().all()
-
-    #Pego as alternativas
-    for id_questao in  id_questoes:
-        alternativas_questao = session.execute(
+    for questao in questoes:
+        # Pego as alternativas da questão atual
+        alternativas = session.execute(
             select(Alternativa.texto, Alternativa.correta)
-            .filter(Alternativa.questao_id == id_questao)
+            .filter(Alternativa.questao_id == questao["id_questao"])
         ).mappings().all()
 
-        #Embaralho as alternativas
-        alternativas_questao = [dict(alternativa) for alternativa in alternativas_questao]
-        shuffle(alternativas_questao)
+        # Transformo em lista normal e embaralho
+        alternativas = [dict(alternativa) for alternativa in alternativas]
+        shuffle(alternativas)
 
-        alternativas.append(alternativas_questao)
+        # Retorno só pergunta e alternativas
+        questoes_lista.append({
+            "pergunta": questao["pergunta"],
+            "alternativas": alternativas
+        })
 
-
-    return {"enunciados" : enunciados,
-            "alternativas" : alternativas
-            }
-
-
+    return {
+        "questoes": questoes_lista
+    }
 
 
 
