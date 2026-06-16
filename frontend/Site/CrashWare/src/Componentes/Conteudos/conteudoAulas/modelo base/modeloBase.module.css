@@ -8,16 +8,16 @@
 
 .corpo {
     width: 100%;
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
     padding: 24px;
-    
+
     justify-content: center;
     align-content: center;
 
-    padding-top: 110px;
+    padding-top: 10px;
 }
 
 .separarConteudos {
@@ -100,6 +100,9 @@
     width: 100%;
     max-width: 620px;
     min-height: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+    scrollbar-width: none;
     background-color: var(--bg-secundario);
     border: 1px solid var(--texto-principal);
     border-radius: 16px;
@@ -322,7 +325,7 @@
     letter-spacing: 0 !important;
 }
 
-.conclusao .refazerExerciciosbtn{
+.conclusao .refazerExerciciosbtn {
     height: 42px;
     width: 50%;
     border-radius: 12px;

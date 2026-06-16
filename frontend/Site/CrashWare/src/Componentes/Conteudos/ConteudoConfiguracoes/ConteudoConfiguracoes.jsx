@@ -28,6 +28,7 @@ import { Usuario } from '../../../../funcoes/user';
 import { Configurações } from '../../../../funcoes/configurações';
 import { CampoTexto } from '../../CampoTexto';
 
+
 const ItemBarraLateral = ({ descricao, img, onClick }) => {
     return (
         <div className={Style.itemBarraLateral} onClick={onClick}>
@@ -575,7 +576,12 @@ const ConteudoConfiguracoes = () => {
                         <div className={Style.conectarContas}>
                             <h2>Conecte suas contas para login</h2>
                             <div className={Style.imagens}>
-                                
+                                <a href="#">
+                                    <SiGoogle size={32} style={{ color: '#4285F4' }} />
+                                </a>
+                                <a href="#">
+                                    <SiGithub size={32} style={{ color: '#000000' }} />
+                                </a>
                             </div>
                         </div>
                     </div>

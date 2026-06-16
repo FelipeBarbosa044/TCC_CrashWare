@@ -5,13 +5,14 @@
     box-sizing: border-box;
 }
 
-.corpo{
+.corpo {
 
     background-color: var(--bg-quinto);
     font-family: "Righteous";
-    font-weight: 300;   
+    font-weight: 300;
     /* opacity: 0.5; */
 }
+
 .hardware {
     color: var(--cor-primaria);
 }
@@ -30,7 +31,7 @@
     gap: 32px;
     width: 100% !important;
     /* padding-bottom: 30px; */
-    background: var(--bg-sexto) ;
+    background: var(--bg-sexto);
     /* opacity: 0.7;; */
 }
 
@@ -60,7 +61,8 @@
 
 .Apresentacao_btns button {
     background-color: var(--bg-principal);
-    border: 1px solid var(--texto-principal);
+    /* border: 1px solid var(--texto-principal); */
+    border: none;
     width: 260px;
     height: 52px;
     border-radius: 40px;
@@ -108,16 +110,16 @@
     width: 100% !important;
     padding: 28px 40px;
     box-shadow: none;
-    border-top: 1px solid var(--texto-principal);
-    border-bottom: 1px solid var(--texto-principal);
     background: var(--bg-sexto);
     opacity: 0.8;
+    background-color: var(--bg-principal);
 }
 
-.chamadaTextos{
+.chamadaTextos {
     display: flex;
     gap: 12px;
     max-width: 1600px;
+    align-items: center;
 }
 
 .chamadaTextos h3 {
@@ -150,6 +152,7 @@
     box-shadow: none;
     text-align: left;
     font-family: "Montserrat";
+    margin-left: 40px;
 }
 
 /* ===== MATERIAIS ===== */
@@ -183,7 +186,7 @@
 }
 
 .ConteudoHardware_img img {
-        display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     flex-shrink: 0;
@@ -215,7 +218,7 @@
 .ConteudoHardware_texto h2 {
     font-size: clamp(20px, 2.5vw, 38px);
     font-weight: 800;
-    background: linear-gradient(90deg,#A9CD08,#2BCA23,#019898);
+    background: linear-gradient(90deg, #A9CD08, #2BCA23, #019898);
     margin-bottom: 8px;
     text-align: center;
     -webkit-background-clip: text;
@@ -264,13 +267,13 @@
 }
 
 .ConteudoSoftware_img img {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-self: center;
-        flex-shrink: 0;
-        width: 260px;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    flex-shrink: 0;
+    width: 260px;
+}
 
 .ConteudoSoftware_img div {
     width: 10px;
@@ -299,7 +302,7 @@
     font-weight: 800;
     margin-bottom: 8px;
     text-align: center;
-    background: linear-gradient(90deg,#19C4D0,#1893C7,#1964D1);
+    background: linear-gradient(90deg, #19C4D0, #1893C7, #1964D1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -385,70 +388,29 @@
     width: clamp(120px, 20vw, 180px);
 }
 
-.botoesInstalar{
+.botoesInstalar {
     display: flex;
-    width: 100%;    
+    width: 100%;
 
     justify-content: center;
 
     /* gap: 60px; */
 }
 
-.BtnInstal{
+.BtnInstal {
     cursor: pointer;
 }
 
 
-.botoesInstalar p{
+.botoesInstalar p {
     font-size: 12px;
 }
 
 .btnApple {
     cursor: not-allowed !important;
     pointer-events: none;
-    opacity: 0.5; /* visual de desabilitado */
-}
-
-@media (min-width: 1900px) {
-    .MainEstilo{
-        /* width: 100vw; */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .Apresentacao{
-        justify-content: center;
-        align-items: center;
-
-        width: 90vw;
-        justify-self: center;
-        /* padding: 0px 130px; */
-    }
-    
-    .Chamada{
-        width: 98.8vw;
-        justify-self: center;
-        padding: 28px 100px;    
-        border: none;
-    }
-
-    .Materiais{
-        width: 100%;
-
-        padding: 30px 0px;
-    }
-
-    .ConteudoHardware, .ConteudoSoftware{
-        width: 70vw;
-    }
-
-    .aplicativo{
-        align-items: center;
-        justify-content: center;
-        padding: 40px 0px;
-    }
-
+    opacity: 0.5;
+    /* visual de desabilitado */
 }
 
 /* ===== RESPONSIVIDADE (max 900px) ===== */
@@ -491,7 +453,7 @@
     }
 
     .MainEstilo {
-        padding-top: 0px ;
+        padding-top: 0px;
     }
 
     /* Hero */
@@ -624,23 +586,23 @@
         font-size: 5.5vw;
     }
 
-    .botoesInstalar{
+    .botoesInstalar {
         gap: 20px;
     }
 
-    .aplicativo{
+    .aplicativo {
         margin-top: 0px;
         padding-top: 0px;
     }
 
-    .Chamada{
+    .Chamada {
         width: 100%;
     }
 
 
-    .Chamada h5{
+    .Chamada h5 {
         font-size: 11px;
-        width: 100%;
+        width: 90%;
     }
 
 
@@ -652,12 +614,13 @@
         width: 80%;
     }
 
-    .ConteudoHardware, .ConteudoSoftware{
+    .ConteudoHardware,
+    .ConteudoSoftware {
         width: 90%;
     }
 
     .ConteudoHardware_img img,
-    .ConteudoSoftware_img img{
+    .ConteudoSoftware_img img {
         width: 100px;
     }
 }
