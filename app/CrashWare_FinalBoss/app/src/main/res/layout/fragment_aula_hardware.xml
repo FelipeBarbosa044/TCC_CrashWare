@@ -84,7 +84,7 @@
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/battambang_bold"
                 android:lineSpacingExtra="-10sp"
-                android:text="Introdução Software"
+                android:text="Introdução Hardware"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@id/imgVideo"
@@ -137,106 +137,106 @@
                     app:use_controller="true" />
             </androidx.cardview.widget.CardView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cardArtigo"
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:paddingBottom="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:background="@drawable/bg_cards"
-            app:layout_constraintTop_toBottomOf="@id/cardVideo"
-            app:layout_constraintStart_toStartOf="@id/imgVideo"
-            app:layout_constraintEnd_toEndOf="@id/txtQuantXPAula">
-
-            <TextView
-                android:id="@+id/txtIntroducao"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardArtigo"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/inter_extrabold"
-                android:text="Introdução"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/cardArtigo"
-                app:layout_constraintTop_toTopOf="@id/cardArtigo" />
+                android:layout_marginTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="@drawable/bg_cards"
+                app:layout_constraintTop_toBottomOf="@id/cardVideo"
+                app:layout_constraintStart_toStartOf="@id/imgVideo"
+                app:layout_constraintEnd_toEndOf="@id/txtQuantXPAula">
 
-            <TextView
-                android:id="@+id/txtDescrIntroducao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/inter_semibold"
-                android:text="      O CrashWare é um projeto educacional criado para ensinar os fundamentos do hardware de forma clara e progressiva.
+                <TextView
+                    android:id="@+id/txtIntroducao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/inter_extrabold"
+                    android:text="Introdução"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/cardArtigo"
+                    app:layout_constraintTop_toTopOf="@id/cardArtigo" />
+
+                <TextView
+                    android:id="@+id/txtDescrIntroducao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="      O CrashWare é um projeto educacional criado para ensinar os fundamentos do hardware de forma clara e progressiva.
 
 Este curso foi desenvolvido para levar você do nível iniciante até uma compreensão sólida sobre o funcionamento dos computadores e dispositivos eletrônicos.
 
 Nesta unidade inicial, o objetivo não é apenas apresentar peças, mas construir entendimento. Antes de aprender a montar ou diagnosticar problemas, é essencial compreender como os componentes funcionam individualmente e como trabalham juntos dentro de um sistema."
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/cardArtigo"
-                app:layout_constraintTop_toBottomOf="@id/txtIntroducao" />
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/cardArtigo"
+                    app:layout_constraintTop_toBottomOf="@id/txtIntroducao" />
 
-            <TextView
-                android:id="@+id/txtConteudo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/inter_extrabold"
-                android:text="O que você aprenderá neste curso?"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/cardArtigo"
-                app:layout_constraintTop_toBottomOf="@id/txtDescrIntroducao" />
+                <TextView
+                    android:id="@+id/txtConteudo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/inter_extrabold"
+                    android:text="O que você aprenderá neste curso?"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/cardArtigo"
+                    app:layout_constraintTop_toBottomOf="@id/txtDescrIntroducao" />
 
-            <TextView
-                android:id="@+id/txtDescrConteudo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/inter_semibold"
-                android:text="      O CashWare não é um conteúdo para memorização rápida, mas um processo de construção gradual de conhecimento. Cada conceito serve de base para o próximo, desenvolvendo não apenas o “como fazer”, mas principalmente o “por que fazer”.
+                <TextView
+                    android:id="@+id/txtDescrConteudo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="      O CashWare não é um conteúdo para memorização rápida, mas um processo de construção gradual de conhecimento. Cada conceito serve de base para o próximo, desenvolvendo não apenas o “como fazer”, mas principalmente o “por que fazer”.
 
 O aprendizado técnico acontece com prática e revisão. Com o tempo, os conceitos passam a fazer sentido de forma mais natural e conectada."
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/cardArtigo"
-                app:layout_constraintTop_toBottomOf="@id/txtConteudo" />
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/cardArtigo"
+                    app:layout_constraintTop_toBottomOf="@id/txtConteudo" />
 
-            <TextView
-                android:id="@+id/txtEvolProfissional"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/inter_extrabold"
-                android:text="Evolução e Base Profissional"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/cardArtigo"
-                app:layout_constraintTop_toBottomOf="@id/txtDescrConteudo" />
+                <TextView
+                    android:id="@+id/txtEvolProfissional"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/inter_extrabold"
+                    android:text="Evolução e Base Profissional"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/cardArtigo"
+                    app:layout_constraintTop_toBottomOf="@id/txtDescrConteudo" />
 
-            <TextView
-                android:id="@+id/txtDescrEvolProfissional"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/inter_semibold"
-                android:text="      Mesmo que as tecnologias mudem, os fundamentos permanecem. Ao dominar essa base, você estará preparado para aprender novas ferramentas, compreender especificações técnicas e evoluir na área.
+                <TextView
+                    android:id="@+id/txtDescrEvolProfissional"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="      Mesmo que as tecnologias mudem, os fundamentos permanecem. Ao dominar essa base, você estará preparado para aprender novas ferramentas, compreender especificações técnicas e evoluir na área.
 
 Este curso é o alicerce da sua formação. Mais do que montar máquinas, você aprenderá a entender a lógica física que permite que elas funcionem."
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/cardArtigo"
-                app:layout_constraintTop_toBottomOf="@id/txtEvolProfissional" />
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/cardArtigo"
+                    app:layout_constraintTop_toBottomOf="@id/txtEvolProfissional" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
                 android:id="@+id/btnFazerExercicio"

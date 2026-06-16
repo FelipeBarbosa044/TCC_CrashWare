@@ -123,7 +123,7 @@ public class ModuloHardware extends AppCompatActivity {
     }
     private void Aula1M1H()
     {
-        Intent NovaAula = new Intent(ModuloHardware.this, ContainerSoftware.class);
+        Intent NovaAula = new Intent(ModuloHardware.this, ContainerHardware.class);
         startActivity(NovaAula);
 
     }

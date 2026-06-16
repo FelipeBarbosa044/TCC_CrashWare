@@ -13,7 +13,7 @@ import com.example.crashware.R;
 
 public class ContainerHardware extends AppCompatActivity {
 
-    private Fragment Aula1Hardware    = new IntroducaoSoftware();
+    private Fragment Aula1Hardware    = new  IntroducaoHardware();;
 
     private Fragment Exercicios = new FragmentExercicios();
 
@@ -35,7 +35,7 @@ public class ContainerHardware extends AppCompatActivity {
         if (savedInstanceState == null)
         {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentSoftware_Container, Aula1Hardware)
+                    .replace(R.id.fragmentHardware_Container, Aula1Hardware)
                     .commit();
         }
 
@@ -45,7 +45,23 @@ public class ContainerHardware extends AppCompatActivity {
 
 
 
+    public void irParaFragment(Fragment novoFragmento) {
+        String tag = novoFragmento.getClass().getSimpleName();
+        Fragment existente = getSupportFragmentManager().findFragmentByTag(tag);
 
+        if (existente != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentHardware_Container, existente, tag)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        else {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentHardware_Container, novoFragmento, tag)
+                    .addToBackStack(null)
+                    .commit();
+        }
+    }
 
 
 

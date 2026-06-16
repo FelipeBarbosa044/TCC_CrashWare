@@ -173,7 +173,7 @@ public class Inicio_fragment extends Fragment {
                 //
                 if (Carinho == 10)
                 {
-                    String email = prefs.getString("email", "");
+
                     //exibo conquista
                         User.Conquista(17,prefs, getActivity(), new User.ConquistasCallback()
                         {

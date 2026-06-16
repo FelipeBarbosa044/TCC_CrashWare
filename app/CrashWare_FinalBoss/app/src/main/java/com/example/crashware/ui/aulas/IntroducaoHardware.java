@@ -25,7 +25,7 @@ import android.graphics.Color;
  * Use the {@link IntroducaoSoftware#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class IntroducaoSoftware extends Fragment {
+public class IntroducaoHardware extends Fragment {
 
     ImageView imgVoltarAula;
 
@@ -42,7 +42,7 @@ public class IntroducaoSoftware extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public IntroducaoSoftware() {
+    public IntroducaoHardware() {
         // Required empty public constructor
     }
 
@@ -55,8 +55,8 @@ public class IntroducaoSoftware extends Fragment {
      * @return A new instance of fragment Aula.
      */
     // TODO: Rename and change types and number of parameters
-    public static IntroducaoSoftware newInstance(String param1, String param2) {
-        IntroducaoSoftware fragment = new IntroducaoSoftware();
+    public static IntroducaoHardware newInstance(String param1, String param2) {
+        IntroducaoHardware fragment = new IntroducaoHardware();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -83,7 +83,7 @@ public class IntroducaoSoftware extends Fragment {
 
 
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_aula, container, false);
+        View view =  inflater.inflate(R.layout.fragment_aula_hardware, container, false);
 
         imgVoltarAula = view.findViewById(R.id.imgVoltarCampos);
         btnFazerExercicio = view.findViewById(R.id.btnFazerExercicio);
@@ -94,25 +94,24 @@ public class IntroducaoSoftware extends Fragment {
         btnFazerExercicio.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
 
 
-                btnFazerExercicio.setOnClickListener(new View.OnClickListener() {
+        btnFazerExercicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
                 //Cria o novo caminho para fragmento
                 Fragment novoFragmento = new FragmentExercicios();
 
-
                 // Cria o pacote de dados
                 Bundle bundle = new Bundle();
-                bundle.putInt("id_exercicio", 5); // Mando para a outra tela o id do exericio
-                bundle.putInt("id_conquista",20); //e o id_conquista
+                bundle.putInt("id_exercicio", 7); // Mando para a outra tela o id do exericio
+                bundle.putInt("id_conquista",19); //e o id_conquista
 
                 novoFragmento.setArguments(bundle);
 
                 //Sobrepoe a tela do fragment para a de exercicios
                 getParentFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragmentSoftware_Container, novoFragmento)
+                        .replace(R.id.fragmentHardware_Container, novoFragmento)
                         .addToBackStack(null)
                         .commit();
 
@@ -141,9 +140,6 @@ public class IntroducaoSoftware extends Fragment {
 
 
 
-
-
-
         return view;
     }
 
@@ -157,9 +153,9 @@ public class IntroducaoSoftware extends Fragment {
                 //Se verificar token  certo
 
                 //Sincronizo aula e exercicio com usuario
-                Aula.SincronizarAula(5,prefs);
+                Aula.SincronizarAula(7,prefs);
 
-                Aula.SincronizarExercicio(5,prefs,new Aula.UsuarioExercicioCallback()
+                Aula.SincronizarExercicio(7,prefs,new Aula.UsuarioExercicioCallback()
                 {
                     @Override
                     public void Terminou()

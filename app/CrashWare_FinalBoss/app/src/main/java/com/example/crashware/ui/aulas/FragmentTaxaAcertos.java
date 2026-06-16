@@ -1,6 +1,7 @@
 package com.example.crashware.ui.aulas;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -13,7 +14,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.crashware.R;
+import com.example.crashware.databinding.FragmentTaxaAcertosBinding;
+import com.example.crashware.ui.api.Aula;
+import com.example.crashware.ui.api.Auth;
 import com.example.crashware.ui.api.User;
+import com.example.crashware.ui.navegacao.Home;
 
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -45,6 +50,9 @@ public class FragmentTaxaAcertos extends Fragment {
 
     ProgressBar barraProgressoAula;
     TextView txtPorcentagem;
+
+    int idExercicio = 0; //
+    int idConquista = 0;
 
 
 
@@ -87,6 +95,12 @@ public class FragmentTaxaAcertos extends Fragment {
 
         prefs = requireContext().getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
 
+        //Pego os id conquista e exercicio
+        if (getArguments() != null) {
+            idExercicio = getArguments().getInt("id_exercicio");
+            idConquista = getArguments().getInt("id_conquista");
+        }
+
         imgVoltar = view.findViewById(R.id.imgVoltarCampos);
         btnConcluirAula = view.findViewById(R.id.btnConcluirAula);
 
@@ -102,13 +116,164 @@ public class FragmentTaxaAcertos extends Fragment {
         barraProgressoAula.setProgress(100);
         txtPorcentagem.setText("100%");
 
+        // Começa bloqueado enquanto ganha a conquista
+        btnConcluirAula.setText("Carregando...");
+        btnConcluirAula.setEnabled(false);
+        imgVoltar.setEnabled(false);
+
+        // Deixa o botão cinza
+        btnConcluirAula.setBackgroundTintList(
+                android.content.res.ColorStateList.valueOf(
+                        android.graphics.Color.GRAY
+                )
+        );
+
+
+        // Valor inicial enquanto busca da API
+        txtPorcentagemAcertos.setText("0%");
+        progressBarGrafico.setProgress(0);
+        txtQuantAcertos.setText("0/5 ACERTOS");
+
+        // Chama a conquista e retornar os acertos automaticamente ao abrir a tela
+        RetornarAcertos();
+        GanharConquista();
+
+//        float porcentagem = 0;
+//
+//        if (ContadorQuestoes.totalQuestoes > 0)
+//        {
+//            porcentagem =
+//                    (ContadorQuestoes.totalAcertos * 100f)
+//                            / ContadorQuestoes.totalQuestoes;
+//        }
+//
+//        txtPorcentagemAcertos.setText(
+//                String.format("%.0f%%", porcentagem)
+//        );
+//
+//        progressBarGrafico.setProgress(
+//                Math.round(porcentagem)
+//        );
+//
+//        txtQuantAcertos.setText(
+//                ContadorQuestoes.totalAcertos
+//                        + "/"
+//                        + ContadorQuestoes.totalQuestoes
+//                        + " ACERTOS"
+//        );
+
+
+        imgVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                //Pego o email
+                String email = prefs.getString("email", "");
+
+                //Aviso para o bd que usuario acabou a aula:
+                Aula.AcabarAula(idExercicio,email);
+
+
+                //Adiciono Moeda e xp para o usuario, por completar a aula.
+                User.adicionar_moeda(20,prefs);
+                User.adicionar_xp(1000F,prefs);
+
+                //Vou para a HOME
+                Intent intent = new Intent(requireContext(), Home.class);
+                startActivity(intent);
+
+                // Fecha a tela/container atual de aula
+                requireActivity().finish();
+
+
+            }
+        });//
+
+        btnConcluirAula.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                //Pego o email
+                String email = prefs.getString("email", "");
+
+                //Aviso para o bd que usuario acabou a aula:
+                Aula.AcabarAula(idExercicio,email);
+
+                //Adiciono Moeda e xp para o usuario, por completar a aula.
+                User.adicionar_moeda(20,prefs);
+                User.adicionar_xp(1000F,prefs);
+
+                //Vou para a HOME
+                Intent intent = new Intent(requireContext(), Home.class);
+                startActivity(intent);
+
+                // Fecha a tela/container atual de aula
+                requireActivity().finish();
+            }
+        });
+
+
+
+        return view;
+
+    }
+
+    private  void RetornarAcertos()
+    {
+        //Verifico o token
+        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+
+            @Override
+            public void onSuccess()
+            {
+                //Se token tiver valido, pego os acertos
+                Aula.RetornarAcertos(idExercicio, prefs, FragmentTaxaAcertos.this, new Aula.AcertosCallback() {
+                    @Override
+                    public void onSuccess(Integer acertos) {
+                        //Quando retornar os acertos:
+
+                        AtualizarGrafico(acertos); //Atualizo o Grafico
+
+                    }
+                });
+
+            }
+
+        });
+
+    }
+    private  void GanharConquista()
+    {
+        User.Conquista(idConquista,prefs, getActivity(), new User.ConquistasCallback()
+        {
+            @Override
+            public void onSuccess()
+            {
+                // Libera os botões quando a conquista terminar
+                btnConcluirAula.setEnabled(true);
+                imgVoltar.setEnabled(true);
+                btnConcluirAula.setText("Terminar Aula");
+
+                // Volta a cor normal do botão
+                btnConcluirAula.setBackgroundTintList(null);
+            }
+        });//Ganha a conquista e libera o botão de terminar a aula
+    }
+
+    //Atualiza o Grafico
+    private void AtualizarGrafico(Integer acertos)
+    {
+
+        if (acertos == null) {
+            acertos = 0;
+        }
+
+        int totalQuestoes = 5;
+
         float porcentagem = 0;
 
-        if (ContadorQuestoes.totalQuestoes > 0)
-        {
-            porcentagem =
-                    (ContadorQuestoes.totalAcertos * 100f)
-                            / ContadorQuestoes.totalQuestoes;
+        if (totalQuestoes > 0) {
+            porcentagem = (acertos * 100f) / totalQuestoes;
         }
 
         txtPorcentagemAcertos.setText(
@@ -120,43 +285,8 @@ public class FragmentTaxaAcertos extends Fragment {
         );
 
         txtQuantAcertos.setText(
-                ContadorQuestoes.totalAcertos
-                        + "/"
-                        + ContadorQuestoes.totalQuestoes
-                        + " ACERTOS"
+                acertos + "/" + totalQuestoes + " ACERTOS"
         );
-
-
-        imgVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                requireActivity()//puxa o fragment atual
-                        .getSupportFragmentManager()//acessa o gerenciador das fragments
-                        .popBackStack();//simula o botão "voltar" do celular
-            }
-        });//
-
-        btnConcluirAula.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                User.Conquista(24,prefs, getActivity(), new User.ConquistasCallback()
-                {
-                    @Override
-                    public void onSuccess()
-                    {
-
-                    }
-                });//Ganha a conquista ou xp e gemas
-            }
-        });
-
-
-
-
-
-        return view;
-
     }
+
 }

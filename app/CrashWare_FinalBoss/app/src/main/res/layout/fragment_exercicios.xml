@@ -109,6 +109,35 @@
                 app:layout_constraintTop_toTopOf="@id/BarraProgressoAula"
                 app:layout_constraintBottom_toBottomOf="@id/BarraProgressoAula"/>
 
+            <LinearLayout
+                android:id="@+id/layoutLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:visibility="gone"
+                android:layout_marginTop="40dp"
+                app:layout_constraintTop_toBottomOf="@id/BarraProgressoAula"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ProgressBar
+                    android:id="@+id/spinnerLoading"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_marginEnd="10dp"/>
+
+                <TextView
+                    android:id="@+id/txtLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Carregando os exercícios..."
+                    android:textSize="15sp"
+                    android:textColor="?attr/colorOnSurface"/>
+
+            </LinearLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardExercicio"
                 android:layout_width="360dp"
@@ -298,6 +327,47 @@
                         app:layout_constraintStart_toEndOf="@id/selecionar4"
                         app:layout_constraintTop_toTopOf="@id/selecionar4"
                         app:layout_constraintBottom_toBottomOf="@id/selecionar4"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cardExercicio5"
+                    android:layout_width="320dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="20dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:background="@drawable/bg_cards"
+                    app:layout_constraintTop_toBottomOf="@id/cardExercicio4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/selecionar5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/btn_alternativa"
+                        app:layout_constraintTop_toTopOf="@id/cardExercicio5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/cardExercicio5">
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/txtQuestao5"
+                        android:layout_width="260dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/inter_semibold"
+                        android:text="Alternativa 5"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/selecionar5"
+                        app:layout_constraintTop_toTopOf="@id/selecionar5"
+                        app:layout_constraintBottom_toBottomOf="@id/selecionar5"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
