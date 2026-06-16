@@ -6,11 +6,11 @@
     box-sizing: border-box;
 }
 
-.corpo{
+.corpo {
     min-height: 100vh;
 }
 
-.separarConteudos{
+.separarConteudos {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -45,7 +45,7 @@
     text-align: center;
 }
 
-.barraLateral hr{
+.barraLateral hr {
     width: 90%;
     margin: auto;
     margin-bottom: 20px;
@@ -55,18 +55,18 @@
     display: flex;
     flex-direction: column;
     margin-top: 20px;
-    
+
 }
 
 .itemBarraLateral {
     display: flex;
     flex-direction: row;
-    padding-left : 20px;
+    padding-left: 20px;
     height: 50px;
     width: 90%;
     cursor: pointer;
 
-    background-color: var(--bg-secundario); 
+    background-color: var(--bg-secundario);
     border: 2px solid black;
     border-radius: 12px;
     margin: 0px 20px 20px 20px;
@@ -92,14 +92,14 @@
     align-self: center;
     display: inline;
     margin-left: 10px;
-    
+
 }
 
-.destaque span{
+.destaque span {
     color: red !important;
 }
 
-.destaque div{
+.destaque div {
     border: 1.21px solid red;
 }
 
@@ -118,7 +118,7 @@
     border: 1px solid var(--texto-principal);
 }
 
-.Conteudos h1{
+.Conteudos h1 {
     font-family: "Montserrat";
     color: var(--Texto2);
     text-align: center;
@@ -204,7 +204,7 @@
     outline: none;
 }
 
-.botoes{
+.botoes {
     background: linear-gradient(90deg, #101017, #06060A);
     border: none;
     color: white;
@@ -221,31 +221,39 @@
 
 }
 
-.botoes:hover{
+
+
+
+.botoes:hover {
     transform: scale(1.03) translateY(-4px);
     transition: 0.4s;
 }
 
 
-.conectarContas{
+.conectarContas {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.conectarContas h2{
+.conectarContas h2 {
     font-family: "Montserrat";
     color: var(--Texto2);
     font-weight: 700;
+    padding-bottom: 10px;
 }
 
-.conectarContas img{
+.conectarContas img {
     width: 40px;
     margin: 30px 10px;
     cursor: pointer;
 }
 
-.conectarContas img:hover{
+.conectarContas a {
+    padding: 5px;
+}
+
+.conectarContas img:hover {
     transform: scale(1.20);
     transition: 0.2s ease;
 }
@@ -254,7 +262,7 @@
     position: fixed;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(3px);  
+    backdrop-filter: blur(3px);
     z-index: 9998;
 }
 
@@ -266,11 +274,11 @@
     height: auto;
     width: 22vw;
     min-width: 280px;
-    background-color: #1c1b2e; 
+    background-color: #1c1b2e;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);  
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     z-index: 9999;
-    border-radius: 16px;       
+    border-radius: 16px;
     padding: 36px 24px;
 
     display: none;
@@ -284,7 +292,7 @@
     display: flex !important;
 }
 
-.popUp p{
+.popUp p {
     font-family: "Montserrat";
     color: #ffffff;
     text-align: center;
@@ -293,7 +301,7 @@
     line-height: 1.5;
 }
 
-.popUp .botoes{
+.popUp .botoes {
     background: none;
     width: 100%;
     display: flex;
@@ -304,21 +312,22 @@
     padding: 0;
 }
 
-.popUp .botoes:hover{
+.popUp .botoes:hover {
     transform: none;
 }
 
-.primeiroBotao, .segundoBotao{
+.primeiroBotao,
+.segundoBotao {
     width: 30%;
     height: 36px;
     background-color: var(--texto-principal);
 }
 
-.primeiroBotao{
+.primeiroBotao {
     width: 44%;
     height: 40px;
     background-color: transparent;
-    border: 1.5px solid #e05252;  
+    border: 1.5px solid #e05252;
     color: #e05252;
     border-radius: 12px;
     font-family: "Montserrat";
@@ -332,7 +341,8 @@
     background-color: #e05252;
     color: #ffffff;
 }
-.segundoBotao{
+
+.segundoBotao {
     width: 44%;
     height: 40px;
     background-color: rgba(255, 255, 255, 0.08);
@@ -350,13 +360,14 @@
     background-color: rgba(255, 255, 255, 0.16);
 }
 
-.link{
+.link {
     text-decoration: none;
 }
 
+
 @media (max-width: 1420px) {
 
-    .Conteudos{
+    .Conteudos {
         align-items: center;
     }
 
@@ -385,62 +396,62 @@
         min-width: 0;
     }
 
-    .conectarContas{
+    .conectarContas {
         width: 70%;
         text-align: center;
     }
 }
 
-@media (max-width: 873px){
-    
-    .separarConteudos{
+@media (max-width: 873px) {
+
+    .separarConteudos {
         flex-direction: row;
         flex-wrap: nowrap;
     }
 
-    .barraLateral{
+    .barraLateral {
         min-height: 620px;
     }
 }
 
-@media (max-width: 725px){
+@media (max-width: 725px) {
 
-    .separarConteudos{
+    .separarConteudos {
         flex-direction: column;
         flex-wrap: nowrap;
     }
 
-    .Conteudos{
+    .Conteudos {
         align-items: center;
         justify-items: center;
         width: 90vw;
     }
 
-    .barraLateral{
+    .barraLateral {
         width: 90vw;
         margin: auto;
         margin-top: 60px;
     }
 
-    .parteEmail{
+    .parteEmail {
         align-items: flex-start;
         margin-left: 30px;
     }
 
-    .campoForm{
+    .campoForm {
         width: 80%;
     }
 
-    .campoForm input{
+    .campoForm input {
         width: 100%;
     }
 
-    .botoes{
+    .botoes {
         width: 100%;
         display: block;
     }
 
-    .parteSenha{
+    .parteSenha {
         /* flex-wrap: wrap; */
         justify-content: flex-start;
         width: 80%;
@@ -448,18 +459,18 @@
         /* margin-left: 30px; */
     }
 
-    .barraLateral h1{
+    .barraLateral h1 {
         text-align: center;
     }
 }
 
-@media (max-width: 600px){
+@media (max-width: 600px) {
 
-    .secaoDados{
+    .secaoDados {
         width: 100%;
     }
 
-    .conectarContas h2{
+    .conectarContas h2 {
         text-align: center;
         font-size: 16px;
     }

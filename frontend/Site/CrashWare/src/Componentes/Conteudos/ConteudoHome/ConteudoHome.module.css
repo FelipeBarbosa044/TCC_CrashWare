@@ -1,6 +1,4 @@
-
-
-*{
+* {
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
@@ -87,11 +85,11 @@
     flex: 1;
 }
 
-div.raposa img{
+div.raposa img {
     width: 70px;
 }
 
-div.raposa{
+div.raposa {
     margin-right: 20px;
 }
 
@@ -139,7 +137,6 @@ div.raposa{
 .Barra {
     width: 100%;
     height: 6px;
-    border: 1px solid black;
     background: var(--texto-secundario);
     border-radius: 100px;
     overflow: hidden;
@@ -169,7 +166,7 @@ div.raposa{
     transition: border-color 0.2s, transform 0.2s;
 }
 
-.infoOfensiva{
+.infoOfensiva {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -320,7 +317,7 @@ div.raposa{
     gap: 10px;
 }
 
-.giradorLegal_Anotacao{
+.giradorLegal_Anotacao {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -335,7 +332,9 @@ div.raposa{
 }
 
 @keyframes giradorAnotacao {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .TextoMotivador {
@@ -447,7 +446,7 @@ div.raposa{
     gap: 14px;
 }
 
-.trilhasContainer h4{
+.trilhasContainer h4 {
     font-size: 18px;
 }
 
@@ -542,11 +541,11 @@ div.raposa{
     transition: opacity 0.2s, border-color 0.2s, color 0.2s;
 }
 
-.trilhaHardware button{
+.trilhaHardware button {
     background: var(--TrilhaHardware);
 }
 
-.trilhaSoftware button{
+.trilhaSoftware button {
     background: var(--TrilhaSoftware);
 }
 
@@ -568,7 +567,9 @@ div.raposa{
 }
 
 @keyframes girador {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @media (max-width: 864px) {
@@ -576,7 +577,7 @@ div.raposa{
         grid-template-columns: 1fr;
     }
 
-    .btnExplorar{
+    .btnExplorar {
         width: 34vw;
         align-content: center;
     }
@@ -586,7 +587,7 @@ div.raposa{
         padding: 12px 16px;
     }
 
-    .trilhas{
+    .trilhas {
         display: flex;
         flex-direction: column;
     }
@@ -622,7 +623,7 @@ div.raposa{
         max-width: 100%;
     }
 
-    .trilhas{
+    .trilhas {
         flex-direction: column !important;
         display: flex !important;
     }
@@ -635,13 +636,13 @@ div.raposa{
     }
 }
 
-@media (max-width: 440px){
+@media (max-width: 440px) {
 
-    .header{
+    .header {
         margin-top: 0px;
     }
-    
-    .ofensiva{
+
+    .ofensiva {
         text-align: center;
         justify-content: space-around;
 
@@ -649,39 +650,39 @@ div.raposa{
         padding-right: 30px;
     }
 
-    div.raposa img{
-        width: 60px ;
+    div.raposa img {
+        width: 60px;
     }
 
-    .ofensiva img{
+    .ofensiva img {
         width: 20px;
     }
 
-    .ofensivaDias{
+    .ofensivaDias {
         font-size: 15px;
     }
 
-    .ofensivaLabel{
+    .ofensivaLabel {
         font-size: 8px;
     }
 
     div.trilhaHardware img,
-    div.trilhaSoftware img{
+    div.trilhaSoftware img {
         width: 100%;
         text-align: center;
     }
 
-    div.trilhaHardware a{
+    div.trilhaHardware a {
         width: 100%;
         height: 36px;
     }
 
-    div.trilhaSoftware a{
+    div.trilhaSoftware a {
         width: 100%;
         height: 36px;
     }
 
-    .btnExplorar{
+    .btnExplorar {
         width: 80%;
         height: 100%;
     }

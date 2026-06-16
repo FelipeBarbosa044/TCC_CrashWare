@@ -87,7 +87,7 @@ const AbaUsuarios = () => {
         USUARIOS_MOCK = [];
 
         for (let n = 0; n < quantidade_usuarios; n++) {
-            USUARIOS_MOCK.push({ id: usuarios[n].id_usuario, nome: usuarios[n].nome_usuario, criado: formatarData(usuarios[n].created_at), editado: formatarData(usuarios[n].updated_at), status: verificarStatus(usuarios[n].ativo)[0], banir: verificarStatus(usuarios[n].ativo)[1], email : usuarios[n].email , foto : usuarios[n].foto, banner : usuarios[n].banner})
+            USUARIOS_MOCK.push({ id: usuarios[n].id_usuario, nome: usuarios[n].nome_usuario, criado: formatarData(usuarios[n].created_at), editado: formatarData(usuarios[n].updated_at), status: verificarStatus(usuarios[n].ativo)[0], banir: verificarStatus(usuarios[n].ativo)[1], email: usuarios[n].email, foto: usuarios[n].foto, banner: usuarios[n].banner })
 
         }
 
@@ -221,20 +221,24 @@ const AbaUsuarios = () => {
     }
 
 
+
+
+
+
     //Vai para o Perfil do usuário
-    const VerPerfil = (usuario) =>{
-        
+    const VerPerfil = (usuario) => {
 
-        Navegacao('/perfil-usuario',{
-             state: {
 
-                        email: usuario.email.toLowerCase(),
-                        nome: usuario.nome,
-                        id: usuario.id,
-                        foto : usuario.foto,
-                        banner : usuario.banner,
-                        criado_em : usuario.criado 
-                    }
+        Navegacao('/perfil-usuario', {
+            state: {
+
+                email: usuario.email.toLowerCase(),
+                nome: usuario.nome,
+                id: usuario.id,
+                foto: usuario.foto,
+                banner: usuario.banner,
+                criado_em: usuario.criado
+            }
         });
     }
 
@@ -333,7 +337,7 @@ const AbaUsuarios = () => {
 
                                         <div className={Style.Botoes}>
                                             <BotoesForm
-                                            //aqui felipe
+                                                //aqui felipe
                                                 onClick={() => VerPerfil(c)}
                                                 texto="Ver Perfil"
                                             />
