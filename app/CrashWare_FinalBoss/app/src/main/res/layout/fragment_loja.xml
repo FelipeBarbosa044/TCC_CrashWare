@@ -705,32 +705,6 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/imgMochila2"
                 app:layout_constraintTop_toTopOf="@id/imgMochila2" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnBoosterXP"
-                android:layout_width="110dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/btn_comprarpowerup2"
-                app:layout_constraintEnd_toEndOf="@id/cardInventarioPowerUp2"
-                app:layout_constraintTop_toBottomOf="@id/txtQuantPowerUp2">
-
-                <TextView
-                    android:id="@+id/txtAtivarBoosterXP"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Ativar"
-                    android:textAllCaps="true"
-                    android:textColor="@color/branco"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@id/btnBoosterXP"
-                    app:layout_constraintEnd_toEndOf="@id/btnBoosterXP"
-                    app:layout_constraintTop_toTopOf="@id/btnBoosterXP" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -811,32 +785,6 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/imgMochila1"
                 app:layout_constraintTop_toTopOf="@id/imgMochila1" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnCongelarOfensiva"
-                android:layout_width="110dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/btn_comprarpowerup1"
-                app:layout_constraintEnd_toEndOf="@id/cardInventarioPowerUp1"
-                app:layout_constraintTop_toBottomOf="@id/txtQuantPowerUp1">
-
-                <TextView
-                    android:id="@+id/txtAtivarCongelar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:fontFamily="@font/righteous"
-                    android:text="Ativar"
-                    android:textAllCaps="true"
-                    android:textColor="@color/branco"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@id/btnCongelarOfensiva"
-                    app:layout_constraintEnd_toEndOf="@id/btnCongelarOfensiva"
-                    app:layout_constraintTop_toTopOf="@id/btnCongelarOfensiva" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View

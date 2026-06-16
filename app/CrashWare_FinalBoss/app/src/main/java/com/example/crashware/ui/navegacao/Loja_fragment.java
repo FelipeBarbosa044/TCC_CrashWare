@@ -88,8 +88,8 @@ public class Loja_fragment extends Fragment {
         txtComprarTemaMeiaNoite = view.findViewById(R.id.txtComprarMeiaNoite);
         txtQuantBooster         = view.findViewById(R.id.txtValorBooster    );
         txtQuantGelo            = view.findViewById(R.id.txtValorCongele1   );
-        txtUsarBooster          = view.findViewById(R.id.txtAtivarBoosterXP );
-        txtUsarGelo             = view.findViewById(R.id.txtAtivarCongelar  );
+//        txtUsarBooster          = view.findViewById(R.id.txtAtivarBoosterXP );
+//        txtUsarGelo             = view.findViewById(R.id.txtAtivarCongelar  );
 
         //Criando os Toasts que serão Utilizados
         Toast temaAdquirido     = Toast.makeText(getContext(), "Tema Adquirido    ", Toast.LENGTH_LONG);
@@ -233,42 +233,42 @@ public class Loja_fragment extends Fragment {
             }
         });//Interação com o Botão de Comprar Congelamentos
 
-        txtUsarGelo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (Gelos != 0)
-                {
-                    Gelos -= 1;
-                    PowerUpUtilizado.show();
-                    AtualizarInfo();
-                }
-
-                else
-                {
-                    PowerupInsuficiente.show();
-                }
-            }
-        });//
-
-        txtUsarBooster.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                if (Boosters != 0)
-                {
-                    Boosters -= 1;
-                    PowerUpUtilizado.show();
-                    AtualizarInfo();
-                }
-
-                else
-                {
-                    PowerupInsuficiente.show();
-                }
-
-            }
-        });
+//        txtUsarGelo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (Gelos != 0)
+//                {
+//                    Gelos -= 1;
+//                    PowerUpUtilizado.show();
+//                    AtualizarInfo();
+//                }
+//
+//                else
+//                {
+//                    PowerupInsuficiente.show();
+//                }
+//            }
+//        });//
+//
+//        txtUsarBooster.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                if (Boosters != 0)
+//                {
+//                    Boosters -= 1;
+//                    PowerUpUtilizado.show();
+//                    AtualizarInfo();
+//                }
+//
+//                else
+//                {
+//                    PowerupInsuficiente.show();
+//                }
+//
+//            }
+//        });
 
         return view;
     }
