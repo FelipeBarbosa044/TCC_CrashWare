@@ -9,6 +9,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.crashware.R;
+import com.example.crashware.ui.api.Aula;
 import com.example.crashware.ui.api.Auth;
 import com.example.crashware.ui.api.Loja;
 import com.example.crashware.ui.api.Ofensiva;
@@ -64,7 +65,7 @@ public class carregamentoLogin  extends  AppCompatActivity{
                             .putBoolean("tema_gelo", true)
                             .apply();
 
-                    SincronizarOfensiva();
+                    Aulas_Concluidas();
 
                 }else
                 {
@@ -72,7 +73,7 @@ public class carregamentoLogin  extends  AppCompatActivity{
                             .putBoolean("tema_gelo", false)
                             .apply();
 
-                    SincronizarOfensiva();
+                    Aulas_Concluidas();
                 }
             }
 
@@ -91,6 +92,17 @@ public class carregamentoLogin  extends  AppCompatActivity{
 
 
 
+    private void Aulas_Concluidas()
+    {
+        //Pego a quantidade de aulas concluida do usuário
+        Aula.AulasConcluidas(prefs, carregamentoLogin.this, new Aula.AulasCallback() {
+            @Override
+            public void onSuccess() {
+                //Sincronizo a Ofensiva
+                SincronizarOfensiva();
+            }
+        });
+    }
     private void SincronizarOfensiva() {
 
         //Sicronizo com o banco de dados a ofensiva

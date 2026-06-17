@@ -105,6 +105,7 @@ public class IntroducaoHardware extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("id_exercicio", 7); // Mando para a outra tela o id do exericio
                 bundle.putInt("id_conquista",19); //e o id_conquista
+                bundle.putString("titulo","Introdução Hardware"); //Titulo da aula
 
                 novoFragmento.setArguments(bundle);
 

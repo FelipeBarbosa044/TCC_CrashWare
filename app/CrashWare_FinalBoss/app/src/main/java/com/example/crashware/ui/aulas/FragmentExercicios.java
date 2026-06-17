@@ -37,7 +37,7 @@ public class FragmentExercicios extends Fragment
     ConstraintLayout selecionar1, selecionar2, selecionar3, selecionar4,selecionar5;
     Button btnProximaQuestao;
     ProgressBar BarraProgressoAula;
-    TextView txtPorcentagem,
+    TextView txtPorcentagem,TituloAula,
     txtPergunta, txtQuestao1, txtQuestao2, txtQuestao3, txtQuestao4,txtQuestao5;
     ImageView imgVoltarExercicios;
 
@@ -49,6 +49,7 @@ public class FragmentExercicios extends Fragment
 
     int idExercicio = 0; //
     int idConquista = 0;
+    String titulo;
 
     // Controle de estado
     int Selecionado  = -1; // -1 = nenhuma opção selecionada
@@ -122,6 +123,17 @@ public class FragmentExercicios extends Fragment
         txtQuestao5         = view.findViewById(R.id.txtQuestao5        );
         layoutLoading       = view.findViewById(R.id.layoutLoading      );
         cardExercicio       = view.findViewById(R.id.cardExercicio      );
+        TituloAula          = view.findViewById(R.id.txtTituloAulaExercicios);
+
+
+        if (getArguments() != null) {
+            idExercicio = getArguments().getInt("id_exercicio");
+            idConquista = getArguments().getInt("id_conquista");
+            titulo = getArguments().getString("titulo");
+        }
+
+        //Edito o titulo da aula
+        TituloAula.setText(titulo);
 
         //Deixo oculto enquanto exercicios não aparecem
         btnProximaQuestao.setVisibility(View.GONE);
@@ -132,10 +144,7 @@ public class FragmentExercicios extends Fragment
         Toast RespostaSelecionada = Toast.makeText(getContext(), "Resposta Selecionada  ", LENGTH_SHORT);
 
 
-        if (getArguments() != null) {
-            idExercicio = getArguments().getInt("id_exercicio");
-            idConquista = getArguments().getInt("id_conquista");
-        }
+
 
         BuscarPerguntas();
 
@@ -263,6 +272,7 @@ public class FragmentExercicios extends Fragment
                     Bundle bundle = new Bundle();
                     bundle.putInt("id_exercicio", idExercicio);
                     bundle.putInt("id_conquista", idConquista);
+                    bundle.putString("titulo",titulo);
 
                     fragmentTaxaAcertos.setArguments(bundle);
 

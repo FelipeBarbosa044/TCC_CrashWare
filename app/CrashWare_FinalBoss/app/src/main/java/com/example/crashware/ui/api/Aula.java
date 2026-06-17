@@ -1,5 +1,6 @@
 package com.example.crashware.ui.api;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -661,6 +663,115 @@ public class Aula {
 
     }//Retornar Acertos
 
+    //Retornar Aulas concluidas:
+
+    // Armazena a resposta da API:
+    public static class AulasConcluidasResponse {
+
+        public Integer aulas_concluidas;
+
+    }
+
+    // INTERFACE da API:
+    public static interface aulas_concluidas {
+        @GET("/materia/aulas_concluidas")
+        Call<AulasConcluidasResponse> retornar(
+                @Header("Authorization") String token
+        );
+
+    }//Interface
+
+    // Callback
+    public interface AulasCallback {
+
+        void onSuccess();
+    }
+
+    public static void AulasConcluidas(SharedPreferences prefs, Context context,AulasCallback callback) {
+
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
+
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        //
+
+        // Fazendo que a interface da API seja utilizavel:
+        aulas_concluidas api = retrofit.create(aulas_concluidas.class);
+
+        // Monto a chamada da API:
+        Call<AulasConcluidasResponse> requisicao = api.retornar(token);
+
+        //Executo a requisição
+        requisicao.enqueue(new Callback<AulasConcluidasResponse>() {
+            @Override
+            public void onResponse(
+                    Call<AulasConcluidasResponse> requisicao,
+                    retrofit2.Response<AulasConcluidasResponse> resposta
+            ) {
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+                    AulasConcluidasResponse dados = resposta.body();
+
+                    //Pego a quantidade de aulas concluidas
+                    Integer aulas = dados.aulas_concluidas;
+
+                    //Salvo no SharedPreferences
+                    prefs.edit().putInt("aulas_concluidas",aulas).apply();
+
+                    callback.onSuccess();
+
+                } else {
+                    //Retorna erro caso a reqsição estiver errada
+
+                    String erro = "Erro ao Retornar Aulas Concluidas";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
 
 
-    }//Aula
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+//                    Toast.makeText(fragment.requireContext(), erro, Toast.LENGTH_LONG).show();
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AulasConcluidasResponse> call, Throwable t) {
+                //Caso deu erro na requisição
+                //erro de conexão (internet, URL, servidor fora)
+//                Toast.makeText(
+//                        fragment.requireContext(),
+//                        "Erro de conexão: " + t.getMessage(),
+//                        Toast.LENGTH_LONG
+//                ).show();
+            }
+
+        });
+
+
+    }//Aulas Concluidas
+
+
+
+
+}//Aula

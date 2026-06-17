@@ -44,7 +44,7 @@ public class FragmentTaxaAcertos extends Fragment {
     SharedPreferences prefs;
 
 
-    TextView txtPorcentagemAcertos;
+    TextView txtPorcentagemAcertos, TituloAula;
     TextView txtQuantAcertos;
     ProgressBar progressBarGrafico;
 
@@ -54,6 +54,7 @@ public class FragmentTaxaAcertos extends Fragment {
     int idExercicio = 0; //
     int idConquista = 0;
 
+    String titulo;
 
 
     public FragmentTaxaAcertos() {
@@ -95,11 +96,17 @@ public class FragmentTaxaAcertos extends Fragment {
 
         prefs = requireContext().getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
 
-        //Pego os id conquista e exercicio
+        TituloAula  = view.findViewById(R.id.txtTituloAulaExercicios );
+
+        //Pego os id conquista e exercicio , e o titulo da aula
         if (getArguments() != null) {
             idExercicio = getArguments().getInt("id_exercicio");
             idConquista = getArguments().getInt("id_conquista");
+            titulo = getArguments().getString("titulo");
         }
+
+        //Edito o titulo da aula
+        TituloAula.setText(titulo);
 
         imgVoltar = view.findViewById(R.id.imgVoltarCampos);
         btnConcluirAula = view.findViewById(R.id.btnConcluirAula);
@@ -167,8 +174,15 @@ public class FragmentTaxaAcertos extends Fragment {
             @Override
             public void onClick(View v)
             {
-                //Pego o email
+                //Pego o email e aulas
                 String email = prefs.getString("email", "");
+                Integer aulas = prefs.getInt("aulas_concluidas", 0);
+
+                //+1 Aula concluida
+                aulas += 1;
+
+                //Salvo no Shared Preferences
+                prefs.edit().putInt("aulas_concluidas",aulas).apply();
 
                 //Aviso para o bd que usuario acabou a aula:
                 Aula.AcabarAula(idExercicio,email);
@@ -195,6 +209,13 @@ public class FragmentTaxaAcertos extends Fragment {
             {
                 //Pego o email
                 String email = prefs.getString("email", "");
+                Integer aulas = prefs.getInt("aulas_concluidas", 0);
+
+                //+1 Aula concluida
+                aulas += 1;
+
+                //Salvo no Shared Preferences
+                prefs.edit().putInt("aulas_concluidas",aulas).apply();
 
                 //Aviso para o bd que usuario acabou a aula:
                 Aula.AcabarAula(idExercicio,email);

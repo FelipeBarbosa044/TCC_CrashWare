@@ -53,8 +53,6 @@ public class Loja {
     public static void ComprarItem(String nome,Integer moedas,String mensagem,SharedPreferences prefs, Fragment fragment,ComprarCallback callback)
     {
 
-        Toast.makeText(fragment.requireContext(), "Comprando Item...", Toast.LENGTH_LONG).show();
-
         //Pego o valor do token
         String token = prefs.getString("token", null);
 
@@ -95,6 +93,27 @@ public class Loja {
 
                     //Salvo no Shared Preferences
                     prefs.edit().putInt("moedas" , gemas).apply();
+
+                    if(nome.equals("congelamento"))
+                    {
+                        //Atualizo o inventario
+                        Integer congelamentos = prefs.getInt("congelamentos",0);
+
+                        congelamentos += 1;
+
+                        //Salvo no Shared Preferences
+                        prefs.edit().putInt("congelamentos" , congelamentos).apply();
+                    }
+                    if(nome.equals("booster"))
+                    {
+                        //Atualizo o inventario
+                        Integer booster = prefs.getInt("booster",0);
+
+                        booster += 1;
+
+                        //Salvo no Shared Preferences
+                        prefs.edit().putInt("booster" , booster).apply();
+                    }
 
                     Toast.makeText(fragment.requireContext(), mensagem, Toast.LENGTH_LONG).show();
 
@@ -143,6 +162,12 @@ public class Loja {
     // Armazena a resposta da API:
     public static class TemaResponse {
         String mensagem;
+
+        Integer congelamentos;
+
+        Integer booster;
+
+
     }
 
     // INTERFACE da API:
@@ -192,12 +217,49 @@ public class Loja {
 
                 if(resposta.code() == 409)
                 {
+                    try {
+
+                        //Pego o congelamentos e  booster do detail do HTTEXCEPTION da api
+                        String erroJson = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(erroJson);
+
+                        JSONObject detail = json.getJSONObject("detail");
+
+                        int congelamentos = detail.getInt("congelamentos");
+                        int booster = detail.getInt("booster");
+
+                        //Salvo no Shared Preferences
+                        prefs.edit()
+                                .putInt("congelamentos" , congelamentos)
+                                .putInt("booster" , booster)
+                                .apply();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     //Se usuário não tem o tema
                     callback.onSuccess(false);
                 }
 
+
                 if (resposta.isSuccessful()) {
                     //Requisição der certo
+
+                    //Pego a quantidade de booster e congelamentos que o usuario tem
+                    TemaResponse dados = resposta.body();
+
+                    Integer congelamentos = dados.congelamentos;
+                    Integer booster = dados.booster;
+
+
+                    //Salvo no Shared Preferences
+                    prefs.edit()
+                            .putInt("congelamentos" , congelamentos)
+                            .putInt("booster" , booster)
+                            .apply();
+
 
                     //Usuario já tem o tema
                     callback.onSuccess(true);

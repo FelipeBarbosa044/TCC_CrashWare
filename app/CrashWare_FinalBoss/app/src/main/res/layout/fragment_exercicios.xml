@@ -73,7 +73,7 @@
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/battambang_bold"
                 android:lineSpacingExtra="-10sp"
-                android:text="Como vai funcionar esse curso?"
+                android:text="Introdução"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"

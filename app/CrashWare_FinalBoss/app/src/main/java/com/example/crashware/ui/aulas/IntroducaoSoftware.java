@@ -106,6 +106,7 @@ public class IntroducaoSoftware extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("id_exercicio", 5); // Mando para a outra tela o id do exericio
                 bundle.putInt("id_conquista",20); //e o id_conquista
+                bundle.putString("titulo","Introdução Software"); //Titulo da aula
 
                 novoFragmento.setArguments(bundle);
 

@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.crashware.R;
+import com.example.crashware.ui.api.Aula;
 import com.example.crashware.ui.api.Auth;
 import com.example.crashware.ui.api.Ofensiva;
 import com.example.crashware.ui.api.User;
@@ -51,6 +52,8 @@ public class Inicio_fragment extends Fragment {
     private SharedPreferences.OnSharedPreferenceChangeListener listenerFoto;
 
     private SharedPreferences.OnSharedPreferenceChangeListener listenerRecursos;
+
+    private SharedPreferences.OnSharedPreferenceChangeListener listenerAulas;
 
     private TextView txtNomeInicio, txtAulasConcluidas, txtOfensiva, txtNivelInicio, txtXpInicio;
     private ShapeableImageView imgfotoInicio;
@@ -159,9 +162,25 @@ public class Inicio_fragment extends Fragment {
             }
         };
 
+        //Listener das aulas concluidas
+        listenerAulas = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+                if (key.equals("aulas_concluidas")) {
+                    //função que atualiza o progresso do xp
+                    int aulas = sharedPreferences.getInt("aulas_concluidas", 0);
+                    txtAulasConcluidas.setText(String.valueOf(aulas));
+                }
+
+            }
+        };
+
         prefs.registerOnSharedPreferenceChangeListener(listenerFoto);
 
         prefs.registerOnSharedPreferenceChangeListener(listenerRecursos);
+
+        prefs.registerOnSharedPreferenceChangeListener(listenerAulas);
 
         imgRaposa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,6 +266,9 @@ public class Inicio_fragment extends Fragment {
         //Valido a Ofensiva
         ValidarOfensiva();
 
+        //Atualizar aulas
+        RetornarAulas_Concluidas();
+
         //Atualiza XP/GEMAS e Patente
         CarregarRecursos();
 
@@ -254,9 +276,11 @@ public class Inicio_fragment extends Fragment {
         carregarDadosLocais();
 
 
+
 //        atualizarInterfaceXp();
 
     }
+
 
 
     // =========================
@@ -420,6 +444,34 @@ public class Inicio_fragment extends Fragment {
 
     }//Validar Ofensiva
 
+    private void RetornarAulas_Concluidas()
+    {
+        //Verifico o Token
+
+        //Verifico o token
+        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+
+            @Override
+            public void onSuccess()
+            {
+                //Se verificar token  certo
+
+                //Pego as aulas concluidas
+                Aula.AulasConcluidas(prefs, requireContext(), new Aula.AulasCallback()
+                 {
+                    @Override
+                    public void onSuccess() {
+                        //Pego as aulas
+                        int aulas = prefs.getInt("aulas_concluidas", 0);
+                        txtAulasConcluidas.setText(String.valueOf(aulas));
+                    }
+
+                });
+            }
+        });
+
+    }
+
 
     private void CarregarRecursos()
     {
@@ -476,6 +528,10 @@ public class Inicio_fragment extends Fragment {
             if (listenerRecursos != null) {
                 prefs.unregisterOnSharedPreferenceChangeListener(listenerRecursos);
             }
+
+            if (listenerAulas != null) {
+                prefs.unregisterOnSharedPreferenceChangeListener(listenerAulas);
+            }
         }
     }
 
@@ -484,13 +540,15 @@ public class Inicio_fragment extends Fragment {
     private void carregarDadosLocais() {
 
        String nome = prefs.getString("nome", "");
-
        String foto = prefs.getString("foto", "");
        Integer ofensiva = prefs.getInt("ofensiva", 1);
+       Integer aulas = prefs.getInt("aulas_concluidas", 0);
 
         txtNomeInicio.setText(nome);
 
         txtOfensiva.setText(ofensiva + " dias");
+
+        txtAulasConcluidas.setText(String.valueOf(aulas));
 
         if (foto != null && !foto.isEmpty()) {
 

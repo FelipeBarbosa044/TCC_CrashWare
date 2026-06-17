@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.crashware.R;
+import com.example.crashware.ui.api.Auth;
 import com.example.crashware.ui.api.Loja;
 
 
@@ -28,6 +29,9 @@ public class Loja_fragment extends Fragment {
 
     int Gelos = 1, Boosters = 0;
 
+    private SharedPreferences.OnSharedPreferenceChangeListener listenerBooster;
+
+    private SharedPreferences.OnSharedPreferenceChangeListener listenerCongelamento;
 
     //Memória do app
     SharedPreferences prefs;
@@ -101,18 +105,64 @@ public class Loja_fragment extends Fragment {
         //Verifico se o tema já foi comprado
         VerificarTemas();
 
+        //Pego os valores do Booster e congelamentos
+        int booster = prefs.getInt("booster", 0);
+        int gelos = prefs.getInt("congelamentos", 0);
+
+        txtQuantGelo.setText(String.valueOf(gelos + "/ 2"));
+        txtQuantBooster.setText(String.valueOf(booster + "/ 10"));
+
         //atualiza as infos
-        AtualizarInfo();
+//        AtualizarInfo();
+
+        //Listener Booster
+        listenerBooster = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+                if (key.equals("booster")) {
+                    //Atualizo o booster do inventario
+                    int booster = sharedPreferences.getInt("booster", 0);
+                    txtQuantBooster.setText(String.valueOf(booster + "/ 10"));
+                }
+
+            }
+        };
+
+        //Listener Congelamento
+        listenerCongelamento = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+                if (key.equals("congelamentos")) {
+                    //função que atualiza os congelamentos do inventario
+                    int gelos = sharedPreferences.getInt("congelamentos", 0);
+                    txtQuantGelo.setText(String.valueOf(gelos + "/ 2"));
+                }
+
+            }
+        };
+
+        prefs.registerOnSharedPreferenceChangeListener(listenerBooster);
+
+        prefs.registerOnSharedPreferenceChangeListener(listenerCongelamento);
+
+
 
         txtComprarTemaMeiaNoite.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
+
+
+
                 //Pego a gemas do usuário
                 Integer Gemas = prefs.getInt("moedas", 0);
                 if (Gemas>=50)
                 {
+                    Toast.makeText(requireContext(), "Comprando Item...", Toast.LENGTH_LONG).show();
+
                     temaAdquirido.show();
                     txtComprarTemaMeiaNoite.setText("Adquirido");
                     txtComprarGelo.setEnabled(false);
@@ -136,6 +186,20 @@ public class Loja_fragment extends Fragment {
                 Integer Gemas = prefs.getInt("moedas", 0);
                 if (Gemas>=50)
                 {
+
+                    Toast.makeText(requireContext(), "Comprando Item...", Toast.LENGTH_LONG).show();
+
+//                    //Verifico o token
+//                    Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+//
+//                        @Override
+//                        public void onSuccess() {
+//
+//
+//                        }
+//                    });
+
+                    //Realizo a compra
                     Loja.ComprarItem("gelo", 50, "Tema Adquirido", prefs, Loja_fragment.this, new Loja.ComprarCallback() {
                         @Override
                         public void onSuccess() {
@@ -163,6 +227,8 @@ public class Loja_fragment extends Fragment {
                 Integer Gemas = prefs.getInt("moedas", 0);
                 if (Gemas>=50)
                 {
+                    Toast.makeText(requireContext(), "Comprando Item...", Toast.LENGTH_LONG).show();
+
                     temaAdquirido.show();
                     txtComprarLeitura.setText("Adquirido");
                     txtComprarLeitura.setEnabled(false);
@@ -185,9 +251,27 @@ public class Loja_fragment extends Fragment {
                 Integer Gemas = prefs.getInt("moedas", 0);
                 if (Gemas >= 20)
                 {
+
+                    Toast.makeText(requireContext(), "Comprando Item...", Toast.LENGTH_LONG).show();
+
+//                    //Verifico o token
+//                    Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+//
+//                        @Override
+//                        public void onSuccess() {
+//
+//                            //Realizo a compra
+//                            Loja.ComprarItem("booster", 20, "PowerUp Adquirido", prefs, Loja_fragment.this, new Loja.ComprarCallback() {
+//                                @Override
+//                                public void onSuccess() {
+//                                    //Ignora
+//                                }
+//                            });
+//                        }
+//                    });
+
                     //Realizo a compra
-                    Loja.ComprarItem("booster",20,"PowerUp Adquirido",prefs,Loja_fragment.this,new Loja.ComprarCallback()
-                    {
+                    Loja.ComprarItem("booster", 20, "PowerUp Adquirido", prefs, Loja_fragment.this, new Loja.ComprarCallback() {
                         @Override
                         public void onSuccess() {
                             //Ignora
@@ -213,6 +297,18 @@ public class Loja_fragment extends Fragment {
 
                 if (Gemas>=30)
                 {
+
+                    Toast.makeText(requireContext(), "Comprando Item...", Toast.LENGTH_LONG).show();
+
+//                    //Verifico o token
+//                    Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+//
+//                        @Override
+//                        public void onSuccess() {
+//
+//
+//                        }
+//                    });
 
                     //Realizo a compra
                     Loja.ComprarItem("congelamento", 30, "PowerUp Adquirido", prefs, Loja_fragment.this, new Loja.ComprarCallback() {
@@ -286,6 +382,25 @@ public class Loja_fragment extends Fragment {
             txtComprarGelo.setEnabled(false);
         }
 
+    }
+
+    @Override
+    public void onDestroyView() {
+
+        super.onDestroyView();
+
+
+        if (prefs != null) {
+            if (listenerBooster != null) {
+                prefs.unregisterOnSharedPreferenceChangeListener(listenerBooster);
+            }
+
+            if (listenerCongelamento != null) {
+                prefs.unregisterOnSharedPreferenceChangeListener(listenerCongelamento);
+            }
+
+
+        }
     }
 
     private void AtualizarInfo()
