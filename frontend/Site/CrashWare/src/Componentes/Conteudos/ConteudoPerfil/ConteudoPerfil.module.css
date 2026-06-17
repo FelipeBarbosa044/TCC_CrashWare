@@ -387,14 +387,53 @@
     flex-shrink: 0; 
 }
 
+.DescricaoCompra{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.CongelarOfensiva{
+    width: 50%;
+    display: flex;
+    background: #3B82F6;
+    border-Radius: 14px;
+    padding: 10px;
+}
+
+.Booster{
+    width: 50%;
+    display: flex;
+    background: #16A34A;
+    border-radius: 14px;
+    padding: 10px;
+}
+
+.Booster h6, .CongelarOfensiva h6{
+    width: 80%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.itemInventario{
+    display: flex;
+    flex-direction: column;
+}
+
 .DescricaoCompra h5 { 
+    margin-left: 10px;
     font-size: 13px; 
     font-weight: 700; 
     text-transform: uppercase; 
     color: var(--Texto2); 
 }
 
-.DescricaoCompra p  { 
+.DescricaoCompra p{ 
+    margin-bottom: 10px;
+    margin-left: 10px;
     font-size: 11px; 
     color: var(--Texto2); 
     opacity: 0.95; 

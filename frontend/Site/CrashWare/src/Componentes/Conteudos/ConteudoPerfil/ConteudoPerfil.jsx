@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { GiShield } from 'react-icons/gi'
 import { GiShieldReflect, GiCheckedShield, GiShieldBash } from 'react-icons/gi'
 import { FaShield } from 'react-icons/fa6'
+import { Snowflake, FlaskConical, PaintBucket } from 'lucide-react'
 
 import Raposa from '../../../fotos/Raposa.svg';
 import FotoPadrao from '../../../fotos/FotoPerfilPadrao.jpeg';
@@ -53,6 +54,10 @@ const ConteudoPerfil = () => {
 
     //Pego as informações do usuario
     let usuario = JSON.parse(localStorage.getItem("dados"));
+
+    //FELIPE MEXER AQUI, JÁ SABE O ESQUEMA
+    //Itens
+    const [itens, setItens] = useState(null);
 
 
     //Trata a data do mês
@@ -444,14 +449,42 @@ const ConteudoPerfil = () => {
                     </div>
 
                     <div className={style.Historico_Compras}>
-                        <h1>Última Compra</h1>
+                        <h1>Itens Adquiridos</h1>
 
                         <div className={style.CompraRecente}>
-                            <img src={iconTema} alt="Item" />
+                            {/* <img src={iconTema} alt="Item" /> */}
 
                             <div className={style.DescricaoCompra}>
-                                <h5>Meia-Noite</h5>
-                                <p>Para quando o modo escuro não for suficiente</p>
+
+                                { itens >= 1 ? (
+                                    <>
+                                        <h5>Carregando suas conquistas...</h5>
+                                    </>
+                                ) : itens === "Freeze" ? (
+                                <div className={style.CongelarOfensiva}>
+                                    <Snowflake size={48} color="white" />
+                                    <div className={style.itemInventario}>
+                                        <h5>Freeze</h5>
+                                        <p>Congele sua ofensiva, e evite percas futuras</p>
+                                        <h6>0/2</h6>
+                                    </div>
+                                </div>
+                                ) : itens === "Booster" ? (
+                                <div className={style.Booster}>
+                                    <FlaskConical size={48} color="white" />
+                                    <div className={style.iconOfensiva}>
+                                        <h5>Booster</h5>
+                                        <p>Ganhe xp em <strong>dobro</strong> enquanto faz as liçoes</p>
+                                        <h6>0/10</h6>
+                                    </div>
+                                </div>
+                                ) : (
+                                    <>
+                                        <h5>Infelizmente você não tem power ups... Baixe o app e compre já o seu!</h5>
+                                    </>
+                                )
+
+                                }
                             </div>
                         </div>
                     </div>
