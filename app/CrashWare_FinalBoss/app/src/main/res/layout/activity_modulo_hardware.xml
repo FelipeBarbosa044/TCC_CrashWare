@@ -28,22 +28,22 @@
                 android:id="@+id/volarEscolhaMateria"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
-                android:padding="5dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/bg_voltarbranco"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:padding="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <!-- Voltar Anotacao -->
                 <ImageView
                     android:id="@+id/imgVoltarH"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:tint="#86CE01"
                     android:src="@drawable/seta_icon"
+                    app:layout_constraintEnd_toEndOf="@id/volarEscolhaMateria"
                     app:layout_constraintStart_toStartOf="@id/volarEscolhaMateria"
-                    app:layout_constraintEnd_toEndOf="@id/volarEscolhaMateria"/>
+                    app:tint="#86CE01" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Voltar -->
@@ -57,7 +57,7 @@
                 android:textColor="@color/branco"
                 android:textSize="22sp"
                 app:layout_constraintStart_toEndOf="@id/volarEscolhaMateria"
-                app:layout_constraintTop_toTopOf="@id/volarEscolhaMateria"/>
+                app:layout_constraintTop_toTopOf="@id/volarEscolhaMateria" />
 
             <LinearLayout
                 android:id="@+id/txtInfoHardware"
@@ -98,15 +98,14 @@
                         android:layout_width="220dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_semibold"
+                        android:lineSpacingExtra="2dp"
                         android:text="Desvende a arquitetura das máquinas de forma acessível."
                         android:textColor="@color/branco"
-                        android:textSize="15sp"
-                        android:lineSpacingExtra="2dp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- Card Introdução -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardIntroducaoH"
             android:layout_width="340dp"
@@ -563,6 +562,59 @@
                 app:layout_constraintEnd_toEndOf="@id/cardComponentesInternos"
                 app:layout_constraintStart_toEndOf="@+id/imgLivro3M6H"
                 app:layout_constraintTop_toBottomOf="@id/txtTituloAula5M3H" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Card Novos Conteúdos -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardNovosConteudos"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:padding="20dp"
+            android:background="@drawable/bg_cards"
+            app:layout_constraintTop_toBottomOf="@id/cardComponentesInternos"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Imagem HTML5 -->
+
+
+            <!-- Barra -->
+            <ImageView
+                android:id="@+id/imgHTML5"
+                android:layout_width="60dp"
+                android:layout_height="45dp"
+                android:src="@drawable/arduino_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/barraM3S"
+                android:layout_width="280dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="?attr/colorOutline"
+                app:layout_constraintTop_toBottomOf="@id/imgHTML5"
+                app:layout_constraintStart_toStartOf="@id/cardNovosConteudos"
+                app:layout_constraintEnd_toEndOf="@id/cardNovosConteudos"/>
+
+            <!-- Título Aula -->
+            <TextView
+                android:id="@+id/txtExplicativoNovoModulo"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Novos conteúdos de Arduino e Eletrônica estão chegando. Neles, você aprenderá a montar circuitos básicos e programar comandos simples para controlar componentes eletrônicos."
+                android:textAlignment="center"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@id/cardNovosConteudos"
+                app:layout_constraintStart_toStartOf="@id/cardNovosConteudos"
+                app:layout_constraintTop_toBottomOf="@id/barraM3S" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
