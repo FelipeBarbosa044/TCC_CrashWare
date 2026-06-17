@@ -80,13 +80,6 @@
     /* column-count: 2; */
 }
 
-h5 {
-    margin-bottom: 10px;
-    margin-left: 30px;
-    font-size: 20px;
-    color: var(--Texto2);
-}
-
 .Colunas p{
     font-size: 15px;
 }
