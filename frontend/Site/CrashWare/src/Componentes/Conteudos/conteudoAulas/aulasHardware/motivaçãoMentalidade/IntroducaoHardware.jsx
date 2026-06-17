@@ -2,7 +2,7 @@ import { ModeloBase } from "../../modelo base";
 
 import { useEffect } from "react";
 
-const MotivacaoMentalidade = () => {
+const IntroducaoHardware = () => {
     return(
     <ModeloBase
         tituloAula="Introdução Hardware"
@@ -90,4 +90,4 @@ const MotivacaoMentalidade = () => {
 
 
 
-export { MotivacaoMentalidade };
+export { IntroducaoHardware };

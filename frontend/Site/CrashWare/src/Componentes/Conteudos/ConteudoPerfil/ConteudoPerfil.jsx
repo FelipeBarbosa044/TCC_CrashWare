@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { GiShield } from 'react-icons/gi'
 import { GiShieldReflect, GiCheckedShield, GiShieldBash } from 'react-icons/gi'
 import { FaShield } from 'react-icons/fa6'
-import { Snowflake, FlaskConical, PaintBucket } from 'lucide-react'
+// import { Snowflake, FlaskConical, PaintBucket } from 'lucide-react'
 
 import Raposa from '../../../fotos/Raposa.svg';
 import FotoPadrao from '../../../fotos/FotoPerfilPadrao.jpeg';

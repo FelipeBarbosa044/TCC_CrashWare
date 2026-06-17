@@ -1,9 +1,9 @@
-import { MotivacaoMentalidade } from "../../../../Componentes";
+import { IntroducaoHardware } from "../../../../Componentes";
 
-const PgMotivacaoMentalidade = () => {
+const PgIntroducaoHardware = () => {
     return(
-        <MotivacaoMentalidade />
+        <IntroducaoHardware />
     );
 };
 
-export { PgMotivacaoMentalidade };
+export { PgIntroducaoHardware };

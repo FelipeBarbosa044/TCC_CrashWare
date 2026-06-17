@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { Aula } from "../../../../funcoes/aula";
 
 const conteudoHardware_Introducao = [
-    { descricao: "Introducao ao Hardware", to: "/MotivacaoMentalidade"},
+    { descricao: "Introdução Hardware", to: "/IntroducaoHardware"},
     { descricao: "Como vai funcionar esse curso?", to: "/comoFunciona"}
 ];
 

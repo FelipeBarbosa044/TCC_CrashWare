@@ -4,7 +4,7 @@ import { LayoutPadrao, LayoutADM, LayoutLogado, LayoutForm } from "./Layouts"
 import { AuthProvider, RotaAdm, RotaPrivada } from "./Rotas"
 import { AbaListarConquistas } from "./Paginas/ADM/AbasAdm/AbaListarConquistas"
 
-import { PgComoFunciona, PgMotivacaoMentalidade, PgIntroducaoSoftware} from "./Paginas"
+import { PgComoFunciona, PgIntroducaoHardware, PgIntroducaoSoftware} from "./Paginas"
 import { PgVerPerfil } from "./Paginas/VerPerfil/Verperfil"
 import { IntroducaoSoftware } from "./Componentes"
 
@@ -151,13 +151,13 @@ const Router = () => {
                 />
 
                 <Route
-                    path="MotivacaoMentalidade"
+                    path="IntroducaoHardware"
                     element={
                         <RotaPrivada>
-                            <PgMotivacaoMentalidade />
+                            <PgIntroducaoHardware />
                         </RotaPrivada>
                     }
-                />
+/>
 
                 {/* <Route
                     path="IntroducaoTecnologia"
