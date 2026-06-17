@@ -2,14 +2,13 @@ import { BotoesForm, CampoTexto } from "../../../../Componentes"
 import { useEffect, useState } from "react"
 import Style from "./abaListarMateria.module.css"
 import { PopUp } from '../../../../Componentes/pop-up';
+import { Adm } from "../../../../../funcoes/adm";
 
-const MATERIAS_MOCK = [
-    { id: 1, titulo: "Introdução ao React", modulo: "1", tipo: "software", descricao: "Aula introdutória sobre os conceitos básicos do React.", xp: 50, moedas: 20 },
-    { id: 2, titulo: "Componentes e Props", modulo: "1", tipo: "software", descricao: "Como criar e reutilizar componentes com props.", xp: 60, moedas: 25 },
-    { id: 3, titulo: "Hardware Básico", modulo: "2", tipo: "hardware", descricao: "Principais componentes físicos de um computador.", xp: 40, moedas: 15 },
-];
+
 
 const AbaListarMateria = () => {
+
+    let  MATERIAS_MOCK =  [];
 
     const [popup, setPopup] = useState(null);
     const [buscar, setBuscar] = useState("");
@@ -22,8 +21,34 @@ const AbaListarMateria = () => {
     }, []);
 
     async function carregarMaterias() {
+        //Listo conquistas no banco de dados
+        const adm = new Adm();
+
+        //Pego do bd as aulas
+        await adm.listar_aulas(setPopup);
+
+        //Pego as aulas em uma array
+        const aulas = JSON.parse(localStorage.getItem("aulas")) || [];
+
+        //Pego a quantidade de aulas
+        let quantidade_aulas = aulas.length
+
+        //Reinicio as aulas para não duplicar
+        MATERIAS_MOCK = [];
+
+         for (let n = 0; n < quantidade_conquistas; n++)
+        {
+            MATERIAS_MOCK.push({ id: aulas[n].id_aula, titulo:aulas[n].id_titulo , modulo: aulas[n].modulo, tipo: aulas[n].tipo, xp: aulas[n].xp_bonus, moedas: aulas[n].moeda_bonus })
+
+        }
+
+        //Aulas no total
         setMaterias(MATERIAS_MOCK);
+
+        //Aulas Exibidas
         setMateriasExibidas(MATERIAS_MOCK);
+
+
     }
 
     function Buscar(texto) {
@@ -35,7 +60,7 @@ const AbaListarMateria = () => {
         }
 
         const resultado = materiasInterface.filter((m) =>
-            `${m.id} ${m.titulo} ${m.descricao} ${m.tipo} ${m.modulo}`
+            `${m.id} ${m.titulo} ${m.tipo} ${m.modulo}`
                 .toLowerCase()
                 .includes(texto)
         );
@@ -43,10 +68,20 @@ const AbaListarMateria = () => {
         setMateriasExibidas(resultado);
     }
 
-    async function DeletarMateria(id_materia) {
-        try {
-            setMaterias((antigas) => antigas.filter((m) => m.id !== id_materia));
-            setMateriasExibidas((antigas) => antigas.filter((m) => m.id !== id_materia));
+    async function DeletarMateria(id_aula) {
+        try 
+        {
+    
+            //Deleto a aula no banco de dados
+            const aula = new Adm;
+            await conquista.deletar_aula(id_aula,setPopup)
+
+            //Atualizo as aulas
+    
+            setMaterias((antigas) => antigas.filter((m) => m.id !== id_aula));
+
+            setMateriasExibidas((antigas) => antigas.filter((m) => m.id !== id_aula));
+
             setMateriaAberta(null);
         } catch (error) {
             setPopup({

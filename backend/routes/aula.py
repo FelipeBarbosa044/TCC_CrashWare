@@ -95,17 +95,6 @@ async def criar_alternativa(dados : AlternativaSchema,session = Depends(pegar_se
         raise HTTPException(status_code=400, detail=str(exception))
 
 
-@materia.get('/buscar_aulas')
-async def buscar_hardware(session = Depends(pegar_sessao)):
-    aulas = session.execute(
-        select(Aula.titulo,Aula.tipo, Aula.modulo,Aula.xp_bonus,Aula.xp_bonus)
-    ).mappings().all()
-    if not aulas:
-        raise HTTPException(status_code=404, detail="Nenhuma Aula encontrada!")
-
-    return {"aulas" : aulas}
-
-
 @materia.post('/sincronizar_aula')
 async def sincronizar_aula(dados : MateriaSchema ,usuario = Depends(validar_token),session = Depends(pegar_sessao)):
     if usuario is None:

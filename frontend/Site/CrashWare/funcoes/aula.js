@@ -309,40 +309,6 @@ export class Aula
     }
 
 
-    async buscar_software()
-    {
-        try
-        {
-            const response = await fetch("https://api-crashware.onrender.com/materia/buscar_aulas",{
-                method : "GET"
-            });
-
-            if(response.ok)
-            {
-                //Requisição der certo
-
-                const aulas =await response.json();
-
-                return aulas
-
-            }else
-            {
-                //Requisição der erro
-
-                const erro = await response.json();
-
-                console.log("Erro ao Buscar Matérias " + erro.detail)
-            }
-
-        }catch (error)
-        {
-
-            console.log("Erro ao Tentar Buscar Matérias : " + error)
-
-        }
-
-    }//Buscar aulas 
-
     async SincronizarAula(id)
     {
          //Verifico o token

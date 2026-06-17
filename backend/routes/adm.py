@@ -4,9 +4,10 @@ from sqlalchemy import select
 #Importando tabelas:
 from models.gamificacao import Conquista
 from models.usuarios import Usuarios
+from models.aula import Aula
 
 #Importando SHCEMAS:
-from schemas.admSchema import ConquistaSchema, DeletarConquistaSchema, UsuarioSchema
+from schemas.admSchema import ConquistaSchema, DeletarConquistaSchema, UsuarioSchema, DeletarAulaSchema
 
 #dotenv
 import os
@@ -260,6 +261,27 @@ async def redefinir_nome(dados : UsuarioSchema,session = Depends(pegar_sessao)):
         session.rollback()
         raise HTTPException(status_code=400, detail=str(exception))
 
+@adm.get('/buscar_aulas')
+async def buscar_aulas(session = Depends(pegar_sessao)):
+    aulas = session.execute(
+        select(Aula.id_aula,Aula.titulo,Aula.tipo, Aula.modulo,Aula.xp_bonus,Aula.moeda_bonus)
+    ).mappings().all()
+    if not aulas:
+        raise HTTPException(status_code=404, detail="Nenhuma Aula encontrada!")
+
+    return {"aulas" : aulas}
+
+@adm.delete('/deletar_aula')
+async def deletar_conquista(dados : DeletarAulaSchema ,session = Depends(pegar_sessao)):
+    aula = session.query(Aula).filter(Aula.id_aula == dados.id_aula).first()
+    if aula is None:
+       raise HTTPException(status_code=404,detail="Aula não encontrada")
+    #Deleto a conquista
+    session.delete(aula)
+    session.commit()
+
+    ##Retorno a resposta
+    return {"mensagem" : "Aula Deletada"}
 
 
 

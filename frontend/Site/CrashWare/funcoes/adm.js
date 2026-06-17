@@ -622,5 +622,130 @@ export class Adm
         }
 
     }//Redefinir Nome
+
+
+    async listar_aulas(setPopup)
+        {
+            try
+            {
+                const response = await fetch("https://api-crashware.onrender.com/adm/buscar_aulas",{
+                    method : "GET"
+                });
+    
+                  if (response.status == 204)
+                {
+                    //Se não existir aulas...
+
+                    //Pego o erro
+                    const erro = await response.json();
+
+                    setPopup({
+                        tipo: 'erro',
+                        titulo: 'Conquistas',
+                        mensagem: erro.detail
+                    });
+
+                    return;
+
+                }
+                if(response.ok)
+                {
+                    //Requisição der certo
+    
+                    //Resposta da API
+                    const resposta =await response.json();
+
+                    //Pego as aulas
+                    const aulas = await resposta.aulas;
+
+                    //Guardo as conquistas no LocalStorage
+                    localStorage.setItem("aulas", JSON.stringify(aulas));
+    
+                    
+    
+                }else
+                {
+                    //Requisição der erro
+    
+                    const erro = await response.json();
+    
+                    console.log("Erro ao Buscar Matérias " + erro.detail)
+                }
+    
+            }catch (error)
+            {
+    
+                console.log("Erro ao Tentar Buscar Matérias : " + error)
+    
+            }
+    
+        }//Listar aulas 
+
+
+    async deletar_aula(id_aula,setPopup)
+    {
+        setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Aulas',
+                    mensagem: 'Deletando aula...'
+                });
+
+        sleep(1000)
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/adm/deletar_aula",
+                 {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        id_aula : id_aula
+                        })
+                 });
+
+
+            if(response.ok)
+            {
+                //Exibo resposta da API
+                const resposta = await response.json();
+                setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'Aula',
+                    mensagem: resposta.mensagem
+                });
+
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo o erro
+                
+                setPopup({
+                    tipo: 'erro',
+                    titulo: 'Aula',
+                    mensagem: erro.detail
+                });
+
+               
+            }
+
+        }catch(error) 
+        {
+             setPopup({
+                    tipo: 'erro',
+                    titulo: 'Erro De Conexão',
+                    mensagem: 'Erro ao deletar'
+                });
+
+            //Erro de conexão
+            console.log("Erro:", error);
+
+            sleep(1000)
+            return;
+        
+        }//catch
+    }//Deletar Aula
+
+
+
     
 }//ADM

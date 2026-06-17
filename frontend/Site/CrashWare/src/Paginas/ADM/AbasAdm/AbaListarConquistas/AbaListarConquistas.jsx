@@ -40,7 +40,7 @@ const AbaListarConquistas = () => {
         const adm = new Adm;
         await adm.listar_conquista(setPopup);
 
-        //Pego as conquistar em uma array
+        //Pego as conquistas em uma array
         const conquistas = JSON.parse(localStorage.getItem("conquistas")) || [];
 
 

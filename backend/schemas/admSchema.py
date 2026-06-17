@@ -13,7 +13,7 @@ class ConquistaSchema(BaseModel):
     class Config:
         from_attributes = True
 
-#SCHEMA Deltar Conquist Schema
+#SCHEMA Deltar Conquista Schema
 class DeletarConquistaSchema(BaseModel):
      id_conquista : int
 
@@ -24,6 +24,13 @@ class DeletarConquistaSchema(BaseModel):
 class UsuarioSchema(BaseModel):
     id_usuario : int
     motivo_banimento : Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+# SCHEMA Deltar Aula Schema
+class DeletarAulaSchema(BaseModel):
+    id_aula: int
 
     class Config:
         from_attributes = True
