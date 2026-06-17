@@ -72,14 +72,16 @@ const AbaConquistas = () => {
                 <div className={Style.NomeTipo}>
 
                     {/* Nome Conquista */}
-                    <label htmlFor="NomeConsquista" type="text" className={Style.Margincima}>Nome da Conquista</label>
-                    <CampoTexto
-                        value={nomeConquista}
-                        placeholder="Nome da Conquista"
-                        maxLength={100}
-                        onChange={(e) => setNomeConquista(e.target.value)}
-                    />
-                    <p>Máx 100 caracteres</p>
+                    <div>
+                        <label htmlFor="NomeConsquista" type="text" className={Style.Margincima}>Nome da Conquista</label>
+                        <CampoTexto
+                            value={nomeConquista}
+                            placeholder="Nome da Conquista"
+                            maxLength={100}
+                            onChange={(e) => setNomeConquista(e.target.value)}
+                        />
+                        <p>Máx 100 caracteres</p>
+                    </div>
 
                     {/* Tipo da Conquista */}
                     <h3>Tipo</h3>

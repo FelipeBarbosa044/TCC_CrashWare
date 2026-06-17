@@ -247,7 +247,7 @@ const ConteudoSoftware = () => {
 
                     </div>
 
-                    <div className={Style.componentes}>
+                    {/* <div className={Style.componentes}>
 
                         <h1>3 - Desenvolvimento Web</h1>
                         <hr />
@@ -261,7 +261,7 @@ const ConteudoSoftware = () => {
                             />
                         ))}
 
-                    </div>
+                    </div> */}
 
                 </section>
 
