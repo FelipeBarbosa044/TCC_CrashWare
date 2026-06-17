@@ -259,6 +259,16 @@ async def retornar_acertos(dados : MateriaSchema,usuario = Depends(validar_token
     return {"acertos" : acertos}
 
 
+@materia.get('/aulas_concluidas')
+async def aulas_concluidas(usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+    aulas_concluidas = session.query(Usuario_Aula).filter(Usuario_Aula.usuario_id == usuario.id_usuario,Usuario_Aula.terminou == True).count()
+
+    return {"aulas_concluidas" : aulas_concluidas}
+
+
 
 
 
