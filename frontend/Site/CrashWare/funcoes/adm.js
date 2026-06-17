@@ -626,6 +626,11 @@ export class Adm
 
     async listar_aulas(setPopup)
         {
+            setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Aulas',
+                    mensagem: 'Listando Aulas...'
+                });
             try
             {
                 const response = await fetch("https://api-crashware.onrender.com/adm/buscar_aulas",{

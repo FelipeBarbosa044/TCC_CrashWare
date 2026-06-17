@@ -36,9 +36,9 @@ const AbaListarMateria = () => {
         //Reinicio as aulas para não duplicar
         MATERIAS_MOCK = [];
 
-         for (let n = 0; n < quantidade_conquistas; n++)
+         for (let n = 0; n < quantidade_aulas; n++)
         {
-            MATERIAS_MOCK.push({ id: aulas[n].id_aula, titulo:aulas[n].id_titulo , modulo: aulas[n].modulo, tipo: aulas[n].tipo, xp: aulas[n].xp_bonus, moedas: aulas[n].moeda_bonus })
+            MATERIAS_MOCK.push({ id: aulas[n].id_aula, titulo:aulas[n].titulo , modulo: aulas[n].modulo, tipo: aulas[n].tipo, xp: aulas[n].xp_bonus, moedas: aulas[n].moeda_bonus })
 
         }
 
@@ -74,7 +74,7 @@ const AbaListarMateria = () => {
     
             //Deleto a aula no banco de dados
             const aula = new Adm;
-            await conquista.deletar_aula(id_aula,setPopup)
+            await aula.deletar_aula(id_aula,setPopup)
 
             //Atualizo as aulas
     
@@ -140,8 +140,6 @@ const AbaListarMateria = () => {
                                 {materiaAberta === m.id && (
                                     <div className={Style.sanfona}>
                                         <div className={Style.coluna1}>
-                                            <h5>Descrição</h5>
-                                            <p>{m.descricao}</p>
                                             <BotoesForm
                                                 className={Style.excluir}
                                                 texto="Excluir"
