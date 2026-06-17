@@ -1,10 +1,56 @@
+import { Aula } from "../../../../../../funcoes/aula";
 import { ModeloBase } from "../../modelo base";
+import { useNavigate } from "react-router-dom";
+import { useEffect , useState} from "react";
 
-import { useEffect } from "react";
 
 const IntroducaoHardware = () => {
+
+      //Pego os tokens
+    const token = localStorage.getItem("token");
+    const refresh_token = localStorage.getItem("refresh_token");
+
+    //Navegação --> Permite eu levar o usuario para outras telas
+    const Navegacao = useNavigate();
+
+    //Pego os states
+    const [token_state, setToken] = useState(() => localStorage.getItem("token"));
+    const [refresh_token_state, setRefresh] = useState(() => localStorage.getItem("refresh_token"));
+    const [dados, setDados] = useState(() =>
+        JSON.parse(localStorage.getItem("dados")) || null
+    );
+
+    //Lista que contém todos os usestate
+    const set = [setToken, setRefresh, setDados];
+
+    //Objeto que da classe "Aula"
+    const aula = new Aula(token,refresh_token,Navegacao,set)
+
+    const [carregando, setCarregando] = useState(true);
+
+    useEffect(() => {
+        // Sincronizar Exercicio e Aula com Usuario
+        const Sincronizar = async () => {
+            try {
+                //Requisições em paralelo
+                 await Promise.all([
+                    aula.SincronizarAula(7),      //Id da aula de hardware
+                    aula.SincronizarExercicio(7,setCarregando),  //Id do exercicio de hardware
+                ])
+
+            } catch (erro) {
+                console.error("Erro ao Sincronizar Matéria", erro);
+            }
+        };
+
+        Sincronizar();
+    }, []);
+
+
+
     return(
     <ModeloBase
+        carregando={carregando}
         tituloAula="Introdução Hardware"
         xpGanho={50}
         srcVideo=""

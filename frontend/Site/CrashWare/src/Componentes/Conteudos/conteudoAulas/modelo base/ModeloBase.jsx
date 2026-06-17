@@ -128,6 +128,7 @@ const ModeloExecicios = ({
 };
 
 const ModeloBase = ({
+    carregando,
     tituloAula,
     xpGanho,
     srcVideo,
@@ -223,7 +224,7 @@ const ModeloBase = ({
 
                     <div className={Style.botoes}>
                         <div className={Style.butaozinho}>
-                            <button onClick={trocarConteudo}>
+                            <button onClick={trocarConteudo} disabled={carregando}>
                                 {conteudo === "artigo" ? <p>exercicios</p> : <p>artigo</p>}
                             </button>
                         </div>

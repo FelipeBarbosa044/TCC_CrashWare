@@ -1,2 +1,2 @@
 export * from "./ComoFunciona";
-export * from "./motivacaoMentalidade";
+export * from "./IntroducaoHardware";

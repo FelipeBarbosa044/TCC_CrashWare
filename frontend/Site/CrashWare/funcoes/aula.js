@@ -2,6 +2,18 @@ import { Api } from "./functions";
 
 export class Aula
 {
+    //Parâmetros do método construtor
+    constructor(token = null,refresh_token = null, Navegacao = null,set = null,setPopup = null)
+    {
+        this.token = token;
+        this.refresh_token = refresh_token;
+        this.Navegacao = Navegacao;
+        this.set = set;
+        this.setPopup = setPopup;
+        
+    }
+
+
     async criar_aula(descricaoAula,conteudoAula,questoes,moeda_bonus,xp_bonus,setPopup)
     {
        
@@ -419,7 +431,7 @@ export class Aula
 
     }//Sincronizar Aula
 
-    async SincronizarExercicio(id)
+    async SincronizarExercicio(id,setCarregando)
     {
          //Verifico o token
         const usuario = new Api();
@@ -447,6 +459,20 @@ export class Aula
             if(response.status == 409)
             {
                 //Ignora
+                
+                const dados = await response.json();
+
+                const acabou = dados.detail.terminou;
+
+                if(acabou == true)
+                {
+                    //Usuario acabou os exercicios
+                    setCarregando(true); //Bloque o botão de exercicios
+                }else
+                {
+                    //Usuario não terminou os exercicios
+                    setCarregando(false); //Deixo o botão liberado
+                }
                 return;
             }
             if(response.ok)

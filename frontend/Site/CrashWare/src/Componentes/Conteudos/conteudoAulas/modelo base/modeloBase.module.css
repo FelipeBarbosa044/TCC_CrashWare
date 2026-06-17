@@ -173,6 +173,18 @@
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
+.parteLado .butaozinho button:disabled {
+    background-color: #6b6b6b !important;
+    color: #c4c4c4;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.parteLado .butaozinho button:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
 /* ── Exercícios ──────────────────────────────────── */
 .exercicio {
     display: flex;
