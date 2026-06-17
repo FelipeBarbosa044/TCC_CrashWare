@@ -221,10 +221,6 @@ const AbaUsuarios = () => {
     }
 
 
-
-
-
-
     //Vai para o Perfil do usuário
     const VerPerfil = (usuario) => {
 
