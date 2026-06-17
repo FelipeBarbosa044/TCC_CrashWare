@@ -20,19 +20,17 @@
 
     <color name="bg_vidro_transparente">#FFFFFF</color>
 
-    <style name="Theme.CrashWare.Gelo"
-        parent="Base.Theme.CrashWare">
+    <style name="Theme.CrashWare.Gelo" parent="Base.Theme.CrashWare">
 
-        <item name="colorPrimary">#367575</item>
-        <item name="colorOnPrimary">#009688</item>
+        <item name="colorPrimarySurface">#5FACFF</item>
 
-        <item name="colorSurface">#673AB7</item>
-        <item name="colorOnSurface">#0F172A</item>
+        <item name="colorSurface">#AFD9EB</item>
+        <item name="colorOnSurface">#FFFFFF</item>
 
-        <item name="android:colorBackground">#367575</item>
+        <item name="android:colorBackground">#98CFFF</item>
 
-        <item name="colorSecondaryContainer">#F44336</item>
-        <item name="colorOutline">#00BCD4</item>
+        <item name="colorSecondaryContainer">#30F4F4F4</item>
+        <item name="colorOutline">#FFFFFF</item>
 
     </style>
 </resources>

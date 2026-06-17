@@ -8,6 +8,7 @@
 
 .corpo {
     min-height: 100vh;
+    padding-top: 100px;
 }
 
 .separarConteudos {
@@ -416,6 +417,10 @@
 
 @media (max-width: 725px) {
 
+    .corpo{
+        padding-top: 40px;
+    }
+
     .separarConteudos {
         flex-direction: column;
         flex-wrap: nowrap;
@@ -470,6 +475,10 @@
         width: 100%;
     }
 
+    .conectarContas{
+        margin-bottom: 20px;
+    }
+
     .conectarContas h2 {
         text-align: center;
         font-size: 16px;
@@ -477,5 +486,9 @@
 
     .campoForm {
         width: 300px;
+    }
+
+    .Conteudos{
+        margin-bottom: 20px;
     }
 }
