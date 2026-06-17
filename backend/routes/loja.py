@@ -72,10 +72,23 @@ async def tema(usuario = Depends(validar_token),session = Depends(pegar_sessao))
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
     tema_gelo = session.query(Usuario_Item).filter(Usuario_Item.usuario_id == usuario.id_usuario , Usuario_Item.item_id == 3).first()
 
+    booster = session.query(Usuario_Item.quantidade).filter(Usuario_Item.usuario_id,Usuario_Item.item_id == 2).first()
+
+    congelamentos = session.query(Usuario_Item.quantidade).filter(Usuario_Item.usuario_id,Usuario_Item.item_id == 1).first()
+
+    if booster is None:
+        booster = 0
+
+    if congelamentos is None:
+        congelamentos = 0
+
     if tema_gelo is None:
         raise HTTPException(status_code=409, detail="Tema Não Comprado")
     else:
-        return {"mensagem" : "Tema Comprado"}
+        return {"mensagem" : "Tema Comprado",
+                "congelamentos" : congelamentos,
+                "booster" : booster
+                }
 
 
 
