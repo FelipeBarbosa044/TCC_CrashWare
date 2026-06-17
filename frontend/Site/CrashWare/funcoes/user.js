@@ -1151,4 +1151,72 @@ export class Usuario
         }
     }
 
+    async power_ups(setItens)
+    {
+         //Verifico o token
+        const usuario = new Api;
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+        
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/loja/tema",
+                {
+                    method: 'GET',
+                    headers:
+                    {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+
+            if(response.status == 409)
+            {
+                //Pego os PowerUps
+                const dados = await response.json();
+
+                const powerUps = dados.detail;
+
+                const congelamentos = powerUps.congelamentos;
+
+                const booster = powerUps.booster;
+
+                setItens({
+                    congelamentos: congelamentos,
+                    booster: booster
+                });
+
+                return;
+
+
+            }
+            if (response.ok)
+            {
+                const powerUps = await response.json();
+
+                const congelamentos = powerUps.congelamentos;
+                const booster = powerUps.booster;
+
+               setItens({
+                    congelamentos: congelamentos,
+                    booster: booster
+                });
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo no console log o erro
+                console.log("Erro ao Buscar Power Ups" + erro.detail)
+            }
+        
+        }catch (error)
+        {
+            console.log("Erro ao Tentar Buscar Power Ups  " + error)
+        }
+
+    }//Buscar Power Ups
+
+
 }//classe

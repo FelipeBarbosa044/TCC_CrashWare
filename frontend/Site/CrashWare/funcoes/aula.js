@@ -313,7 +313,7 @@ export class Aula
     {
         try
         {
-            const response = await fetch("https://api-crashware.onrender.com/materia/buscar_software",{
+            const response = await fetch("https://api-crashware.onrender.com/materia/buscar_aulas",{
                 method : "GET"
             });
 
@@ -341,42 +341,7 @@ export class Aula
 
         }
 
-    }//Buscar aulas de SOFTWARE
-
-    async buscar_hardware()
-    {
-        try
-        {
-            const response = await fetch("https://api-crashware.onrender.com/materia/buscar_hardware",{
-                method : "GET"
-            });
-
-            if(response.ok)
-            {
-                //Requisição der certo
-
-                const aulas =await response.json();
-
-                return aulas
-
-            }else
-            {
-                //Requisição der erro
-
-                const erro = await response.json();
-
-                console.log("Erro ao Buscar Matérias " + erro.detail)
-            }
-
-        }catch (error)
-        {
-
-            console.log("Erro ao Tentar Buscar Matérias : " + error)
-
-        }
-
-    }//Buscar aulas de HARDWARE
-
+    }//Buscar aulas 
 
     async SincronizarAula(id)
     {

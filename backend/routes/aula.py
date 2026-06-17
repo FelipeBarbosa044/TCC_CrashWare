@@ -95,22 +95,10 @@ async def criar_alternativa(dados : AlternativaSchema,session = Depends(pegar_se
         raise HTTPException(status_code=400, detail=str(exception))
 
 
-@materia.get('/buscar_hardware')
+@materia.get('/buscar_aulas')
 async def buscar_hardware(session = Depends(pegar_sessao)):
     aulas = session.execute(
-        select(Aula.titulo, Aula.modulo)
-        .where(Aula.tipo == "hardware")
-    ).mappings().all()
-    if not aulas:
-        raise HTTPException(status_code=404, detail="Nenhuma Aula encontrada!")
-
-    return {"aulas" : aulas}
-
-@materia.get('/buscar_software')
-async def buscar_software(session = Depends(pegar_sessao)):
-    aulas = session.execute(
-        select(Aula.titulo, Aula.modulo)
-        .where(Aula.tipo == "software")
+        select(Aula.titulo,Aula.tipo, Aula.modulo,Aula.xp_bonus,Aula.xp_bonus)
     ).mappings().all()
     if not aulas:
         raise HTTPException(status_code=404, detail="Nenhuma Aula encontrada!")

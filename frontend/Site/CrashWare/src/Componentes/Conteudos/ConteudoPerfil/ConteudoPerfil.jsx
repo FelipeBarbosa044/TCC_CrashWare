@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { GiShield } from 'react-icons/gi'
 import { GiShieldReflect, GiCheckedShield, GiShieldBash } from 'react-icons/gi'
 import { FaShield } from 'react-icons/fa6'
-// import { Snowflake, FlaskConical, PaintBucket } from 'lucide-react'
+import { Snowflake, FlaskConical, PaintBucket } from 'lucide-react'
 
 import Raposa from '../../../fotos/Raposa.svg';
 import FotoPadrao from '../../../fotos/FotoPerfilPadrao.jpeg';
@@ -55,9 +55,11 @@ const ConteudoPerfil = () => {
     //Pego as informações do usuario
     let usuario = JSON.parse(localStorage.getItem("dados"));
 
-    //FELIPE MEXER AQUI, JÁ SABE O ESQUEMA
     //Itens
-    const [itens, setItens] = useState(null);
+    const [itens, setItens] = useState({
+        congelamentos: 0,
+        booster: 0
+    });
 
 
     //Trata a data do mês
@@ -137,6 +139,7 @@ const ConteudoPerfil = () => {
 
         atualizarRecursos();
         carregarConquistas();
+        carregarPowerUps();
 
 
         setMaiorOfensiva(localStorage.getItem("maior_ofensiva"))
@@ -180,6 +183,13 @@ const ConteudoPerfil = () => {
 
         //Atualizo os xp e gema
         user.atulizar_recursos(usuario?.email, setDados, setTotalGemas)
+    }
+
+    async function  carregarPowerUps() {
+        //Crio o bjeto que contem requisições para o banco
+        const user = new Usuario(token, refresh_token, Navegacao, set);
+        //Pego os powerUps do usuario
+        user.power_ups(setItens)
     }
 
     if (!usuario) {
@@ -456,35 +466,35 @@ const ConteudoPerfil = () => {
 
                             <div className={style.DescricaoCompra}>
 
-                                { itens >= 1 ? (
-                                    <>
-                                        <h5>Carregando suas conquistas...</h5>
-                                    </>
-                                ) : itens === "Freeze" ? (
+                               { itens.congelamentos >= 1 && (
                                 <div className={style.CongelarOfensiva}>
                                     <Snowflake size={48} color="white" />
                                     <div className={style.itemInventario}>
                                         <h5>Freeze</h5>
                                         <p>Congele sua ofensiva, e evite percas futuras</p>
-                                        <h6>0/2</h6>
+                                        <h6>{itens.congelamentos}</h6>
                                     </div>
                                 </div>
-                                ) : itens === "Booster" ? (
+                            )}
+
+                            { itens.booster >= 1 && (
                                 <div className={style.Booster}>
                                     <FlaskConical size={48} color="white" />
                                     <div className={style.iconOfensiva}>
                                         <h5>Booster</h5>
                                         <p>Ganhe xp em <strong>dobro</strong> enquanto faz as liçoes</p>
-                                        <h6>0/10</h6>
+                                        <h6>{itens.booster}</h6>
                                     </div>
                                 </div>
-                                ) : (
-                                    <>
-                                        <h5>Infelizmente você não tem power ups... Baixe o app e compre já o seu!</h5>
-                                    </>
-                                )
+                            )}
 
-                                }
+                            { itens.congelamentos === 0 && itens.booster === 0 && (
+                                <>
+                                    <h5>Infelizmente você não tem power ups... Baixe o app e compre já o seu!</h5>
+                                </>
+                            )}
+
+                                
                             </div>
                         </div>
                     </div>
