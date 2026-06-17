@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends,HTTPException
 from sqlalchemy import select
 from datetime import datetime, timezone, timedelta
 
+from models.gamificacao import Usuario_Ofensiva
 #Importando Tabelas referente a LOJA
 from models.loja import Item_Loja, Usuario_Item
 
@@ -74,7 +75,7 @@ async def tema(usuario = Depends(validar_token),session = Depends(pegar_sessao))
 
     booster = session.query(Usuario_Item.quantidade).filter(Usuario_Item.usuario_id == usuario.id_usuario,Usuario_Item.item_id == 2).scalar()
 
-    congelamentos = session.query(Usuario_Item.quantidade).filter(Usuario_Item.usuario_id == usuario.id_usuario,Usuario_Item.item_id == 1).scalar()
+    congelamentos = session.query(Usuario_Ofensiva.congelamentos).filter(Usuario_Ofensiva.id_usuario == usuario.id_usuario).scalar()
 
     if booster is None:
         booster = 0
