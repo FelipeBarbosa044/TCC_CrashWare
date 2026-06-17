@@ -83,7 +83,10 @@ async def tema(usuario = Depends(validar_token),session = Depends(pegar_sessao))
         congelamentos = 0
 
     if tema_gelo is None:
-        raise HTTPException(status_code=409, detail="Tema Não Comprado")
+        raise HTTPException(status_code=409, detail={"mensagem" : "Tema Não Comprado",
+                                                     "congelamentos": congelamentos,
+                                                     "booster": booster
+                                                     })
     else:
         return {"mensagem" : "Tema Comprado",
                 "congelamentos" : congelamentos,
