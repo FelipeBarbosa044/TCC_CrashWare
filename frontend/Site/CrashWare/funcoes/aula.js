@@ -498,4 +498,139 @@ export class Aula
 
     }//Sincronizar Exercicio
 
+
+    //Buscar Exercicio
+    async  buscar_exercicio(id,email)
+    {
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/materia/buscar_exercicios",{
+                method : "POST",
+                headers: 
+                { 
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id : id,
+                    acertou : null ,
+                    email: email
+                })
+            });
+
+            if(response.ok)
+            {
+                //Pego a resposta da api
+                const resposta = await response.json();
+
+                const questoes = resposta.questoes;
+
+                const questaoAtual = resposta.questao_atual;
+
+
+                //Guardo as questoes no LocalStorage
+                localStorage.setItem("questoes", JSON.stringify(questoes));
+                localStorage.setItem("questao_atual",questaoAtual);
+
+            }else
+            {
+                const erro = await response.json();
+
+                console.log("Erro ao Buscar Exercicio" + erro.detail)
+            }
+        }catch(error){
+            //Erro na API ou de Conexão
+            // setPopup({
+            //     tipo: 'erro',
+            //     titulo: 'Erro De Conexão',
+            //     mensagem: 'Não foi possível conectar ao servidor.'
+            // });
+
+            console.log("Erro ao Tentar Buscar Exercicios : " + error)
+        }
+    }//Buscar Exercicios
+
+     //Buscar Exercicio
+    async progredir_exercicio(id,acertou,email)
+    {
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/materia/progresso_exercicio",{
+                method : "PATCH",
+                headers: 
+                { 
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id : id,
+                    acertou : acertou ,
+                    email: email
+                })
+            });
+
+            if(response.ok)
+            {
+                //Ignora
+
+
+            }else
+            {
+                const erro = await response.json();
+
+                console.log("Erro ao Progredir Exercicio" + erro.detail)
+            }
+        }catch(error){
+            //Erro na API ou de Conexão
+            // setPopup({
+            //     tipo: 'erro',
+            //     titulo: 'Erro De Conexão',
+            //     mensagem: 'Não foi possível conectar ao servidor.'
+            // });
+
+            console.log("Erro ao Tentar Progredir Exercicios : " + error)
+        }
+    }//Progredir Exercicio
+
+     //Acabar Aula
+    async acabar_aula(id,email,Navegacao)
+    {
+        try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/materia/acabar_aula",{
+                method : "PATCH",
+                headers: 
+                { 
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id : id,
+                    acertou :  null ,
+                    email: email
+                })
+            });
+
+            if(response.ok)
+            {
+                //Leva para a HOME
+
+                Navegacao('/home')
+
+            }else
+            {
+                const erro = await response.json();
+
+                console.log("Erro ao Acabar Aula" + erro.detail)
+            }
+        }catch(error){
+            //Erro na API ou de Conexão
+            // setPopup({
+            //     tipo: 'erro',
+            //     titulo: 'Erro De Conexão',
+            //     mensagem: 'Não foi possível conectar ao servidor.'
+            // });
+
+            console.log("Erro ao Tentar Acabar Aula " + error)
+        }
+    }//Progredir Exercicio
+
+
 }//Aula

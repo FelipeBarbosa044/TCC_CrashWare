@@ -1,6 +1,12 @@
 import Style from "./modeloBase.module.css";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState , useEffect, use } from "react";
+import { useNavigate } from "react-router-dom";
+import { Aula } from "../../../../../funcoes/aula";
+import { Usuario } from "../../../../../funcoes/user";
+
+import { PopUpConquista } from "../../../popUpConquistas";
+import { PopUp } from "../../../pop-up";
 
 const ArtigoModelo = ({
     subtitulo1, paragrafo1,
@@ -30,6 +36,7 @@ const ArtigoModelo = ({
 };
 
 const ModeloExecicios = ({
+    idExercicio,
     descPergunta,
     opcao1,
     opcao2,
@@ -48,23 +55,57 @@ const ModeloExecicios = ({
     const [respondido, setRespondido] = useState(false);
     const [acertou, setAcertou] = useState(false);
 
-    function verificarResposta() {
+     //Pego os tokens
+    const token = localStorage.getItem("token");
+    const refresh_token = localStorage.getItem("refresh_token");
+
+    //Navegação --> Permite eu levar o usuario para outras telas
+    const Navegacao = useNavigate();
+
+    //Pego os states
+    const [token_state, setToken] = useState(() => localStorage.getItem("token"));
+    const [refresh_token_state, setRefresh] = useState(() => localStorage.getItem("refresh_token"));
+    const [dados, setDados] = useState(() =>
+        JSON.parse(localStorage.getItem("dados")) || null
+    );
+
+    //Lista que contém todos os usestate
+    const set = [setToken, setRefresh, setDados];
+
+    //Objeto da Classe Aula
+    const aula = new Aula(token,refresh_token,Navegacao,set);
+
+    //Pega os dados do usuario
+    let usuario = JSON.parse(localStorage.getItem("dados"));
+    const email = usuario.email;
+
+
+    async function verificarResposta() {
         setRespondido(true);
+
+        let acertou = null;
+
         if (respostaSelecionada === respostaCorreta) {
-            setResultado("Resposta correta!");
+            setResultado("Resposta CORRETA!");
+            acertou = true;
             setAcertou(true);
+            
         } else {
-            setResultado("Resposta errada!");
+            setResultado("Resposta ERRADA!");
+            acertou = false;
             setAcertou(false);
         }
+
+        //Atualizo o exercicio
+        aula.progredir_exercicio(idExercicio,acertou,email);
     }
 
-    function refazer() {
-        setRespostaSelecionada("");
-        setResultado("");
-        setRespondido(false);
-        setAcertou(false);
-    }
+    // function refazer() {
+    //     setRespostaSelecionada("");
+    //     setResultado("");
+    //     setRespondido(false);
+    //     setAcertou(false);
+    // }
 
     function estiloBotao(opcao) {
         if (!respondido) {
@@ -109,7 +150,7 @@ const ModeloExecicios = ({
 
             {resultado && <h2>{resultado}</h2>}
 
-            {respondido && acertou && (
+            {respondido && (
                 <button
                     className={Style.proximaPerguntaBtn}
                     onClick={onAcertar}
@@ -117,18 +158,20 @@ const ModeloExecicios = ({
                     {ultimaPergunta ? "Concluir exercícios" : "Próxima pergunta"}
                 </button>
             )}
-
+{/* 
             {respondido && !acertou && (
                 <button className={Style.refazerBtn} onClick={refazer}>
                     Refazer
                 </button>
-            )}
+            )} */}
         </div>
     );
 };
 
 const ModeloBase = ({
     carregando,
+    idConquista,
+    idExercicio,
     tituloAula,
     xpGanho,
     srcVideo,
@@ -144,14 +187,84 @@ const ModeloBase = ({
     children
 }) => {
 
+     //Pego os tokens
+    const token = localStorage.getItem("token");
+    const refresh_token = localStorage.getItem("refresh_token");
+
+    //Navegação --> Permite eu levar o usuario para outras telas
+    const Navegacao = useNavigate();
+
+    //Pego os states
+    const [token_state, setToken] = useState(() => localStorage.getItem("token"));
+    const [refresh_token_state, setRefresh] = useState(() => localStorage.getItem("refresh_token"));
+    const [dados, setDados] = useState(() =>
+        JSON.parse(localStorage.getItem("dados")) || null
+    );
+
+    //Lista que contém todos os usestate
+    const set = [setToken, setRefresh, setDados];
+
     const [conteudo, setConteudo] = useState("artigo");
     const [perguntaAtual, setPerguntaAtual] = useState(0);
+
+    //PopupConquista
+    const [popupConquista, setPopupConquista] = useState(null);
+     //Popup
+    const [popup, setPopup] = useState(null);
+
+    //Pega os dados do usuario
+    let usuario = JSON.parse(localStorage.getItem("dados"));
+    const email = usuario.email;
+
+    useEffect(() => {
+
+        //Quando componente for carregado
+        const questaoAtual =
+            Number(localStorage.getItem("questao_atual")) - 1 || 0;
+
+        const totalPerguntas = perguntas?.length ?? 0;
+
+        
+        if (questaoAtual > totalPerguntas && totalPerguntas > 0) {
+
+            setExerciciosConcluidos(true);
+        }else
+        {
+            setPerguntaAtual(questaoAtual);
+        }
+
+    }, [carregando]);
+
+
     const [exerciciosConcluidos, setExerciciosConcluidos] = useState(false);
+    const [carregandoConquista, setCarregandoConquista] = useState(false);
+
+    //Objeto da Classe Aula
+    const aula = new Aula(token,refresh_token,Navegacao,set);
+
+    //Objeto da Classe User
+    const user = new Usuario(token, refresh_token, Navegacao, set);
 
     function trocarConteudo() {
-        setConteudo(prev => prev === "artigo" ? "exercicio" : "artigo");
-        setPerguntaAtual(0);
-        setExerciciosConcluidos(false);
+
+        const questaoAtualBanco =
+            Number(localStorage.getItem("questao_atual"));
+
+        const totalPerguntas =
+            perguntas?.length ?? 0;
+
+        if (
+            conteudo === "artigo" &&
+            questaoAtualBanco > totalPerguntas
+        ) {
+            setExerciciosConcluidos(true);
+        }
+
+        setConteudo(prev =>
+            prev === "artigo"
+                ? "exercicio"
+                : "artigo"
+        );
     }
 
     function avancarPergunta() {
@@ -160,17 +273,71 @@ const ModeloBase = ({
         } else {
             setExerciciosConcluidos(true);
         }
+    }   
+
+    async function ConcluirAula() {
+        //
+
+         setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Aula',
+                    mensagem: 'Finalizando Aula...'
+                });
+
+        //Dou a recompensa da aula pro usuario
+        await user.adicionar_moeda(20,setDados)
+        await user.adicionar_xp(1000,setDados)
+
+
+        //Acabo a aula
+        await aula.acabar_aula(idExercicio,email,Navegacao)
+
     }
+
+    useEffect(() => {
+        //Só aparece quando terminar todas as aulas
+        if (exerciciosConcluidos) {
+            setCarregandoConquista(true);
+
+            (async () => {
+                await Promise.all([
+                    await user.conquista(idConquista, setPopupConquista, setDados)
+                ]);
+                setCarregandoConquista(false);
+            })();
+    }
+    }, [exerciciosConcluidos]);
+
+
 
     const questaoAtual = perguntas?.[perguntaAtual];
 
+
     return (
         <>
+             {popup && (
+                <PopUp
+                    tipo={popup.tipo}
+                    titulo={popup.titulo}
+                    mensagem={popup.mensagem}
+                    onFechar={() => setPopup(null)}
+                />
+            )}
+
+             {popupConquista && (
+                <PopUpConquista
+                    tipo={popupConquista.tipo}
+                    titulo={popupConquista.titulo}
+                    mensagem={popupConquista.mensagem}
+                    onFechar={() => setPopupConquista(null)}
+                />
+            )}
+
             <div className={Style.corpo}>
                 <div className={Style.separarConteudos}>
                     <div className={Style.parteCima}>
                         <h1>{tituloAula}</h1>
-                        <p>+{xpGanho} XP ao concluir</p>
+                        <p>+1000 XP ao concluir</p>
                     </div>
                     <div className={Style.parteBaixo}>
                         <div className={Style.containerVideo}>
@@ -197,17 +364,18 @@ const ModeloBase = ({
                     ) : exerciciosConcluidos ? (
                         <div className={Style.conclusao}>
                             <h1>Exercícios concluídos!</h1>
-                            <p>Parabéns, você respondeu todas as perguntas corretamente.</p>
-                            <button className={Style.refazerExerciciosbtn} onClick={() => {
-                                setPerguntaAtual(0);
-                                setExerciciosConcluidos(false);
-                            }}>
-                                Refazer exercícios
+                            <button
+                                className={`${Style.refazerExerciciosbtn}`}
+                                disabled={carregandoConquista}
+                                onClick={ConcluirAula}
+                            >
+                                Concluir Aula
                             </button>
                         </div>
                     ) : questaoAtual ? (
                         <ModeloExecicios
                             key={perguntaAtual}
+                            idExercicio={idExercicio}
                             numeroPergunta={perguntaAtual + 1}
                             descPergunta={questaoAtual.descPergunta}
                             respostaCorreta={questaoAtual.respostaCorreta}
@@ -222,7 +390,7 @@ const ModeloBase = ({
                         />
                     ) : null}
 
-                    <div className={Style.botoes}>
+                        <div className={Style.botoes}>
                         <div className={Style.butaozinho}>
                             <button onClick={trocarConteudo} disabled={carregando}>
                                 {conteudo === "artigo" ? <p>exercicios</p> : <p>artigo</p>}

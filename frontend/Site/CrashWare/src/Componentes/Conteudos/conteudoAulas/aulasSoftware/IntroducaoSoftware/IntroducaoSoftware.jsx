@@ -25,6 +25,13 @@ const IntroducaoSoftware = () => {
     const aula = new Aula(token,refresh_token,Navegacao,set)
 
     const [carregando, setCarregando] = useState(true);
+    const [perguntas, setPerguntas] = useState([]);
+
+    //Pega os dados do usuario
+    let usuario = JSON.parse(localStorage.getItem("dados"));
+    const email = usuario.email;
+
+  
 
     useEffect(() => {
         // Sincronizar Exercicio e Aula com Usuario
@@ -34,7 +41,32 @@ const IntroducaoSoftware = () => {
                  await Promise.all([
                     aula.SincronizarAula(5),      //Id da aula de hardware
                     aula.SincronizarExercicio(5,setCarregando),  //Id do exercicio de hardware
+                    aula.buscar_exercicio(5,email)
                 ])
+
+                //Pego as  questoes:
+                const questoes = JSON.parse(localStorage.getItem("questoes")) || [];
+
+                const perguntasFormatadas = questoes.map((questao) => {
+
+                    const respostaCorreta =
+                        questao.alternativas.find(a => a.correta)?.texto || "";
+
+                    return {
+                        descPergunta: questao.pergunta,
+                        respostaCorreta,
+
+                        opcao1: questao.alternativas[0]?.texto || "",
+                        opcao2: questao.alternativas[1]?.texto || "",
+                        opcao3: questao.alternativas[2]?.texto || "",
+                        opcao4: questao.alternativas[3]?.texto || "",
+                        opcao5: questao.alternativas[4]?.texto || "",
+                    };
+            });
+
+
+                setPerguntas(perguntasFormatadas)
+
 
             } catch (erro) {
                 console.error("Erro ao Sincronizar Matéria:", erro);
@@ -47,6 +79,8 @@ const IntroducaoSoftware = () => {
     return(
         <ModeloBase
             carregando={carregando}
+            idExercicio={5}
+            idConquista={20}
             tituloAula="Introdução Software"
             xpGanho={50}
             srcVideo=""
@@ -78,53 +112,7 @@ const IntroducaoSoftware = () => {
             paragrafo4="Romper as barreiras do ensino técnico exige humanizar a tecnologia compreendendo as dificuldades e a melhor forma de aprendizagem, exigindo repensar as ferramentas que utilizamos para ensiná-la. Ao unir a tecnologia educacional e a gamificação à introdução de Software e Hardware, transformamos o aprendizado de uma obrigatoriedade complexa em uma experiência lúdica, receptiva e altamente acessível.) Assim, ao acolher quem está começando do zero, a tecnologia cumpre seu papel mais nobre: o de instrumento de inclusão e transformação social, abrindo as portas do futuro para todos.
             "
 
-            perguntas={[
-                {
-                    descPergunta: "",
-                    respostaCorreta: "",
-                    opcao1: "",
-                    opcao2: "",
-                    opcao3: "",
-                    opcao4: "",
-                    opcao5: "",
-                },
-                {
-                    descPergunta: "",
-                    respostaCorreta: "",
-                    opcao1: "",
-                    opcao2: "",
-                    opcao3: "",
-                    opcao4: "",
-                    opcao5: "",
-                },
-                {
-                    descPergunta: "",
-                    respostaCorreta: "",
-                    opcao1: "",
-                    opcao2: "",
-                    opcao3: "",
-                    opcao4: "",
-                    opcao5: "",
-                },
-                {
-                    descPergunta: "",
-                    respostaCorreta: "",
-                    opcao1: "",
-                    opcao2: "",
-                    opcao3: "",
-                    opcao4: "",
-                    opcao5: "",
-                },
-                {
-                    descPergunta: "",
-                    respostaCorreta: "",
-                    opcao1: "",
-                    opcao2: "",
-                    opcao3: "",
-                    opcao4: "",
-                    opcao5: "",
-                },
-            ]}
+           perguntas={perguntas}
         />
         )
     };
