@@ -8,7 +8,7 @@
 
 .corpo{
     width: 100%;
-    padding-top: 120px;
+    padding-top: 200px;
     padding-bottom: 40px;
 
     display: flex;
@@ -325,6 +325,7 @@ progress::-moz-progress-bar{
 
     .corpo{
         width: 100%;
+        padding-top: 140px;
     }
 
     .apresentacao{

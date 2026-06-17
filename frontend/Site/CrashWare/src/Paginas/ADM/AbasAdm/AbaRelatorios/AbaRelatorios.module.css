@@ -47,22 +47,26 @@
     width: 90%;
     align-self: center;
     margin-bottom: 20px;
+    padding-top: 20px;
 }
 
 .UsuariosCadastrados h3{
     font-family: "Montserrat";
-    color: var(--Texto1);
+    color: var(--texto-principal);
     font-size: 22px;
     text-align: center;
     margin-bottom: 10px;
+    font-weight: 910;
 }
 
 .UsuariosCadastrados p{
     font-family: "Montserrat";
-    color: var(--Texto1);
+    color: var(--texto-principal);
+    font-weight: 900    ;
     font-size: 18px;
     text-align: center;
     white-space: nowrap;
+    margin-bottom: 30px;
 }
 
 .UsuariosCadastrados span{
@@ -174,15 +178,11 @@
 
 
 @media (max-width: 860px) {
-    /* .separarConteudos {
-        flex-direction: wrap;
-        align-items: center;
-    } */
 
     .Conteudos {
-        width: 50%;
-        flex-direction: wrap;
+        width: 80vw;
         margin-bottom: 30px;
+        /* margin-top: 100px; */
     }
 
     .botoes{
@@ -220,13 +220,9 @@
 }
 
 @media (max-width: 700px){
-    /* .separarConteudos {
-        flex-direction: wrap;
-        align-items: center;
-    } */
 
     .Conteudos {
-        width: 100vw;
+        width: 95vw;
         flex-direction: wrap;
         margin-bottom: 30px;
         margin-top: 10px;

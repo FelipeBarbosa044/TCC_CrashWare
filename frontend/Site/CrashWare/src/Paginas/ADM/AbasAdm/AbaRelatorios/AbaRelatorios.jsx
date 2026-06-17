@@ -48,7 +48,7 @@ const AbaRelatorios = () => {
 
     }, []);
 
-    const CoresTabela = ["#31C26D", "#0d4c00", "#dc2626"]
+    const CoresTabela = ["#31C26D", "#a9ac0a", "#dc2626"]
 
     // if (loading) return <p>Carregando</p>;
 
@@ -81,7 +81,7 @@ const AbaRelatorios = () => {
                                     {dadosGrafico.map((entry, index) => (
                                         <Cell key={index} fill={CoresTabela[index]} />
                                     ))}
-                                    <LabelList dataKey="quantidade" position="top" style={{ fontWeight: 'bold' }} />
+                                    <LabelList dataKey="quantidade" position="top" style={{ fontWeight: 'bold', fontSize: "20", fontFamily: "monospace" }} />
                                 </Bar>
                             </BarChart>
                         </ResponsiveContainer>

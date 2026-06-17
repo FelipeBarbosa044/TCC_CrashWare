@@ -23,6 +23,9 @@ const AbaListarConquistas = () => {
     //Abrir Conquistas
     const [AbrirConquista, setAbrirConquista] = useState(false);
 
+    //Carregamento
+    const [conquistasLoading, setConquistasLoading] = useState(true);
+
 
     useEffect(() => {
         //Quando a pag for carregada
@@ -30,7 +33,7 @@ const AbaListarConquistas = () => {
 
     }, []);
 
-    
+
 
     async function carregarConquistas() {
         //Listo conquistas no banco de dados
@@ -40,7 +43,7 @@ const AbaListarConquistas = () => {
         //Pego as conquistar em uma array
         const conquistas = JSON.parse(localStorage.getItem("conquistas")) || [];
 
-    
+
         //Pego a quantidade de consquistas
         let quantidade_conquistas = conquistas.length
 
@@ -50,7 +53,7 @@ const AbaListarConquistas = () => {
         for (let n = 0; n < quantidade_conquistas; n++)
         {
             CONQUISTAS_MOCK.push({ id: conquistas[n].id_conquista, titulo: conquistas[n].nome_conquista, descricao: conquistas[n].descricao, tipo: conquistas[n].tipo_conquista, condicao: conquistas[n].condicao_conquista, indice : n})
-  
+
         }
 
 
@@ -60,8 +63,7 @@ const AbaListarConquistas = () => {
         //Conquistas exibidas
         setConquistasExibidas(CONQUISTAS_MOCK);
 
-        
-
+        setConquistasLoading(false);
     }
 
 
@@ -141,42 +143,49 @@ const AbaListarConquistas = () => {
                     </div>
 
                     <div className={Style.Lista}>
-                        <div>
-                            {conquistasExibidas.map((c) => (
-                                <div className={Style.ListaConquistas}
-                                    key={c.id}
-                                    onClick={() => setAbrirConquista(AbrirConquista === c.id ? null : c.id)}
-                                >
+                        {conquistasLoading ? (
+                            <div className={Style.Loading}>
+                                <div className={Style.Spinner}></div>
+                                <p>Carregando conquistas...</p>
+                            </div>
+                        ) : (
+                            <div>
+                                {conquistasExibidas.map((c) => (
+                                    <div className={Style.ListaConquistas}
+                                        key={c.id}
+                                        onClick={() => setAbrirConquista(AbrirConquista === c.id ? null : c.id)}
+                                    >
 
-                                    <div className={Style.ItensLista}>
-                                        <h4>{c.id}</h4>
-                                        <h3>{c.titulo}</h3>
-                                        <h6>Tipo:
-                                            <span>   {c.tipo}</span>
-                                        </h6>
-                                       
-                                    </div>
-
-                                    {AbrirConquista === c.id && (
-                                        <div className={Style.sanfona}>
-                                            <div className={Style.Coluna1}>
-                                                <h5>Descrição: </h5>
-                                                <p>{c.descricao}</p>
-                                                 <BotoesForm 
-                                                    className={Style.Exlcuir}
-                                                    texto="Excluir" 
-                                                    onClick={()  =>  DeletarConquista(c.id,c.indice) } 
-                                                />
-                                            </div>
-                                            <div>
-                                                <h5>Condição: </h5>
-                                                <p>{c.condicao}</p>
-                                            </div>
+                                        <div className={Style.ItensLista}>
+                                            <h4>{c.id}</h4>
+                                            <h3>{c.titulo}</h3>
+                                            <h6>Tipo:
+                                                <span>   {c.tipo}</span>
+                                            </h6>
+                                           
                                         </div>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
+
+                                        {AbrirConquista === c.id && (
+                                            <div className={Style.sanfona}>
+                                                <div className={Style.Coluna1}>
+                                                    <h5>Descrição: </h5>
+                                                    <p>{c.descricao}</p>
+                                                     <BotoesForm 
+                                                        className={Style.Exlcuir}
+                                                        texto="Excluir" 
+                                                        onClick={()  =>  DeletarConquista(c.id,c.indice) } 
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <h5>Condição: </h5>
+                                                    <p>{c.condicao}</p>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div> {/* Conteudos */}
             </div>

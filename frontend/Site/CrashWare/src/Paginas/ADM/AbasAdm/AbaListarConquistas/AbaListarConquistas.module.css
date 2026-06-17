@@ -126,6 +126,10 @@
     width: 100%;
 }
 
+.ItensLista h4{
+    color: var(--Texto2);
+}
+
 .ItensLista h3{
     color: var(--Texto2);
     font-size: 25px;
@@ -143,8 +147,39 @@
     text-align: end;
 }
 
+.Loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 12px;
+    font-size: 25px;
+    font-family: "Montserrat";
+    color: var(--Texto2);
+}
+
+.Spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e0e0e0;
+    border-top-color: #555;
+    border-radius: 50%;
+    animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.ItensLista h6{
+    color: var(--Texto2);
+}
+
 .ItensLista span{
-    
+    color: var(--Texto2);
     text-decoration: none;
     font-weight: normal;
     font-size: 17px;
