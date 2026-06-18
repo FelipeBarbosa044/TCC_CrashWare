@@ -352,6 +352,47 @@
         max-width: none;
     }
 
+    .conclusao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+}
+
+    .conclusao h1 {
+    font-size: 22px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    }
+
+    .conclusao .refazerExerciciosbtn {
+        height: 42px;
+        width: 50%;
+        border-radius: 12px;
+        border: none;
+        background-color: var(--cor-terciaria-hover);
+        color: white;
+        font-weight: 700;
+        font-family: "Montserrat";
+    }
+
+    .conclusao .refazerExerciciosbtn:disabled {
+    background-color: #6b6b6b;
+    color: #c4c4c4;
+    cursor: not-allowed;
+    opacity: 0.7;
+    }
+
+    .conclusao p {
+    font-size: 16px;
+    opacity: 0.8;
+    }
+
+    #btnVoltar {
+    text-decoration: none;
+    }
+
     .botoes {
         flex-direction: column;
         margin-top: 20px;
