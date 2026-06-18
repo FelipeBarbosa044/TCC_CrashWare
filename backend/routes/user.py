@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends,HTTPException,UploadFile, File
 
+from enum import Enum
 
 #Importando comandos do sql para o código.
 from sqlalchemy import delete, true
@@ -7,14 +8,13 @@ from sqlalchemy import delete, true
 #Biblioteca de requisição
 import requests
 
-
+from models import Aula
 #Importando tabelas:
 from models.usuarios import Usuarios
 from models.loja import Usuario_Item
 from models.usuarios_oauth import UsuariosOauth
 from models.gamificacao import Patente, Usuario_Ofensiva
-from routes.auth import auth
-from schemas.UsuarioSchema import EmailSchema
+from models.aula import Usuario_Aula
 
 #Instânciando roteador
 user = APIRouter(prefix="/user",tags=["usuario"])
@@ -22,8 +22,11 @@ user = APIRouter(prefix="/user",tags=["usuario"])
 #Importando dependencias
 from dependences import pegar_sessao ,  validar_token
 
+
 #Importano SCHEMAS
 from schemas.GamificacaoSchema import RecursoSchema
+from schemas.UsuarioSchema import EmailSchema
+
 
 
 #dotenv
@@ -694,6 +697,99 @@ async def atualizar_recursos(dados : EmailSchema,session = Depends(pegar_sessao)
             "xp" : usuario.xp,
             "gema" : usuario.moedas
             }
+
+
+class StatusAula(str, Enum):
+    NAO_INICIADA = "nao_iniciada"
+    EM_ANDAMENTO = "em_andamento"
+    CONCLUIDA = "concluida"
+
+
+def status_da(aula):
+    if aula is None:
+        return StatusAula.NAO_INICIADA
+    if aula.terminou:
+        return StatusAula.CONCLUIDA
+    return StatusAula.EM_ANDAMENTO
+
+
+@user.get('/onde_parou')
+async def onde_parou(usuario = Depends(validar_token),session = Depends(pegar_sessao)):
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+    aula_software = (
+        session.query(Usuario_Aula)
+        .filter(Usuario_Aula.usuario_id == usuario.id_usuario, Usuario_Aula.aula_id == 5)
+        .first()
+    )
+    aula_hardware = (
+        session.query(Usuario_Aula)
+        .filter(Usuario_Aula.usuario_id == usuario.id_usuario, Usuario_Aula.aula_id == 7)
+        .first()
+    )
+
+    status_sw = status_da(aula_software)
+    status_hw = status_da(aula_hardware)
+
+    # Regra de prioridade: Software primeiro, depois Hardware, depois "acabou tudo"
+    # 1. Se Software está em andamento -> retomar Software
+    if status_sw == StatusAula.EM_ANDAMENTO:
+        return {
+            "trilha": "Software",
+            "numero": "1",
+            "botao": "Retomar",
+            "titulo": "Introdução Software",
+            "proximoModulo": "Lógica de programação",
+        }
+
+    # 2. Se Software não foi iniciado -> começar Software
+    if status_sw == StatusAula.NAO_INICIADA:
+        return {
+            "trilha": "Software",
+            "numero": "1",
+            "botao": "Começar",
+            "titulo": "Introdução Software",
+            "proximoModulo": "Lógica de programação",
+        }
+
+    # A partir daqui, Software está CONCLUÍDA
+
+    # 3. Se Hardware está em andamento -> retomar Hardware
+    if status_hw == StatusAula.EM_ANDAMENTO:
+        return {
+            "trilha": "Hardware",
+            "numero": "1",
+            "botao": "Retomar",
+            "titulo": "Introdução Hardware",
+            "proximoModulo": "Fundamentos",
+        }
+
+    # 4. Se Hardware não foi iniciado -> começar Hardware
+    if status_hw == StatusAula.NAO_INICIADA:
+        return {
+            "trilha": "Hardware",
+            "numero": "1",
+            "botao": "Começar",
+            "titulo": "Introdução Hardware",
+            "proximoModulo": "Fundamentos",
+        }
+
+    # 5. As duas concluídas
+    return {
+        "trilha": "Software",
+        "numero": "2",
+        "botao": "Começar",
+        "titulo": "Como vai funcionar esse curso?",
+        "proximoModulo": "Desenvolvimento Web",
+    }
+
+
+
+
+
+
+
 
 
 
