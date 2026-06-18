@@ -13,11 +13,9 @@
     flex-wrap: wrap;
     gap: 24px;
     padding: 24px;
-
     justify-content: center;
     align-content: center;
-
-    padding-top: 10px;
+    padding-top: 190px;
 }
 
 .separarConteudos {
@@ -112,35 +110,56 @@
     align-self: flex-start;
 }
 
+/* ── Artigo ──────────────────────────────────────── */
 .parteLado h1 {
-    text-align: center;
+    text-align: left;
     color: var(--texto-principal);
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 800;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
+    opacity: 0.5;
 }
 
 .parteLado hr {
-    margin-bottom: 16px;
-    border-color: var(--texto-principal);
-    opacity: 0.4;
+    margin-bottom: 24px;
+    border: none;
+    border-top: 1px solid var(--texto-principal);
+    opacity: 0.15;
 }
 
 .parteLado h2 {
     color: var(--texto-principal);
     text-align: center;
-    margin: 16px 0;
-    font-size: 15px;
+    margin: 28px 0 10px;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.parteLado h2::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background: var(--cor-primaria);
+    border-radius: 99px;
+    flex-shrink: 0;
 }
 
 .parteLado p {
-    text-align: center;
+    text-align: left;
     text-indent: 0;
-    line-height: 1.5;
+    line-height: 1.75;
     color: var(--texto-principal);
-    font-weight: 500;
+    font-weight: 400;
+    font-size: 13px;
+    opacity: 0.85;
+    margin-bottom: 8px;
 }
 
 .parteLado .butaozinho {
@@ -148,6 +167,11 @@
     display: flex;
     justify-content: center;
     margin-top: 50px;
+}
+
+.parteLado .butaozinho p {
+    text-align: center;
+    font-weight: 800;
 }
 
 .parteLado .butaozinho button {
@@ -202,6 +226,10 @@
     line-height: 1.5;
 }
 
+.exercicio h2{
+    text-align: center;
+}
+
 .exercicio button {
     width: 100%;
     padding: 10px 14px;
@@ -248,7 +276,6 @@
     color: white !important;
     width: 70% !important;
     font-size: 15px;
-
     margin-top: 30px;
     margin-bottom: 10px;
     align-self: center !important;
@@ -265,7 +292,6 @@
     font-family: "Montserrat", sans-serif !important;
     letter-spacing: 0.08em !important;
     text-transform: uppercase !important;
-
     margin-top: 10px !important;
     margin-bottom: 10px;
     align-self: center !important;
@@ -282,32 +308,6 @@
     box-shadow: 0 4px 14px rgba(78, 200, 100, 0.35) !important;
 }
 
-.refazerBtn {
-    background-color: #e05c5c !important;
-    color: white !important;
-    width: 70% !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    font-family: "Montserrat", sans-serif !important;
-    letter-spacing: 0.08em !important;
-    text-transform: uppercase !important;
-
-    margin-top: 10px !important;
-    margin-bottom: 10px;
-    align-self: center !important;
-    text-align: center !important;
-    border: none !important;
-    border-radius: 10px !important;
-    padding: 10px !important;
-    cursor: pointer !important;
-    transition: transform 0.2s, box-shadow 0.2s !important;
-}
-
-.refazerBtn:hover {
-    transform: scale(1.03) translateY(-2px) !important;
-    box-shadow: 0 4px 14px rgba(224, 92, 92, 0.35) !important;
-}
-
 .progressoPerguntas {
     display: flex;
     justify-content: flex-end;
@@ -321,47 +321,6 @@
     color: var(--texto-principal);
     opacity: 0.5;
     letter-spacing: 0.06em;
-}
-
-.conclusao {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    padding: 20px 0;
-}
-
-.conclusao h1 {
-    font-size: 22px !important;
-    text-transform: none !important;
-    letter-spacing: 0 !important;
-}
-
-.conclusao .refazerExerciciosbtn {
-    height: 42px;
-    width: 50%;
-    border-radius: 12px;
-    border: none;
-    background-color: var(--cor-terciaria-hover);
-    color: white;
-    font-weight: 700;
-    font-family: "Montserrat";
-}
-
-.conclusao .refazerExerciciosbtn:disabled {
-    background-color: #6b6b6b;
-    color: #c4c4c4;
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-.conclusao p {
-    font-size: 16px;
-    opacity: 0.8;
-}
-
-#btnVoltar {
-    text-decoration: none;
 }
 
 .botoes {
@@ -395,7 +354,7 @@
 
     .botoes {
         flex-direction: column;
-        margin-top: 20;
+        margin-top: 20px;
     }
 
     .butaozinho {
@@ -404,14 +363,13 @@
 }
 
 @media (max-width: 480px) {
-
     .separarConteudos {
         width: 100%;
     }
 
     .parteLado {
         flex: none;
-        width: 100% !important;
+        width: 90% !important;
         max-width: none;
     }
 

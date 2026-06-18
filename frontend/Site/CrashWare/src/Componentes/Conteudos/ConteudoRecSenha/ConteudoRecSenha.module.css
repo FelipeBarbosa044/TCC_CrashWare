@@ -166,7 +166,7 @@
 
 .btnEnviar:hover {
     background-color: var(--bg-terceiro);
-    color: var(--texto-principal);
+    color: white;
     transform: scale(1.03);
     transition: 0.3s;
 }

@@ -50,25 +50,26 @@ const PerfilUsuario = () => {
             <div className={style.container}>
                 <div>
                     <div className={style.apresentacao}>
-                        <div className={style.fotoPerfil}>
-                            <img
-                                className={style.foto}
-                                src={`https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/${foto}`}
-                                 onError={(e) => {
-                                    e.target.src = "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/default.png"
-                                }}
-                                alt="Foto de perfil"
-                            />
-                        </div>
-                        <div className={style.agruparRaposaDados}>
-                            <div className={style.texto}>
-                                <h3>{nome}</h3>
-                                <h4>id: {id}</h4>
-                                <h4>Email: {email}</h4>
-
-                                <div className={style.status}>
-                                    <span className={style.bolinha}></span>
-                                    <p>{formatarData(DataCadastro)}</p>
+                        <div className={style.parteInicial}>
+                            <div className={style.fotoPerfil}>
+                                <img
+                                    className={style.foto}
+                                    src={`https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/${foto}`}
+                                     onError={(e) => {
+                                        e.target.src = "https://yegrosiecwjebeetlwwg.supabase.co/storage/v1/object/public/FOTOS/default.png"
+                                    }}
+                                    alt="Foto de perfil"
+                                />
+                            </div>
+                            <div className={style.agruparRaposaDados}>
+                                <div className={style.texto}>
+                                    <h3>{nome}</h3>
+                                    <h4>id: {id}</h4>
+                                    <h4>Email: {email}</h4>
+                                    <div className={style.status}>
+                                        <span className={style.bolinha}></span>
+                                        <p>{formatarData(DataCadastro)}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

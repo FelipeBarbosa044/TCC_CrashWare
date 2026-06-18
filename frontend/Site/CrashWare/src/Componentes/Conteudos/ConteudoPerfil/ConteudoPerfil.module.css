@@ -599,7 +599,7 @@
 @media (max-width: 860px) {
 
     .corpo{
-        height: 126vh;
+        height: auto;
     }
 
     .container { 
@@ -635,7 +635,7 @@
 @media (max-width: 710px){
 
     .corpo{
-        height: 136vh;
+        height: auto;
     }
 
     .container{
@@ -718,12 +718,16 @@
         width: 50%;
         justify-content: space-around;
     }
+
+    .CongelarOfensiva{
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 440px) {
 
     .corpo{
-        height: 183vh;
+        height: auto;
     }
 
     .agruparRaposaDados{

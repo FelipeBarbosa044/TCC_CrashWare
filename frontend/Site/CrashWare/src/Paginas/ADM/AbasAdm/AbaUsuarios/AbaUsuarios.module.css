@@ -359,7 +359,7 @@ button.Banir{
     } */
 
     .Conteudos {
-        width: 100vw;
+        width: 94vw;
         flex-direction: wrap;
         margin-bottom: 30px;
         margin-top: 10px;
@@ -388,6 +388,7 @@ button.Banir{
     .Lista{
         width: 90vw;
         justify-content: center;
+        padding-top: 3040px;
     }
 
     .Botoes{
@@ -431,8 +432,8 @@ button.Banir{
     }
 
     .Lista{
-        height: auto;
-        padding-top: 640px;
+        height: 400px;
+        padding-top: 4660px;
     }
 
     .ItensLista{
