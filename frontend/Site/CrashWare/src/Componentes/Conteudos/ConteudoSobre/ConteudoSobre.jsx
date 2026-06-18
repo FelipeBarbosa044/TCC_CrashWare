@@ -67,6 +67,17 @@ const ConteudoSobre = () => {
             email: "lfernando.rr.souzal@gmail.com",
             instagram: "https://www.instagram.com/fe_rodrgues/",
             github: "https://github.com/zFrndo"
+        },
+        {
+            id: 7,
+            fotinha: "",
+            nome: "Davi Souza",
+            funcao: "FrontEnd Site",
+            agradecimento: "Entre componentes, estados, props, erros inesperados e incontáveis pesquisas no Google, desenvolvi não apenas o front-end deste projeto, mas também uma nova paixão pela programação. Aprender React enquanto enfrentava a pressão e os prazos de um TCC foi um dos maiores desafios da minha trajetória até agora. Cada tela criada e cada problema resolvido representaram uma oportunidade de crescimento. Apesar das dificuldades, foi justamente durante esse processo que percebi o quanto gosto de desenvolver interfaces e transformar ideias em experiências que as pessoas podem utilizar de forma simples e intuitiva.",
+            linkedin: "https://www.linkedin.com/in/davisouzamartins/",
+            email: "davi.s.martins.dev@gmail.com",
+            github: "https://github.com/davimartins187",
+            instagram: "https://www.instagram.com/david_souza1208/"
         }
     ];
 
