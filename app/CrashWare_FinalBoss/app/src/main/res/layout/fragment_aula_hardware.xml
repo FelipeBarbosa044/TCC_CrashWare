@@ -84,7 +84,7 @@
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/battambang_bold"
                 android:lineSpacingExtra="-10sp"
-                android:text="Introdução Software"
+                android:text="Introdução Hardware"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@id/imgVideo"

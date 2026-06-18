@@ -29,7 +29,7 @@ session = Session()
 
 try:
     # session.query(Usuarios).filter(Usuarios.email == "resferagamer@gmail.com").update({"moedas" : 3500})
-    session.query(Aula).filter(Aula.id_aula == 7 ).update({"xp_bonus" : 1000})
+    session.query(Conquista).filter(Conquista.id_conquista == 17).update({"moeda_bonus" : 15})
     # session.query(Patente).filter(Patente.id_patente == 3).update({"xp_minimo" : 4500})
     # item = Item_Loja(preco=50,compravel_uma_vez=True)
     # session.add(item)

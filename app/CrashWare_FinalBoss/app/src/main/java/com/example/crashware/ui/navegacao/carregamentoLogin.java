@@ -53,9 +53,7 @@ public class carregamentoLogin  extends  AppCompatActivity{
 
     private void PegarInformacoes()
     {
-        User.Ultima_Aula(prefs, carregamentoLogin.this, new User.UltimaAulaCallback() {
-            @Override
-            public void onSuccess() {
+
                 Loja.VerificarTema(prefs,carregamentoLogin.this,new  Loja.TemaCallback(){
                     @Override
                     public void onSuccess(Boolean valor)
@@ -89,8 +87,8 @@ public class carregamentoLogin  extends  AppCompatActivity{
                     }
 
                 });
-            }
-        });
+
+
 
     }//Pegar Informacoes
 

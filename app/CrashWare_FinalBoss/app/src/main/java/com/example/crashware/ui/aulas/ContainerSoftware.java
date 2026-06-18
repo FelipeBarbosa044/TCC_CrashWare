@@ -36,14 +36,6 @@ public class ContainerSoftware extends AppCompatActivity {
                     .commit();
         }
 
-
-
-
-
-
-
-
-
     }
     public void irParaFragment(Fragment novoFragmento) {
         String tag = novoFragmento.getClass().getSimpleName();
