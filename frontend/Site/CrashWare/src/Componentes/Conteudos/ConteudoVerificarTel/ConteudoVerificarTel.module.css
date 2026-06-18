@@ -5,7 +5,6 @@
 .corpo {
     width: 90vw;
     min-height: 100vh;
-    background-color: var(--bg-quarto);
 
     display: flex;
     flex-direction: column;
@@ -24,7 +23,7 @@
     align-self: center;
 
     border: 2px solid var(--texto-principal);
-    background-color: var(--bg-quarto);
+    background-color: var(--bg-secundario);
     padding: 30px;
     border-radius: 30px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.637);
@@ -70,7 +69,6 @@
     margin: 20px 0px 20px 0px;
     padding: 0 20px;
 
-    background: var(--input-bg);
     border: 1px solid var(--borda);
     border-radius: 6px;
 
@@ -101,7 +99,7 @@
     width: 60%;
     height: 52px;
 
-    background: var(--bg-principal);
+    background: var(--Login);
     border: none;
     border-radius: 28px;
     margin-top: 10px;
@@ -109,7 +107,7 @@
 
     font-size: 16px;
     font-weight: bold;
-    color: var(--texto-principal);
+    color: var(--Texto1);
 
     transition: 0.3s;
     cursor: pointer;

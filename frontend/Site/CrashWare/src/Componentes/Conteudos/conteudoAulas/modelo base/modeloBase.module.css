@@ -15,12 +15,13 @@
     padding: 24px;
     justify-content: center;
     align-content: center;
-    padding-top: 190px;
+    padding-top: 150px;
 }
 
 .separarConteudos {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
+    
     gap: 20px;
     flex: 1 1 320px;
     max-width: 620px;
@@ -95,6 +96,9 @@
 }
 
 .parteLado {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     width: 100%;
     max-width: 620px;
     min-height: 300px;
@@ -119,7 +123,7 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     margin-bottom: 4px;
-    opacity: 0.5;
+    opacity: 0.9;
 }
 
 .parteLado hr {
@@ -325,6 +329,13 @@
 
 .botoes {
     display: flex;
+}
+
+.conclusao{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 1100px) {

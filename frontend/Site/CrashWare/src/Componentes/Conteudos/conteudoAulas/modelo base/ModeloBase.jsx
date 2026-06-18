@@ -318,9 +318,9 @@ const ModeloExecicios = ({
 
             )}
 
-{/* 
 
-            {respondido && !acertou && (
+
+            {/* {respondido && !acertou && (
 
                 <button className={Style.refazerBtn} onClick={refazer}>
 

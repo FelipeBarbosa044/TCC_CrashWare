@@ -502,6 +502,10 @@ export class Configurações
 
             console.log("Erro ao Enviar SMS : " + error)
         }
+        //Não sei se vai funcionar. Comentario de: Gabriel
+    //     finally {
+    //     setLoading(false); // sempre libera o "loading" no final
+    // }
         
    
     }//Enviar SMS
