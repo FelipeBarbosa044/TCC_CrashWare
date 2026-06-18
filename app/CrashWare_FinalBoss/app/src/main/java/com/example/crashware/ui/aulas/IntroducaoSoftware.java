@@ -2,8 +2,10 @@ package com.example.crashware.ui.aulas;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri; // IMPORTANTE
 import android.os.Bundle;
 
+import androidx.annotation.OptIn;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -20,25 +22,24 @@ import com.example.crashware.ui.api.Auth;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link IntroducaoSoftware#newInstance} factory method to
- * create an instance of this fragment.
- */
+// Importações do Media3 ExoPlayer
+import androidx.media3.common.MediaItem;
+import androidx.media3.common.util.UnstableApi;
+import androidx.media3.exoplayer.ExoPlayer;
+import androidx.media3.ui.PlayerView;
+
 public class IntroducaoSoftware extends Fragment {
 
     ImageView imgVoltarAula;
-
     Button btnFazerExercicio;
-
     SharedPreferences prefs;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    // Variáveis para o Player
+    private PlayerView playerView;
+    private ExoPlayer player;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -46,15 +47,6 @@ public class IntroducaoSoftware extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Aula.
-     */
-    // TODO: Rename and change types and number of parameters
     public static IntroducaoSoftware newInstance(String param1, String param2) {
         IntroducaoSoftware fragment = new IntroducaoSoftware();
         Bundle args = new Bundle();
@@ -67,10 +59,7 @@ public class IntroducaoSoftware extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         prefs = requireActivity().getSharedPreferences("CrashWare", Context.MODE_PRIVATE);
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -81,109 +70,191 @@ public class IntroducaoSoftware extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_aula, container, false);
+        View view = inflater.inflate(R.layout.fragment_aula, container, false);
 
         imgVoltarAula = view.findViewById(R.id.imgVoltarCampos);
         btnFazerExercicio = view.findViewById(R.id.btnFazerExercicio);
 
+        // 1. Vincular o PlayerView do seu XML
+        playerView = view.findViewById(R.id.playerView);
+
         // Começa bloqueado enquanto verifica/sincroniza
         btnFazerExercicio.setEnabled(false);
-        //Deixa o botão cinza
         btnFazerExercicio.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
 
-
-                btnFazerExercicio.setOnClickListener(new View.OnClickListener() {
+        btnFazerExercicio.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                //Cria o novo caminho para fragmento
+            public void onClick(View view) {
                 Fragment novoFragmento = new FragmentExercicios();
 
-
-                // Cria o pacote de dados
                 Bundle bundle = new Bundle();
-                bundle.putInt("id_exercicio", 5); // Mando para a outra tela o id do exericio
-                bundle.putInt("id_conquista",20); //e o id_conquista
-                bundle.putString("titulo","Introdução Software"); //Titulo da aula
+                bundle.putInt("id_exercicio", 5);
+                bundle.putInt("id_conquista", 20);
+                bundle.putString("titulo", "Introdução Software");
 
                 novoFragmento.setArguments(bundle);
 
-                //Sobrepoe a tela do fragment para a de exercicios
                 getParentFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragmentSoftware_Container, novoFragmento)
                         .addToBackStack(null)
                         .commit();
-
-
             }
-
-            private FragmentManager getSupportFragmentManager() {
-                return null;
-            }
-        });//interação com o botão de "Fazer Exercicios"
+        });
 
         imgVoltarAula.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                //Seleciona a fragment atual
+            public void onClick(View view) {
                 requireActivity()
-                        //Simula o Clique do botão voltar do celular
                         .getOnBackPressedDispatcher()
                         .onBackPressed();
-
             }
-        });//interação com a imagem de voltar
+        });
 
+        // 2. Inicializar o vídeo local e configurar a tela cheia aqui
+        initializePlayer();
+
+        // Sua API continua rodando normalmente em paralelo
         SincronizarAula();
-
-
-
-
-
 
         return view;
     }
 
-    public void SincronizarAula(){
-        //Verifico o token
-        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+    private void initializePlayer() {
+        // Inicializa o ExoPlayer
+        player = new ExoPlayer.Builder(requireContext()).build();
+        playerView.setPlayer(player);
 
+        // Buscamos os componentes principais do seu XML usando os IDs reais dele
+        final View headerLayout = requireActivity().findViewById(R.id.header);
+        // Para pegar o ScrollView, precisamos subir até o pai do cardVideo
+        final View scrollViewLayout = (View) playerView.getParent().getParent().getParent();
+        // O código acima navega do playerView -> CardView -> ConstraintLayout(conteudo) -> ScrollView
+
+        playerView.setFullscreenButtonClickListener(new PlayerView.FullscreenButtonClickListener() {
             @Override
-            public void onSuccess()
-            {
-                //Se verificar token  certo
+            public void onFullscreenButtonClick(boolean isFullscreen) {
+                // Pegamos o CardView do vídeo para alterar as margens e o tamanho dele
+                View cardVideo = requireActivity().findViewById(R.id.cardVideo);
+                ViewGroup.MarginLayoutParams cardParams = (ViewGroup.MarginLayoutParams) cardVideo.getLayoutParams();
 
-                //Sincronizo aula e exercicio com usuario
-                Aula.SincronizarAula(5,prefs);
+                if (isFullscreen) {
+                    // 1. Força o celular a deitar (Modo Paisagem)
+                    requireActivity().setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-                Aula.SincronizarExercicio(5,prefs,new Aula.UsuarioExercicioCallback()
-                {
+                    // 2. Oculta os botões virtuais e a barra de notificações do Android
+                    View decorView = requireActivity().getWindow().getDecorView();
+                    decorView.setSystemUiVisibility(
+                            View.SYSTEM_UI_FLAG_FULLSCREEN |
+                                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    );
+
+                    // 3. MATOU A CHARADA: Esconde o Header e o ScrollView com todos os textos
+                    if (headerLayout != null) headerLayout.setVisibility(View.GONE);
+
+                    // Em vez de esconder o ScrollView (o que sumiria com o vídeo também),
+                    // vamos esconder apenas os outros irmãos do CardView dentro do container "conteudo"
+                    View conteudoLayout = requireActivity().findViewById(R.id.conteudo);
+                    if (conteudoLayout instanceof ViewGroup) {
+                        ViewGroup vg = (ViewGroup) conteudoLayout;
+                        for (int i = 0; i < vg.getChildCount(); i++) {
+                            View child = vg.getChildAt(i);
+                            if (child.getId() != R.id.cardVideo) {
+                                child.setVisibility(View.GONE); // Esconde tudo o que NÃO for o vídeo
+                            }
+                        }
+                    }
+
+                    // 4. Remove as margens laterais (40dp) do CardView temporariamente para colar nas bordas
+                    cardParams.setMargins(0, 0, 0, 0);
+                    cardParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                    cardParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                    cardVideo.setLayoutParams(cardParams);
+
+                } else {
+                    // 1. Retorna o celular para a posição em pé (Modo Retrato)
+                    requireActivity().setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+                    // 2. Traz de volta as barras do sistema operacional
+                    View decorView = requireActivity().getWindow().getDecorView();
+                    decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+
+                    // 3. Mostra o Header novamente
+                    if (headerLayout != null) headerLayout.setVisibility(View.VISIBLE);
+
+                    // 4. Mostra de volta todos os textos e botões da aula
+                    View conteudoLayout = requireActivity().findViewById(R.id.conteudo);
+                    if (conteudoLayout instanceof ViewGroup) {
+                        ViewGroup vg = (ViewGroup) conteudoLayout;
+                        for (int i = 0; i < vg.getChildCount(); i++) {
+                            View child = vg.getChildAt(i);
+                            // Restaura a visibilidade padrão. O botão de exercícios obedece à lógica da sua API
+                            if (child.getId() == R.id.btnFazerExercicio) {
+                                // Deixa a sua função SincronizarAula cuidar dele ou bota VISIBLE se preferir
+                                child.setVisibility(View.VISIBLE);
+                            } else {
+                                child.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+
+                    // 5. Devolve as margens originais (40dp) e a altura padrão (220dp) ao CardView
+                    int marginInPx = (int) (40 * getResources().getDisplayMetrics().density);
+                    int heightInPx = (int) (220 * getResources().getDisplayMetrics().density);
+                    cardParams.setMargins(marginInPx, (int) (30 * getResources().getDisplayMetrics().density), marginInPx, 0);
+                    cardParams.height = heightInPx;
+                    cardParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                    cardVideo.setLayoutParams(cardParams);
+                }
+            }
+        });
+
+        // Caminho do seu vídeo local
+        String videoPath = "android.resource://" + requireActivity().getPackageName() + "/" + R.raw.aulaintroducao;
+        Uri videoUri = Uri.parse(videoPath);
+
+        MediaItem mediaItem = MediaItem.fromUri(videoUri);
+        player.setMediaItem(mediaItem);
+        player.prepare();
+        player.setPlayWhenReady(false);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        // Garante que o celular desfaça o modo paisagem caso o usuário feche a tela com o vídeo expandido
+        if (requireActivity().getRequestedOrientation() == android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+            requireActivity().setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            View decorView = requireActivity().getWindow().getDecorView();
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+        }
+
+        if (player != null) {
+            player.release(); // Liberação de memória crucial do ExoPlayer
+            player = null;
+        }
+    }
+
+    public void SincronizarAula() {
+        Auth.verificarToken(requireActivity(), prefs, true, new Auth.AuthCallback() {
+            @Override
+            public void onSuccess() {
+                Aula.SincronizarAula(5, prefs);
+
+                Aula.SincronizarExercicio(5, prefs, new Aula.UsuarioExercicioCallback() {
                     @Override
-                    public void Terminou()
-                    {
-                        //Oculta o botão de exercicios
+                    public void Terminou() {
                         btnFazerExercicio.setVisibility(View.GONE);
                     }
 
                     @Override
-                    public void NaoTerminou()
-                    {
-                        //Deixa o botão de exercicios clicavel
-
-                        // Deixa o botão visível
+                    public void NaoTerminou() {
                         btnFazerExercicio.setVisibility(View.VISIBLE);
-
-                        // Libera o botão
                         btnFazerExercicio.setEnabled(true);
-
-                        // Volta a cor normal do botão
                         btnFazerExercicio.setBackgroundTintList(null);
                     }
-
                 });
             }
         });

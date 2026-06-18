@@ -84,7 +84,7 @@
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/battambang_bold"
                 android:lineSpacingExtra="-10sp"
-                android:text="Introdução Software"
+                android:text="Introdução Hardware"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@id/imgVideo"
@@ -134,7 +134,8 @@
                     android:id="@+id/playerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:use_controller="true" />
+                    app:use_controller="true"
+                    app:resize_mode="fit"/>
             </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout

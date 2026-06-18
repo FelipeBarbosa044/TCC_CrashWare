@@ -84,7 +84,7 @@
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/battambang_bold"
                 android:lineSpacingExtra="-10sp"
-                android:text="Introdução Hardware"
+                android:text="Introdução Software"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@id/imgVideo"
@@ -134,7 +134,8 @@
                     android:id="@+id/playerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:use_controller="true" />
+                    app:use_controller="true"
+                    app:resize_mode="fit"/>
             </androidx.cardview.widget.CardView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -156,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/inter_extrabold"
-                    android:text="Introdução"
+                    android:text="1. Por que aprender tecnologia importa?"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -169,11 +170,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/inter_semibold"
-                    android:text="      O CrashWare é um projeto educacional criado para ensinar os fundamentos do hardware de forma clara e progressiva.
-
-Este curso foi desenvolvido para levar você do nível iniciante até uma compreensão sólida sobre o funcionamento dos computadores e dispositivos eletrônicos.
-
-Nesta unidade inicial, o objetivo não é apenas apresentar peças, mas construir entendimento. Antes de aprender a montar ou diagnosticar problemas, é essencial compreender como os componentes funcionam individualmente e como trabalham juntos dentro de um sistema."
+                    android:text="Primeiro é necessário entender a importância  da tecnologia e o que ela representa para nós seres humanos e seu apoio na sociedade, a origem da palavra tecnologia vem do grego onde techne representa a arte, técnica ou ofício e logos significa estudo ou conjunto de saberes.
+A tecnologia sempre traz como proposta suprir as necessidades humanas, aumentar a produtividade e expandir o potencial de realização de tarefas, sempre se aprimorando para ser o conjunto de ferramentas e técnicas mais atual como método eficiente para resolução e otimização de problemas
+O aprendizado contínuo é o motor do desenvolvimento pessoal e profissional, especialmente no setor de tecnologia, que se transformam a cada dia. Hoje, o mercado não exige apenas o domínio técnico de códigos ou componentes, mas também uma alta capacidade de adaptação.
+Nesse cenário, para quem está dando os primeiros passos rumo ao desconhecido, a motivação e a mentalidade de crescimento são os pilares para o sucesso. A motivação alimenta a persistência diante de conceitos que parecem complexos à primeira vista, principalmente quando o estudante entende e percebe a aplicação prática do que está aprendendo. Já a mentalidade de crescimento transforma a curiosidade e a disciplina em hábitos diários, preparando o futuro profissional desde a sua primeira linha de código ou conceitos de hardware.
+"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="15sp"
                     android:textStyle="bold"
@@ -186,7 +187,7 @@ Nesta unidade inicial, o objetivo não é apenas apresentar peças, mas construi
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/inter_extrabold"
-                    android:text="O que você aprenderá neste curso?"
+                    android:text="2. Desafios"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -195,13 +196,27 @@ Nesta unidade inicial, o objetivo não é apenas apresentar peças, mas construi
 
                 <TextView
                     android:id="@+id/txtDescrConteudo"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text=" • Abordagens ultrapassadas: O ensino tradicional foca em métodos excessivamente teóricos, densos e engessados. Ignora-se que quem nunca teve contato com a área e precisa de uma transição suave e receptiva, respeitando o ritmo de aprendizado individual.
+                                                         • Complexidade técnica e falta de didática: Grande parte do conteúdo disponível sobre desenvolvimento de software e infraestrutura de hardware carece de estrutura e objetividade. A presença de jargões técnicos excessivos logo no início assusta e afasta potenciais novos talentos.
+                                                       • O estigma da área: Existe uma percepção cultural de que trabalhar com tecnologia é apenas para mentes matemáticas ou prodígios, o que cria uma exclusão psicológica e social, desencorajando pessoas interessadas que acreditam não ter o perfil para a área."
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/cardArtigo"
+                    app:layout_constraintTop_toBottomOf="@id/txtDescrConteudoCont" />
+
+                <TextView
+                    android:id="@+id/txtDescrConteudoCont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/inter_semibold"
-                    android:text="      O CashWare não é um conteúdo para memorização rápida, mas um processo de construção gradual de conhecimento. Cada conceito serve de base para o próximo, desenvolvendo não apenas o “como fazer”, mas principalmente o “por que fazer”.
-
-O aprendizado técnico acontece com prática e revisão. Com o tempo, os conceitos passam a fazer sentido de forma mais natural e conectada."
+                    android:text="Apesar da alta demanda e das oportunidades na área de tecnologia, o caminho para os estudantes iniciantes apresenta barreiras significativas por diversos motivos, o que costumam intimidar quem não tem nenhum conhecimento prévio. As principais são:"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="15sp"
                     android:textStyle="bold"
@@ -214,7 +229,7 @@ O aprendizado técnico acontece com prática e revisão. Com o tempo, os conceit
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/inter_extrabold"
-                    android:text="Evolução e Base Profissional"
+                    android:text="3. A ponte para o conhecimento"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -226,15 +241,58 @@ O aprendizado técnico acontece com prática e revisão. Com o tempo, os conceit
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
                     android:fontFamily="@font/inter_semibold"
-                    android:text="      Mesmo que as tecnologias mudem, os fundamentos permanecem. Ao dominar essa base, você estará preparado para aprender novas ferramentas, compreender especificações técnicas e evoluir na área.
+                    android:text="•	Aprendizado acessível: Plataformas digitais interativas rompem barreiras, permitindo que conceitos complexos de hardware e software sejam fragmentados em lições curtas e diárias dividindo e simplificando alguns conteúdos densos. O conteúdo se ajusta ao desempenho do usuário, garantindo uma introdução sem sobrecarga cognitiva.
 
-Este curso é o alicerce da sua formação. Mais do que montar máquinas, você aprenderá a entender a lógica física que permite que elas funcionem."
+
+                                       •	Cativação: Recursos inspirados em jogos como sistemas de pontos, conquistas, fases e trilhas de progresso visuais transformam o estudo em uma atividade leve e estimulante, ajudando a manter a consistência a longo prazo do usuário.
+                                                 •	Ambiente acolhedor: O ecossistema gamificado oferece um espaço seguro onde o erro não é uma punição, mas uma mecânica de aprendizado. Ao errar um desafio de lógica ou a montagem virtual de um componente, o usuário perde vidas ou recebe dicas imediatas, reduzindo a frustração e o medo comuns em salas de aula tradicionais.
+                    "
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/cardArtigo"
+                    app:layout_constraintTop_toBottomOf="@id/txtDescrEvolProfissionalCont" />
+
+                <TextView
+                    android:id="@+id/txtDescrEvolProfissionalCont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="A tecnologia, junto ao design educacional e à gamificação, torna o aprendizado mais acessível, interativo e motivador, surgindo como a principal ferramenta para solucionar essas falhas e democratizar o acesso ao ecossistema digital. Essa abordagem atua em três frentes essenciais:   "
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/cardArtigo"
                     app:layout_constraintTop_toBottomOf="@id/txtEvolProfissional" />
+
+                <TextView
+                    android:id="@+id/txt4Topico"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/inter_extrabold"
+                    android:text="4. Conclusão"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/cardArtigo"
+                    app:layout_constraintTop_toBottomOf="@id/txtDescrEvolProfissional" />
+
+                <TextView
+                    android:id="@+id/txtDescr4Topico"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="Romper as barreiras do ensino técnico exige humanizar a tecnologia compreendendo as dificuldades e a melhor forma de aprendizagem, exigindo repensar as ferramentas que utilizamos para ensiná-la. Ao unir a tecnologia educacional e a gamificação à introdução de Software e Hardware, transformamos o aprendizado de uma obrigatoriedade complexa em uma experiência lúdica, receptiva e altamente acessível.) Assim, ao acolher quem está começando do zero, a tecnologia cumpre seu papel mais nobre: o de instrumento de inclusão e transformação social, abrindo as portas do futuro para todos. "
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/cardArtigo"
+                    app:layout_constraintTop_toBottomOf="@id/txt4Topico" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

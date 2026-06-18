@@ -68,12 +68,13 @@
 
             <TextView
                 android:id="@+id/txtTituloAulaExercicios"
-                android:layout_width="350dp"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/battambang_bold"
                 android:lineSpacingExtra="-10sp"
-                android:text="Introdução"
+                android:text="Aula de Introdução"
+                android:textAlignment="center"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"

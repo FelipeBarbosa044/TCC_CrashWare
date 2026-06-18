@@ -328,12 +328,12 @@
                 app:layout_constraintTop_toBottomOf="@id/txtModoClaro" />
 
             <TextView
-                android:id="@+id/txtTemasDesbloqueados"
+                android:id="@+id/txtTemasBloqueados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/righteous"
-                android:text="Temas Desbloqueados"
+                android:text="Temas Bloqueados"
                 android:textAllCaps="true"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="19sp"
@@ -352,8 +352,8 @@
                 android:textAllCaps="true"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="13sp"
-                app:layout_constraintStart_toStartOf="@id/txtTemasDesbloqueados"
-                app:layout_constraintTop_toBottomOf="@id/txtTemasDesbloqueados" />
+                app:layout_constraintStart_toStartOf="@id/txtTemasBloqueados"
+                app:layout_constraintTop_toBottomOf="@id/txtTemasBloqueados" />
 
             <TextView
                 android:id="@+id/txtGelo"
@@ -368,7 +368,7 @@
                 android:textSize="13sp"
                 app:layout_constraintStart_toEndOf="@id/txtMeiaNoite"
                 app:layout_constraintEnd_toStartOf="@id/txtLeitura"
-                app:layout_constraintTop_toBottomOf="@id/txtTemasDesbloqueados" />
+                app:layout_constraintTop_toBottomOf="@id/txtTemasBloqueados" />
 
             <TextView
                 android:id="@+id/txtLeitura"
@@ -381,7 +381,7 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="@id/txtModoClaro"
-                app:layout_constraintTop_toBottomOf="@id/txtTemasDesbloqueados" />
+                app:layout_constraintTop_toBottomOf="@id/txtTemasBloqueados" />
 
             <ImageView
                 android:id="@+id/imgMeiaNoite"

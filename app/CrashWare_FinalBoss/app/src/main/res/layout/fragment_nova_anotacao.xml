@@ -116,7 +116,7 @@
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/righteous"
                 android:letterSpacing="0.03"
-                android:text="15/90/2026"
+                android:text=""
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="12sp"
                 android:textStyle="bold"
