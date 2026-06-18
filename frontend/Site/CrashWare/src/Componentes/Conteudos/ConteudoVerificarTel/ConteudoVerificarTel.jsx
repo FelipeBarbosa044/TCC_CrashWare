@@ -189,7 +189,7 @@ const ConteudoVerificarTel = () => {
                     </div>
 
                     <BotoesForm
-                        texto={loading ? "Espere..." : timer > 0 ? `Reenviar em ${String(minutos).padStart(2, '0')}:${String(segs).padStart(2, '0')}` : "Enviar SMS"} className={style.btnEnviar}
+                        texto={loading ? "Espere..." : timer > 0 ? `Reenviar em ${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}` : "Enviar SMS"} className={style.btnEnviar}
                          onClick={EnviarSMS}
                         disabled={timer > 0 || loading}
                     />
@@ -199,7 +199,7 @@ const ConteudoVerificarTel = () => {
                         texto="Verificar"
                         className={style.btnEnviar}
                          onClick={VerificarSMS}
-                        disabled={!enviarcodigo || loading}
+                        // disabled={!enviarcodigo || loading}
                     />
                 </div>
             </div>

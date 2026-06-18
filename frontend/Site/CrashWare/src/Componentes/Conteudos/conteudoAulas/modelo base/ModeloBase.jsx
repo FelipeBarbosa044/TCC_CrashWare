@@ -318,7 +318,7 @@ const ModeloExecicios = ({
 
             )}
 
-{/* 
+
 
             {respondido && !acertou && (
 
@@ -328,7 +328,7 @@ const ModeloExecicios = ({
 
                 </button>
 
-            )} */}
+            )}
 
         </div>
 
