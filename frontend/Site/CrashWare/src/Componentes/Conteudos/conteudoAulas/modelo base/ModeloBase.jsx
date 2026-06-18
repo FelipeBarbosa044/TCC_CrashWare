@@ -320,7 +320,7 @@ const ModeloExecicios = ({
 
 
 
-            {respondido && !acertou && (
+            {/* {respondido && !acertou && (
 
                 <button className={Style.refazerBtn} onClick={refazer}>
 
@@ -328,7 +328,7 @@ const ModeloExecicios = ({
 
                 </button>
 
-            )}
+            )} */}
 
         </div>
 
