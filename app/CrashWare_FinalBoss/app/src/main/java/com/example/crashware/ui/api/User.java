@@ -124,7 +124,7 @@ public class User {
                     }
 
                     //Aqui retorna o ERRO
-                    Toast.makeText(context, erro, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(context, erro, Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -132,11 +132,11 @@ public class User {
             public void onFailure(Call<PerfilResponse> call, Throwable t) {
                 // Caso deu erro na requisição
                 // erro de conexão (internet, URL, servidor fora)
-                Toast.makeText(
-                        context,
-                        "Erro de conexão: " + t.getMessage(),
-                        Toast.LENGTH_LONG
-                ).show();
+//                Toast.makeText(
+//                        context,
+//                        "Erro de conexão: " + t.getMessage(),
+//                        Toast.LENGTH_LONG
+//                ).show();
             }
         });
     }//Perfil
@@ -1458,4 +1458,130 @@ public class User {
 
     }//Verificar Patente
 
-}//User
+    //Ultima Aula
+    //Resposta da API
+    public static class UltimaAulaResponse {
+        String trilha;
+        String numero;
+        String botao;
+        String titulo;
+        String proximoModulo;
+
+
+    }
+
+    // INTERFACE da API:
+    public static interface ultima_aula {
+
+        @GET("/user/onde_parou")
+        Call<UltimaAulaResponse> atualizar(
+                @Header("Authorization") String token
+        );
+
+    }
+
+    // Callback
+    public interface UltimaAulaCallback {
+
+        void onSuccess();
+    }
+
+    public static void Ultima_Aula(SharedPreferences prefs,Context context,UltimaAulaCallback callback) {
+
+        //Pego o valor do token
+        String token = prefs.getString("token", null);
+
+        //Preparo ele para enviar para o header da requisição
+        token = "Bearer " + token;
+
+
+        // Criando a API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api-crashware.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        // Fazendo que a interface da API seja utilizavel:
+        ultima_aula api = retrofit.create(ultima_aula.class);
+
+        // Monto a chamada da API:
+        Call<UltimaAulaResponse> requisicao = api.atualizar(token);
+
+
+        //Executo a requisição
+        requisicao.enqueue(new Callback<UltimaAulaResponse>() {
+            @Override
+            public void onResponse(
+                    Call<UltimaAulaResponse> requisicao,
+                    retrofit2.Response<UltimaAulaResponse> resposta
+            ) {
+                if (resposta.isSuccessful()) {
+                    //Requisição der certo
+
+                    UltimaAulaResponse dados = resposta.body();
+
+                    String trilha = dados.trilha;
+                    String numero = dados.numero;
+                    String botao = dados.botao;
+                    String titulo = dados.titulo;
+                    String proximoModulo = dados.proximoModulo;
+
+                    //Salvo o valor no SharedPreferences
+                    prefs.edit()
+                            .putString("trilha",trilha)
+                            .putString("numero",numero)
+                            .putString("botao",botao)
+                            .putString("tituloUltimaAula",titulo)
+                            .putString("proximoModulo",proximoModulo)
+                            .apply();
+
+                    callback.onSuccess();
+
+                } else {
+                    //Retorna erro caso a reqsição estiver errada
+
+                    String erro = "Erro ao Pegar Ultima Aula";
+
+                    try {
+                        String detail = resposta.errorBody().string();
+
+                        JSONObject json = new JSONObject(detail);
+
+
+                        if (detail != null) {
+                            erro = json.getString("detail");
+
+                        }
+                    } catch (Exception e) {
+                        // ignora, mantém mensagem padrão
+                    }
+
+                    //Aqui retorna o ERRO
+                    //Toast.makeText(fragment.requireContext(), erro, Toast.LENGTH_LONG).show();
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UltimaAulaResponse> call, Throwable t) {
+                // Caso deu erro na requisição
+                // erro de conexão (internet, URL, servidor fora)
+//                Toast.makeText(
+//                        fragment.requireContext(),
+//                        "Erro de conexão: " + t.getMessage(),
+//                        Toast.LENGTH_LONG
+//                ).show();
+            }
+
+
+        });
+
+
+
+    }//Ultima Aula
+
+
+
+    }//User

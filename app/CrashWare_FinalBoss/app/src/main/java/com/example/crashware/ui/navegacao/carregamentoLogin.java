@@ -48,47 +48,51 @@ public class carregamentoLogin  extends  AppCompatActivity{
         // 30%
         barra.setProgress(30);
 
-        PegarTemas();
+        PegarInformacoes();
     }
 
-    private void PegarTemas()
+    private void PegarInformacoes()
     {
-
-        //Se token for valido
-        Loja.VerificarTema(prefs,carregamentoLogin.this,new  Loja.TemaCallback(){
+        User.Ultima_Aula(prefs, carregamentoLogin.this, new User.UltimaAulaCallback() {
             @Override
-            public void onSuccess(Boolean valor)
-            {
-                if(valor == true)
-                {
-                    prefs.edit()
-                            .putBoolean("tema_gelo", true)
-                            .apply();
+            public void onSuccess() {
+                Loja.VerificarTema(prefs,carregamentoLogin.this,new  Loja.TemaCallback(){
+                    @Override
+                    public void onSuccess(Boolean valor)
+                    {
+                        if(valor == true)
+                        {
+                            prefs.edit()
+                                    .putBoolean("tema_gelo", true)
+                                    .apply();
 
-                    Aulas_Concluidas();
+                            Aulas_Concluidas();
 
-                }else
-                {
-                    prefs.edit()
-                            .putBoolean("tema_gelo", false)
-                            .apply();
+                        }else
+                        {
+                            prefs.edit()
+                                    .putBoolean("tema_gelo", false)
+                                    .apply();
 
-                    Aulas_Concluidas();
-                }
-            }
+                            Aulas_Concluidas();
+                        }
+                    }
 
-            @Override
-            public void onError()
-            {
-                //Se der erro a requisição:
+                    @Override
+                    public void onError()
+                    {
+                        //Se der erro a requisição:
 //                        txtComprarGelo.setText("Comprar");
 //                        txtComprarGelo.setEnabled(true);
 
 //                SincronizarOfensiva();
-            }
+                    }
 
+                });
+            }
         });
-    }
+
+    }//Pegar Informacoes
 
 
 

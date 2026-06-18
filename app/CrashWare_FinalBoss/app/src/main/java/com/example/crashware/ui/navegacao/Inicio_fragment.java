@@ -55,7 +55,7 @@ public class Inicio_fragment extends Fragment {
 
     private SharedPreferences.OnSharedPreferenceChangeListener listenerAulas;
 
-    private TextView txtNomeInicio, txtAulasConcluidas, txtOfensiva, txtNivelInicio, txtXpInicio;
+    private TextView txtNomeInicio, txtAulasConcluidas, txtOfensiva, txtNivelInicio, txtXpInicio,txtModulo,txtProxModulo,txtTituloAulaHome,txtAulaHome,txtModuloHome;
     private ShapeableImageView imgfotoInicio;
     ImageView imgNotificacoes, imgRaposa;
 
@@ -118,7 +118,18 @@ public class Inicio_fragment extends Fragment {
         btnRetomarS         = view.findViewById(R.id.btnRetomarS             );
         txtNivelInicio      = view.findViewById(R.id.txtNivelInicio          );
         BarraProgressoNivel = view.findViewById(R.id.BarraProgressoAula      );
-        btnRetomar          = view.findViewById(R.id.btnRetomar              );
+
+        //Ultima Aula
+        btnRetomar          = view.findViewById(R.id.btnRetomar              ); //Botao Retomar ou Começar
+        txtProxModulo       = view.findViewById(R.id.txtProxModulo           ); //Prox modulo
+        txtTituloAulaHome   = view.findViewById(R.id.txtTituloAulaHome       ); //Titulo
+        txtAulaHome         = view.findViewById(R.id.txtAulaHome             ); //Numero
+        txtModuloHome       = view.findViewById(R.id.txtModuloHome            ); //Trilha
+        txtModulo           = view.findViewById(R.id.txtModulo               ); //Modulo
+
+
+        //Pego as informações do SharedPreferences
+
         txtXpInicio         = view.findViewById(R.id.txtXPInicio             );
         imgNotificacoes     = view.findViewById(R.id.layoutSino              );
         imgRaposa           = view.findViewById(R.id.imgRaposa               );
@@ -219,9 +230,17 @@ public class Inicio_fragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                XP_Manager.adicionarXp(50);
 
-                atualizarInterfaceXp();
+                String trilha = prefs.getString("trilha", "Hardware");
+
+                if(trilha.equals("Hardware"))
+                {
+                    //Vai para a tela "IntroducaoHardware"
+                }else
+                {
+                    //Vai para a tela "IntroducaoSoftware"
+                }
+
             }
         });
 
@@ -539,16 +558,29 @@ public class Inicio_fragment extends Fragment {
 
     private void carregarDadosLocais() {
 
-       String nome = prefs.getString("nome", "");
-       String foto = prefs.getString("foto", "");
-       Integer ofensiva = prefs.getInt("ofensiva", 1);
-       Integer aulas = prefs.getInt("aulas_concluidas", 0);
+        String nome = prefs.getString("nome", "");
+        String foto = prefs.getString("foto", "");
+        Integer ofensiva = prefs.getInt("ofensiva", 1);
+        Integer aulas = prefs.getInt("aulas_concluidas", 0);
+
+        String trilha = prefs.getString("trilha", "Hardware");
+        String numero = prefs.getString("numero", "1");
+        String botao =  prefs.getString("botao", "Começar");
+        String titulo = prefs.getString("tituloUltimaAula", "Introdução Hardware");
+        String proximoModulo = prefs.getString("proximoModulo", "Fundamentos");
 
         txtNomeInicio.setText(nome);
 
         txtOfensiva.setText(ofensiva + " dias");
 
         txtAulasConcluidas.setText(String.valueOf(aulas));
+
+        //Ultima Aula
+        btnRetomar.setText(botao);
+        txtTituloAulaHome.setText(titulo);
+        txtAulaHome.setText("Aula " + numero);
+        txtModuloHome.setText(trilha);
+        txtModulo.setText(proximoModulo);
 
         if (foto != null && !foto.isEmpty()) {
 
