@@ -52,6 +52,14 @@ const ConteudoHome = () => {
     //Carregamento
     const [carregando, setCarregando] = useState(!JSON.parse(localStorage.getItem("dados")));
 
+    //Ultima Aula
+    const [ultimaAula, setUltimaAula] = useState({
+        trilha: "Software",
+        numero: "Aula 1",
+        botao : "Começar",
+        titulo: "Introdução Software",
+        proximoModulo: "Lógica de Programação",
+    });
 
     const informacoes = localStorage.getItem("info")
 
@@ -111,9 +119,11 @@ const ConteudoHome = () => {
 
     //Carrega ofensiva + informações do usuarios em parelelo.
     await Promise.all([
+        
         // sincronizar + validar ofensiva em sequência 
         user.SicronizarOfensiva(setPopup).then(() => VerificarOfensiva()),
         // Carrego informações do usuario
+        user.ultima_aula(setUltimaAula),
         atualizarAnotacoes(),
         user.perfil(setDados),
         
@@ -138,6 +148,16 @@ const ConteudoHome = () => {
             //Pega a conquista de ADM
             await user.conquista(23, setPopupConquista, setDados);
         }
+    }
+
+    //Ultima Aula
+    async function UltimaAula() {
+        //Crio o objeto que contem requisições para o banco
+        const user = new Usuario(token, refresh_token, Navegacao, set);
+
+        //Atualizo a ultima aula
+        await user.ultima_aula(setUltimaAula);
+        
     }
 
     useEffect(() => {
@@ -172,8 +192,9 @@ const ConteudoHome = () => {
                 atualizarAnotacoes(); //Só carrega se o login do usuario for antigo 
             }
 
-            // Só roda depois qie outras informações forem carregadas
+            // Só roda depois que outras informações forem carregadas
             await atualizarRecursos();
+            UltimaAula();
             VerificarOfensiva();
             VerificarADM();
         }
@@ -199,12 +220,7 @@ const ConteudoHome = () => {
     }
 
 
-    const ultimaAula = {
-        trilha: "Hardware",
-        numero: "Aula 2",
-        titulo: "Como vai funcionar esse curso?",
-        proximoModulo: "Introdução ao Hardware",
-    };
+   
 
     if (carregando && !usuario) {
         return (
@@ -261,7 +277,6 @@ const ConteudoHome = () => {
                         />
 
                         <div className={style.headerTexto}>
-                            <p className={style.bemVindo}>BEM-VINDO DE VOLTA,</p>
                             <h2 className={style.nomeUsuario}>{nome}</h2>
 
                             <div className={style.Nivel}>
@@ -301,9 +316,15 @@ const ConteudoHome = () => {
                         <p className={style.aulaTag}>{ultimaAula.trilha} | {ultimaAula.numero}</p>
                         <h3 className={style.aulaTitulo}>{ultimaAula.titulo}</h3>
 
-                        <Link to="/comoFunciona">
-                            <button className={style.btnRetomar}>Retomar</button>
-                        </Link>
+                        
+                        <button className={style.btnRetomar} onClick={() =>
+                            Navegacao(
+                                ultimaAula.trilha === "Hardware"
+                                    ? "/IntroducaoHardware"
+                                    : "/introducaoSoftware"
+                            )
+                            }>{ultimaAula.botao}</button>
+                        
 
                         <div className={style.proximoModulo}>
                             <span className={style.proximoLabel}>Próximo Módulo</span>

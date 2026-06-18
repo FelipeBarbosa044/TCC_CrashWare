@@ -255,6 +255,7 @@ div.raposa {
     cursor: pointer;
     transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 4px 14px rgba(119, 114, 214, 0.35);
+    margin: 0 auto;
 }
 
 .btnRetomar:hover {

@@ -1153,7 +1153,7 @@ export class Usuario
 
     async power_ups(setItens)
     {
-         //Verifico o token
+        //Verifico o token
         const usuario = new Api;
         await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
         
@@ -1218,5 +1218,59 @@ export class Usuario
 
     }//Buscar Power Ups
 
+
+    async ultima_aula(setUltimaAula)
+    {
+        //Verifico o token
+        const usuario = new Api;
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+
+
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+         try
+        {
+            const response = await fetch("https://api-crashware.onrender.com/user/onde_parou",
+                {
+                    method: 'GET',
+                    headers:
+                    {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+            if (response.ok)
+            {
+                const resposta = await response.json();
+
+                const trilha = resposta.trilha;
+                const numero = resposta.numero;
+                const botao = resposta.botao;
+                const titulo = resposta.titulo;
+                const proximoModulo = resposta.proximoModulo;
+
+               setUltimaAula({
+                    trilha: trilha,
+                    numero: `Aula ${resposta.numero}`,
+                    botao: botao,
+                    titulo: titulo,
+                    proximoModulo: proximoModulo
+                });
+            }else
+            {
+                const erro = await response.json();
+
+                //Exibo no console log o erro
+                console.log("Erro ao pegar ultima aula" + erro.detail)
+            }
+        
+        }catch (error)
+        {
+            console.log("Erro ao Tentar pegar ultima aula  " + error)
+        }
+
+    }//Pegar ultima aula
+    
 
 }//classe
