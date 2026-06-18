@@ -563,11 +563,11 @@ public class Inicio_fragment extends Fragment {
         Integer ofensiva = prefs.getInt("ofensiva", 1);
         Integer aulas = prefs.getInt("aulas_concluidas", 0);
 
-        String trilha = prefs.getString("trilha", "Hardware");
-        String numero = prefs.getString("numero", "1");
-        String botao =  prefs.getString("botao", "Começar");
-        String titulo = prefs.getString("tituloUltimaAula", "Introdução Hardware");
-        String proximoModulo = prefs.getString("proximoModulo", "Fundamentos");
+//        String trilha = prefs.getString("trilha", "Hardware");
+//        String numero = prefs.getString("numero", "1");
+//        String botao =  prefs.getString("botao", "Começar");
+//        String titulo = prefs.getString("tituloUltimaAula", "Introdução Hardware");
+//        String proximoModulo = prefs.getString("proximoModulo", "Fundamentos");
 
         txtNomeInicio.setText(nome);
 
@@ -575,12 +575,12 @@ public class Inicio_fragment extends Fragment {
 
         txtAulasConcluidas.setText(String.valueOf(aulas));
 
-        //Ultima Aula
-        btnRetomar.setText(botao);
-        txtTituloAulaHome.setText(titulo);
-        txtAulaHome.setText("Aula " + numero);
-        txtModuloHome.setText(trilha);
-        txtModulo.setText(proximoModulo);
+//        //Ultima Aula
+//        btnRetomar.setText(botao);
+//        txtTituloAulaHome.setText(titulo);
+//        txtAulaHome.setText("Aula " + numero);
+//        txtModuloHome.setText(trilha);
+//        txtModulo.setText(proximoModulo);
 
         if (foto != null && !foto.isEmpty()) {
 

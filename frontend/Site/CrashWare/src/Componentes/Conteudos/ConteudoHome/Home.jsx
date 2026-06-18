@@ -179,7 +179,7 @@ const ConteudoHome = () => {
 
 
     //Ofensiva
-    const ofensiva = usuario?.ofensiva ?? 0;
+    const ofensiva = usuario?.ofensiva ?? 1;
 
     useEffect(() => {
          

@@ -126,7 +126,7 @@ public class FragmentTaxaAcertos extends Fragment {
         // Começa bloqueado enquanto ganha a conquista
         btnConcluirAula.setText("Carregando...");
         btnConcluirAula.setEnabled(false);
-        imgVoltar.setEnabled(false);
+
 
         // Deixa o botão cinza
         btnConcluirAula.setBackgroundTintList(
