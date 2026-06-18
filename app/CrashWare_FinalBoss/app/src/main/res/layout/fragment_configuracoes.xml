@@ -323,8 +323,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_height="56dp"
                 android:src="@drawable/modoclaro_icon"
-
-                app:layout_constraintEnd_toEndOf="@id/imgLeitura"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtModoClaro" />
 
             <TextView
@@ -356,31 +356,17 @@
                 app:layout_constraintTop_toBottomOf="@id/txtTemasBloqueados" />
 
             <TextView
-                android:id="@+id/txtGelo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/inter_extrabold"
-                android:text="Gelo"
-                android:textAllCaps="true"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="13sp"
-                app:layout_constraintStart_toEndOf="@id/txtMeiaNoite"
-                app:layout_constraintEnd_toStartOf="@id/txtLeitura"
-                app:layout_constraintTop_toBottomOf="@id/txtTemasBloqueados" />
-
-            <TextView
                 android:id="@+id/txtLeitura"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginStart="50dp"
                 android:fontFamily="@font/inter_extrabold"
                 android:text="Leitura"
                 android:textAllCaps="true"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="@id/txtModoClaro"
+                app:layout_constraintStart_toEndOf="@id/imgMeiaNoite"
                 app:layout_constraintTop_toBottomOf="@id/txtTemasBloqueados" />
 
             <ImageView
@@ -389,19 +375,9 @@
                 android:layout_marginTop="5dp"
                 android:layout_height="56dp"
                 android:src="@drawable/meianoite_icon"
-                app:layout_constraintStart_toStartOf="@id/txtMeiaNoite"
-                app:layout_constraintEnd_toEndOf="@id/txtMeiaNoite"
+                app:layout_constraintStart_toStartOf="@id/imgTemaSistema"
+                app:layout_constraintEnd_toEndOf="@id/imgTemaSistema"
                 app:layout_constraintTop_toBottomOf="@id/txtMeiaNoite" />
-
-            <ImageView
-                android:id="@+id/imgGelo"
-                android:layout_width="52dp"
-                android:layout_marginTop="5dp"
-                android:layout_height="56dp"
-                android:src="@drawable/gelo_icon"
-                app:layout_constraintStart_toEndOf="@id/imgMeiaNoite"
-                app:layout_constraintEnd_toStartOf="@id/imgLeitura"
-                app:layout_constraintTop_toBottomOf="@id/txtGelo" />
 
             <ImageView
                 android:id="@+id/imgLeitura"
@@ -412,6 +388,45 @@
                 app:layout_constraintStart_toStartOf="@id/txtLeitura"
                 app:layout_constraintEnd_toEndOf="@id/txtLeitura"
                 app:layout_constraintTop_toBottomOf="@id/txtLeitura" />
+
+            <TextView
+                android:id="@+id/txtTemasDesbloqueados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/righteous"
+                android:text="Temas Desbloqueados"
+                android:textAllCaps="true"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/txtTemasPadrao"
+                app:layout_constraintTop_toBottomOf="@id/imgMeiaNoite" />
+
+            <TextView
+                android:id="@+id/txtGelo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="45dp"
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Gelo"
+                android:textAllCaps="true"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtTemasDesbloqueados" />
+
+            <ImageView
+                android:id="@+id/imgGelo"
+                android:layout_width="52dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="56dp"
+                android:src="@drawable/gelo_icon"
+                app:layout_constraintStart_toStartOf="@id/imgMeiaNoite"
+                app:layout_constraintEnd_toEndOf="@id/imgMeiaNoite"
+                app:layout_constraintTop_toBottomOf="@id/txtGelo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

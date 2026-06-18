@@ -251,7 +251,7 @@ public class Perfil_Fragment extends Fragment {
                                                 new Conquista(
                                                         nome,
                                                         descricao,
-                                                        R.drawable.hardware_icon,
+                                                        R.drawable.raposahard_icon,
                                                         R.drawable.bg_cardconquista_hardware
                                                 );
                                         conquistasRecentes.add(novaConquista);

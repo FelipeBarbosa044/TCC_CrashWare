@@ -95,10 +95,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-
                 android:fontFamily="@font/battambang"
                 android:lineSpacingExtra="-10sp"
-                android:text="22 minutos"
+                android:text="33 segundos"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@id/imgVideo"
@@ -148,8 +147,8 @@
             android:paddingRight="20dp"
             android:background="@drawable/bg_cards"
             app:layout_constraintTop_toBottomOf="@id/cardVideo"
-            app:layout_constraintStart_toStartOf="@id/imgVideo"
-            app:layout_constraintEnd_toEndOf="@id/txtQuantXPAula">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
                 android:id="@+id/txtIntroducao"

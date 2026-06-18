@@ -169,7 +169,7 @@ public class FragmentExercicios extends Fragment
             {
                 ResetarSelecao();
                 Selecionado = 1;
-                selecionar1.setBackgroundResource(R.drawable.bg_botaoreenviar);
+                selecionar1.setBackgroundResource(R.drawable.btn_alternativaselecionada);
 //                RespostaSelecionada.show();
             }
         });//
@@ -181,7 +181,7 @@ public class FragmentExercicios extends Fragment
             {
                 ResetarSelecao();
                 Selecionado = 2;
-                selecionar2.setBackgroundResource(R.drawable.bg_botaoreenviar);
+                selecionar2.setBackgroundResource(R.drawable.btn_alternativaselecionada);
 //                RespostaSelecionada.show();
             }
         });
@@ -192,7 +192,7 @@ public class FragmentExercicios extends Fragment
             {
                 ResetarSelecao();
                 Selecionado = 3;
-                selecionar3.setBackgroundResource(R.drawable.bg_botaoreenviar);
+                selecionar3.setBackgroundResource(R.drawable.btn_alternativaselecionada);
 //                RespostaSelecionada.show();
             }
         });//
@@ -203,7 +203,7 @@ public class FragmentExercicios extends Fragment
             {
                 ResetarSelecao();
                 Selecionado = 4;
-                selecionar4.setBackgroundResource(R.drawable.bg_botaoreenviar);
+                selecionar4.setBackgroundResource(R.drawable.btn_alternativaselecionada);
 //                RespostaSelecionada.show();
             }
         });
@@ -214,7 +214,7 @@ public class FragmentExercicios extends Fragment
             {
                 ResetarSelecao();
                 Selecionado = 5;
-                selecionar5.setBackgroundResource(R.drawable.bg_botaoreenviar);
+                selecionar5.setBackgroundResource(R.drawable.btn_alternativaselecionada);
 //                RespostaSelecionada.show();
             }
         });

@@ -170,7 +170,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cardExercicio1"
                     android:layout_width="wrap_content"
-                    android:layout_height="65dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="10dp"
@@ -211,7 +211,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cardExercicio2"
                     android:layout_width="wrap_content"
-                    android:layout_height="65dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="10dp"
@@ -252,7 +252,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cardExercicio3"
                     android:layout_width="wrap_content"
-                    android:layout_height="65dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
@@ -293,7 +293,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cardExercicio4"
                     android:layout_width="wrap_content"
-                    android:layout_height="65dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="10dp"
@@ -334,7 +334,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cardExercicio5"
                     android:layout_width="wrap_content"
-                    android:layout_height="65dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="10dp"
