@@ -224,9 +224,17 @@ async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_se
 
         if (resposta.status_code > 199 and resposta.status_code < 300):
             ##Retorno mensagem de sucesso
+            acess_token = gerar_token(usuario.id_usuario, tipo="access")
+            refresh_token = gerar_token(usuario.id_usuario, validade=timedelta(days=7), tipo="refresh")
+
             usuario.foto = nome_arquivo
             session.commit()
-            return {"mensagem": "Cadastro com Google Realizado com Sucesso!"}
+            return {"mensagem": "Cadastro com Google Realizado com Sucesso!",
+                    "token" : acess_token,
+                    "refresh_token": refresh_token,
+                    "token_type": "bearer"
+                    }
+        
         else:
             ##Retorno o erro
             raise HTTPException(status_code=400, detail=resposta.text)
