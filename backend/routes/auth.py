@@ -169,11 +169,11 @@ async def cadastro(dados : CadastroSchema,session = Depends(pegar_sessao)):
 #############
 @auth.post("/cadastro_google")
 async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_sessao)):
-    email_usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+    email_usuario = session.query(Usuarios).filter(Usuarios.email == dados.email.lower()).first()
     if email_usuario is not None:
         raise HTTPException(status_code=400, detail="Esse email já foi autenticado")
     try:
-        usuario = Usuarios(nome_usuario=dados.nome_usuario.title(), email=dados.email,email_verificado=True)
+        usuario = Usuarios(nome_usuario=dados.nome_usuario.title(), email=dados.email.lower(),email_verificado=True)
         session.add(usuario)
         session.commit()
         session.refresh(usuario)
