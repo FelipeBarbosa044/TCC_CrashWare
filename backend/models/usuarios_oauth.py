@@ -1,7 +1,7 @@
 #Importando comandos do sql para o código.
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, UniqueConstraint
 from sqlalchemy.sql import func
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 
 #Importando a Base declarativa
 from database.base import Base
@@ -23,7 +23,7 @@ class UsuariosOauth(Base):
     id_oauth = Column(Integer,primary_key=True,autoincrement=True)
     provider = Column(String(50),nullable=False) #Google ou GitHub
     provider_user_id = Column(String(255),nullable=False) #Id que o google ou github oferece.
-    usuario_id = Column(Integer,ForeignKey("usuario.id_usuario"),nullable=False)
+    usuario_id = Column(Integer,ForeignKey("usuario.id_usuario",ondelete="CASCADE"),nullable=False)
 
     # Data de criação
     created_at = Column(DateTime,server_default=func.now())
@@ -32,6 +32,13 @@ class UsuariosOauth(Base):
     __table_args__ = (
         UniqueConstraint('provider', 'provider_user_id'),
     )
+
+    # Criando relação com objetos (relationship)
+    usuario = relationship("Usuarios", backref=backref(
+        "Oauths",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+        uselist=False))
 
     #Criando atributos PARA O PYTHON (Não altera nada no banco de dados)
     def __init__(self,provider,provider_user_id,usuario_id):

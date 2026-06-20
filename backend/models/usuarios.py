@@ -48,7 +48,6 @@ class Usuarios(Base):
     updated_at = Column(DateTime,server_default=func.now(),onupdate=func.now())
 
     # Criando relação com objetos (relationship)
-    oauths = relationship("UsuariosOauth",backref="usuarios")
     patentes = relationship("Patente", backref="usuarios")
 
     # Criando atributos PARA O PYTHON (Não altera nada no banco de dados)
