@@ -183,7 +183,7 @@ async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_se
         session.commit()
 
 
-        foto = requests.get(dados.foto_google)
+        foto = requests.get(dados.foto)
 
         if foto.status_code != 200:
             raise HTTPException(
