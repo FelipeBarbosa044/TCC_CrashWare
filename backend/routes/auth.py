@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends,HTTPException
 from requests import delete
 from sqlalchemy import null
 
+import requests
+
 #Importando tabelas:
 from models.usuarios import Usuarios
 from models.usuarios_oauth import UsuariosOauth
@@ -16,7 +18,7 @@ from dependences import pegar_sessao,  validar_refresh_token , validar_token
 from security import criptografia
 
 #Importando SHCEMAS:
-from schemas.UsuarioSchema import CadastroSchema, VerificarEmailSchema , EmailSchema , UsuarioLoginSchema, NomeSchema,SenhaSchema,TelefoneSchema
+from schemas.UsuarioSchema import CadastroSchema, CadastroGoogleSchema, VerificarEmailSchema , EmailSchema , UsuarioLoginSchema, NomeSchema,SenhaSchema,TelefoneSchema
 
 
 #Biblioteca que gera números aletórios:
@@ -63,6 +65,14 @@ TWILIO_PHONE_NUMBER= os.getenv("TWILIO_PHONE_NUMBER")
 
 #Conexão com a API da twillio
 cliente = Client(ACOUNT_SID,AUTH_TOKEN)
+
+#Bucket do supabase
+
+#Pego informações do banco e do bucket:
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
+SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET")
+SUPABASE_BUCKET2 = os.getenv("SUPABASE_BUCKET2")
 
 
 #Funções
@@ -155,6 +165,80 @@ async def cadastro(dados : CadastroSchema,session = Depends(pegar_sessao)):
         except Exception as exception:
             session.rollback()
             raise  exception
+
+#############
+@auth.post("/cadastro_google")
+async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_sessao)):
+    email_usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+    if email_usuario is not None:
+        raise HTTPException(status_code=400, detail="Esse email já foi autenticado")
+    try:
+        usuario = Usuarios(nome_usuario=dados.nome_usuario.title(), email=dados.email,email_verificado=True)
+        session.add(usuario)
+        session.commit()
+        session.refresh(usuario)
+
+        usuario_oauth = UsuariosOauth(provider="Google",provider_user_id=dados.sub,usuario_id=usuario.id_usuario)
+        session.add(usuario_oauth)
+        session.commit()
+
+
+        foto = requests.get(dados.foto_google)
+
+        if foto.status_code != 200:
+            raise HTTPException(
+                status_code=400,
+                detail="Não foi possível baixar a foto do Google"
+            )
+
+        conteudo_imagem = foto.content
+
+
+        id = str(usuario.id_usuario) + '/'
+        nome_arquivo = id + "foto"
+
+        ##Gero uma nova imagem no bucket
+
+        ##Gero uma requisição
+
+
+        ##URL DE UPLOAD
+        url_upload = f"{SUPABASE_URL}/storage/v1/object/{SUPABASE_BUCKET}/{nome_arquivo}"
+
+        # Headers da requisição
+        headers = {
+            "Authorization": f"Bearer {SUPABASE_KEY}",
+            "apikey": SUPABASE_KEY,
+            "Content-Type": foto.headers.get(
+                "Content-Type",
+                "image/jpeg"
+            )
+        }
+
+        # Requisição
+        resposta = requests.post(
+            url_upload,
+            headers=headers,
+            data=conteudo_imagem
+        )
+
+        if (resposta.status_code > 199 and resposta.status_code < 300):
+            ##Retorno mensagem de sucesso
+            usuario.foto = nome_arquivo
+            session.commit()
+            return {"mensagem": "Cadastro com Google Realizado com Sucesso!"}
+        else:
+            ##Retorno o erro
+            raise HTTPException(status_code=400, detail=resposta.text)
+
+
+    except Exception as exception:
+        session.rollback()
+        raise exception
+
+
+
+
 
 #############
 
