@@ -335,7 +335,7 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
         ##Gero os tokens
         acess_token = gerar_token(usuario.id_usuario, tipo="access")
         refresh_token = gerar_token(usuario.id_usuario, validade=timedelta(days=7), tipo="refresh")
-        #Vai para login
+        #Vai para o home
         return RedirectResponse(
             url=f"https://crashware.onrender.com/oauth/sucesso?access_token={acess_token}&refresh_token={refresh_token}"
         )
