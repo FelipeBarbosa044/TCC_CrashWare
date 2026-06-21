@@ -10,6 +10,7 @@ import os #Acessa outros arquivos
 from dotenv import load_dotenv # Le import arquivo .env
 #CORS:
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.sessions import SessionMiddleware
 
 
 
@@ -21,8 +22,15 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 ALGORITIMO = os.getenv("ALGORITIMO")
 
+SESSION_SECRET=os.getenv("SESSION_SECRET")
+
 #API
 crashware = FastAPI()
+
+crashware.add_middleware(
+    SessionMiddleware,
+    secret_key=SESSION_SECRET
+)
 
 #CORS:
 

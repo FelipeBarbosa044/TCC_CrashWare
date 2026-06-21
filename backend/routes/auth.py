@@ -7,6 +7,8 @@ from fastapi import Request
 
 oauth = OAuth()
 
+
+
 import requests
 
 #Importando tabelas:
