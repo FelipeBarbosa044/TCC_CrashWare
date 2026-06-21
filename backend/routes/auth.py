@@ -4,6 +4,7 @@ from sqlalchemy import null
 
 from authlib.integrations.starlette_client import OAuth
 from fastapi import Request
+from starlette.responses import RedirectResponse
 
 oauth = OAuth()
 
@@ -198,7 +199,14 @@ async def cadastro(dados : CadastroSchema,session = Depends(pegar_sessao)):
 async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_sessao)):
     email_usuario = session.query(Usuarios).filter(Usuarios.email == dados.email.lower()).first()
     if email_usuario is not None:
-        raise HTTPException(status_code=400, detail="Esse email já foi autenticado")
+        acess_token = gerar_token(email_usuario.id_usuario, tipo="access")
+        refresh_token = gerar_token(email_usuario.id_usuario, validade=timedelta(days=7), tipo="refresh")
+        raise HTTPException(status_code=400, detail={"mensagem": "Esse email já foi autenticado",
+                                                                 "token": acess_token,
+                                                                    "refresh_token": refresh_token,
+                                                                    "token_type": "bearer"
+                                                                    })
+
     try:
         usuario = Usuarios(nome_usuario=dados.nome_usuario.title(), email=dados.email.lower(),email_verificado=True)
         session.add(usuario)
@@ -289,23 +297,52 @@ async def github(request: Request):
 #############
 @auth.get("/cadastro_github")
 async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
-    token = await oauth.github.authorize_access_token(request)
+    tokengit = await oauth.github.authorize_access_token(request)
 
     resp = await oauth.github.get(
         "user",
-        token=token
+        token=tokengit
     )
 
     usuario = resp.json()
 
     emails = await oauth.github.get(
         "user/emails",
-        token=token
+        token=tokengit
     )
 
-    print(emails.json())
+    ##Pego o email
+    lista_emails = emails.json()
 
-    print(usuario)
+    email = None
+
+    for item in lista_emails:
+        if item["primary"] and item["verified"]:
+            email = item["email"]
+            break
+
+    ##Pego os outros dados
+    dados = usuario.json()
+
+    github_id = dados["id"]
+    username = dados["login"]
+    foto = dados["avatar_url"]
+
+    #Verifico se já tem no BD
+    usuario = session.query(Usuarios).filter(Usuarios.email == email.lower()).first()
+    if usuario is not None:
+        ##Se ja tiver
+        ##Gero os tokens
+        acess_token = gerar_token(usuario.id_usuario, tipo="access")
+        refresh_token = gerar_token(usuario.id_usuario, validade=timedelta(days=7), tipo="refresh")
+        #Vai para login
+        return RedirectResponse(
+            url=f"https://crashware.onrender.com/oauth/sucesso?access_token={acess_token}&refresh_token={refresh_token}"
+        )
+
+        # raise HTTPException(status_code=400, detail="Esse email já foi autenticado")
+
+
 
 
 
