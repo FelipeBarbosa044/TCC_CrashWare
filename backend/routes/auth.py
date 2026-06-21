@@ -307,7 +307,6 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
 
     print(usuario)
 
-    return usuario
 
 
 #############
