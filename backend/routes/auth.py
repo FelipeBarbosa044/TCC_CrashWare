@@ -275,7 +275,7 @@ async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_se
 @auth.get("/github")
 async def github(request: Request):
 
-    redirect_uri = "http://127.0.0.1:8000/auth/cadastro_github"
+    redirect_uri = "https://api-crashware.onrender.com/auth/cadastro_github"
 
     return await oauth.github.authorize_redirect(
         request,
