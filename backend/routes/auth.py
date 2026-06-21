@@ -2,6 +2,11 @@ from fastapi import APIRouter, Depends,HTTPException
 from requests import delete
 from sqlalchemy import null
 
+from authlib.integrations.starlette_client import OAuth
+from fastapi import Request
+
+oauth = OAuth()
+
 import requests
 
 #Importando tabelas:
@@ -73,6 +78,26 @@ SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
 SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET")
 SUPABASE_BUCKET2 = os.getenv("SUPABASE_BUCKET2")
+
+##Pego informações da auth do github
+GITHUB_CLIENT_ID = os.getenv("GITHUB_CLIENT_ID")
+GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
+
+#GitHub
+oauth.register(
+    name="github",
+    client_id=GITHUB_CLIENT_ID,
+    client_secret=GITHUB_CLIENT_SECRET,
+    authorize_url="https://github.com/login/oauth/authorize",
+    access_token_url="https://github.com/login/oauth/access_token",
+    api_base_url="https://api.github.com/",
+    client_kwargs={
+        "scope": "user:email"
+    }
+)
+
+
+
 
 
 #Funções
@@ -246,21 +271,25 @@ async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_se
         raise exception
 
 
+#############
+@auth.get("/github")
+async def github(request: Request):
 
+    redirect_uri = "http://127.0.0.1:8000/auth/cadastro_github"
 
+    return await oauth.github.authorize_redirect(
+        request,
+        redirect_uri
+    )
 
 #############
-@auth.post("/cadastro_github")
-async def cadastroGitHub(dados : CadastroGitHubSchema,session = Depends(pegar_sessao)):
-    email_usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
-    if email_usuario is not None:
-        raise HTTPException(status_code=400, detail="Esse Email já foi autenticado")
-    return {"status": "ok"}
+@auth.get("/cadastro_github")
+async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
+    token = await oauth.github.authorize_access_token(request)
 
-
-
-
-
+    return {
+        "token_recebido": True
+    }
 
 
 #############
