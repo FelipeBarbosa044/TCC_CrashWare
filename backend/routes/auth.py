@@ -213,11 +213,6 @@ async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_se
         session.commit()
         session.refresh(usuario)
 
-        usuario_oauth = UsuariosOauth(provider="Google",provider_user_id=dados.sub,usuario_id=usuario.id_usuario)
-        session.add(usuario_oauth)
-        session.commit()
-
-
         foto = requests.get(dados.foto)
 
         if foto.status_code != 200:
@@ -226,8 +221,12 @@ async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_se
                 detail="Não foi possível baixar a foto do Google"
             )
 
-        conteudo_imagem = foto.content
+        usuario_oauth = UsuariosOauth(provider="Google",provider_user_id=dados.sub,usuario_id=usuario.id_usuario)
+        session.add(usuario_oauth)
+        session.commit()
 
+
+        conteudo_imagem = foto.content
 
         id = str(usuario.id_usuario) + '/'
         nome_arquivo = id + "foto"
@@ -321,8 +320,14 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
             email = item["email"]
             break
 
+    if not email:
+        raise HTTPException(
+            status_code=400,
+            detail="Não foi possível obter o email do GitHub"
+        )
+
     ##Pego os outros dados
-    dados = usuario.json()
+    dados = usuario
 
     github_id = dados["id"]
     username = dados["login"]
@@ -330,6 +335,14 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
 
     #Verifico se já tem no BD
     usuario = session.query(Usuarios).filter(Usuarios.email == email.lower()).first()
+
+    oauth_usuario = session.query(UsuariosOauth).filter(UsuariosOauth.provider == "GitHub",UsuariosOauth.provider_user_id == str(github_id)).first()
+
+    if oauth_usuario is not None:
+        usuario = session.query(Usuarios).filter(
+            Usuarios.id_usuario == oauth_usuario.usuario_id
+        ).first()
+
     if usuario is not None:
         ##Se ja tiver
         ##Gero os tokens
@@ -339,11 +352,79 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
         return RedirectResponse(
             url=f"https://crashware.onrender.com/oauth/sucesso?access_token={acess_token}&refresh_token={refresh_token}"
         )
+    else:
+        try:
+            usuario = Usuarios(nome_usuario=username, email=email,foto=foto,
+                               email_verificado=True)
+            session.add(usuario)
+            session.commit()
+            session.refresh(usuario)
 
-        # raise HTTPException(status_code=400, detail="Esse email já foi autenticado")
+            foto = requests.get(foto)
+
+            if foto.status_code != 200:
+                raise HTTPException(
+                    status_code=400,
+                    detail="Não foi possível baixar a foto do GitHub"
+                )
+
+
+            usuario_oauth = UsuariosOauth(provider="GitHub", provider_user_id=str(github_id), usuario_id=usuario.id_usuario)
+
+            session.add(usuario_oauth)
+            session.commit()
+
+            conteudo_imagem = foto.content
+
+            id = str(usuario.id_usuario) + '/'
+            nome_arquivo = id + "foto"
+
+            ##Gero uma nova imagem no bucket
+
+            ##Gero uma requisição
+
+            ##URL DE UPLOAD
+            url_upload = f"{SUPABASE_URL}/storage/v1/object/{SUPABASE_BUCKET}/{nome_arquivo}"
+
+            # Headers da requisição
+            headers = {
+                "Authorization": f"Bearer {SUPABASE_KEY}",
+                "apikey": SUPABASE_KEY,
+                "Content-Type": foto.headers.get(
+                    "Content-Type",
+                    "image/jpeg"
+                )
+            }
+
+            # Requisição
+            resposta = requests.post(
+                url_upload,
+                headers=headers,
+                data=conteudo_imagem
+            )
+
+            if (resposta.status_code > 199 and resposta.status_code < 300):
+
+                #Gero os tokens
+                acess_token = gerar_token(usuario.id_usuario, tipo="access")
+                refresh_token = gerar_token(usuario.id_usuario, validade=timedelta(days=7), tipo="refresh")
+
+                usuario.foto = nome_arquivo
+                session.commit()
+
+                # Vai para o home
+                return RedirectResponse(
+                    url=f"https://crashware.onrender.com/oauth/sucesso?access_token={acess_token}&refresh_token={refresh_token}"
+                )
+            else:
+                ##Retorno o erro
+                raise HTTPException(status_code=400, detail=resposta.text)
 
 
 
+        except Exception as exception:
+            session.rollback()
+            raise exception
 
 
 #############
