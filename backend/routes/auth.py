@@ -298,6 +298,13 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
 
     usuario = resp.json()
 
+    emails = await oauth.github.get(
+        "user/emails",
+        token=token
+    )
+
+    print(emails.json())
+
     print(usuario)
 
     return usuario
