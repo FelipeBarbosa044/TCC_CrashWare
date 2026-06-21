@@ -284,20 +284,23 @@ async def github(request: Request):
         redirect_uri
     )
 
-    usuario = resp.json()
 
-    print(usuario)
-
-    return usuario
 
 #############
 @auth.get("/cadastro_github")
 async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
     token = await oauth.github.authorize_access_token(request)
 
-    return {
-        "token_recebido": True
-    }
+    resp = await oauth.github.get(
+        "user",
+        token=token
+    )
+
+    usuario = resp.json()
+
+    print(usuario)
+
+    return usuario
 
 
 #############
