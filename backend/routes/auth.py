@@ -284,6 +284,12 @@ async def github(request: Request):
         redirect_uri
     )
 
+    usuario = resp.json()
+
+    print(usuario)
+
+    return usuario
+
 #############
 @auth.get("/cadastro_github")
 async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
