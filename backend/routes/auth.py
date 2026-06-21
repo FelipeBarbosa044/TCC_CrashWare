@@ -18,7 +18,7 @@ from dependences import pegar_sessao,  validar_refresh_token , validar_token
 from security import criptografia
 
 #Importando SHCEMAS:
-from schemas.UsuarioSchema import CadastroSchema, CadastroGoogleSchema, VerificarEmailSchema , EmailSchema , UsuarioLoginSchema, NomeSchema,SenhaSchema,TelefoneSchema
+from schemas.UsuarioSchema import CadastroSchema, CadastroGoogleSchema,CadastroGitHubSchema, VerificarEmailSchema , EmailSchema , UsuarioLoginSchema, NomeSchema,SenhaSchema,TelefoneSchema
 
 
 #Biblioteca que gera números aletórios:
@@ -244,6 +244,20 @@ async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_se
     except Exception as exception:
         session.rollback()
         raise exception
+
+
+
+
+
+#############
+@auth.post("/cadastro_github")
+async def cadastroGitHub(dados : CadastroGitHubSchema,session = Depends(pegar_sessao)):
+    email_usuario = session.query(Usuarios).filter(Usuarios.email == dados.email).first()
+    if email_usuario is not None:
+        raise HTTPException(status_code=400, detail="Esse Email já foi autenticado")
+    return {"status": "ok"}
+
+
 
 
 

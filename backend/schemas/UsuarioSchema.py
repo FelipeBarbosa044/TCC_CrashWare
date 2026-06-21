@@ -23,6 +23,18 @@ class CadastroGoogleSchema(BaseModel):
     class Config:
         from_attributes = True
 
+#SCHEMA Cadastro com GitHub:
+class CadastroGitHubSchema(BaseModel):
+    nome_usuario : str
+    email: str
+    foto: str
+    sub: str
+
+
+
+    class Config:
+        from_attributes = True
+
 #SCHEMA Vericar Codigo
 class VerificarEmailSchema(BaseModel):
     email : str
