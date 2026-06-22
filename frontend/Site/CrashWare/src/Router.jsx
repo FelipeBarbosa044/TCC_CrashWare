@@ -8,7 +8,7 @@ import { PgComoFunciona, PgIntroducaoHardware, PgIntroducaoSoftware} from "./Pag
 import { PgVerPerfil } from "./Paginas/VerPerfil/Verperfil"
 import { IntroducaoSoftware } from "./Componentes"
 
-import { OAuthSucesso } from "./paginas/OAuthSucesso/OauthSucesso";
+import { OAuthSucesso } from "./Paginas/OauthSucesso/OauthSucesso";
 
 
 const Router = () => {
@@ -40,7 +40,7 @@ const Router = () => {
                 <Route path="verificacao-email" element={<PgVerificacaoEmail />} />
                 <Route path="alterar-senha" element={<PgAlterarSenha />} />
                 <Route path="*" element={<PgErro />} />
-                <Route path="/oauth/sucesso" element={<OAuthSucesso />} />
+                <Route path="oauth/sucesso" element={<OAuthSucesso />} />
 
             </Route>
 
