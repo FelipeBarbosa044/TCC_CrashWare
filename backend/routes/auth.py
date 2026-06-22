@@ -298,33 +298,22 @@ async def github(request: Request):
 async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
     tokengit = await oauth.github.authorize_access_token(request)
 
-    resp = await oauth.github.get(
-        "user",
-        token=tokengit
-    )
+    resp = await oauth.github.get("user",token=tokengit)
 
     usuario = resp.json()
 
-    emails = await oauth.github.get(
-        "user/emails",
-        token=tokengit
-    )
+    emails = await oauth.github.get("user/emails",token=tokengit)
 
     ##Pego o email
     lista_emails = emails.json()
-
     email = None
-
     for item in lista_emails:
         if item["primary"] and item["verified"]:
             email = item["email"]
             break
 
     if not email:
-        raise HTTPException(
-            status_code=400,
-            detail="Não foi possível obter o email do GitHub"
-        )
+        raise HTTPException( status_code=400,detail="Não foi possível obter o email do GitHub")
 
     ##Pego os outros dados
     dados = usuario
@@ -339,9 +328,7 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
     oauth_usuario = session.query(UsuariosOauth).filter(UsuariosOauth.provider == "GitHub",UsuariosOauth.provider_user_id == str(github_id)).first()
 
     if oauth_usuario is not None:
-        usuario = session.query(Usuarios).filter(
-            Usuarios.id_usuario == oauth_usuario.usuario_id
-        ).first()
+        usuario = session.query(Usuarios).filter( Usuarios.id_usuario == oauth_usuario.usuario_id).first()
 
     if usuario is not None:
         ##Se ja tiver
@@ -354,21 +341,22 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
         )
     else:
         try:
+            ##Cadastro o usuario no banco de dados
             usuario = Usuarios(nome_usuario=username, email=email,foto=foto,
                                email_verificado=True)
+
             session.add(usuario)
             session.commit()
             session.refresh(usuario)
 
+            #Instalo a Foto
             foto = requests.get(foto)
 
             if foto.status_code != 200:
-                raise HTTPException(
-                    status_code=400,
-                    detail="Não foi possível baixar a foto do GitHub"
-                )
+                raise HTTPException( status_code=400,detail="Não foi possível baixar a foto do GitHub")
 
 
+            #Cadastro from usuario na tabela  Usuario_Oauth
             usuario_oauth = UsuariosOauth(provider="GitHub", provider_user_id=str(github_id), usuario_id=usuario.id_usuario)
 
             session.add(usuario_oauth)
@@ -409,6 +397,7 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
                 acess_token = gerar_token(usuario.id_usuario, tipo="access")
                 refresh_token = gerar_token(usuario.id_usuario, validade=timedelta(days=7), tipo="refresh")
 
+                #Coloco a fot no perfil do usuario
                 usuario.foto = nome_arquivo
                 session.commit()
 
