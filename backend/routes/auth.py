@@ -197,16 +197,45 @@ async def cadastro(dados : CadastroSchema,session = Depends(pegar_sessao)):
 #############
 @auth.post("/cadastro_google")
 async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_sessao)):
+    google = True
+
+    #Pego a conta do usuario
     email_usuario = session.query(Usuarios).filter(Usuarios.email == dados.email.lower()).first()
+
+    #Pego o oauth do usuario
+    oauth_usuario = session.query(UsuariosOauth).filter(UsuariosOauth.provider == "Google",
+                                                        UsuariosOauth.provider_user_id == dados.sub).first()
+
+    #Se tiver ouath
+    if oauth_usuario is None:
+        #Pego a conta pelo oauth
+       email_usuario = session.query(Usuarios).filter(Usuarios.id_usuario == oauth_usuario.usuario_id).first()
+       google = False
+
+    #Se conta ja foi criada
     if email_usuario is not None:
+        #Gero tokens
         acess_token = gerar_token(email_usuario.id_usuario, tipo="access")
         refresh_token = gerar_token(email_usuario.id_usuario, validade=timedelta(days=7), tipo="refresh")
+
+        #Verifico se usuario tem ouath
+        if google == True:
+            try:
+                #Crio oauth
+                usuario_oauth = UsuariosOauth(provider="Google", provider_user_id=dados.sub, usuario_id=email_usuario.id_usuario)
+                session.add(usuario_oauth)
+                session.commit()
+
+            except Exception as exception:
+                session.rollback()
+                raise exception
+
+        #Retorno o token
         raise HTTPException(status_code=400, detail={"mensagem": "Esse email já foi autenticado",
                                                                  "token": acess_token,
                                                                     "refresh_token": refresh_token,
                                                                     "token_type": "bearer"
                                                                     })
-
     try:
         usuario = Usuarios(nome_usuario=dados.nome_usuario.title(), email=dados.email.lower(),email_verificado=True)
         session.add(usuario)
@@ -296,6 +325,8 @@ async def github(request: Request):
 #############
 @auth.get("/cadastro_github")
 async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
+    github = True
+
     tokengit = await oauth.github.authorize_access_token(request)
 
     resp = await oauth.github.get("user",token=tokengit)
@@ -329,12 +360,21 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
 
     if oauth_usuario is not None:
         usuario = session.query(Usuarios).filter( Usuarios.id_usuario == oauth_usuario.usuario_id).first()
+        github = False
 
     if usuario is not None:
         ##Se ja tiver
         ##Gero os tokens
         acess_token = gerar_token(usuario.id_usuario, tipo="access")
         refresh_token = gerar_token(usuario.id_usuario, validade=timedelta(days=7), tipo="refresh")
+
+        if github == True:
+            # Cadastro o usuario na tabela  Usuario_Oauth
+            usuario_oauth = UsuariosOauth(provider="GitHub", provider_user_id=str(github_id),
+                                          usuario_id=usuario.id_usuario)
+            session.add(usuario_oauth)
+            session.commit()
+            
         #Vai para o home
         return RedirectResponse(
             url=f"https://crashware.onrender.com/oauth/sucesso?access_token={acess_token}&refresh_token={refresh_token}"
