@@ -202,14 +202,22 @@ async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_se
     #Pego a conta do usuario
     email_usuario = session.query(Usuarios).filter(Usuarios.email == dados.email.lower()).first()
 
-    #Pego o oauth do usuario
-    oauth_usuario = session.query(UsuariosOauth).filter(UsuariosOauth.provider == "Google",
+    # Pego o oauth do usuario
+    oauth_usuario = session.query(UsuariosOauth).filter(UsuariosOauth.provider_user_id == dados.sub).first()
+
+
+    #Pego o oauth do usuario do google
+    oauth_usuario_google = session.query(UsuariosOauth).filter(UsuariosOauth.provider == "Google",
                                                         UsuariosOauth.provider_user_id == dados.sub).first()
 
+
+
     #Se tiver ouath
-    if oauth_usuario is None:
+    if oauth_usuario is not None:
         #Pego a conta pelo oauth
        email_usuario = session.query(Usuarios).filter(Usuarios.id_usuario == oauth_usuario.usuario_id).first()
+
+    if oauth_usuario_google is not None:
        google = False
 
     #Se conta ja foi criada
@@ -356,10 +364,17 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
     #Verifico se já tem no BD
     usuario = session.query(Usuarios).filter(Usuarios.email == email.lower()).first()
 
-    oauth_usuario = session.query(UsuariosOauth).filter(UsuariosOauth.provider == "GitHub",UsuariosOauth.provider_user_id == str(github_id)).first()
+    #Pego o oauth do usuario
+    oauth_usuario =  session.query(UsuariosOauth).filter(UsuariosOauth.provider_user_id == str(github_id)).first()
 
+    #Pego ouath do github
+    oauth_usuario_git = session.query(UsuariosOauth).filter(UsuariosOauth.provider == "GitHub",UsuariosOauth.provider_user_id == str(github_id)).first()
+
+    #Se tiver Oauth
     if oauth_usuario is not None:
         usuario = session.query(Usuarios).filter( Usuarios.id_usuario == oauth_usuario.usuario_id).first()
+
+    if oauth_usuario_git is not None:
         github = False
 
     if usuario is not None:
@@ -374,7 +389,7 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
                                           usuario_id=usuario.id_usuario)
             session.add(usuario_oauth)
             session.commit()
-            
+
         #Vai para o home
         return RedirectResponse(
             url=f"https://crashware.onrender.com/oauth/sucesso?access_token={acess_token}&refresh_token={refresh_token}"
