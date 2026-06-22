@@ -6,6 +6,12 @@ import { PopUp } from '../../pop-up';
 import { SiGithub, SiGoogle } from 'react-icons/si'
 
 
+//Logar com google
+import { useGoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+
+
+
 import verSenha_claro from '../../../fotos/claro/pode_ver_senha.svg';
 import esconderSenha_claro from '../../../fotos/claro/nao_pode_ver_senha.svg';
 
@@ -31,6 +37,41 @@ const ConteudoCadstro = () => {
     //Levará para a verificacao de email
     const Navegacao = useNavigate();
 
+    //Objeto da classe Api
+    const api = new Api();
+
+    const EntrarGoogle = useGoogleLogin({
+        onSuccess: async (tokenResponse) => {
+            try {
+
+                const resposta = await fetch(
+                    "https://www.googleapis.com/oauth2/v3/userinfo",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${tokenResponse.access_token}`
+                        }
+                    }
+                );
+
+                const usuario = await resposta.json();
+
+                api.cadastrarGoogle(usuario.name,usuario.email,usuario.picture,usuario.sub,setPopup,Navegacao)
+
+            } catch (erro) {
+                console.error("Erro ao obter dados do Google:", erro);
+            }
+        },
+
+        onError: () => {
+            console.log("Erro ao cadastrar com Google");
+        }
+    });
+
+
+    function EntrarGitHub() {
+         window.location.href ="https://api-crashware.onrender.com/auth/github";
+    }
+
 
     useEffect(() => {
 
@@ -53,11 +94,9 @@ const ConteudoCadstro = () => {
     }, []);
 
     const handleCadastro = async () => {
-        //Instâncio o objeto 
-        const usuario = new Api(nome, email, senha, setPopup, Navegacao);
-
+        
         //Chamo o método
-        usuario.cadastrar(nome, email, senha, confirmarSenha, setPopup, Navegacao);
+        api.cadastrar(nome, email, senha, confirmarSenha, setPopup, Navegacao);
     }
 
     const iconeSenha = mostrar
@@ -176,13 +215,15 @@ const ConteudoCadstro = () => {
                 </p>
 
                 <div className={style.outrasFormasCadastro}>
-                    <a href="#">
+                    <a onClick={EntrarGoogle}>
                         <SiGoogle size={32} style={{ color: '#4285F4' }}/>
                     </a>
-                    <a href="#">
+                    <a onClick={EntrarGitHub}>
                         <SiGithub size={32} style={{ color: '#000000' }}/>
                     </a>
                 </div>
+
+                
             </div>
         </>
     );

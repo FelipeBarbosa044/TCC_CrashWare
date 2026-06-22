@@ -178,6 +178,89 @@ export class Api
 
     }//método cadastro
 
+    async cadastrarGoogle(nome,email,foto,sub,setPopup,Navegacao)
+    {
+       
+        setPopup({
+            tipo: 'sucesso',
+            titulo: 'Verificando informações...',
+            mensagem: 'Estamos verificando seus dados'
+        });
+
+        await sleep(2000) /*-> Faz que espere 2 segundos*/
+
+        try {
+            const response = await fetch("https://api-crashware.onrender.com/auth/cadastro_google", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    nome_usuario: nome.trim(),
+                    email: email.replace(/\s/g, "").toLowerCase(),
+                    foto: foto,
+                    sub : sub
+                })
+            });
+
+            if(response.status == 400)
+            {
+                const resposta = await response.json();
+
+                const token = resposta.detail.token
+                const refresh_token = resposta.detail.refresh_token
+
+                //Guardo no localStorage
+                localStorage.setItem("token", token)
+                localStorage.setItem("refresh_token", refresh_token)
+
+                //Vai para  a HOME
+                Navegacao('/Home')
+
+                return;
+            }
+
+            if (!response.ok) {
+                const erro = await response.json();
+
+                setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Casatro Com Google',
+                    mensagem: erro.detail 
+                });
+
+                return;
+            }
+
+            const dados = await response.json();
+
+            const token = dados.token
+            const refresh_token = dados.refresh_token
+
+            //Guardo no localStorage
+            localStorage.setItem("token", token)
+            localStorage.setItem("refresh_token", refresh_token)
+
+            setPopup({
+                        tipo: 'sucesso',
+                        titulo: dados.mensagem,
+                        mensagem: 'Estamos Te Redirecionando....'
+                    });
+
+      
+            //Levo para o Home
+            Navegacao('/home')
+
+            } catch (error) {
+                    console.log("Erro:", error);
+
+                    setPopup({
+                        tipo: 'erro',
+                        titulo: 'Sem conexão',
+                        mensagem: 'Não foi possível conectar ao servidor.'
+                    });
+            }//catch
+
+    }//método Cadastrar com Google
+
 
 
     async Verificar_Email(email,setPopup,Navegacao)

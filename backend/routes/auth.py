@@ -217,6 +217,7 @@ async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_se
         #Pego a conta pelo oauth
        email_usuario = session.query(Usuarios).filter(Usuarios.id_usuario == oauth_usuario.usuario_id).first()
 
+    #Se tiver ouath do google
     if oauth_usuario_google is not None:
        google = False
 
@@ -345,7 +346,9 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
 
     ##Pego o email
     lista_emails = emails.json()
+
     email = None
+
     for item in lista_emails:
         if item["primary"] and item["verified"]:
             email = item["email"]

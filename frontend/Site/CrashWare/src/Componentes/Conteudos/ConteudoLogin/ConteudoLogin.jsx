@@ -4,6 +4,11 @@ import { CampoTexto } from "../../CampoTexto";
 import { BotoesForm, TIPO_BOTAO } from "../../Botoes";
 import { SiGithub, SiGoogle } from 'react-icons/si'
 
+
+//Logar com google
+import { useGoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+
 //popup
 import { PopUp } from "../../pop-up";
 
@@ -19,6 +24,11 @@ import { Api, sleep } from "../../../../funcoes/functions";
 
 
 const ConteudoLogin = () => {
+
+    //Objeto da classe API
+    const api = new Api();
+
+
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [mostrar, setMostrar] = useState(false);
@@ -51,16 +61,47 @@ const ConteudoLogin = () => {
 
     const handleLogin = async () => {
         
-        const usuario = new Api();
-
         //Chamo o método
-        usuario.Logar(email, senha, setPopup, Navegacao);
+        api.Logar(email, senha, setPopup, Navegacao);
 
     };
 
     const Logar = () =>{
         handleLogin()
     }
+
+    const EntrarGoogle = useGoogleLogin({
+        onSuccess: async (tokenResponse) => {
+            try {
+
+                const resposta = await fetch(
+                    "https://www.googleapis.com/oauth2/v3/userinfo",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${tokenResponse.access_token}`
+                        }
+                    }
+                );
+
+                const usuario = await resposta.json();
+
+                api.cadastrarGoogle(usuario.name,usuario.email,usuario.picture,usuario.sub,setPopup,Navegacao)
+
+            } catch (erro) {
+                console.error("Erro ao obter dados do Google:", erro);
+            }
+        },
+
+        onError: () => {
+            console.log("Erro ao cadastrar com Google");
+        }
+    });
+
+    function EntrarGitHub() 
+    {
+        window.location.href ="https://api-crashware.onrender.com/auth/github";
+    }
+    
 
     return (
         <>
@@ -140,10 +181,10 @@ const ConteudoLogin = () => {
                 </p>
 
                 <div className={style.outrasFormasLogin}>
-                    <a href="#">
+                    <a onClick={EntrarGoogle}>
                         <SiGoogle size={32} style={{ color: '#4285F4' }}/>
                     </a>
-                    <a href="#">
+                    <a onClick={EntrarGitHub}>
                         <SiGithub size={32} style={{ color: '#000000' }}/>
                     </a>
                 </div>

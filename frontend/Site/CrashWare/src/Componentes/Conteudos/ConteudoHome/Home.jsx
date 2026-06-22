@@ -161,6 +161,8 @@ const ConteudoHome = () => {
     }
 
     useEffect(() => {
+
+       
         //Verifico se usuario esta banido/desativado
         if (usuario?.ativo === false) {
             setBanido(true);
@@ -177,6 +179,7 @@ const ConteudoHome = () => {
     //Calcula o nível
     const Nivel = Math.min(Math.floor(xp / 500) + 1, 15);
 
+     
 
     //Ofensiva
     const ofensiva = usuario?.ofensiva ?? 1;
@@ -184,9 +187,12 @@ const ConteudoHome = () => {
     useEffect(() => {
          
         async function inicializar() {
+
+
             //Verifico se esta vindo do login
             if (localStorage.getItem("info") === "false") {
                 await CarregarInformacoes(); // Carrega as informações
+                console.log("DADOS:", localStorage.getItem("Entrou!!!"));
             } else {
                 setCarregando(false);
                 atualizarAnotacoes(); //Só carrega se o login do usuario for antigo 

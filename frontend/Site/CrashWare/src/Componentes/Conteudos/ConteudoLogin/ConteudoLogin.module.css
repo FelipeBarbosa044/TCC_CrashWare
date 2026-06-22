@@ -181,8 +181,11 @@
     width: 45px;
     height: 45px;
     object-fit: contain;
-    cursor: pointer;
     transition: transform 0.3s;
+}
+
+.outrasFormasLogin a {
+  cursor: pointer;
 }
 
 .outrasFormasLogin img:hover {
