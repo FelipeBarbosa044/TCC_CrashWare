@@ -203,12 +203,12 @@ async def cadastroGoogle(dados : CadastroGoogleSchema,session = Depends(pegar_se
     email_usuario = session.query(Usuarios).filter(Usuarios.email == dados.email.lower()).first()
 
     # Pego o oauth do usuario
-    oauth_usuario = session.query(UsuariosOauth).filter(UsuariosOauth.provider_user_id == dados.sub).first()
+    oauth_usuario = session.query(UsuariosOauth).filter(UsuariosOauth.usuario_id == email_usuario.id_usuario).first()
 
 
     #Pego o oauth do usuario do google
     oauth_usuario_google = session.query(UsuariosOauth).filter(UsuariosOauth.provider == "Google",
-                                                        UsuariosOauth.provider_user_id == dados.sub).first()
+                                                        UsuariosOauth.usuario_id == email_usuario.id_usuario).first()
 
 
 
@@ -475,6 +475,8 @@ async def cadastroGitHub(request: Request,session = Depends(pegar_sessao)):
 
 
 #############
+
+
 
 @auth.post("/verificar_codigo")
 async def verificar_codigo(dados : VerificarEmailSchema , session = Depends(pegar_sessao)):
