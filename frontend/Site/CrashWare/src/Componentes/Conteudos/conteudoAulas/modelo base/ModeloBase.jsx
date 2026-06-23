@@ -679,13 +679,13 @@ const ModeloBase = ({
 
                         </div>
 
-                        <div className={Style.trocarAula}>
+                        {/* <div className={Style.trocarAula}>
 
                             <Link to={aulaPassada}><p>aula anterior</p></Link>
 
                             <Link to={proximaAula}><p>proxima aula</p></Link>
 
-                        </div>
+                        </div> */}
 
                     </div>
 
