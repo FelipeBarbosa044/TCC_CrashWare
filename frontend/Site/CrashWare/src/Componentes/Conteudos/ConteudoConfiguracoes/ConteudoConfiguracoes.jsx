@@ -4,6 +4,11 @@ import { SiGithub, SiGoogle } from 'react-icons/si'
 
 import Style from "./ConteudoConfiguracoes.module.css";
 
+
+//Conectar com google
+import { useGoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+
 //Importo o Popup
 import { PopUp } from "../../pop-up";
 import { BotoesForm } from "../../Botoes";
@@ -118,6 +123,45 @@ const ConteudoConfiguracoes = () => {
     //Objeto da classe API
     const api = new Api(token, refresh_token, Navegacao, set, true);
 
+    //Obejto da classe USER
+    const user = new Usuario(token, refresh_token, Navegacao, set, true);
+
+
+
+     const ConectarGoogle = useGoogleLogin({
+        onSuccess: async (tokenResponse) => {
+            try {
+
+                const resposta = await fetch(
+                    "https://www.googleapis.com/oauth2/v3/userinfo",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${tokenResponse.access_token}`
+                        }
+                    }
+                );
+
+                const usuario = await resposta.json();
+
+                setPopup({
+                    tipo: 'aviso',
+                    titulo: 'Google',
+                    mensagem: "Conectando Conta com Google..."
+                });
+
+                user.ConectarGoogle(usuario.name,usuario.email,usuario.picture,usuario.sub,setPopup)
+
+            } catch (erro) {
+                console.error("Erro ao obter dados do Google:", erro);
+            }
+        },
+
+        onError: () => {
+            console.log("Erro ao conectar com Google");
+        }
+    });
+
+
     // Configurações de cada popup
     const configsPopup = {
         sair: {
@@ -168,12 +212,7 @@ const ConteudoConfiguracoes = () => {
 
 
                 //Deleto a conta
-                const user = new Usuario(
-                    localStorage.getItem("token"),
-                    localStorage.getItem("refresh_token"),
-                    Navegacao,
-                    set
-                );
+            
                 await user.deletar_conta(setToken, setRefresh, setDados, setPopup)
             },
             segundoClick: () => setPopupAtivo(null),
@@ -493,7 +532,7 @@ const ConteudoConfiguracoes = () => {
                             </button>
                         </div>
 
-                        {!temPhone ? (
+                        {/* {!temPhone ? (
                             <>
 
                                 <div className={Style.secaoDados}>
@@ -550,7 +589,7 @@ const ConteudoConfiguracoes = () => {
                                 </button>
                             </div>
 
-                        )}
+                        )} */}
                         <div className={Style.secaoDados}>
                             <div className={Style.preencherDados}>
                                 <div className={Style.inputContainer}>
@@ -576,12 +615,12 @@ const ConteudoConfiguracoes = () => {
                         <div className={Style.conectarContas}>
                             <h2>Conecte suas contas para login</h2>
                             <div className={Style.imagens}>
-                                <a href="#">
+                                <a onClick={ConectarGoogle}>
                                     <SiGoogle size={32} style={{ color: '#4285F4' }} />
                                 </a>
-                                <a href="#">
+                                {/* <a onClick={'/home'}>
                                     <SiGithub size={32} style={{ color: '#000000' }} />
-                                </a>
+                                </a> */}
                             </div>
                         </div>
                     </div>

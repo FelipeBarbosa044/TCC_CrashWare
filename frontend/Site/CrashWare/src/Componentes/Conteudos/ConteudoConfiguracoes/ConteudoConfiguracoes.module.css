@@ -251,6 +251,10 @@
 }
 
 .conectarContas a {
+    cursor: pointer;
+}
+
+.conectarContas a {
     padding: 5px;
 }
 

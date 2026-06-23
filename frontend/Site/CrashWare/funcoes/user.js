@@ -1271,6 +1271,71 @@ export class Usuario
         }
 
     }//Pegar ultima aula
+
+
+    async ConectarGoogle(nome,email,foto,sub,setPopup)
+    {
+        //Verifico o token
+        const usuario = new Api;
+        await usuario.Verificar_Token(this.token,this.refresh_token,this.Navegacao,this.set,true);
+
+
+        //Pego o token
+        const token = localStorage.getItem("token")
+
+        try
+        {
+            
+            const response = await fetch("https://api-crashware.onrender.com/user/conectar_google",
+                {
+                    method: 'POST',
+                    headers:
+                    {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json" 
+                    },
+                    body: JSON.stringify({
+                    nome_usuario: nome.trim(),
+                    email: email.replace(/\s/g, "").toLowerCase(),
+                    foto: foto,
+                    sub : sub
+                    })
+                });
+
+            if(response.ok)
+            {
+                //Requsição der certo
+                const resposta = await response.json();
+
+                 setPopup({
+                    tipo: 'sucesso',
+                    titulo: 'Google',
+                    mensagem: resposta.mensagem
+                });
+
+            }else
+            {
+                //Requisição der erro
+                const erro = await response.json();
+
+                 setPopup({
+                    tipo: 'erro',
+                    titulo: 'Google',
+                    mensagem: erro.detail
+                });
+            }
+
+        }catch (error)
+        {
+            console.log("Erro ao Tentar pegar ultima aula  " + error)
+
+            setPopup({
+                tipo: 'erro',
+                titulo: 'Sem conexão',
+                mensagem: 'Não foi possível conectar ao servidor.'
+            });
+        }
+    }
     
 
 }//classe
