@@ -791,13 +791,14 @@ async def conectar_google(dados : CadastroGoogleSchema,usuario = Depends(validar
     if usuario is  None:
         raise HTTPException(status_code=404,detail="Usuario Não Encontrado")
 
-    usuario_oauth = session.query(UsuariosOauth).filter(UsuariosOauth.provider== "Google",UsuariosOauth.usuario_id == usuario.id_usuario).first()
-
-    if usuario_oauth is not None:
-        raise HTTPException(status_code=409, detail="Sua conta já possui uma conexão com o google.")
-
     if usuario.email == dados.email.lower():
         try:
+            usuario_oauth = session.query(UsuariosOauth).filter(UsuariosOauth.provider == "Google",
+                                                                UsuariosOauth.usuario_id == usuario.id_usuario).first()
+
+            if usuario_oauth is not None:
+                raise HTTPException(status_code=409, detail="Sua conta já possui uma conexão com o google.")
+
             usuario_google = UsuariosOauth(provider="Google",provider_user_id=dados.sub,usuario_id=usuario.id_usuario)
             session.add (usuario_google)
             session.commit()
